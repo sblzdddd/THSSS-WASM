@@ -104,7 +104,9 @@ in vec4 vColor;
 out vec4 o;
 void main() {
   vec2 uv = vec2(vUv.x, mix(vUv.y, 1.0 - vUv.y, uFlipV));
-  o = texture(uTex, uv) * vColor;
+  vec4 tex = texture(uTex, uv);
+  if (uFlipV > 0.5) tex.a = 1.0;
+  o = tex * vColor;
 }`;
   const fixedVs = `#version 300 es
 layout(location=0) in vec3 aPos;
@@ -158,8 +160,7 @@ void main() {
   const white = new Uint8Array([255, 255, 255, 255]);
   whiteId = makeTexture(1, 1, white, false);
   gl.enable(gl.BLEND);
-  gl.blendColor(0, 0, 0, 1);
-  gl.blendFuncSeparate(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA, gl.CONSTANT_ALPHA, gl.ZERO);
+  gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
   gl.clearColor(0, 0, 0, 1);
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
   return {
@@ -244,8 +245,7 @@ export function glSetBlend(enable, src, dst, equation) {
   else if (eq === 4) mode = gl.MIN;
   else if (eq === 5) mode = gl.MAX;
   gl.blendEquation(mode);
-  gl.blendColor(0, 0, 0, 1);
-  gl.blendFuncSeparate(blendFactor(src | 0), blendFactor(dst | 0), gl.CONSTANT_ALPHA, gl.ZERO);
+  gl.blendFunc(blendFactor(src | 0), blendFactor(dst | 0));
 }
 
 export function glSetDepth(enable, write) {
