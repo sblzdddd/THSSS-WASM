@@ -1,0 +1,31 @@
+name: Browser build
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  browser:
+    name: Build without game assets
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
+
+      - name: Install WebAssembly workload
+        run: dotnet workload install wasm-tools
+
+      - name: Confirm excluded assets are absent
+        shell: pwsh
+        run: |
+          $names = @('BGM', 'BPic', 'CS', 'FX', 'Image', 'Model', 'Replay', 'ScreenShot', 'Sound', 'Story', 'Score.dat')
+          $found = @($names | Where-Object { Test-Path -LiteralPath $_ })
+          if ($found.Count -gt 0) {
+            throw "Checkout contains excluded asset paths: $($found -join ', ')"
+          }
+
+      - name: Build browser host
+        run: dotnet build THSSS.Browser/THSSS.Browser.csproj -c Release -p:StageGameAssets=false --nologo
