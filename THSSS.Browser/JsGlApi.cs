@@ -4,6 +4,34 @@ namespace Thsss.Browser
 {
 	public sealed class JsGlApi : IGlApi
 	{
+		private int viewX = int.MinValue;
+
+		private int viewY;
+
+		private int viewW;
+
+		private int viewH;
+
+		private int viewCw;
+
+		private int viewCh;
+
+		private int blendSrc = int.MinValue;
+
+		private int blendDst;
+
+		private int blendEquation;
+
+		private bool blendEnable;
+
+		private bool blendKnown;
+
+		private bool depthOn;
+
+		private bool depthKnown;
+
+		private int boundTarget = int.MinValue;
+
 		private static byte[] Pack(float[] values)
 		{
 			if (values == null)
@@ -41,21 +69,52 @@ namespace Thsss.Browser
 
 		public void BindTarget(int textureId)
 		{
+			if (this.boundTarget == textureId)
+			{
+				return;
+			}
+			this.boundTarget = textureId;
+			this.viewX = int.MinValue;
 			ThsssJs.BindTarget(textureId);
 		}
 
 		public void SetViewport(int x, int y, int width, int height, int canvasWidth, int canvasHeight)
 		{
+			if (this.viewX == x && this.viewY == y && this.viewW == width && this.viewH == height && this.viewCw == canvasWidth && this.viewCh == canvasHeight)
+			{
+				return;
+			}
+			this.viewX = x;
+			this.viewY = y;
+			this.viewW = width;
+			this.viewH = height;
+			this.viewCw = canvasWidth;
+			this.viewCh = canvasHeight;
 			ThsssJs.SetViewport(x, y, width, height, canvasWidth, canvasHeight);
 		}
 
 		public void SetBlend(bool enable, int src, int dst, int equation)
 		{
+			if (this.blendKnown && this.blendEnable == enable && this.blendSrc == src && this.blendDst == dst && this.blendEquation == equation)
+			{
+				return;
+			}
+			this.blendKnown = true;
+			this.blendEnable = enable;
+			this.blendSrc = src;
+			this.blendDst = dst;
+			this.blendEquation = equation;
 			ThsssJs.SetBlend(enable, src, dst, equation);
 		}
 
 		public void SetDepth(bool enable)
 		{
+			if (this.depthKnown && this.depthOn == enable)
+			{
+				return;
+			}
+			this.depthKnown = true;
+			this.depthOn = enable;
 			ThsssJs.SetDepth(enable);
 		}
 
@@ -77,6 +136,11 @@ namespace Thsss.Browser
 		public byte[] RasterText(string text, int width, int height, float sizePx, bool bold, bool italic)
 		{
 			return ThsssJs.RasterText(text, width, height, sizePx, bold, italic);
+		}
+
+		public void PaintText(int textureId, string text, int width, int height, float sizePx, bool bold, bool italic, int argb, string family)
+		{
+			ThsssJs.PaintText(textureId, text, width, height, sizePx, bold, italic, argb, family ?? "sans-serif");
 		}
 	}
 }

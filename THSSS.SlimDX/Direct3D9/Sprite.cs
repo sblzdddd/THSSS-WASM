@@ -6,9 +6,13 @@ namespace SlimDX.Direct3D9
 {
 	public class Sprite : ComObject
 	{
-		private readonly List<float> batch = new List<float>();
+		private List<float> batch = new List<float>(8192);
+
+		private List<float> held = new List<float>(8192);
 
 		private Texture batchTexture;
+
+		private Texture heldTexture;
 
 		private int batchBlendSrc;
 
@@ -16,7 +20,21 @@ namespace SlimDX.Direct3D9
 
 		private int batchEquation;
 
+		private int heldBlendSrc;
+
+		private int heldBlendDst;
+
+		private int heldEquation;
+
 		private bool batchFlip;
+
+		private bool heldFlip;
+
+		private int batchSerial;
+
+		private int heldSerial;
+
+		private int nextSerial;
 
 		public Matrix Transform { get; set; }
 
@@ -27,8 +45,8 @@ namespace SlimDX.Direct3D9
 
 		public void Begin(SpriteFlags flags)
 		{
-			this.batch.Clear();
-			this.batchTexture = null;
+			this.Flush();
+			this.nextSerial = 0;
 			if ((flags & SpriteFlags.AlphaBlend) != 0)
 			{
 				Device.Active.SetRenderState(RenderState.AlphaBlendEnable, true);
@@ -89,15 +107,75 @@ namespace SlimDX.Direct3D9
 			int num2 = device.BlendDst;
 			int num3 = device.BlendEquation;
 			bool flag = texture.IsRenderTarget;
-			if (this.batchTexture != null && (this.batchTexture.GlId != texture.GlId || this.batchBlendSrc != num || this.batchBlendDst != num2 || this.batchEquation != num3 || this.batchFlip != flag))
+			if (Matches(this.batchTexture, this.batchBlendSrc, this.batchBlendDst, this.batchEquation, this.batchFlip, texture, num, num2, num3, flag))
+			{
+				return;
+			}
+			if (Matches(this.heldTexture, this.heldBlendSrc, this.heldBlendDst, this.heldEquation, this.heldFlip, texture, num, num2, num3, flag))
+			{
+				this.Swap();
+				return;
+			}
+			if (this.heldTexture != null)
 			{
 				this.Flush();
+			}
+			else if (this.batchTexture != null)
+			{
+				this.Park();
 			}
 			this.batchTexture = texture;
 			this.batchBlendSrc = num;
 			this.batchBlendDst = num2;
 			this.batchEquation = num3;
 			this.batchFlip = flag;
+			this.batchSerial = ++this.nextSerial;
+		}
+
+		private static bool Matches(Texture current, int currentSrc, int currentDst, int currentEquation, bool currentFlip, Texture texture, int src, int dst, int equation, bool flip)
+		{
+			return current != null && current.GlId == texture.GlId && currentSrc == src && currentDst == dst && currentEquation == equation && currentFlip == flip;
+		}
+
+		private void Park()
+		{
+			List<float> list = this.held;
+			this.held = this.batch;
+			this.batch = list;
+			this.batch.Clear();
+			this.heldTexture = this.batchTexture;
+			this.heldBlendSrc = this.batchBlendSrc;
+			this.heldBlendDst = this.batchBlendDst;
+			this.heldEquation = this.batchEquation;
+			this.heldFlip = this.batchFlip;
+			this.heldSerial = this.batchSerial;
+			this.batchTexture = null;
+			this.batchSerial = 0;
+		}
+
+		private void Swap()
+		{
+			List<float> list = this.batch;
+			this.batch = this.held;
+			this.held = list;
+			Texture texture = this.batchTexture;
+			this.batchTexture = this.heldTexture;
+			this.heldTexture = texture;
+			int num = this.batchBlendSrc;
+			this.batchBlendSrc = this.heldBlendSrc;
+			this.heldBlendSrc = num;
+			num = this.batchBlendDst;
+			this.batchBlendDst = this.heldBlendDst;
+			this.heldBlendDst = num;
+			num = this.batchEquation;
+			this.batchEquation = this.heldEquation;
+			this.heldEquation = num;
+			bool flag = this.batchFlip;
+			this.batchFlip = this.heldFlip;
+			this.heldFlip = flag;
+			num = this.batchSerial;
+			this.batchSerial = this.heldSerial;
+			this.heldSerial = num;
 		}
 
 		private void Push(float x, float y, float u, float v, Color4 color)
@@ -116,19 +194,34 @@ namespace SlimDX.Direct3D9
 
 		private void Flush()
 		{
-			if (this.batch.Count == 0 || this.batchTexture == null)
+			if (this.heldTexture != null && this.batchTexture != null && this.batchSerial < this.heldSerial)
 			{
-				this.batch.Clear();
+				this.Swap();
+			}
+			this.Emit(this.held, this.heldTexture, this.heldBlendSrc, this.heldBlendDst, this.heldEquation, this.heldFlip);
+			this.held.Clear();
+			this.heldTexture = null;
+			this.heldSerial = 0;
+			this.Emit(this.batch, this.batchTexture, this.batchBlendSrc, this.batchBlendDst, this.batchEquation, this.batchFlip);
+			this.batch.Clear();
+			this.batchTexture = null;
+			this.batchSerial = 0;
+		}
+
+		private void Emit(List<float> list, Texture texture, int src, int dst, int equation, bool flip)
+		{
+			if (list.Count == 0 || texture == null)
+			{
+				list.Clear();
 				return;
 			}
 			Device device = Device.Active;
 			Viewport viewport = device.Viewport;
 			GlHost.Need().SetViewport(viewport.X, viewport.Y, viewport.Width, viewport.Height, device.BackBufferWidth, device.BackBufferHeight);
-			GlHost.Need().SetBlend(device.AlphaBlendEnable, this.batchBlendSrc, this.batchBlendDst, this.batchEquation);
+			GlHost.Need().SetBlend(device.AlphaBlendEnable, src, dst, equation);
 			GlHost.Need().SetDepth(false);
-			GlHost.Need().DrawSprites(this.batchTexture.GlId, this.batchFlip ? 1f : 0f, this.batch.ToArray());
+			GlHost.Need().DrawSprites(texture.GlId, flip ? 1f : 0f, list.ToArray());
 			GlHost.Need().SetDepth(device.DepthEnable);
-			this.batch.Clear();
 		}
 	}
 }

@@ -29,6 +29,8 @@ namespace SlimDX.Gl
 		void DrawFixed(int textureId, float[] vertices, float[] world, float[] view, float[] proj, float mr, float mg, float mb, float ma, float lighting, float fog, float fogStart, float fogEnd, float fr, float fg, float fb);
 
 		byte[] RasterText(string text, int width, int height, float sizePx, bool bold, bool italic);
+
+		void PaintText(int textureId, string text, int width, int height, float sizePx, bool bold, bool italic, int argb, string family);
 	}
 
 	public static class GlHost

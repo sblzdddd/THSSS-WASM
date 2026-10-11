@@ -10,6 +10,10 @@ namespace SlimDX.Direct3D9
 
 		private Texture texture;
 
+		private string cachedText;
+
+		private int cachedArgb = int.MinValue;
+
 		public Font(Device device, System.Drawing.Font font)
 		{
 			this.font = font ?? new System.Drawing.Font("sans-serif", 12f, FontStyle.Regular);
@@ -24,6 +28,12 @@ namespace SlimDX.Direct3D9
 			float num = this.font.Size > 0f ? this.font.Size : 12f;
 			int num2 = Math.Max(8, (int)(text.Length * num) + 8);
 			int num3 = Math.Max(8, (int)num + 12);
+			int argb = color.ToArgb();
+			if (this.texture != null && this.cachedText == text && this.cachedArgb == argb && this.texture.Width == num2 && this.texture.Height == num3)
+			{
+				sprite.Draw(this.texture, new Vector3?(new Vector3(0f, 0f, 0f)), new Vector3?(new Vector3((float)x, (float)y, 0f)), new Color4(color));
+				return num3;
+			}
 			byte[] array = GlHost.Need().RasterText(text, num2, num3, num, this.font.Bold, this.font.Italic);
 			if (array == null || array.Length < num2 * num3 * 4)
 			{
@@ -38,6 +48,8 @@ namespace SlimDX.Direct3D9
 				this.texture = new Texture(Device.Active, num2, num3, 1, Usage.None, Format.A8R8G8B8, Pool.Managed);
 			}
 			GlHost.Need().UpdateTexture(this.texture.GlId, num2, num3, array);
+			this.cachedText = text;
+			this.cachedArgb = argb;
 			sprite.Draw(this.texture, new Vector3?(new Vector3(0f, 0f, 0f)), new Vector3?(new Vector3((float)x, (float)y, 0f)), new Color4(color));
 			return num3;
 		}

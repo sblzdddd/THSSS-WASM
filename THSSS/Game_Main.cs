@@ -329,7 +329,7 @@ namespace Shooting
 		public void MainProcess()
 		{
 #if BROWSER
-			if (this.browserAwaitLoad && this.GlobalData.LoadingList != null && this.GlobalData.LoadingList.Count == 0)
+			if (this.browserAwaitLoad && this.GlobalData.LoadingList != null && this.GlobalData.LoadingList.Count == 0 && Thsss.Browser.ContentLoader.BackgroundIdle)
 			{
 				this.browserAwaitLoad = false;
 				this.AddState();
@@ -351,7 +351,11 @@ namespace Shooting
 					this.fpsTimer.IncreaseOneFrame();
 				}
 			}
+#if BROWSER
+			if (this.InitFlag && this.GlobalData.LoadingList.Count == 0 && Thsss.Browser.ContentLoader.BackgroundIdle)
+#else
 			if (this.InitFlag && this.GlobalData.LoadingList.Count == 0)
+#endif
 			{
 				this.GlobalData.LoadModelDictionary();
 				this.InitFlag = false;

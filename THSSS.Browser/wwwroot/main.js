@@ -131,6 +131,7 @@ try {
     drawFixed: glApi.drawFixed,
     rasterText: glApi.rasterText,
     rasterTextBox: glApi.rasterTextBox,
+    paintText: glApi.paintText,
     audioPrepare: audioApi.prepare,
     audioVoice: audioApi.createVoice,
     audioDestroy: audioApi.destroyVoice,

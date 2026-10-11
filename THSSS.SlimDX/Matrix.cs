@@ -181,6 +181,23 @@ namespace SlimDX
 
 		public static Matrix Transformation2D(Vector2 scalingCenter, float scalingRotation, Vector2 scaling, Vector2 rotationCenter, float rotation, Vector2 translation)
 		{
+			if (scalingRotation == 0f && translation.X == 0f && translation.Y == 0f)
+			{
+				float cos = rotation == 0f ? 1f : (float)Math.Cos((double)rotation);
+				float sin = rotation == 0f ? 0f : (float)Math.Sin((double)rotation);
+				float bx = scalingCenter.X * (1f - scaling.X);
+				float by = scalingCenter.Y * (1f - scaling.Y);
+				Matrix fast = default(Matrix);
+				fast.M11 = cos * scaling.X;
+				fast.M21 = -sin * scaling.Y;
+				fast.M12 = sin * scaling.X;
+				fast.M22 = cos * scaling.Y;
+				fast.M33 = 1f;
+				fast.M44 = 1f;
+				fast.M41 = cos * (bx - rotationCenter.X) - sin * (by - rotationCenter.Y) + rotationCenter.X;
+				fast.M42 = sin * (bx - rotationCenter.X) + cos * (by - rotationCenter.Y) + rotationCenter.Y;
+				return fast;
+			}
 			Matrix matrix = Translation(-scalingCenter.X, -scalingCenter.Y, 0f);
 			Matrix matrix2 = RotationZ(-scalingRotation);
 			Matrix matrix3 = Scaling(scaling.X, scaling.Y, 1f);
