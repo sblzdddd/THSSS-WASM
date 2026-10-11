@@ -27,6 +27,7 @@ foreach ($file in $files) {
   $text = [System.Text.Encoding]::UTF8.GetString($raw)
   $text = $text.Replace('System.Text.Encoding.Default', 'Shooting.Ansi.GBK')
   $text = $text.Replace('Encoding.Default', 'Shooting.Ansi.GBK')
+  $text = $text.Replace('.ForEach(', '.ForEachNet48(')
   $utf8 = New-Object System.Text.UTF8Encoding $hasBom
   [System.IO.File]::WriteAllBytes($out, $utf8.GetBytes($text))
 }
