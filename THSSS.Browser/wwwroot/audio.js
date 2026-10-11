@@ -126,6 +126,12 @@ export function createAudio() {
     }
   }
 
+  function remember(voice) {
+    if (!voice.node || !ctx) return;
+    const elapsed = ctx.currentTime - voice.startedAt;
+    voice.origin = (voice.origin + Math.max(0, Math.floor(elapsed * (voice.rate || 44100)))) | 0;
+  }
+
   function stopNode(voice) {
     if (!voice.node) return;
     try {
@@ -136,15 +142,45 @@ export function createAudio() {
     voice.node = null;
   }
 
+  function filePosition(voice, durationSamples) {
+    const begin = Math.max(0, voice.playBegin | 0);
+    const pos = Math.max(0, voice.origin | 0);
+    const duration = Math.max(0, durationSamples | 0);
+    const looping = (voice.loopCount | 0) > 0 && duration > 0;
+    if (!looping) {
+      const end = (voice.playLength | 0) > 0 ? begin + (voice.playLength | 0) : duration;
+      if (end > 0 && pos >= end) return Math.max(0, end - 1);
+      if (duration > 0) return Math.min(pos, duration - 1);
+      return pos;
+    }
+    let loopStart = 0;
+    let loopEnd = duration;
+    if ((voice.loopLength | 0) > 0) {
+      loopStart = Math.max(0, voice.loopBegin | 0);
+      loopEnd = loopStart + (voice.loopLength | 0);
+    } else if ((voice.playLength | 0) > 0) {
+      loopStart = begin;
+      loopEnd = begin + (voice.playLength | 0);
+    }
+    if (loopStart > duration) loopStart = duration;
+    if (loopEnd > duration) loopEnd = duration;
+    if (loopEnd <= loopStart) return Math.min(pos, Math.max(0, duration - 1));
+    if (pos < loopEnd) return Math.min(pos, Math.max(0, duration - 1));
+    const span = loopEnd - loopStart;
+    return loopStart + ((pos - loopEnd) % span);
+  }
+
   function arm(voice) {
     const rec = bufferOf(voice.bufferId);
     if (!rec || !rec.audio) return;
     const audio = context();
+    remember(voice);
     stopNode(voice);
     const source = audio.createBufferSource();
     source.buffer = rec.audio;
     const rate = rec.fileRate || 44100;
     const duration = rec.audio.duration || 0;
+    const durationSamples = Math.max(0, Math.floor(duration * rate));
     const samplesToSeconds = (samples) => Math.max(0, samples || 0) / rate;
     const begin = samplesToSeconds(voice.playBegin);
     let loopStart = 0;
@@ -165,13 +201,19 @@ export function createAudio() {
         source.loopEnd = duration;
       }
     }
+    const pos = filePosition(voice, durationSamples);
+    const offset = Math.min(pos / rate, Math.max(0, duration - 0.001));
+    let playDuration;
+    if ((voice.playLength || 0) > 0 && !source.loop) {
+      const remaining = (voice.playLength | 0) - Math.max(0, pos - (voice.playBegin | 0));
+      if (remaining <= 0) return;
+      playDuration = remaining / rate;
+    }
     connect(voice, source);
-    const playLength = (voice.playLength || 0) > 0 && !source.loop ? samplesToSeconds(voice.playLength) : undefined;
-    const offset = Math.min(begin, Math.max(0, duration - 0.001));
-    source.start(0, offset, playLength);
+    if (playDuration != null) source.start(0, offset, playDuration);
+    else source.start(0, offset);
     voice.node = source;
     voice.startedAt = audio.currentTime;
-    voice.origin = voice.playBegin || 0;
     voice.rate = rate;
     plays.push({ url: rec.url, loop: !!source.loop, at: audio.currentTime });
     publish();
@@ -225,6 +267,7 @@ export function createAudio() {
       voice.loopCount = loopCount | 0;
       voice.loopBegin = loopBegin | 0;
       voice.loopLength = loopLength | 0;
+      voice.origin = playBegin | 0;
     },
     start(id) {
       const voice = voiceOf(id);
@@ -243,10 +286,7 @@ export function createAudio() {
       const voice = voiceOf(id);
       if (!voice) return;
       voice.want = false;
-      if (voice.node && ctx) {
-        const elapsed = ctx.currentTime - voice.startedAt;
-        voice.origin += Math.max(0, Math.floor(elapsed * voice.rate));
-      }
+      remember(voice);
       stopNode(voice);
     },
     setVolume(id, volume) {
