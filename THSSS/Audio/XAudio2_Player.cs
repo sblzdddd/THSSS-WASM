@@ -63,6 +63,18 @@ namespace Shooting
 			bool flag;
 			try
 			{
+#if BROWSER
+				if (string.IsNullOrEmpty(fileName))
+				{
+					return false;
+				}
+				this.buffer = new AudioBuffer();
+				this.buffer.Flags = BufferFlags.EndOfStream;
+				this.sourceVoice = new SourceVoice(this.device, null);
+				this.sourceVoice.Bind(fileName);
+				this.Volume = 40;
+				flag = true;
+#else
 				FileStream fileStream = File.OpenRead(fileName);
 				WaveStream waveStream = new WaveStream(fileStream);
 				fileStream.Close();
@@ -73,6 +85,7 @@ namespace Shooting
 				this.sourceVoice = new SourceVoice(this.device, waveStream.Format);
 				this.Volume = 40;
 				flag = true;
+#endif
 			}
 			catch
 			{

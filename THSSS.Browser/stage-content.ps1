@@ -1,7 +1,7 @@
 param([Parameter(Mandatory = $true)][string]$Repo, [Parameter(Mandatory = $true)][string]$Dest)
 $ErrorActionPreference = "Stop"
 $Repo = (Resolve-Path $Repo).Path.TrimEnd('\', '/')
-$roots = @("Image", "CS", "FX", "Model", "Story", "Replay")
+$roots = @("Image", "CS", "FX", "Model", "Story", "Replay", "Sound", "BGM")
 if (Test-Path $Dest) { Remove-Item $Dest -Recurse -Force }
 New-Item -ItemType Directory -Force -Path $Dest | Out-Null
 $lines = New-Object System.Collections.Generic.List[string]

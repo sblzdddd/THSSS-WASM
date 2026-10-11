@@ -35,7 +35,7 @@ namespace Thsss.Browser
 					foreach (string line in lines)
 					{
 						string rel = line.Trim().Replace('\\', '/');
-						if (rel.Length == 0 || rel == "manifest.txt")
+						if (rel.Length == 0 || rel == "manifest.txt" || rel.StartsWith("BGM/", StringComparison.OrdinalIgnoreCase))
 						{
 							continue;
 						}

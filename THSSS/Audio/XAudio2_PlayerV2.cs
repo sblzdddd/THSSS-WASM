@@ -61,6 +61,20 @@ namespace Shooting
 			bool flag;
 			try
 			{
+#if BROWSER
+				if (string.IsNullOrEmpty(fileName))
+				{
+					return false;
+				}
+				FileInfo fileInfo = new FileInfo(fileName);
+				this.xwmaMode = string.Equals(fileInfo.Extension, ".xwma", StringComparison.OrdinalIgnoreCase);
+				this.buffer = new AudioBuffer();
+				this.buffer.Flags = BufferFlags.EndOfStream;
+				this.sourceVoice = new SourceVoice(this.device, null, VoiceFlags.Music | VoiceFlags.UseFilter);
+				this.sourceVoice.Bind(fileName);
+				this.Volume = 100;
+				flag = true;
+#else
 				FileInfo fileInfo = new FileInfo(fileName);
 				if (fileInfo.Extension == ".xwma")
 				{
@@ -83,6 +97,7 @@ namespace Shooting
 				}
 				this.Volume = 100;
 				flag = true;
+#endif
 			}
 			catch
 			{
@@ -208,7 +223,14 @@ namespace Shooting
 			{
 				this.Stop();
 				this.sourceVoice.Dispose();
+#if BROWSER
+				if (this.buffer.AudioData != null)
+				{
+					this.buffer.AudioData.Dispose();
+				}
+#else
 				this.buffer.AudioData.Dispose();
+#endif
 				this.buffer.Dispose();
 			}
 		}

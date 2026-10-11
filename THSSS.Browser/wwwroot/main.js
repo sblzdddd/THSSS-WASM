@@ -1,5 +1,6 @@
 import { dotnet } from "./_framework/dotnet.js";
 import { createGl } from "./gl.js";
+import { createAudio } from "./audio.js";
 
 const statusEl = document.getElementById("status");
 const canvas = document.getElementById("game");
@@ -101,6 +102,10 @@ function bootKeys(onKey) {
 
 try {
   const glApi = createGl(canvas);
+  const audioApi = createAudio();
+  const unlockAudio = () => audioApi.resume();
+  canvas.addEventListener("pointerdown", unlockAudio);
+  window.addEventListener("keydown", unlockAudio);
   const saves = await readAllSaves();
   const { setModuleImports, getAssemblyExports, runMain } = await dotnet.create();
   setModuleImports("thsss.js", {
@@ -125,7 +130,18 @@ try {
     drawSprites: glApi.drawSprites,
     drawFixed: glApi.drawFixed,
     rasterText: glApi.rasterText,
-    rasterTextBox: glApi.rasterTextBox
+    rasterTextBox: glApi.rasterTextBox,
+    audioPrepare: audioApi.prepare,
+    audioVoice: audioApi.createVoice,
+    audioDestroy: audioApi.destroyVoice,
+    audioSubmit: audioApi.submit,
+    audioStart: audioApi.start,
+    audioStop: audioApi.stop,
+    audioVolume: audioApi.setVolume,
+    audioPan: audioApi.setPan,
+    audioFilter: audioApi.setFilter,
+    audioSamples: audioApi.samplesPlayed,
+    audioChannels: audioApi.channels
   });
   setStatus("Starting the game…");
   await runMain();

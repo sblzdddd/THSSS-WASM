@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
 using System.Windows.Forms;
+using SlimDX.Audio;
 using SlimDX.DirectInput;
 using SlimDX.Gl;
 using Shooting;
@@ -20,6 +21,7 @@ namespace Thsss.Browser
 		public static async System.Threading.Tasks.Task Start()
 		{
 			GlHost.Api = new JsGlApi();
+			AudioHost.Api = new JsAudioApi();
 			System.Drawing.GlyphRaster.Draw = delegate(string text, int width, int height, float sizePx, bool bold, bool italic, int argb, string family)
 			{
 				return ThsssJs.RasterTextBox(text, width, height, sizePx, bold, italic, argb, family ?? "sans-serif");
