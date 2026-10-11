@@ -10,6 +10,8 @@
 
 [Dd]ebug/
 [Rr]elease/
+.dotnet/
+.nuget/
 x64/
 [Bb]in/
 [Oo]bj/

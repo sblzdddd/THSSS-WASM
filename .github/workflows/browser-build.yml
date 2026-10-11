@@ -4,19 +4,74 @@ on:
   push:
   pull_request:
 
+permissions:
+  contents: read
+  actions: write
+
 jobs:
   browser:
     name: Build without game assets
     runs-on: windows-latest
+    env:
+      # Private install so the runner's preinstalled .NET 10 SDK is not selected.
+      # net9.0 browser-wasm needs the wasm-tools workload from the .NET 9 SDK.
+      DOTNET_INSTALL_DIR: ${{ github.workspace }}/.dotnet
+      DOTNET_ROOT: ${{ github.workspace }}/.dotnet
+      DOTNET_MULTILEVEL_LOOKUP: 0
+      DOTNET_NOLOGO: 1
+      DOTNET_CLI_TELEMETRY_OPTOUT: 1
+      DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+      NUGET_PACKAGES: ${{ github.workspace }}/.nuget/packages
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-dotnet@v4
+      - name: Restore cached .NET SDK and wasm-tools
+        id: sdk-cache
+        uses: actions/cache/restore@v4
+        with:
+          path: .dotnet
+          key: ${{ runner.os }}-net9-wasm-tools-v1
+
+      - name: Restore cached NuGet packages
+        uses: actions/cache@v4
+        with:
+          path: .nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj', 'global.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+
+      - name: Install .NET 9
+        if: steps.sdk-cache.outputs.cache-hit != 'true'
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 9.0.x
+          dotnet-quality: ga
 
-      - name: Install WebAssembly workload
+      - name: Use the project-local .NET installation
+        shell: pwsh
+        run: Add-Content -Path $env:GITHUB_PATH -Value $env:DOTNET_INSTALL_DIR
+
+      - name: Install wasm-tools
+        if: steps.sdk-cache.outputs.cache-hit != 'true'
         run: dotnet workload install wasm-tools
+
+      - name: Save .NET SDK and wasm-tools cache
+        if: steps.sdk-cache.outputs.cache-hit != 'true'
+        continue-on-error: true
+        uses: actions/cache/save@v4
+        with:
+          path: .dotnet
+          key: ${{ runner.os }}-net9-wasm-tools-v1
+
+      - name: Check SDK and workload
+        shell: pwsh
+        run: |
+          $version = (dotnet --version).Trim()
+          Write-Host "SDK $version"
+          if ($version -notlike '9.*') {
+            throw "Expected the .NET 9 SDK, found $version."
+          }
+          dotnet workload list
 
       - name: Confirm excluded assets are absent
         shell: pwsh
