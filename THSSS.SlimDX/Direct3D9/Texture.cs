@@ -19,10 +19,13 @@ namespace SlimDX.Direct3D9
 
 		private byte[] lockBgra;
 
+		private readonly bool ownsGl;
+
 		public Texture(Device device, int width, int height, int levelCount, Usage usage, Format format, Pool pool)
 		{
 			this.Width = ClampEdge(width);
 			this.Height = ClampEdge(height);
+			this.ownsGl = true;
 			this.IsRenderTarget = (usage & Usage.RenderTarget) != 0;
 			int num;
 			byte[] array;
@@ -47,7 +50,28 @@ namespace SlimDX.Direct3D9
 			}
 		}
 
-		private static int ClampEdge(int value)
+		private Texture(int glId, int width, int height, bool owner)
+		{
+			this.GlId = glId;
+			this.Width = width;
+			this.Height = height;
+			this.ownsGl = owner;
+		}
+
+		internal static Texture AllocateEmpty(int width, int height)
+		{
+			int num = ClampEdge(width);
+			int num2 = ClampEdge(height);
+			int num3 = GlHost.Need().CreateTexture(num, num2, Array.Empty<byte>());
+			return new Texture(num3, num, num2, true);
+		}
+
+		internal static Texture Wrap(int glId, int width, int height)
+		{
+			return new Texture(glId, width, height, false);
+		}
+
+		internal static int ClampEdge(int value)
 		{
 			if (value < 1)
 			{
@@ -150,8 +174,9 @@ namespace SlimDX.Direct3D9
 
 		protected override void Dispose(bool disposing)
 		{
-			if (this.GlId == 0)
+			if (!this.ownsGl || this.GlId == 0)
 			{
+				this.GlId = 0;
 				return;
 			}
 			if (!this.IsRenderTarget && TexturePool.Return(this.GlId, this.Width, this.Height, this.Rgba))

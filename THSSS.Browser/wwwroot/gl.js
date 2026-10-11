@@ -5,6 +5,9 @@ let nextId = 1;
 let whiteId = 0;
 let spriteProg;
 let fixedProg;
+let uScreen;
+let uFlip;
+let uTex;
 let spriteBuf;
 let fixedBuf;
 let viewX = 0, viewY = 0, viewW = 640, viewH = 480, fbW = 640, fbH = 480;
@@ -146,6 +149,9 @@ void main() {
 }`;
   spriteProg = program(spriteVs, spriteFs);
   fixedProg = program(fixedVs, fixedFs);
+  uScreen = gl.getUniformLocation(spriteProg, "uScreen");
+  uFlip = gl.getUniformLocation(spriteProg, "uFlipV");
+  uTex = gl.getUniformLocation(spriteProg, "uTex");
   spriteBuf = gl.createBuffer();
   fixedBuf = gl.createBuffer();
   const white = new Uint8Array([255, 255, 255, 255]);
@@ -168,7 +174,8 @@ void main() {
     drawSprites: glDrawSprites,
     drawFixed: glDrawFixed,
     rasterText: glRasterText,
-    rasterTextBox: glRasterTextBox
+    rasterTextBox: glRasterTextBox,
+    paintText: glPaintText
   };
 }
 
@@ -281,9 +288,9 @@ export function glDrawSprites(textureId, flipV, raw) {
   gl.vertexAttribPointer(0, 2, gl.FLOAT, false, stride, 0);
   gl.vertexAttribPointer(1, 2, gl.FLOAT, false, stride, 8);
   gl.vertexAttribPointer(2, 4, gl.FLOAT, false, stride, 16);
-  gl.uniform2f(gl.getUniformLocation(spriteProg, "uScreen"), viewW, viewH);
-  gl.uniform1f(gl.getUniformLocation(spriteProg, "uFlipV"), flipV);
-  gl.uniform1i(gl.getUniformLocation(spriteProg, "uTex"), 0);
+  gl.uniform2f(uScreen, viewW, viewH);
+  gl.uniform1f(uFlip, flipV);
+  gl.uniform1i(uTex, 0);
   gl.activeTexture(gl.TEXTURE0);
   bindTex(textureId);
   gl.drawArrays(gl.TRIANGLES, 0, (data.length / 8) | 0);
@@ -320,12 +327,24 @@ export function glDrawFixed(textureId, raw, worldRaw, viewRaw, projRaw, mr, mg, 
   gl.drawArrays(gl.TRIANGLES, 0, (data.length / 9) | 0);
 }
 
+let textCanvas;
+let textCtx;
+
+function textContext(width, height) {
+  const w = Math.max(1, width | 0);
+  const h = Math.max(1, height | 0);
+  if (!textCanvas) {
+    textCanvas = document.createElement("canvas");
+    textCtx = textCanvas.getContext("2d", { willReadFrequently: true });
+  }
+  if (textCanvas.width !== w) textCanvas.width = w;
+  if (textCanvas.height !== h) textCanvas.height = h;
+  else textCtx.clearRect(0, 0, w, h);
+  return textCtx;
+}
+
 function paintText(text, width, height, sizePx, bold, italic, argb, family) {
-  const canvas = document.createElement("canvas");
-  canvas.width = Math.max(1, width | 0);
-  canvas.height = Math.max(1, height | 0);
-  const ctx = canvas.getContext("2d");
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const ctx = textContext(width, height);
   const px = sizePx || 16;
   const face = family && family !== "GenericSansSerif" ? family : "sans-serif";
   ctx.font = `${italic ? "italic " : ""}${bold ? "bold " : ""}${px}px "${face}", "Microsoft YaHei", "SimSun", "Noto Sans SC", sans-serif`;
@@ -347,7 +366,24 @@ function paintText(text, width, height, sizePx, bold, italic, argb, family) {
   for (let i = 0; i < lines.length; i++) {
     ctx.fillText(lines[i], 0, baseline + i * step);
   }
-  return new Uint8Array(ctx.getImageData(0, 0, canvas.width, canvas.height).data);
+  return new Uint8Array(ctx.getImageData(0, 0, textCanvas.width, textCanvas.height).data);
+}
+
+export function glPaintText(id, text, width, height, sizePx, bold, italic, argb, family) {
+  const rec = textures.get(id | 0);
+  if (!rec) return;
+  const pixels = paintText(text, width, height, sizePx, bold, italic, argb, family);
+  const w = textCanvas.width;
+  const h = textCanvas.height;
+  gl.bindTexture(gl.TEXTURE_2D, rec.tex);
+  gl.pixelStorei(gl.UNPACK_ALIGNMENT, 1);
+  if (rec.width === w && rec.height === h) {
+    gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, w, h, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
+  } else {
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, w, h, 0, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
+    rec.width = w;
+    rec.height = h;
+  }
 }
 
 export function glRasterText(text, width, height, sizePx, bold, italic) {

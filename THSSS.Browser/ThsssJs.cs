@@ -58,6 +58,9 @@ namespace Thsss.Browser
 		[JSImport("rasterTextBox", "thsss.js")]
 		public static partial byte[] RasterTextBox(string text, int width, int height, float sizePx, bool bold, bool italic, int argb, string family);
 
+		[JSImport("paintText", "thsss.js")]
+		public static partial void PaintText(int id, string text, int width, int height, float sizePx, bool bold, bool italic, int argb, string family);
+
 		[JSImport("audioPrepare", "thsss.js")]
 		public static partial int AudioPrepare(string path);
 

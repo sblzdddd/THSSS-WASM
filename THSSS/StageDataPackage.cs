@@ -366,6 +366,9 @@ namespace Shooting
 
 		public Texture DrawString(string text, global::System.Drawing.Font font, Brush brush, int width, int height)
 		{
+#if BROWSER
+			return TextTextures.Get(text, font, brush, width, height);
+#else
 			Bitmap bitmap = new Bitmap(width, height, PixelFormat.Format32bppArgb);
 			Graphics graphics = Graphics.FromImage(bitmap);
 			graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
@@ -381,6 +384,7 @@ namespace Shooting
 			texture.UnlockRectangle(0);
 			bitmap.Dispose();
 			return texture;
+#endif
 		}
 
 		public void Dispose()

@@ -177,6 +177,10 @@ namespace System.Windows.Forms
 		}
 	}
 
+	public class Panel : Control
+	{
+	}
+
 	public class FolderBrowserDialog
 	{
 		public string SelectedPath { get; set; }

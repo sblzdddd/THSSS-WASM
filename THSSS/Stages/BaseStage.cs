@@ -18,7 +18,7 @@ namespace Shooting
 			: base(GlobalData)
 		{
 			this.InitializeComponent();
-			global::System.Drawing.Font font = new global::System.Drawing.Font("Arial", 14f, FontStyle.Bold);
+			global::System.Drawing.Font font = new global::System.Drawing.Font("Arial", 14f * GlobalDataPackage.FontScale, FontStyle.Bold);
 			base.DXFont = new SlimDX.Direct3D9.Font(base.DeviceMain, font);
 		}
 

@@ -170,8 +170,26 @@ namespace Shooting
 			particle.LifeTime = 70;
 			if (this.GlobalData.LoadingList.Count > 0)
 			{
+#if BROWSER
+				int readyIndex = -1;
+				for (int n = 0; n < this.GlobalData.LoadingList.Count; n++)
+				{
+					if (Thsss.Browser.ContentLoader.IsFileReady(this.GlobalData.LoadingList[n]))
+					{
+						readyIndex = n;
+						break;
+					}
+				}
+				if (readyIndex >= 0)
+				{
+					string readyPath = this.GlobalData.LoadingList[readyIndex];
+					this.GlobalData.LoadingList.RemoveAt(readyIndex);
+					this.GlobalData.TextureObjectLoader(readyPath);
+				}
+#else
 				this.GlobalData.TextureObjectLoader(this.GlobalData.LoadingList[0]);
 				this.GlobalData.LoadingList.RemoveAt(0);
+#endif
 			}
 		}
 

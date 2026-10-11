@@ -15,6 +15,8 @@ namespace System.Windows.Forms
 
 		public bool KeyPreview { get; set; }
 
+		public ImeMode ImeMode { get; set; }
+
 		public SizeF AutoScaleDimensions { get; set; }
 
 		public event EventHandler Load;
@@ -76,4 +78,23 @@ namespace System.Windows.Forms
 	public delegate void KeyEventHandler(object sender, KeyEventArgs e);
 
 	public delegate void FormClosingEventHandler(object sender, FormClosingEventArgs e);
+
+	public enum ImeMode
+	{
+		NoControl = 0,
+		Off = 3
+	}
+
+	public class Screen
+	{
+		public Rectangle Bounds { get; set; }
+
+		public static Screen FromPoint(Point point)
+		{
+			return new Screen
+			{
+				Bounds = new Rectangle(0, 0, 640, 480)
+			};
+		}
+	}
 }

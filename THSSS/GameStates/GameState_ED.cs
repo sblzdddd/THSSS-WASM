@@ -12,7 +12,7 @@ namespace Shooting
 			: base(GlobalData)
 		{
 			base.StageName = "All";
-			global::System.Drawing.Font font = new global::System.Drawing.Font("Arial", 14f, FontStyle.Bold | FontStyle.Italic);
+			global::System.Drawing.Font font = new global::System.Drawing.Font("Arial", 14f * GlobalDataPackage.FontScale, FontStyle.Bold | FontStyle.Italic);
 			base.DXFont = new SlimDX.Direct3D9.Font(base.DeviceMain, font);
 		}
 
