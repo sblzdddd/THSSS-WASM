@@ -41,7 +41,7 @@ namespace Thsss.Browser
 		public static partial void SetBlend(bool enable, int src, int dst, int equation);
 
 		[JSImport("setDepth", "thsss.js")]
-		public static partial void SetDepth(bool enable);
+		public static partial void SetDepth(bool enable, bool write);
 
 		[JSImport("setCull", "thsss.js")]
 		public static partial void SetCull(int mode);

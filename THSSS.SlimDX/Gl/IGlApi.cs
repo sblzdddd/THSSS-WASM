@@ -20,7 +20,7 @@ namespace SlimDX.Gl
 
 		void SetBlend(bool enable, int src, int dst, int equation);
 
-		void SetDepth(bool enable);
+		void SetDepth(bool enable, bool write);
 
 		void SetCull(int mode);
 

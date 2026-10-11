@@ -25,6 +25,8 @@ namespace SlimDX.Direct3D9
 
 		public bool DepthEnable = true;
 
+		public bool DepthWrite = true;
+
 		public bool Lighting = true;
 
 		public bool FogEnable;
@@ -271,7 +273,7 @@ namespace SlimDX.Direct3D9
 			this.ApplyTarget();
 			this.ApplyViewport();
 			GlHost.Need().SetBlend(this.AlphaBlendEnable, this.BlendSrc, this.BlendDst, this.BlendEquation);
-			GlHost.Need().SetDepth(this.DepthEnable);
+			GlHost.Need().SetDepth(this.DepthEnable, this.DepthWrite);
 			GlHost.Need().SetCull(this.CullMode);
 			Color4 color = this.Lighting ? this.Material.Diffuse : new Color4(1f, 1f, 1f, 1f);
 			float num2 = (float)((this.FogColor >> 16) & 255) / 255f;
@@ -393,6 +395,10 @@ namespace SlimDX.Direct3D9
 			else if (state == RenderState.ZEnable)
 			{
 				this.DepthEnable = value != 0;
+			}
+			else if (state == RenderState.ZWriteEnable)
+			{
+				this.DepthWrite = value != 0;
 			}
 			else if (state == RenderState.Lighting)
 			{

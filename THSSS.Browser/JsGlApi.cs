@@ -28,6 +28,8 @@ namespace Thsss.Browser
 
 		private bool depthOn;
 
+		private bool depthWrite;
+
 		private bool depthKnown;
 
 		private int boundTarget = int.MinValue;
@@ -107,15 +109,16 @@ namespace Thsss.Browser
 			ThsssJs.SetBlend(enable, src, dst, equation);
 		}
 
-		public void SetDepth(bool enable)
+		public void SetDepth(bool enable, bool write)
 		{
-			if (this.depthKnown && this.depthOn == enable)
+			if (this.depthKnown && this.depthOn == enable && this.depthWrite == write)
 			{
 				return;
 			}
 			this.depthKnown = true;
 			this.depthOn = enable;
-			ThsssJs.SetDepth(enable);
+			this.depthWrite = write;
+			ThsssJs.SetDepth(enable, write);
 		}
 
 		public void SetCull(int mode)

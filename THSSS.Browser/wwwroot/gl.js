@@ -120,6 +120,7 @@ void main() {
   vec4 world = uWorld * vec4(aPos, 1.0);
   vec4 view = uView * world;
   gl_Position = uProj * view;
+  gl_Position.z = gl_Position.z * 2.0 - gl_Position.w;
   vFogZ = view.z;
   vUv = aUv;
   vColor = aColor;
@@ -157,7 +158,8 @@ void main() {
   const white = new Uint8Array([255, 255, 255, 255]);
   whiteId = makeTexture(1, 1, white, false);
   gl.enable(gl.BLEND);
-  gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+  gl.blendColor(0, 0, 0, 1);
+  gl.blendFuncSeparate(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA, gl.CONSTANT_ALPHA, gl.ZERO);
   gl.clearColor(0, 0, 0, 1);
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
   return {
@@ -235,22 +237,25 @@ export function glSetViewport(x, y, width, height, canvasWidth, canvasHeight) {
 export function glSetBlend(enable, src, dst, equation) {
   if (enable) gl.enable(gl.BLEND);
   else gl.disable(gl.BLEND);
-  gl.blendFunc(blendFactor(src | 0), blendFactor(dst | 0));
   const eq = equation | 0;
-  if (eq === 2) gl.blendEquation(gl.FUNC_SUBTRACT);
-  else if (eq === 3) gl.blendEquation(gl.FUNC_REVERSE_SUBTRACT);
-  else if (eq === 4) gl.blendEquation(gl.MIN);
-  else if (eq === 5) gl.blendEquation(gl.MAX);
-  else gl.blendEquation(gl.FUNC_ADD);
+  let mode = gl.FUNC_ADD;
+  if (eq === 2) mode = gl.FUNC_SUBTRACT;
+  else if (eq === 3) mode = gl.FUNC_REVERSE_SUBTRACT;
+  else if (eq === 4) mode = gl.MIN;
+  else if (eq === 5) mode = gl.MAX;
+  gl.blendEquation(mode);
+  gl.blendColor(0, 0, 0, 1);
+  gl.blendFuncSeparate(blendFactor(src | 0), blendFactor(dst | 0), gl.CONSTANT_ALPHA, gl.ZERO);
 }
 
-export function glSetDepth(enable) {
+export function glSetDepth(enable, write) {
   if (enable) {
     gl.enable(gl.DEPTH_TEST);
     gl.depthFunc(gl.LEQUAL);
   } else {
     gl.disable(gl.DEPTH_TEST);
   }
+  gl.depthMask(write !== false);
 }
 
 export function glSetCull(mode) {
