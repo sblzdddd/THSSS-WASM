@@ -23,7 +23,7 @@ namespace SlimDX.Direct3D9
 			}
 			float num = this.font.Size > 0f ? this.font.Size : 12f;
 			int num2 = Math.Max(8, (int)(text.Length * num) + 8);
-			int num3 = Math.Max(8, (int)num + 8);
+			int num3 = Math.Max(8, (int)num + 12);
 			byte[] array = GlHost.Need().RasterText(text, num2, num3, num, this.font.Bold, this.font.Italic);
 			if (array == null || array.Length < num2 * num3 * 4)
 			{

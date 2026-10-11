@@ -338,11 +338,14 @@ function paintText(text, width, height, sizePx, bold, italic, argb, family) {
     b = n & 255;
   }
   ctx.fillStyle = `rgba(${r},${g},${b},${(a / 255).toFixed(3)})`;
-  ctx.textBaseline = "top";
+  ctx.textBaseline = "alphabetic";
   const lines = String(text || "").replace(/\r\n/g, "\n").replace(/\r/g, "\n").split("\n");
   const step = px * 1.35;
+  const metrics = ctx.measureText(lines.join(""));
+  const ascent = Math.max(metrics.actualBoundingBoxAscent || 0, metrics.fontBoundingBoxAscent || 0, px);
+  const baseline = Math.ceil(ascent) + 2;
   for (let i = 0; i < lines.length; i++) {
-    ctx.fillText(lines[i], 0, i * step);
+    ctx.fillText(lines[i], 0, baseline + i * step);
   }
   return new Uint8Array(ctx.getImageData(0, 0, canvas.width, canvas.height).data);
 }
