@@ -42,20 +42,41 @@ export function createAudio() {
     return new URL("assets/" + folder + "/" + match[2], document.baseURI).href;
   }
 
+  function wavSampleRate(data) {
+    if (!data || data.byteLength < 28) return 0;
+    const view = new DataView(data);
+    if (view.getUint32(0, false) !== 0x52494646 || view.getUint32(8, false) !== 0x57415645) return 0;
+    let offset = 12;
+    while (offset + 16 <= data.byteLength) {
+      const id = view.getUint32(offset, false);
+      const size = view.getUint32(offset + 4, true);
+      if (id === 0x666d7420) {
+        const rate = view.getUint32(offset + 12, true);
+        return rate >= 8000 && rate <= 192000 ? rate : 0;
+      }
+      if (!size || size > data.byteLength) break;
+      offset += 8 + size + (size & 1);
+    }
+    return 0;
+  }
+
   function prepare(path) {
     const url = assetUrl(path);
     if (!url) return 0;
     let rec = buffers.get(url);
     if (rec) return rec.id;
     const audio = context();
-    rec = { id: nextId++, url, audio: null, failed: false, waiters: [] };
+    rec = { id: nextId++, url, audio: null, fileRate: 44100, failed: false, waiters: [] };
     buffers.set(url, rec);
     fetch(url)
       .then((response) => {
         if (!response.ok) throw new Error(String(response.status));
         return response.arrayBuffer();
       })
-      .then((data) => audio.decodeAudioData(data))
+      .then((data) => {
+        rec.fileRate = wavSampleRate(data) || 44100;
+        return audio.decodeAudioData(data);
+      })
       .then((decoded) => {
         rec.audio = decoded;
         const waiting = rec.waiters.splice(0);
@@ -122,21 +143,32 @@ export function createAudio() {
     stopNode(voice);
     const source = audio.createBufferSource();
     source.buffer = rec.audio;
-    const rate = rec.audio.sampleRate || 44100;
+    const rate = rec.fileRate || 44100;
     const duration = rec.audio.duration || 0;
-    const begin = Math.max(0, voice.playBegin || 0) / rate;
+    const samplesToSeconds = (samples) => Math.max(0, samples || 0) / rate;
+    const begin = samplesToSeconds(voice.playBegin);
+    let loopStart = 0;
     let loopEnd = duration;
     if ((voice.loopLength || 0) > 0) {
-      loopEnd = ((voice.loopBegin || 0) + voice.loopLength) / rate;
+      loopStart = samplesToSeconds(voice.loopBegin);
+      loopEnd = samplesToSeconds((voice.loopBegin || 0) + voice.loopLength);
+    } else if ((voice.playLength || 0) > 0) {
+      loopStart = begin;
+      loopEnd = begin + samplesToSeconds(voice.playLength);
     }
     if ((voice.loopCount || 0) > 0 && duration > 0) {
       source.loop = true;
-      source.loopStart = Math.max(0, Math.min((voice.loopBegin || 0) / rate, duration));
-      source.loopEnd = Math.max(source.loopStart, Math.min(loopEnd, duration));
+      source.loopStart = Math.min(Math.max(0, loopStart), duration);
+      source.loopEnd = Math.min(Math.max(loopEnd, source.loopStart), duration);
+      if (source.loopEnd <= source.loopStart) {
+        source.loopStart = 0;
+        source.loopEnd = duration;
+      }
     }
     connect(voice, source);
-    const playLength = (voice.playLength || 0) > 0 && !source.loop ? voice.playLength / rate : undefined;
-    source.start(0, Math.min(begin, Math.max(0, duration - 0.001)), playLength);
+    const playLength = (voice.playLength || 0) > 0 && !source.loop ? samplesToSeconds(voice.playLength) : undefined;
+    const offset = Math.min(begin, Math.max(0, duration - 0.001));
+    source.start(0, offset, playLength);
     voice.node = source;
     voice.startedAt = audio.currentTime;
     voice.origin = voice.playBegin || 0;
