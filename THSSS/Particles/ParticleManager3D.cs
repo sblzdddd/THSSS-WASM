@@ -41,19 +41,18 @@ namespace Shooting
 
 		public void Ctrl()
 		{
-			this.ParticleList.ForEach(delegate(BaseParticle3D x)
+			for (int i = this.ParticleList.Count - 1; i >= 0; i--)
 			{
-				if (x.OutBoundary())
+				BaseParticle3D particle = this.ParticleList[i];
+				if (particle.OutBoundary())
 				{
-					x.Dispose();
-					this.ParticleList.Remove(x);
+					particle.Dispose();
+					this.ParticleList.RemoveAt(i);
+					continue;
 				}
-			});
-			this.ParticleList.ForEach(delegate(BaseParticle3D x)
-			{
-				x.Ctrl();
-			});
-			this.ParticleList.Sort(new CompareDepth());
+				particle.Ctrl();
+			}
+			this.ParticleList.Sort(depthComparer);
 		}
 
 		private void SetParticleRenderPara()
@@ -88,8 +87,9 @@ namespace Shooting
 			};
 			this.SetParticleRenderPara();
 			string ModelName = null;
-			this.ParticleList.ForEach(delegate(BaseParticle3D x)
+			for (int i = 0; i < this.ParticleList.Count; i++)
 			{
+				BaseParticle3D x = this.ParticleList[i];
 				if (x.model != null)
 				{
 					if (ModelName != x.model.Name)
@@ -103,7 +103,7 @@ namespace Shooting
 					ModelName = null;
 				}
 				x.Show();
-			});
+			}
 			this.StageData.ScreenTexMan.End();
 			this.DeviceMain.Viewport = viewport;
 			this.StageData.SpriteMain.Begin(SpriteFlags.AlphaBlend);
@@ -131,5 +131,7 @@ namespace Shooting
 		}
 
 		private Light light;
+
+		private static readonly CompareDepth depthComparer = new CompareDepth();
 	}
 }

@@ -8,6 +8,16 @@ let fixedProg;
 let uScreen;
 let uFlip;
 let uTex;
+let fuWorld;
+let fuView;
+let fuProj;
+let fuMaterial;
+let fuLighting;
+let fuFog;
+let fuFogStart;
+let fuFogEnd;
+let fuFogColor;
+let fuTex;
 let spriteBuf;
 let fixedBuf;
 let viewX = 0, viewY = 0, viewW = 640, viewH = 480, fbW = 640, fbH = 480;
@@ -157,10 +167,21 @@ void main() {
   uScreen = gl.getUniformLocation(spriteProg, "uScreen");
   uFlip = gl.getUniformLocation(spriteProg, "uFlipV");
   uTex = gl.getUniformLocation(spriteProg, "uTex");
+  fuWorld = gl.getUniformLocation(fixedProg, "uWorld");
+  fuView = gl.getUniformLocation(fixedProg, "uView");
+  fuProj = gl.getUniformLocation(fixedProg, "uProj");
+  fuMaterial = gl.getUniformLocation(fixedProg, "uMaterial");
+  fuLighting = gl.getUniformLocation(fixedProg, "uLighting");
+  fuFog = gl.getUniformLocation(fixedProg, "uFog");
+  fuFogStart = gl.getUniformLocation(fixedProg, "uFogStart");
+  fuFogEnd = gl.getUniformLocation(fixedProg, "uFogEnd");
+  fuFogColor = gl.getUniformLocation(fixedProg, "uFogColor");
+  fuTex = gl.getUniformLocation(fixedProg, "uTex");
   spriteBuf = gl.createBuffer();
   fixedBuf = gl.createBuffer();
   const white = new Uint8Array([255, 255, 255, 255]);
   whiteId = makeTexture(1, 1, white, false);
+  gl.activeTexture(gl.TEXTURE0);
   gl.enable(gl.BLEND);
   gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
   gl.clearColor(0, 0, 0, 1);
@@ -340,26 +361,58 @@ function asF32(data) {
   if (!data) return new Float32Array(0);
   if (data instanceof Float32Array) return data;
   const u8 = data instanceof Uint8Array ? data : new Uint8Array(data);
-  return new Float32Array(u8.buffer, u8.byteOffset, (u8.byteLength / 4) | 0);
+  const count = u8.byteLength >> 2;
+  if ((u8.byteOffset & 3) === 0) return new Float32Array(u8.buffer, u8.byteOffset, count);
+  const copy = new Float32Array(count);
+  new Uint8Array(copy.buffer).set(u8.subarray(0, count * 4));
+  return copy;
 }
 
-export function glDrawSprites(textureId, flipV, raw) {
-  const data = asF32(raw);
-  if (data.length < 8) return;
+let activeProg = 0;
+let spriteReady = false;
+let fixedReady = false;
+
+function prepSprite() {
+  if (spriteReady && activeProg === 1) return;
+  activeProg = 1;
+  spriteReady = true;
+  fixedReady = false;
   gl.useProgram(spriteProg);
   gl.bindBuffer(gl.ARRAY_BUFFER, spriteBuf);
-  gl.bufferData(gl.ARRAY_BUFFER, data, gl.DYNAMIC_DRAW);
-  const stride = 8 * 4;
+  const stride = 32;
   gl.enableVertexAttribArray(0);
   gl.enableVertexAttribArray(1);
   gl.enableVertexAttribArray(2);
   gl.vertexAttribPointer(0, 2, gl.FLOAT, false, stride, 0);
   gl.vertexAttribPointer(1, 2, gl.FLOAT, false, stride, 8);
   gl.vertexAttribPointer(2, 4, gl.FLOAT, false, stride, 16);
+  gl.uniform1i(uTex, 0);
+}
+
+function prepFixed() {
+  if (fixedReady && activeProg === 2) return;
+  activeProg = 2;
+  fixedReady = true;
+  spriteReady = false;
+  gl.useProgram(fixedProg);
+  gl.bindBuffer(gl.ARRAY_BUFFER, fixedBuf);
+  const stride = 36;
+  gl.enableVertexAttribArray(0);
+  gl.enableVertexAttribArray(1);
+  gl.enableVertexAttribArray(2);
+  gl.vertexAttribPointer(0, 3, gl.FLOAT, false, stride, 0);
+  gl.vertexAttribPointer(1, 2, gl.FLOAT, false, stride, 12);
+  gl.vertexAttribPointer(2, 4, gl.FLOAT, false, stride, 20);
+  gl.uniform1i(fuTex, 0);
+}
+
+export function glDrawSprites(textureId, flipV, raw) {
+  const data = asF32(raw);
+  if (data.length < 8) return;
+  prepSprite();
+  gl.bufferData(gl.ARRAY_BUFFER, data, gl.DYNAMIC_DRAW);
   gl.uniform2f(uScreen, viewW, viewH);
   gl.uniform1f(uFlip, flipV);
-  gl.uniform1i(uTex, 0);
-  gl.activeTexture(gl.TEXTURE0);
   bindTex(textureId);
   gl.drawArrays(gl.TRIANGLES, 0, (data.length / 8) | 0);
 }
@@ -370,27 +423,17 @@ export function glDrawFixed(textureId, raw, worldRaw, viewRaw, projRaw, mr, mg, 
   const view = asF32(viewRaw);
   const proj = asF32(projRaw);
   if (data.length < 9) return;
-  gl.useProgram(fixedProg);
-  gl.bindBuffer(gl.ARRAY_BUFFER, fixedBuf);
+  prepFixed();
   gl.bufferData(gl.ARRAY_BUFFER, data, gl.DYNAMIC_DRAW);
-  const stride = 9 * 4;
-  gl.enableVertexAttribArray(0);
-  gl.enableVertexAttribArray(1);
-  gl.enableVertexAttribArray(2);
-  gl.vertexAttribPointer(0, 3, gl.FLOAT, false, stride, 0);
-  gl.vertexAttribPointer(1, 2, gl.FLOAT, false, stride, 12);
-  gl.vertexAttribPointer(2, 4, gl.FLOAT, false, stride, 20);
-  gl.uniformMatrix4fv(gl.getUniformLocation(fixedProg, "uWorld"), false, world);
-  gl.uniformMatrix4fv(gl.getUniformLocation(fixedProg, "uView"), false, view);
-  gl.uniformMatrix4fv(gl.getUniformLocation(fixedProg, "uProj"), false, proj);
-  gl.uniform4f(gl.getUniformLocation(fixedProg, "uMaterial"), mr, mg, mb, ma);
-  gl.uniform1f(gl.getUniformLocation(fixedProg, "uLighting"), lighting);
-  gl.uniform1f(gl.getUniformLocation(fixedProg, "uFog"), fog);
-  gl.uniform1f(gl.getUniformLocation(fixedProg, "uFogStart"), fogStart);
-  gl.uniform1f(gl.getUniformLocation(fixedProg, "uFogEnd"), fogEnd);
-  gl.uniform3f(gl.getUniformLocation(fixedProg, "uFogColor"), fr, fg, fb);
-  gl.uniform1i(gl.getUniformLocation(fixedProg, "uTex"), 0);
-  gl.activeTexture(gl.TEXTURE0);
+  gl.uniformMatrix4fv(fuWorld, false, world);
+  gl.uniformMatrix4fv(fuView, false, view);
+  gl.uniformMatrix4fv(fuProj, false, proj);
+  gl.uniform4f(fuMaterial, mr, mg, mb, ma);
+  gl.uniform1f(fuLighting, lighting);
+  gl.uniform1f(fuFog, fog);
+  gl.uniform1f(fuFogStart, fogStart);
+  gl.uniform1f(fuFogEnd, fogEnd);
+  gl.uniform3f(fuFogColor, fr, fg, fb);
   bindTex(textureId);
   gl.drawArrays(gl.TRIANGLES, 0, (data.length / 9) | 0);
 }

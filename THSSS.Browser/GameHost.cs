@@ -16,6 +16,8 @@ namespace Thsss.Browser
 
 		private static int frame;
 
+		private static bool unlockFps;
+
 		private static readonly Dictionary<string, string> hashes = new Dictionary<string, string>();
 
 		public static async System.Threading.Tasks.Task Start()
@@ -34,7 +36,34 @@ namespace Thsss.Browser
 				throw new InvalidOperationException("Game_Main did not finish device init.");
 			}
 			FlushSaves();
+			try
+			{
+				unlockFps = new INI_RW(".\\Setting.INI").IniReadValue("Mode", "UnlockFPS") == "1";
+			}
+			catch (Exception)
+			{
+				unlockFps = false;
+			}
 			ThsssJs.SetStatus("Device ready. Click the canvas. Arrows move, Z shoots, X bombs, Shift slows, Esc pauses.");
+		}
+
+		[System.Runtime.InteropServices.JavaScript.JSExport]
+		public static int FpsUnlocked()
+		{
+			return unlockFps ? 1 : 0;
+		}
+
+		[System.Runtime.InteropServices.JavaScript.JSExport]
+		public static void SetFpsUnlocked(int value)
+		{
+			unlockFps = value != 0;
+			try
+			{
+				new INI_RW(".\\Setting.INI").IniWriteValue("Mode", "UnlockFPS", unlockFps ? "1" : "0");
+			}
+			catch (Exception)
+			{
+			}
 		}
 
 		[System.Runtime.InteropServices.JavaScript.JSExport]

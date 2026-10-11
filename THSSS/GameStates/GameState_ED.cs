@@ -183,7 +183,7 @@ namespace Shooting
 			base.SpriteMain.Begin(SpriteFlags.AlphaBlend);
 			base.Background2.Show(false);
 			base.SpriteMain.End();
-			base.SpriteMain.Begin(SpriteFlags.AlphaBlend);
+			base.SpriteMain.Begin(SpriteFlags.AlphaBlend | SpriteFlags.SortTexture);
 			base.DeviceMain.SetRenderState(RenderState.SourceBlend, 5);
 			base.DeviceMain.SetRenderState(RenderState.DestinationBlend, 2);
 			base.BulletList.ForEach(delegate(BaseBullet_Touhou x)

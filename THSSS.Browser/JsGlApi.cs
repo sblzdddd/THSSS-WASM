@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using SlimDX.Gl;
 
 namespace Thsss.Browser
@@ -34,16 +37,16 @@ namespace Thsss.Browser
 
 		private int boundTarget = int.MinValue;
 
-		private static byte[] Pack(float[] values)
-		{
-			if (values == null)
-			{
-				return new byte[0];
-			}
-			byte[] bytes = new byte[values.Length * 4];
-			System.Buffer.BlockCopy(values, 0, bytes, 0, bytes.Length);
-			return bytes;
-		}
+		private int cullMode = int.MinValue;
+
+		private readonly Dictionary<int, byte[]> packed = new Dictionary<int, byte[]>();
+
+		private readonly byte[] worldBytes = new byte[64];
+
+		private readonly byte[] viewBytes = new byte[64];
+
+		private readonly byte[] projBytes = new byte[64];
+
 		public void Clear(float r, float g, float b, float a, bool color, bool depth)
 		{
 			ThsssJs.Clear(r, g, b, a, color, depth);
@@ -123,17 +126,44 @@ namespace Thsss.Browser
 
 		public void SetCull(int mode)
 		{
+			if (this.cullMode == mode)
+			{
+				return;
+			}
+			this.cullMode = mode;
 			ThsssJs.SetCull(mode);
 		}
 
-		public void DrawSprites(int textureId, float flipV, float[] vertices)
+		public void DrawSprites(int textureId, float flipV, Span<float> vertices)
 		{
-			ThsssJs.DrawSprites(textureId, flipV, Pack(vertices));
+			ThsssJs.DrawSprites(textureId, flipV, this.Pack(vertices));
 		}
 
-		public void DrawFixed(int textureId, float[] vertices, float[] world, float[] view, float[] proj, float mr, float mg, float mb, float ma, float lighting, float fog, float fogStart, float fogEnd, float fr, float fg, float fb)
+		public void DrawFixed(int textureId, Span<float> vertices, Span<float> world, Span<float> view, Span<float> proj, float mr, float mg, float mb, float ma, float lighting, float fog, float fogStart, float fogEnd, float fr, float fg, float fb)
 		{
-			ThsssJs.DrawFixed(textureId, Pack(vertices), Pack(world), Pack(view), Pack(proj), mr, mg, mb, ma, lighting, fog, fogStart, fogEnd, fr, fg, fb);
+			byte[] verts = this.Pack(vertices);
+			this.CopyExact(world, this.worldBytes);
+			this.CopyExact(view, this.viewBytes);
+			this.CopyExact(proj, this.projBytes);
+			ThsssJs.DrawFixed(textureId, verts, this.worldBytes, this.viewBytes, this.projBytes, mr, mg, mb, ma, lighting, fog, fogStart, fogEnd, fr, fg, fb);
+		}
+
+		private byte[] Pack(Span<float> source)
+		{
+			int bytes = source.Length * 4;
+			byte[] buffer;
+			if (!this.packed.TryGetValue(bytes, out buffer))
+			{
+				buffer = new byte[bytes];
+				this.packed[bytes] = buffer;
+			}
+			MemoryMarshal.AsBytes(source).CopyTo(buffer);
+			return buffer;
+		}
+
+		private void CopyExact(Span<float> source, byte[] dest)
+		{
+			MemoryMarshal.AsBytes(source).CopyTo(dest);
 		}
 
 		public byte[] RasterText(string text, int width, int height, float sizePx, bool bold, bool italic)

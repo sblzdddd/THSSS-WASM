@@ -24,9 +24,9 @@ namespace SlimDX.Gl
 
 		void SetCull(int mode);
 
-		void DrawSprites(int textureId, float flipV, float[] vertices);
+		void DrawSprites(int textureId, float flipV, Span<float> vertices);
 
-		void DrawFixed(int textureId, float[] vertices, float[] world, float[] view, float[] proj, float mr, float mg, float mb, float ma, float lighting, float fog, float fogStart, float fogEnd, float fr, float fg, float fb);
+		void DrawFixed(int textureId, Span<float> vertices, Span<float> world, Span<float> view, Span<float> proj, float mr, float mg, float mb, float ma, float lighting, float fog, float fogStart, float fogEnd, float fr, float fg, float fb);
 
 		byte[] RasterText(string text, int width, int height, float sizePx, bool bold, bool italic);
 

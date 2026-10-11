@@ -59,31 +59,33 @@ namespace Shooting
 			{
 				this.Envi.Ctrl();
 			}
-			this.BackgroundList.ForEach(delegate(BaseObject x)
+			for (int i = this.BackgroundList.Count - 1; i >= 0; i--)
 			{
+				BaseObject x = this.BackgroundList[i];
 				if (x.OutBoundary())
 				{
 					x.Dispose();
-					this.BackgroundList.Remove(x);
+					this.BackgroundList.RemoveAt(i);
 				}
-			});
-			this.BackgroundList.ForEach(delegate(BaseObject x)
+			}
+			for (int i = 0; i < this.BackgroundList.Count; i++)
 			{
-				x.Ctrl();
-			});
-			this.BackgroundParticleList.ForEach(delegate(BaseParticle3D x)
+				this.BackgroundList[i].Ctrl();
+			}
+			for (int i = this.BackgroundParticleList.Count - 1; i >= 0; i--)
 			{
+				BaseParticle3D x = this.BackgroundParticleList[i];
 				if (x.OutBoundary())
 				{
 					x.Dispose();
-					this.BackgroundParticleList.Remove(x);
+					this.BackgroundParticleList.RemoveAt(i);
 				}
-			});
-			this.BackgroundParticleList.ForEach(delegate(BaseParticle3D x)
+			}
+			for (int i = 0; i < this.BackgroundParticleList.Count; i++)
 			{
-				x.Ctrl();
-			});
-			this.BackgroundParticleList.Sort(new CompareDepth());
+				this.BackgroundParticleList[i].Ctrl();
+			}
+			this.BackgroundParticleList.Sort(depthComparer);
 			if (this.WarpEnabled)
 			{
 				if (this.WarpRadius < 128f)
@@ -138,15 +140,16 @@ namespace Shooting
 			}
 			if (this.Enabled3D)
 			{
-				this.BackgroundList.ForEach(delegate(BaseObject x)
+				for (int i = 0; i < this.BackgroundList.Count; i++)
 				{
-					x.Show();
-				});
+					this.BackgroundList[i].Show();
+				}
 			}
 			this.SetParticleRenderPara();
 			string ModelName = null;
-			this.BackgroundParticleList.ForEach(delegate(BaseParticle3D x)
+			for (int i = 0; i < this.BackgroundParticleList.Count; i++)
 			{
+				BaseParticle3D x = this.BackgroundParticleList[i];
 				if (x.model != null)
 				{
 					if (ModelName != x.model.Name)
@@ -156,7 +159,7 @@ namespace Shooting
 					x.Show();
 					ModelName = x.model.Name;
 				}
-			});
+			}
 			this.DeviceMain.Viewport = viewport;
 			this.StageData.SpriteMain.Begin(SpriteFlags.AlphaBlend);
 			this.StageData.Background.Show(false);
@@ -219,5 +222,7 @@ namespace Shooting
 		}
 
 		private Light light;
+
+		private static readonly CompareDepth depthComparer = new CompareDepth();
 	}
 }
