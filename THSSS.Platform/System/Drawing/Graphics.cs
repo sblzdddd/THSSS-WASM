@@ -41,7 +41,7 @@ namespace System.Drawing
 			{
 				return;
 			}
-			float num = font != null && font.Size > 0f ? font.Size * 96f / 72f : 16f;
+			float num = font != null && font.Size > 0f ? font.Size : 16f;
 			SolidBrush solidBrush = brush as SolidBrush;
 			int num2 = solidBrush != null ? solidBrush.Color.ToArgb() : -1;
 			string text2 = font != null ? font.Name : "sans-serif";

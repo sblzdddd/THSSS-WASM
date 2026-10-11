@@ -95,6 +95,10 @@ namespace System.Drawing
 
 		public void UnlockBits(BitmapData data)
 		{
+			if (data != null)
+			{
+				data.FreePin();
+			}
 		}
 	}
 
@@ -125,6 +129,19 @@ namespace System.Drawing
 				this.handle = System.Runtime.InteropServices.GCHandle.Alloc(this.Pixels, System.Runtime.InteropServices.GCHandleType.Pinned);
 				return this.handle.AddrOfPinnedObject();
 			}
+		}
+
+		internal void FreePin()
+		{
+			if (this.handle.IsAllocated)
+			{
+				this.handle.Free();
+			}
+		}
+
+		~BitmapData()
+		{
+			this.FreePin();
 		}
 
 		private System.Runtime.InteropServices.GCHandle handle;

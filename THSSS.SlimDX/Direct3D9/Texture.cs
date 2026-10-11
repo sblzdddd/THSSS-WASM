@@ -21,14 +21,22 @@ namespace SlimDX.Direct3D9
 
 		public Texture(Device device, int width, int height, int levelCount, Usage usage, Format format, Pool pool)
 		{
-			this.Width = Math.Max(1, width);
-			this.Height = Math.Max(1, height);
+			this.Width = ClampEdge(width);
+			this.Height = ClampEdge(height);
+			this.IsRenderTarget = (usage & Usage.RenderTarget) != 0;
+			int num;
+			byte[] array;
+			if (!this.IsRenderTarget && TexturePool.Take(this.Width, this.Height, out num, out array))
+			{
+				this.GlId = num;
+				this.Rgba = array;
+				return;
+			}
 			this.Rgba = new byte[this.Width * this.Height * 4];
 			for (int i = 3; i < this.Rgba.Length; i += 4)
 			{
 				this.Rgba[i] = byte.MaxValue;
 			}
-			this.IsRenderTarget = (usage & Usage.RenderTarget) != 0;
 			if (this.IsRenderTarget)
 			{
 				this.GlId = GlHost.Need().CreateRenderTarget(this.Width, this.Height);
@@ -37,6 +45,19 @@ namespace SlimDX.Direct3D9
 			{
 				this.GlId = GlHost.Need().CreateTexture(this.Width, this.Height, this.Rgba);
 			}
+		}
+
+		private static int ClampEdge(int value)
+		{
+			if (value < 1)
+			{
+				return 1;
+			}
+			if (value > 2048)
+			{
+				return 2048;
+			}
+			return value;
 		}
 
 		public static Texture FromFile(Device device, string fileName)
@@ -89,9 +110,18 @@ namespace SlimDX.Direct3D9
 
 		public DataRectangle LockRectangle(int level, Rectangle rect, LockFlags flags)
 		{
-			int num = Math.Max(0, rect.Width);
-			int num2 = Math.Max(0, rect.Height);
-			this.lockBgra = new byte[Math.Max(1, num * num2 * 4)];
+			int num = rect.Width;
+			int num2 = rect.Height;
+			if (num < 1 || num2 < 1 || (long)num * num2 > (long)this.Width * this.Height)
+			{
+				num = this.Width;
+				num2 = this.Height;
+			}
+			int num3 = num * num2 * 4;
+			if (this.lockBgra == null || this.lockBgra.Length != num3)
+			{
+				this.lockBgra = new byte[num3];
+			}
 			return new DataRectangle
 			{
 				Data = new DataStream(this.lockBgra)
@@ -112,20 +142,80 @@ namespace SlimDX.Direct3D9
 				this.Rgba[i * 4 + 2] = this.lockBgra[i * 4];
 				this.Rgba[i * 4 + 3] = this.lockBgra[i * 4 + 3];
 			}
-			if (!this.IsRenderTarget)
+			if (!this.IsRenderTarget && this.GlId != 0)
 			{
 				GlHost.Need().UpdateTexture(this.GlId, this.Width, this.Height, this.Rgba);
 			}
-			this.lockBgra = null;
 		}
 
 		protected override void Dispose(bool disposing)
 		{
-			if (this.GlId != 0)
+			if (this.GlId == 0)
 			{
-				GlHost.Need().DeleteTexture(this.GlId);
-				this.GlId = 0;
+				return;
 			}
+			if (!this.IsRenderTarget && TexturePool.Return(this.GlId, this.Width, this.Height, this.Rgba))
+			{
+				this.GlId = 0;
+				this.Rgba = null;
+				this.lockBgra = null;
+				return;
+			}
+			GlHost.Need().DeleteTexture(this.GlId);
+			this.GlId = 0;
+			this.Rgba = null;
+			this.lockBgra = null;
+		}
+	}
+
+	internal static class TexturePool
+	{
+		private const int Limit = 16;
+
+		private struct Entry
+		{
+			public int GlId;
+
+			public int Width;
+
+			public int Height;
+
+			public byte[] Rgba;
+		}
+
+		private static readonly System.Collections.Generic.List<Entry> entries = new System.Collections.Generic.List<Entry>();
+
+		public static bool Take(int width, int height, out int glId, out byte[] rgba)
+		{
+			for (int i = entries.Count - 1; i >= 0; i--)
+			{
+				Entry entry = entries[i];
+				if (entry.Width == width && entry.Height == height && entry.Rgba != null && entry.Rgba.Length == width * height * 4)
+				{
+					entries.RemoveAt(i);
+					glId = entry.GlId;
+					rgba = entry.Rgba;
+					return true;
+				}
+			}
+			glId = 0;
+			rgba = null;
+			return false;
+		}
+
+		public static bool Return(int glId, int width, int height, byte[] rgba)
+		{
+			if (glId == 0 || rgba == null || entries.Count >= Limit)
+			{
+				return false;
+			}
+			Entry entry = default(Entry);
+			entry.GlId = glId;
+			entry.Width = width;
+			entry.Height = height;
+			entry.Rgba = rgba;
+			entries.Add(entry);
+			return true;
 		}
 	}
 }
