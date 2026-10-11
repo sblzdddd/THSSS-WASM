@@ -50,6 +50,8 @@ GitHub Actions (`.github/workflows/browser-build.yml`) compiles a checkout that 
 
 ## Roadmap
 
+- Implement Mesh and Effect
+- Wire up game configuration (Config)
 - Full touchscreen support
 - Smaller and faster asset loading
 - Add THSSS-Prac
