@@ -38,12 +38,6 @@ namespace Shooting
 
 		public Game_Main()
 		{
-			this.Form_Main = new RenderForm_Main();
-			this.Form_Main.FormClosing += this.Form_Main_FormClosing;
-			this.Form_Main.Deactivate += this.Form_Main_Deactivate;
-			this.Form_Main.Activated += this.Form_Main_Activated;
-			MouseCtrl.DrawCursor(!this.fullWindow);
-			Dpi.GetDpi();
 			try
 			{
 				INI_RW ini_RW = new INI_RW(".\\Setting.INI");
@@ -59,6 +53,8 @@ namespace Shooting
 					this.delayTolerance = (int)Convert.ToInt16(ini_RW.IniReadValue("Mode", "DelayTolerance"));
 					this.windowSize = (int)Convert.ToInt16(ini_RW.IniReadValue("Mode", "WindowSize"));
 					this.presentInterval = (int)Convert.ToInt16(ini_RW.IniReadValue("Mode", "PresentInterval"));
+					Game_Main.useUnrealFullScreen = ini_RW.IniReadValue("Mode", "UseFullScreenWindow") == "1";
+					Game_Main.stretchScreen = ini_RW.IniReadValue("Mode", "StretchScreen") == "1";
 					this.mapkey.Left = ini_RW.IniReadValue("Key", "Left");
 					this.mapkey.Right = ini_RW.IniReadValue("Key", "Right");
 					this.mapkey.Up = ini_RW.IniReadValue("Key", "Up");
@@ -81,6 +77,14 @@ namespace Shooting
 			{
 				MessageBox.Show("读取配置文件失败", "Setting Load Error");
 			}
+			this.Form_Main = new RenderForm_Main();
+			this.Form_Main.FormClosing += this.Form_Main_FormClosing;
+			this.Form_Main.Deactivate += this.Form_Main_Deactivate;
+			this.Form_Main.Activated += this.Form_Main_Activated;
+			MouseCtrl.DrawCursor(!this.fullWindow);
+#if !BROWSER
+			this.GlobalData.TestFontScale();
+#endif
 			if (this.windowSize == 1)
 			{
 				this.Form_Main.ClientSize = new Size(800, 600);
@@ -89,13 +93,17 @@ namespace Shooting
 			{
 				this.Form_Main.ClientSize = new Size(1024, 768);
 			}
+			else if (this.windowSize == 3)
+			{
+				this.Form_Main.ClientSize = new Size(1280, 960);
+			}
+			this.Form_Main.Show();
 			if (!this.Direct3DInit())
 			{
 				Application.ExitThread();
+				return;
 			}
-			else
-			{
-				this.initSuccess = true;
+			this.initSuccess = true;
 				if (this.useDirectInput)
 				{
 					this.KCapture = new KeyboardCapture(this.Form_Main.Handle);
@@ -116,7 +124,6 @@ namespace Shooting
 				this.LoadingThread = new Thread(new ThreadStart(this.AddState));
 				this.LoadingThread.Start();
 #endif
-			}
 		}
 
 		public bool Direct3DInit()
@@ -136,13 +143,16 @@ namespace Shooting
 				{
 					createFlags = CreateFlags.SoftwareVertexProcessing;
 				}
+				IntPtr deviceWindow = Game_Main.useUnrealFullScreen ? this.Form_Main.panel1.Handle : this.Form_Main.Handle;
 				this.GlobalData.presentParams = new PresentParameters
 				{
 					BackBufferWidth = 640,
 					BackBufferHeight = 480,
 					BackBufferFormat = defaultAdapter.CurrentDisplayMode.Format,
-					DeviceWindowHandle = this.Form_Main.Handle,
-					Windowed = !this.fullWindow,
+					BackBufferCount = 1,
+					DeviceWindowHandle = deviceWindow,
+					Windowed = !(this.fullWindow & !Game_Main.useUnrealFullScreen),
+					Multisample = MultisampleType.None,
 					PresentFlags = PresentFlags.DiscardDepthStencil,
 					SwapEffect = SwapEffect.Discard
 				};
@@ -172,8 +182,17 @@ namespace Shooting
 				{
 					this.GlobalData.presentParams.PresentationInterval = PresentInterval.Immediate;
 				}
-				this.DeviceMain = new global::SlimDX.Direct3D9.Device(direct3D, defaultAdapter.Adapter, global::SlimDX.Direct3D9.DeviceType.Hardware, this.Form_Main.Handle, createFlags, new PresentParameters[] { this.GlobalData.presentParams });
+				this.DeviceMain = new global::SlimDX.Direct3D9.Device(direct3D, defaultAdapter.Adapter, global::SlimDX.Direct3D9.DeviceType.Hardware, deviceWindow, createFlags, new PresentParameters[] { this.GlobalData.presentParams });
 				this.GlobalData.SpriteMain = new MySprite(this.DeviceMain);
+				if (this.fullWindow)
+				{
+					this.windowSize = 0;
+					if (Game_Main.useUnrealFullScreen)
+					{
+						this.fullWindow = !this.fullWindow;
+						this.ToggleUnrealFullScreen();
+					}
+				}
 				flag = true;
 			}
 			catch
@@ -472,7 +491,7 @@ namespace Shooting
 					}
 					else
 					{
-						ErrorLog.SaveErrorLog(ex.Message, ex.ResultCode.Description);
+						ErrorLog.SaveErrorLog("SlimDX错误: " + ex.Message + "\n堆栈:\n" + ex.StackTrace, ex.ResultCode.Description);
 						MessageBox.Show(ex.Message);
 						this.Form_Main.Close();
 					}
@@ -524,6 +543,8 @@ namespace Shooting
 			{
 				this.GlobalData.presentParams.PresentationInterval = PresentInterval.Immediate;
 			}
+			this.Form_Main.ClientSize = new Size(640, 480);
+			this.Form_Main.FormBorderStyle = FormBorderStyle.FixedDialog;
 			this.GlobalData.OnLostDevice();
 			this.GlobalData.OnResetDevice();
 			MouseCtrl.DrawCursor(!this.fullWindow);
@@ -533,7 +554,14 @@ namespace Shooting
 		{
 			if (this.fullWindow)
 			{
-				this.ToggleFullScreen();
+				if (Game_Main.useUnrealFullScreen)
+				{
+					this.ToggleUnrealFullScreen();
+				}
+				else
+				{
+					this.ToggleFullScreen();
+				}
 				this.Form_Main.ClientSize = new Size(640, 480);
 			}
 			else
@@ -549,11 +577,44 @@ namespace Shooting
 					this.Form_Main.ClientSize = new Size(1024, 768);
 					break;
 				case 2:
+					this.windowSize++;
+					this.Form_Main.ClientSize = new Size(1280, 960);
+					break;
+				case 3:
 					this.windowSize = 0;
-					this.ToggleFullScreen();
+					if (Game_Main.useUnrealFullScreen)
+					{
+						this.ToggleUnrealFullScreen();
+					}
+					else
+					{
+						this.ToggleFullScreen();
+					}
+					break;
+				default:
+					this.windowSize = 0;
+					this.Form_Main.ClientSize = new Size(640, 480);
 					break;
 				}
 			}
+			this.Form_Main.Refresh();
+		}
+
+		private void ToggleUnrealFullScreen()
+		{
+			this.fullWindow = !this.fullWindow;
+			if (this.fullWindow)
+			{
+				Screen screen = Screen.FromPoint(this.Form_Main.Location);
+				this.Form_Main.FormBorderStyle = FormBorderStyle.None;
+				this.Form_Main.ClientSize = screen.Bounds.Size;
+				this.Form_Main.Location = screen.Bounds.Location;
+			}
+			else
+			{
+				this.Form_Main.FormBorderStyle = FormBorderStyle.FixedDialog;
+			}
+			MouseCtrl.DrawCursor(!this.fullWindow);
 		}
 
 		private void Form_Main_Deactivate(object sender, EventArgs e)
@@ -750,6 +811,10 @@ namespace Shooting
 		private int seVolume;
 
 		private string fontType;
+
+		public static bool useUnrealFullScreen = true;
+
+		public static bool stretchScreen = false;
 
 		public bool initSuccess = false;
 

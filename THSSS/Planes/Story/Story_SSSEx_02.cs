@@ -45,8 +45,26 @@ namespace Shooting.Planes.Story
 			{
 				this.SBox.Dispose();
 				base.Story = null;
-				new EndStage(base.StageData, "GameSetMenu", true);
 				new ClearBonus(base.StageData, 70000000);
+				base.StageData.CurrentStageName = "ExAll";
+				base.StageData.RepInfo.LastStage = base.StageData.CurrentStageName;
+				if (!base.StageData.OnReplay)
+				{
+					base.StageData.C_History = base.StageData.PData.C_History.Find(new Predicate<ClearHistory>(base.StageData.FindClear));
+					base.StageData.C_History.ClearTimes++;
+					if (base.StageData.ContinueTimes == 0)
+					{
+						base.StageData.C_History.NoContinueClearTimes++;
+					}
+				}
+				if (base.StageData.ContinueTimes == 0 && !base.StageData.OnReplay)
+				{
+					new EndStage(base.StageData, "FinalReplaySaveMenu", true);
+				}
+				else
+				{
+					new EndStage(base.StageData, "GameSetMenu", true);
+				}
 			}
 		}
 	}

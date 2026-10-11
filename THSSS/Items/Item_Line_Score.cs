@@ -29,8 +29,16 @@ namespace Shooting
 			{
 				this.scoreValue = base.MyPlane.Score;
 			}
-			base.Text = (10000000000L + this.scoreValue).ToString("N0");
-			base.Text = base.Text.Remove(0, 1).PadLeft(10, ' ');
+			if (this.scoreValue < 10000000000L)
+			{
+				base.Text = (10000000000L + this.scoreValue).ToString("N0");
+				base.Text = base.Text.Remove(0, 1).PadLeft(10, ' ');
+			}
+			else
+			{
+				base.Text = this.scoreValue.ToString("N0");
+				base.OriginalPosition = new PointF((float)(468 - this.Delta), base.OriginalPosition.Y);
+			}
 			base.Show();
 		}
 	}

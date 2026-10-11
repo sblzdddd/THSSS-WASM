@@ -462,6 +462,19 @@ namespace Shooting
 
 		public string FontType = "宋体";
 
+		public static float FontScale = 1f;
+
 		private bool SoundInitSuccess;
+
+#if !BROWSER
+		public void TestFontScale()
+		{
+			global::System.Drawing.Font font = new global::System.Drawing.Font(this.FontType, 15f, FontStyle.Bold);
+			Graphics graphics = Graphics.FromImage(new Bitmap(1, 1));
+			float num = 832.4413f / graphics.MeasureString("国国国国国国国国国国国国国国国国国国国国国国国国国国国国国国国国国国国国国国国国", font).Width;
+			font.Dispose();
+			GlobalDataPackage.FontScale = num;
+		}
+#endif
 	}
 }

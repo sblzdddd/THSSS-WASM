@@ -18,6 +18,8 @@ namespace System.Windows.Forms
 
 		public bool AutoSize { get; set; }
 
+		public bool DoubleBuffered { get; set; }
+
 		public int TabIndex { get; set; }
 
 		public Point Location { get; set; }
@@ -153,6 +155,8 @@ namespace System.Windows.Forms
 
 		public event EventHandler Click;
 
+		public event EventHandler SizeChanged;
+
 		public event KeyEventHandler KeyDown;
 
 		public event KeyEventHandler KeyUp;
@@ -163,6 +167,15 @@ namespace System.Windows.Forms
 			this.Enabled = true;
 			this.Controls = new ControlCollection(this.controls);
 			this.Size = new Size(640, 480);
+		}
+
+		public void Show()
+		{
+			this.Visible = true;
+		}
+
+		public void Refresh()
+		{
 		}
 
 		public void SuspendLayout()

@@ -144,6 +144,7 @@ _NCrunch*
 /Sound/
 /Story/
 Score.dat
+/1.1Patch/
 
 # Staged browser content (copied at build from the repo root)
 THSSS.Browser/wwwroot/assets/

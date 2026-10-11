@@ -30,7 +30,7 @@ namespace Shooting.Planes.Story
 			base.TransparentVelocity = 10f;
 			this.OffsetX = 20;
 			this.OffsetY = 20;
-			this.sysfont = new global::System.Drawing.Font(StageData.GlobalData.FontType, 16f, FontStyle.Bold);
+			this.sysfont = new global::System.Drawing.Font(StageData.GlobalData.FontType, 16f * GlobalDataPackage.FontScale, FontStyle.Bold);
 			this.DXfont = new SlimDX.Direct3D9.Font(StageData.DeviceMain, this.sysfont);
 			this.FontColor = Color.White;
 		}

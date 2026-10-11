@@ -12,7 +12,7 @@ namespace Shooting
 			: base(GlobalData)
 		{
 			this.InitializeComponent();
-			global::System.Drawing.Font font = new global::System.Drawing.Font("Arial", 12f, FontStyle.Bold | FontStyle.Italic);
+			global::System.Drawing.Font font = new global::System.Drawing.Font("Arial", 12f * GlobalDataPackage.FontScale, FontStyle.Bold | FontStyle.Italic);
 			base.DXFont = new SlimDX.Direct3D9.Font(base.DeviceMain, font);
 		}
 
@@ -105,7 +105,7 @@ namespace Shooting
 		{
 			base.SpriteMain.Begin(SpriteFlags.AlphaBlend);
 			base.SpriteMain.Draw2D(base.TextureObjectDictionary["MenuBackground"], 0.625f, 0f, new PointF(320f, 240f), 255);
-			base.DXFont.DrawString(base.SpriteMain.sprite, "ver 1.00", 560, 460, Color.Black);
+			base.DXFont.DrawString(base.SpriteMain.sprite, "ver 1.01", 560, 460, Color.Black);
 			base.SpriteMain.End();
 			base.Background3D.Show();
 			base.SpriteMain.Begin(SpriteFlags.AlphaBlend);

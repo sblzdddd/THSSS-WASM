@@ -10,7 +10,11 @@ namespace SlimDX.Direct3D9
 
 		public Format BackBufferFormat { get; set; }
 
+		public int BackBufferCount { get; set; }
+
 		public IntPtr DeviceWindowHandle { get; set; }
+
+		public MultisampleType Multisample { get; set; }
 
 		public bool Windowed { get; set; }
 

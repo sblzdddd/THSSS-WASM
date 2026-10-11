@@ -66,7 +66,7 @@ namespace Shooting
 			this.OffsetX = 20;
 			this.OffsetY = 21;
 			this.Shadowed = true;
-			this.sysfont = new global::System.Drawing.Font(StageData.GlobalData.FontType, 16f, FontStyle.Bold);
+			this.sysfont = new global::System.Drawing.Font(StageData.GlobalData.FontType, 16f * GlobalDataPackage.FontScale, FontStyle.Bold);
 			this.DXfont = new SlimDX.Direct3D9.Font(StageData.DeviceMain, this.sysfont);
 			this.FontColor = Color.White;
 		}
@@ -158,7 +158,7 @@ namespace Shooting
 		{
 			if (this.sysfont != null)
 			{
-				FontSize = FontSize * 96f / (float)Dpi.PixelsPerXLogicalInch;
+				FontSize *= GlobalDataPackage.FontScale;
 				if (this.sysfont.Size != FontSize)
 				{
 					this.sysfont = new global::System.Drawing.Font(base.StageData.GlobalData.FontType, FontSize, FontStyle.Bold);
