@@ -1,9 +1,7 @@
 ﻿namespace Config
 {
-	// Token: 0x02000003 RID: 3
 	public partial class Form_Config : global::System.Windows.Forms.Form
 	{
-		// Token: 0x06000005 RID: 5 RVA: 0x000020A6 File Offset: 0x000002A6
 		protected override void Dispose(bool disposing)
 		{
 			if (disposing && this.components != null)
@@ -13,7 +11,6 @@
 			base.Dispose(disposing);
 		}
 
-		// Token: 0x06000006 RID: 6 RVA: 0x000020C8 File Offset: 0x000002C8
 		private void InitializeComponent()
 		{
 			global::System.ComponentModel.ComponentResourceManager componentResourceManager = new global::System.ComponentModel.ComponentResourceManager(typeof(global::Config.Form_Config));
@@ -547,151 +544,102 @@
 			base.ResumeLayout(false);
 		}
 
-		// Token: 0x04000003 RID: 3
 		private global::System.ComponentModel.IContainer components;
 
-		// Token: 0x04000004 RID: 4
 		private global::System.Windows.Forms.Button button_应用;
 
-		// Token: 0x04000005 RID: 5
 		private global::System.Windows.Forms.CheckBox checkBox_useDirectInput;
 
-		// Token: 0x04000006 RID: 6
 		private global::System.Windows.Forms.CheckBox checkBox_VerticalSync;
 
-		// Token: 0x04000007 RID: 7
 		private global::System.Windows.Forms.GroupBox groupBox1;
 
-		// Token: 0x04000008 RID: 8
 		private global::System.Windows.Forms.GroupBox groupBox2;
 
-		// Token: 0x04000009 RID: 9
 		private global::System.Windows.Forms.GroupBox groupBox3;
 
-		// Token: 0x0400000A RID: 10
 		private global::System.Windows.Forms.Label label_right;
 
-		// Token: 0x0400000B RID: 11
 		private global::System.Windows.Forms.Label label_left;
 
-		// Token: 0x0400000C RID: 12
 		private global::System.Windows.Forms.Label label6;
 
-		// Token: 0x0400000D RID: 13
 		private global::System.Windows.Forms.Label label5;
 
-		// Token: 0x0400000E RID: 14
 		private global::System.Windows.Forms.Label label4;
 
-		// Token: 0x0400000F RID: 15
 		private global::System.Windows.Forms.Label label3;
 
-		// Token: 0x04000010 RID: 16
 		private global::System.Windows.Forms.Label label2;
 
-		// Token: 0x04000011 RID: 17
 		private global::System.Windows.Forms.Label label1;
 
-		// Token: 0x04000012 RID: 18
 		private global::System.Windows.Forms.Button button_应用并启动;
 
-		// Token: 0x04000013 RID: 19
 		private global::System.Windows.Forms.Label label_slow;
 
-		// Token: 0x04000014 RID: 20
 		private global::System.Windows.Forms.Label label_down;
 
-		// Token: 0x04000015 RID: 21
 		private global::System.Windows.Forms.Label label_up;
 
-		// Token: 0x04000016 RID: 22
 		private global::System.Windows.Forms.Label label_bomb;
 
-		// Token: 0x04000017 RID: 23
 		private global::System.Windows.Forms.Label label_shoot;
 
-		// Token: 0x04000018 RID: 24
 		private global::System.Windows.Forms.GroupBox groupBox4;
 
-		// Token: 0x04000019 RID: 25
 		private global::System.Windows.Forms.Label label7;
 
-		// Token: 0x0400001A RID: 26
 		private global::System.Windows.Forms.Label label8;
 
-		// Token: 0x0400001B RID: 27
 		private global::System.Windows.Forms.Label label9;
 
-		// Token: 0x0400001C RID: 28
 		private global::System.Windows.Forms.Label label10;
 
-		// Token: 0x0400001D RID: 29
 		private global::System.Windows.Forms.Label label11;
 
-		// Token: 0x0400001E RID: 30
 		private global::System.Windows.Forms.Label label12;
 
-		// Token: 0x0400001F RID: 31
 		private global::System.Windows.Forms.Label label13;
 
-		// Token: 0x04000020 RID: 32
 		private global::System.Windows.Forms.Label label14;
 
-		// Token: 0x04000021 RID: 33
 		private global::System.Windows.Forms.GroupBox groupBox5;
 
-		// Token: 0x04000022 RID: 34
 		private global::System.Windows.Forms.Label label15;
 
-		// Token: 0x04000023 RID: 35
 		private global::System.Windows.Forms.Label label16;
 
-		// Token: 0x04000024 RID: 36
 		private global::System.Windows.Forms.Label label17;
 
-		// Token: 0x04000025 RID: 37
 		private global::System.Windows.Forms.Label label18;
 
-		// Token: 0x04000026 RID: 38
 		private global::System.Windows.Forms.Label label19;
 
-		// Token: 0x04000027 RID: 39
 		private global::System.Windows.Forms.ComboBox comboBox_Skip;
 
-		// Token: 0x04000028 RID: 40
 		private global::System.Windows.Forms.GroupBox groupBox6;
 
-		// Token: 0x04000029 RID: 41
 		private global::System.Windows.Forms.RadioButton radioButton_Circle3;
 
-		// Token: 0x0400002A RID: 42
 		private global::System.Windows.Forms.RadioButton radioButton_Circle2;
 
-		// Token: 0x0400002B RID: 43
 		private global::System.Windows.Forms.RadioButton radioButton_Circle1;
 
-		// Token: 0x0400002C RID: 44
 		private global::System.Windows.Forms.ComboBox comboBox_Bomb;
 
-		// Token: 0x0400002D RID: 45
 		private global::System.Windows.Forms.ComboBox comboBox_Shoot;
 
-		// Token: 0x0400002E RID: 46
 		private global::System.Windows.Forms.ComboBox comboBox_Slow;
 
-		// Token: 0x0400002F RID: 47
 		private global::System.Windows.Forms.ComboBox comboBox_Pause;
 
-		// Token: 0x04000030 RID: 48
 		private global::System.Windows.Forms.GroupBox groupBox7;
 
-		// Token: 0x04000031 RID: 49
 		private global::System.Windows.Forms.ComboBox comboBox_Font;
 
-		// Token: 0x04000032 RID: 50
 		private global::System.Windows.Forms.Label label_Font;
 
-		// Token: 0x04000033 RID: 51
 		private global::System.Windows.Forms.CheckBox checkBox_fullWindow;
 	}
 }

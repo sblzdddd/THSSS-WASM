@@ -6,10 +6,8 @@ using System.Windows.Forms;
 
 namespace Config
 {
-	// Token: 0x02000003 RID: 3
 	public partial class Form_Config : Form
 	{
-		// Token: 0x06000007 RID: 7 RVA: 0x00004258 File Offset: 0x00002458
 		public Form_Config()
 		{
 			this.InitializeComponent();
@@ -50,7 +48,6 @@ namespace Config
 			}
 		}
 
-		// Token: 0x06000008 RID: 8 RVA: 0x00004564 File Offset: 0x00002764
 		private void LoadingTimer_Tick(object sender, EventArgs e)
 		{
 			if (this.Loading == 0)
@@ -69,7 +66,6 @@ namespace Config
 			this.LoadingTimer.Enabled = false;
 		}
 
-		// Token: 0x06000009 RID: 9 RVA: 0x00004616 File Offset: 0x00002816
 		private void Form_Config_KeyUp(object sender, KeyEventArgs e)
 		{
 			if (this.tmpLabel != null)
@@ -80,7 +76,6 @@ namespace Config
 			}
 		}
 
-		// Token: 0x0600000A RID: 10 RVA: 0x00004653 File Offset: 0x00002853
 		private void label_Click(object sender, EventArgs e)
 		{
 			if (this.tmpLabel != null)
@@ -92,7 +87,6 @@ namespace Config
 			this.tmpLabel.BackColor = Color.White;
 		}
 
-		// Token: 0x0600000B RID: 11 RVA: 0x0000468C File Offset: 0x0000288C
 		private void button_应用_Click(object sender, EventArgs e)
 		{
 			try
@@ -136,7 +130,6 @@ namespace Config
 			}
 		}
 
-		// Token: 0x0600000C RID: 12 RVA: 0x00004948 File Offset: 0x00002B48
 		private void button_应用并启动_Click(object sender, EventArgs e)
 		{
 			this.button_应用_Click(this, e);
@@ -144,7 +137,6 @@ namespace Config
 			Application.Exit();
 		}
 
-		// Token: 0x0600000D RID: 13 RVA: 0x00004964 File Offset: 0x00002B64
 		private void checkBox_useDirectInput_CheckedChanged(object sender, EventArgs e)
 		{
 			if (this.checkBox_useDirectInput.Checked)
@@ -183,22 +175,17 @@ namespace Config
 			this.label_bomb.Enabled = true;
 		}
 
-		// Token: 0x0600000E RID: 14 RVA: 0x00004AEA File Offset: 0x00002CEA
 		private void comboBox_Font_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			this.label_Font.Font = new Font(this.comboBox_Font.SelectedItem.ToString(), 12f);
 		}
 
-		// Token: 0x04000034 RID: 52
 		private Label tmpLabel;
 
-		// Token: 0x04000035 RID: 53
 		private Color tmpColor;
 
-		// Token: 0x04000036 RID: 54
 		private Timer LoadingTimer = new Timer();
 
-		// Token: 0x04000037 RID: 55
 		private int Loading;
 	}
 }
