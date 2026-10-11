@@ -60,6 +60,21 @@ export function createAudio() {
     return 0;
   }
 
+  function oggSampleRate(data) {
+    if (!data || data.byteLength < 64) return 0;
+    const view = new DataView(data);
+    if (view.getUint32(0, false) !== 0x4f676753) return 0;
+    const bytes = new Uint8Array(data);
+    const limit = Math.min(bytes.length - 16, 65536);
+    for (let i = 0; i < limit; i++) {
+      if (bytes[i] === 1 && bytes[i + 1] === 0x76 && bytes[i + 2] === 0x6f && bytes[i + 3] === 0x72 && bytes[i + 4] === 0x62 && bytes[i + 5] === 0x69 && bytes[i + 6] === 0x73) {
+        const rate = view.getUint32(i + 12, true);
+        return rate >= 8000 && rate <= 192000 ? rate : 0;
+      }
+    }
+    return 0;
+  }
+
   function prepare(path) {
     const url = assetUrl(path);
     if (!url) return 0;
@@ -74,7 +89,7 @@ export function createAudio() {
         return response.arrayBuffer();
       })
       .then((data) => {
-        rec.fileRate = wavSampleRate(data) || 44100;
+        rec.fileRate = wavSampleRate(data) || oggSampleRate(data) || 44100;
         return audio.decodeAudioData(data);
       })
       .then((decoded) => {

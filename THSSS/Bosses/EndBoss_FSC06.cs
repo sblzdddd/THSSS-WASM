@@ -25,7 +25,7 @@ namespace Shooting
 			}
 			if (base.Time == base.LifeTime)
 			{
-				base.StageData.ChangeBGM(".\\BGM\\Boss06FSC.wav", 0, 0, 255, 0, 0);
+				base.StageData.ChangeBGM(".\\BGM\\Boss06FSC.ogg", 0, 0, 255, 0, 0);
 				new Boss_Tensei02(base.StageData);
 				base.Background3D.WarpEnabled = true;
 			}

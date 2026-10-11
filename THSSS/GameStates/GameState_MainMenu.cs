@@ -152,7 +152,7 @@ namespace Shooting
 
 		public override void BGM_ON()
 		{
-			base.StageData.ChangeBGM(".\\BGM\\OP.wav", 0, 0, 255, 604611, 6047874);
+			base.StageData.ChangeBGM(".\\BGM\\OP.ogg", 0, 0, 255, 604611, 6047874);
 		}
 
 		public override void BGM_Resume()

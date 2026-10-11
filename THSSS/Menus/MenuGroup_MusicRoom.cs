@@ -114,7 +114,7 @@ namespace Shooting
 					descriptionBox2.Text = descriptionBox2.Text + '\n' + "不过这样一来旋律似乎就不明显了。";
 					DescriptionBox descriptionBox3 = this.DescriptionBox;
 					descriptionBox3.Text = descriptionBox3.Text + '\n' + "整体风格略为阴暗，似乎和积极向上（？）的主题不符？";
-					base.StageData.ChangeBGM(".\\BGM\\OP.wav", 0, 0, 255, 604611, 6047874);
+					base.StageData.ChangeBGM(".\\BGM\\OP.ogg", 0, 0, 255, 604611, 6047874);
 					goto IL_0E6D;
 				}
 				case "宁静夏夜的微风":
@@ -128,7 +128,7 @@ namespace Shooting
 					descriptionBox6.Text = descriptionBox6.Text + '\n' + "旋律是怎么写出来的，其实我也不知道。仅仅是在脑中";
 					DescriptionBox descriptionBox7 = this.DescriptionBox;
 					descriptionBox7.Text = descriptionBox7.Text + '\n' + "突然出现了这段后赶紧记录下来罢了，效果却意外的好呢。";
-					base.StageData.ChangeBGM(".\\BGM\\Stage01.wav", 88200, 0, 255, 0, 0);
+					base.StageData.ChangeBGM(".\\BGM\\Stage01.ogg", 88200, 0, 255, 0, 0);
 					goto IL_0E6D;
 				}
 				case "喧闹吧！在这不眠之夜":
@@ -140,7 +140,7 @@ namespace Shooting
 					descriptionBox9.Text = descriptionBox9.Text + '\n' + "虽然连贯性不错，但是听起来并不像1面Boss？";
 					DescriptionBox descriptionBox10 = this.DescriptionBox;
 					descriptionBox10.Text = descriptionBox10.Text + '\n' + "妖精好萌。";
-					base.StageData.ChangeBGM(".\\BGM\\Boss01.wav", 44100, 0, 255, 754110, 3294270);
+					base.StageData.ChangeBGM(".\\BGM\\Boss01.ogg", 44100, 0, 255, 754110, 3294270);
 					goto IL_0E6D;
 				}
 				case "灯火竹林":
@@ -154,7 +154,7 @@ namespace Shooting
 					descriptionBox13.Text = descriptionBox13.Text + '\n' + "整首曲子莫名其妙的就做成了钢琴曲。";
 					DescriptionBox descriptionBox14 = this.DescriptionBox;
 					descriptionBox14.Text = descriptionBox14.Text + '\n' + "不过好像怎么样都不会让人联想到竹林啊。";
-					base.StageData.ChangeBGM(".\\BGM\\Stage02.wav", 88200, 0, 255, 1194228, 6866370);
+					base.StageData.ChangeBGM(".\\BGM\\Stage02.ogg", 88200, 0, 255, 1194228, 6866370);
 					goto IL_0E6D;
 				}
 				case "疾风闪电":
@@ -166,7 +166,7 @@ namespace Shooting
 					descriptionBox16.Text = descriptionBox16.Text + '\n' + "虽然的确有Boss的风范，但是听起来并不像2面Boss？";
 					DescriptionBox descriptionBox17 = this.DescriptionBox;
 					descriptionBox17.Text = descriptionBox17.Text + '\n' + "不过弹幕倒是和曲子一样紧迫。";
-					base.StageData.ChangeBGM(".\\BGM\\Boss02.wav", 44100, 0, 255, 327663, 3504627);
+					base.StageData.ChangeBGM(".\\BGM\\Boss02.ogg", 44100, 0, 255, 327663, 3504627);
 					goto IL_0E6D;
 				}
 				case "木灵们的夏夜祭":
@@ -180,7 +180,7 @@ namespace Shooting
 					descriptionBox20.Text = descriptionBox20.Text + '\n' + "在后面的风琴上，也尽量往旋律优美的方向去走。";
 					DescriptionBox descriptionBox21 = this.DescriptionBox;
 					descriptionBox21.Text = descriptionBox21.Text + '\n' + "才刚刚到三面而已啊，所以压制了一下过于激烈的感觉。";
-					base.StageData.ChangeBGM(".\\BGM\\Stage03.wav", 88200, 0, 255, 88200, 5606874);
+					base.StageData.ChangeBGM(".\\BGM\\Stage03.ogg", 88200, 0, 255, 88200, 5606874);
 					goto IL_0E6D;
 				}
 				case "青柳传说":
@@ -194,12 +194,12 @@ namespace Shooting
 					descriptionBox24.Text = descriptionBox24.Text + '\n' + "面对这样一个设定，怎么能不倾注进感情来作曲呢？";
 					DescriptionBox descriptionBox25 = this.DescriptionBox;
 					descriptionBox25.Text = descriptionBox25.Text + '\n' + "于是，努力把这首曲子编成了更加有故事、有情感的曲子。";
-					base.StageData.ChangeBGM(".\\BGM\\Boss03.wav", 44100, 0, 255, 1585395, 6571341);
+					base.StageData.ChangeBGM(".\\BGM\\Boss03.ogg", 44100, 0, 255, 1585395, 6571341);
 					goto IL_0E6D;
 				}
 				case "万花世界的光与影":
 				{
-					base.StageData.ChangeBGM(".\\BGM\\Stage04.wav", 88200, 0, 255, 575990, 7775976);
+					base.StageData.ChangeBGM(".\\BGM\\Stage04.ogg", 88200, 0, 255, 575990, 7775976);
 					this.DescriptionBox.Text = "４面的主题曲。      ※作曲：文件";
 					DescriptionBox descriptionBox26 = this.DescriptionBox;
 					descriptionBox26.Text = descriptionBox26.Text + '\n' + "按照地灵殿的风格做的曲子（并没有说像地灵殿）。";
@@ -211,7 +211,7 @@ namespace Shooting
 				}
 				case "镜中的幻象":
 				{
-					base.StageData.ChangeBGM(".\\BGM\\Boss04.wav", 44100, 0, 255, 463491, 7541982);
+					base.StageData.ChangeBGM(".\\BGM\\Boss04.ogg", 44100, 0, 255, 463491, 7541982);
 					this.DescriptionBox.Text = "魅明魔 影的主题曲。 ※作曲：11";
 					DescriptionBox descriptionBox29 = this.DescriptionBox;
 					descriptionBox29.Text = descriptionBox29.Text + '\n' + "要做这首曲子的时候，首先在我脑中出现的是阴沉和激昂的";
@@ -225,7 +225,7 @@ namespace Shooting
 				}
 				case "记忆中遥远的星星":
 				{
-					base.StageData.ChangeBGM(".\\BGM\\Stage05.wav", 44100, 0, 255, 66150, 0);
+					base.StageData.ChangeBGM(".\\BGM\\Stage05.ogg", 44100, 0, 255, 66150, 0);
 					this.DescriptionBox.Text = "５面的主题曲。      ※作曲：文件";
 					DescriptionBox descriptionBox33 = this.DescriptionBox;
 					descriptionBox33.Text = descriptionBox33.Text + '\n' + "有好音源却用辣鸡音源是一种什么样的心态？";
@@ -235,7 +235,7 @@ namespace Shooting
 				}
 				case "引燃夜空的星火":
 				{
-					base.StageData.ChangeBGM(".\\BGM\\Boss05.wav", 44100, 0, 255, 1000056, 6599345);
+					base.StageData.ChangeBGM(".\\BGM\\Boss05.ogg", 44100, 0, 255, 1000056, 6599345);
 					this.DescriptionBox.Text = "桃雨 落薰的主题曲。 ※作曲：文件";
 					DescriptionBox descriptionBox35 = this.DescriptionBox;
 					descriptionBox35.Text = descriptionBox35.Text + '\n' + "历经三个版本若干小时才弄出来的曲子。";
@@ -247,7 +247,7 @@ namespace Shooting
 				}
 				case "银河的彼方":
 				{
-					base.StageData.ChangeBGM(".\\BGM\\Stage06.wav", 88200, 0, 255, 0, 6220746);
+					base.StageData.ChangeBGM(".\\BGM\\Stage06.ogg", 88200, 0, 255, 0, 6220746);
 					this.DescriptionBox.Text = "６面的主题曲。      ※作曲：11";
 					DescriptionBox descriptionBox38 = this.DescriptionBox;
 					descriptionBox38.Text = descriptionBox38.Text + '\n' + "渲染星空的宁静的气氛的一首曲子。";
@@ -261,7 +261,7 @@ namespace Shooting
 				}
 				case "？？？？？":
 				{
-					base.StageData.ChangeBGM(".\\BGM\\Boss06.wav", 44100, 0, 255, 1697409, 10789065);
+					base.StageData.ChangeBGM(".\\BGM\\Boss06.ogg", 44100, 0, 255, 1697409, 10789065);
 					this.DescriptionBox.Text = "梦璃夜 天星的主题曲 ※作曲：11";
 					DescriptionBox descriptionBox42 = this.DescriptionBox;
 					descriptionBox42.Text = descriptionBox42.Text + '\n' + "想要做成有在梦中游荡的感觉的曲子，";
@@ -275,7 +275,7 @@ namespace Shooting
 				}
 				case "闪耀在世界尽头":
 				{
-					base.StageData.ChangeBGM(".\\BGM\\Boss06FSC.wav", 88200, 0, 255, 0, 0);
+					base.StageData.ChangeBGM(".\\BGM\\Boss06FSC.ogg", 88200, 0, 255, 0, 0);
 					this.DescriptionBox.Text = "梦璃夜 天星的FSC曲  ※作曲：11";
 					DescriptionBox descriptionBox46 = this.DescriptionBox;
 					descriptionBox46.Text = descriptionBox46.Text + '\n' + "Final SpellCard的激烈的曲子。";
@@ -287,7 +287,7 @@ namespace Shooting
 				}
 				case "来自仙界的新风":
 				{
-					base.StageData.ChangeBGM(".\\BGM\\StageEx.wav", 44100, 0, 255, 1341963, 7621362);
+					base.StageData.ChangeBGM(".\\BGM\\StageEx.ogg", 44100, 0, 255, 1341963, 7621362);
 					this.DescriptionBox.Text = "Extra关卡的主题曲。 ※作曲：11";
 					DescriptionBox descriptionBox49 = this.DescriptionBox;
 					descriptionBox49.Text = descriptionBox49.Text + '\n' + "与东方传统的Ex曲子相比，是更为轻松的一首曲子，少了一";
@@ -301,7 +301,7 @@ namespace Shooting
 				}
 				case "风中花，雪中月":
 				{
-					base.StageData.ChangeBGM(".\\BGM\\BossEx.wav", 44100, 0, 255, 1125873, 10783332);
+					base.StageData.ChangeBGM(".\\BGM\\BossEx.ogg", 44100, 0, 255, 1125873, 10783332);
 					this.DescriptionBox.Text = "雾隐 梨花的主题曲。 ※作曲：11";
 					DescriptionBox descriptionBox53 = this.DescriptionBox;
 					descriptionBox53.Text = descriptionBox53.Text + '\n' + "试着做成一首充满着“东之国”的风格的曲子。";
@@ -315,7 +315,7 @@ namespace Shooting
 				}
 				case "晚星之梦":
 				{
-					base.StageData.ChangeBGM(".\\BGM\\ED.wav", 44100, 0, 0, 0, 0);
+					base.StageData.ChangeBGM(".\\BGM\\ED.ogg", 44100, 0, 0, 0, 0);
 					this.DescriptionBox.Text = "Ending画面的主题曲  ※作曲：11";
 					DescriptionBox descriptionBox57 = this.DescriptionBox;
 					descriptionBox57.Text = descriptionBox57.Text + '\n' + "东方惯例的ED曲，东方惯例的音色。";
@@ -327,7 +327,7 @@ namespace Shooting
 				}
 				case "璀璨无比的星空":
 				{
-					base.StageData.ChangeBGM(".\\BGM\\Staff.wav", 44100, 0, 0, 0, 0);
+					base.StageData.ChangeBGM(".\\BGM\\Staff.ogg", 44100, 0, 0, 0, 0);
 					this.DescriptionBox.Text = "Staff画面的主题曲。 ※作曲：文件";
 					DescriptionBox descriptionBox60 = this.DescriptionBox;
 					descriptionBox60.Text = descriptionBox60.Text + '\n' + "本来是想加上1~6boss全部旋律的solo部分，然而并不能做";

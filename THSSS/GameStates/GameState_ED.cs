@@ -104,7 +104,7 @@ namespace Shooting
 				base.BoundRect = new Rectangle(128, 0, 384, 480);
 				if (base.StageData.ContinueTimes == 0)
 				{
-					base.StageData.ChangeBGM(".\\BGM\\ED.wav", 0, 0, 0, 0, 0);
+					base.StageData.ChangeBGM(".\\BGM\\ED.ogg", 0, 0, 0, 0, 0);
 					new Story_SSStaff(base.StageData);
 				}
 				base.StageData.CurrentStageName = "All";
@@ -129,7 +129,7 @@ namespace Shooting
 			{
 				if (base.TimeMain == 5)
 				{
-					base.StageData.ChangeBGM(".\\BGM\\Staff.wav", 0, 0, 0, 0, 0);
+					base.StageData.ChangeBGM(".\\BGM\\Staff.ogg", 0, 0, 0, 0, 0);
 					string[] files = Directory.GetFiles(".\\CS\\Staff\\", "*.mbg");
 					foreach (string text in files)
 					{

@@ -41,7 +41,7 @@ namespace Shooting.Planes.Story
 			if (base.Time == this.Conv.Count)
 			{
 				base.Boss.Enabled = true;
-				base.StageData.ChangeBGM(".\\BGM\\Boss01.wav", 0, 0, 255, 754110, 3294270);
+				base.StageData.ChangeBGM(".\\BGM\\Boss01.ogg", 0, 0, 255, 754110, 3294270);
 				MusicTitle musicTitle = new MusicTitle(base.StageData, "喧闹吧！在这不眠之夜", new Point(base.BoundRect.Width, base.BoundRect.Height - 16));
 				musicTitle.OriginalPosition = new PointF((float)base.BoundRect.Width, (float)(base.BoundRect.Height + 100));
 				musicTitle.Scale = 0.5f;

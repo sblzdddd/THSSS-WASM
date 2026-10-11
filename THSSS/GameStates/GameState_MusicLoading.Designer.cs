@@ -75,44 +75,44 @@ namespace Shooting
 				switch (stageName)
 				{
 				case "St1":
-					base.BGM_Player.PreLoad(".\\BGM\\Stage01.wav");
-					base.BGM_Player.PreLoad(".\\BGM\\Boss01.wav");
+					base.BGM_Player.PreLoad(".\\BGM\\Stage01.ogg");
+					base.BGM_Player.PreLoad(".\\BGM\\Boss01.ogg");
 					base.GlobalData.LastState.StageData.ClearCSCathe();
 					base.GlobalData.LastState.StageData.PreLoadCS(".\\CS\\St01");
 					break;
 				case "St2":
-					base.BGM_Player.PreLoad(".\\BGM\\Stage02.wav");
-					base.BGM_Player.PreLoad(".\\BGM\\Boss02.wav");
+					base.BGM_Player.PreLoad(".\\BGM\\Stage02.ogg");
+					base.BGM_Player.PreLoad(".\\BGM\\Boss02.ogg");
 					base.GlobalData.LastState.StageData.ClearCSCathe();
 					base.GlobalData.LastState.StageData.PreLoadCS(".\\CS\\St02");
 					break;
 				case "St3":
-					base.BGM_Player.PreLoad(".\\BGM\\Stage03.wav");
-					base.BGM_Player.PreLoad(".\\BGM\\Boss03.wav");
+					base.BGM_Player.PreLoad(".\\BGM\\Stage03.ogg");
+					base.BGM_Player.PreLoad(".\\BGM\\Boss03.ogg");
 					base.GlobalData.LastState.StageData.ClearCSCathe();
 					base.GlobalData.LastState.StageData.PreLoadCS(".\\CS\\St03");
 					break;
 				case "St4":
-					base.BGM_Player.PreLoad(".\\BGM\\Stage04.wav");
-					base.BGM_Player.PreLoad(".\\BGM\\Boss04.wav");
+					base.BGM_Player.PreLoad(".\\BGM\\Stage04.ogg");
+					base.BGM_Player.PreLoad(".\\BGM\\Boss04.ogg");
 					base.GlobalData.LastState.StageData.ClearCSCathe();
 					base.GlobalData.LastState.StageData.PreLoadCS(".\\CS\\St04");
 					break;
 				case "St5":
-					base.BGM_Player.PreLoad(".\\BGM\\Stage05.wav");
-					base.BGM_Player.PreLoad(".\\BGM\\Boss05.wav");
+					base.BGM_Player.PreLoad(".\\BGM\\Stage05.ogg");
+					base.BGM_Player.PreLoad(".\\BGM\\Boss05.ogg");
 					base.GlobalData.LastState.StageData.ClearCSCathe();
 					base.GlobalData.LastState.StageData.PreLoadCS(".\\CS\\St05");
 					break;
 				case "St6":
-					base.BGM_Player.PreLoad(".\\BGM\\Stage06.wav");
-					base.BGM_Player.PreLoad(".\\BGM\\Boss06.wav");
+					base.BGM_Player.PreLoad(".\\BGM\\Stage06.ogg");
+					base.BGM_Player.PreLoad(".\\BGM\\Boss06.ogg");
 					base.GlobalData.LastState.StageData.ClearCSCathe();
 					base.GlobalData.LastState.StageData.PreLoadCS(".\\CS\\St06");
 					break;
 				case "StEx":
-					base.BGM_Player.PreLoad(".\\BGM\\StageEx.wav");
-					base.BGM_Player.PreLoad(".\\BGM\\BossEx.wav");
+					base.BGM_Player.PreLoad(".\\BGM\\StageEx.ogg");
+					base.BGM_Player.PreLoad(".\\BGM\\BossEx.ogg");
 					base.GlobalData.LastState.StageData.ClearCSCathe();
 					base.GlobalData.LastState.StageData.PreLoadCS(".\\CS\\StEx");
 					break;

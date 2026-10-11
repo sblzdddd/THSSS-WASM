@@ -35,7 +35,7 @@ namespace Shooting
 				{
 					base.StageData.C_History.PracticeLevel = 3;
 				}
-				base.StageData.ChangeBGM(".\\BGM\\Stage03.wav", (this.testStartTime + 60) * 44100 / 60, 0, 255, 88200, 5606874);
+				base.StageData.ChangeBGM(".\\BGM\\Stage03.ogg", (this.testStartTime + 60) * 44100 / 60, 0, 255, 88200, 5606874);
 				MusicTitle musicTitle = new MusicTitle(base.StageData, "木灵们的夏夜祭", new Point(base.BoundRect.Width, base.BoundRect.Height - 16));
 				musicTitle.OriginalPosition = new PointF((float)base.BoundRect.Width, (float)(base.BoundRect.Height + 100));
 				musicTitle.Scale = 0.5f;
