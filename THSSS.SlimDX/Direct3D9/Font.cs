@@ -48,18 +48,28 @@ namespace SlimDX.Direct3D9
 			{
 				return new System.Drawing.Rectangle(0, 0, 0, 0);
 			}
-			float num = this.font.Size > 0f ? this.font.Size : 12f;
+			float num = this.font.Size > 0f ? this.font.Size * 96f / 72f : 16f;
 			string[] array = text.Replace("\r\n", "\n").Split('\n');
 			int num2 = 0;
 			for (int i = 0; i < array.Length; i++)
 			{
-				int num3 = (int)(array[i].Length * num * 0.6f);
-				if (num3 > num2)
+				float num3 = 0f;
+				string text2 = array[i];
+				for (int j = 0; j < text2.Length; j++)
 				{
-					num2 = num3;
+					char c = text2[j];
+					if (c == '\r')
+					{
+						continue;
+					}
+					num3 += c > '\u007f' ? num : num * 0.55f;
+				}
+				if ((int)num3 > num2)
+				{
+					num2 = (int)num3;
 				}
 			}
-			return new System.Drawing.Rectangle(0, 0, num2, (int)(array.Length * num));
+			return new System.Drawing.Rectangle(0, 0, num2, (int)(array.Length * num * 1.35f));
 		}
 	}
 }

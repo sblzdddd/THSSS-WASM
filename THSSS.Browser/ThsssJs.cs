@@ -54,5 +54,8 @@ namespace Thsss.Browser
 
 		[JSImport("rasterText", "thsss.js")]
 		public static partial byte[] RasterText(string text, int width, int height, float sizePx, bool bold, bool italic);
+
+		[JSImport("rasterTextBox", "thsss.js")]
+		public static partial byte[] RasterTextBox(string text, int width, int height, float sizePx, bool bold, bool italic, int argb, string family);
 	}
 }

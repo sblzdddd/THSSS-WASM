@@ -20,6 +20,10 @@ namespace Thsss.Browser
 		public static async System.Threading.Tasks.Task Start()
 		{
 			GlHost.Api = new JsGlApi();
+			System.Drawing.GlyphRaster.Draw = delegate(string text, int width, int height, float sizePx, bool bold, bool italic, int argb, string family)
+			{
+				return ThsssJs.RasterTextBox(text, width, height, sizePx, bold, italic, argb, family ?? "sans-serif");
+			};
 			await ContentLoader.LoadAsync();
 			ThsssJs.SetStatus("Creating the Direct3D device…");
 			game = new Game_Main();

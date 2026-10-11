@@ -124,7 +124,8 @@ try {
     setCull: glApi.setCull,
     drawSprites: glApi.drawSprites,
     drawFixed: glApi.drawFixed,
-    rasterText: glApi.rasterText
+    rasterText: glApi.rasterText,
+    rasterTextBox: glApi.rasterTextBox
   });
   setStatus("Starting the game…");
   await runMain();

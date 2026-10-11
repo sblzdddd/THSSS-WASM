@@ -49,6 +49,16 @@ namespace System.Drawing
 			this.rgba = array;
 		}
 
+		internal void ReplaceRgba(byte[] pixels)
+		{
+			if (pixels == null || this.rgba == null)
+			{
+				return;
+			}
+			int num = Math.Min(this.rgba.Length, pixels.Length);
+			Buffer.BlockCopy(pixels, 0, this.rgba, 0, num);
+		}
+
 		public Color GetPixel(int x, int y)
 		{
 			if (this.rgba == null || x < 0 || y < 0 || x >= this.Width || y >= this.Height)

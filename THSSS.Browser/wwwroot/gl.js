@@ -167,7 +167,8 @@ void main() {
     setCull: glSetCull,
     drawSprites: glDrawSprites,
     drawFixed: glDrawFixed,
-    rasterText: glRasterText
+    rasterText: glRasterText,
+    rasterTextBox: glRasterTextBox
   };
 }
 
@@ -319,15 +320,37 @@ export function glDrawFixed(textureId, raw, worldRaw, viewRaw, projRaw, mr, mg, 
   gl.drawArrays(gl.TRIANGLES, 0, (data.length / 9) | 0);
 }
 
-export function glRasterText(text, width, height, sizePx, bold, italic) {
+function paintText(text, width, height, sizePx, bold, italic, argb, family) {
   const canvas = document.createElement("canvas");
   canvas.width = Math.max(1, width | 0);
   canvas.height = Math.max(1, height | 0);
   const ctx = canvas.getContext("2d");
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.font = `${italic ? "italic " : ""}${bold ? "bold " : ""}${sizePx || 12}px sans-serif`;
-  ctx.fillStyle = "#fff";
+  const px = sizePx || 16;
+  const face = family && family !== "GenericSansSerif" ? family : "sans-serif";
+  ctx.font = `${italic ? "italic " : ""}${bold ? "bold " : ""}${px}px "${face}", "Microsoft YaHei", "SimSun", "Noto Sans SC", sans-serif`;
+  let r = 255, g = 255, b = 255, a = 255;
+  if (argb !== undefined && argb !== null) {
+    const n = argb | 0;
+    a = (n >>> 24) & 255;
+    r = (n >>> 16) & 255;
+    g = (n >>> 8) & 255;
+    b = n & 255;
+  }
+  ctx.fillStyle = `rgba(${r},${g},${b},${(a / 255).toFixed(3)})`;
   ctx.textBaseline = "top";
-  ctx.fillText(text || "", 0, 0);
+  const lines = String(text || "").replace(/\r\n/g, "\n").replace(/\r/g, "\n").split("\n");
+  const step = px * 1.35;
+  for (let i = 0; i < lines.length; i++) {
+    ctx.fillText(lines[i], 0, i * step);
+  }
   return new Uint8Array(ctx.getImageData(0, 0, canvas.width, canvas.height).data);
+}
+
+export function glRasterText(text, width, height, sizePx, bold, italic) {
+  return paintText(text, width, height, sizePx, bold, italic);
+}
+
+export function glRasterTextBox(text, width, height, sizePx, bold, italic, argb, family) {
+  return paintText(text, width, height, sizePx, bold, italic, argb, family);
 }
