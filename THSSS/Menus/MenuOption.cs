@@ -4,10 +4,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x02000150 RID: 336
 	internal class MenuOption : BaseMenuGroup
 	{
-		// Token: 0x060008A8 RID: 2216 RVA: 0x00050478 File Offset: 0x0004E678
 		public MenuOption(StageDataPackage StageData)
 			: base(StageData)
 		{
@@ -41,7 +39,6 @@ namespace Shooting
 			base.MenuItemList[base.MenuSelectIndex].Selected = true;
 		}
 
-		// Token: 0x060008A9 RID: 2217 RVA: 0x00050664 File Offset: 0x0004E864
 		public override void ProcessKeys()
 		{
 			base.ProcessKeys();
@@ -141,7 +138,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x060008AA RID: 2218 RVA: 0x00050AD8 File Offset: 0x0004ECD8
 		public override void Show()
 		{
 			base.Show();
@@ -149,10 +145,8 @@ namespace Shooting
 			this.SEvolumn.Show();
 		}
 
-		// Token: 0x0400031D RID: 797
 		private BaseNum BGMvolumn;
 
-		// Token: 0x0400031E RID: 798
 		private BaseNum SEvolumn;
 	}
 }

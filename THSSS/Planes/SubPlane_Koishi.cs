@@ -3,17 +3,14 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x02000110 RID: 272
 	public class SubPlane_Koishi : BaseSubPlane
 	{
-		// Token: 0x0600076A RID: 1898 RVA: 0x000437EB File Offset: 0x000419EB
 		public SubPlane_Koishi(StageDataPackage StageData, PointF Position)
 			: base(StageData, "KoishiSubPlane01", Position)
 		{
 			base.AngleDegree = 90.0;
 		}
 
-		// Token: 0x0600076B RID: 1899 RVA: 0x00043810 File Offset: 0x00041A10
 		public override void Ctrl()
 		{
 			base.Ctrl();
@@ -28,7 +25,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x0600076C RID: 1900 RVA: 0x000438A4 File Offset: 0x00041AA4
 		public override void Shoot()
 		{
 			if (base.KClass.Key_Shift)
@@ -63,7 +59,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x0600076D RID: 1901 RVA: 0x00043A0C File Offset: 0x00041C0C
 		public override void Show()
 		{
 			if (base.Enabled)

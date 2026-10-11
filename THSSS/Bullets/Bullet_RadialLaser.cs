@@ -3,27 +3,20 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x0200004E RID: 78
 	public class Bullet_RadialLaser : BaseBullet_Touhou
 	{
-		// Token: 0x170000B1 RID: 177
-		// (get) Token: 0x06000284 RID: 644 RVA: 0x000108C0 File Offset: 0x0000EAC0
-		// (set) Token: 0x06000285 RID: 645 RVA: 0x000108D7 File Offset: 0x0000EAD7
 		public int UnmatchedTime { get; set; }
 
-		// Token: 0x06000286 RID: 646 RVA: 0x000108E0 File Offset: 0x0000EAE0
 		public Bullet_RadialLaser(StageDataPackage StageData)
 			: base(StageData)
 		{
 		}
 
-		// Token: 0x06000287 RID: 647 RVA: 0x000108EC File Offset: 0x0000EAEC
 		public Bullet_RadialLaser(StageDataPackage StageData, PointF OriginalPosition, float Velocity, double Direction, byte ColorType, int Length)
 			: this(StageData, OriginalPosition, Velocity, Direction, ColorType, Length, 16)
 		{
 		}
 
-		// Token: 0x06000288 RID: 648 RVA: 0x00010904 File Offset: 0x0000EB04
 		public Bullet_RadialLaser(StageDataPackage StageData, PointF OriginalPosition, float Velocity, double Direction, byte ColorType, int Length, int Width)
 			: this(StageData, "Laser0_" + ColorType, OriginalPosition, Velocity, Direction, Length)
 		{
@@ -33,7 +26,6 @@ namespace Shooting
 			base.MaxScaleL = (float)Width / (float)base.TxtureObject.Height;
 		}
 
-		// Token: 0x06000289 RID: 649 RVA: 0x0001096C File Offset: 0x0000EB6C
 		public Bullet_RadialLaser(StageDataPackage StageData, string textureName, PointF OriginalPosition, float Velocity, double Direction, int Length)
 			: base(StageData, textureName, OriginalPosition, Velocity, Direction)
 		{
@@ -47,7 +39,6 @@ namespace Shooting
 			this.UnmatchedTime = 60;
 		}
 
-		// Token: 0x0600028A RID: 650 RVA: 0x000109EC File Offset: 0x0000EBEC
 		public override void Ctrl()
 		{
 			base.Ctrl();
@@ -76,13 +67,11 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x0600028B RID: 651 RVA: 0x00010AE4 File Offset: 0x0000ECE4
 		public override bool OutBoundary()
 		{
 			return base.LifeTime != 0 && base.Time > base.LifeTime;
 		}
 
-		// Token: 0x0600028C RID: 652 RVA: 0x00010B1C File Offset: 0x0000ED1C
 		public override bool HitCheck(BaseObject Target, float Radius)
 		{
 			bool flag;
@@ -103,13 +92,11 @@ namespace Shooting
 			return flag;
 		}
 
-		// Token: 0x0600028D RID: 653 RVA: 0x00010C30 File Offset: 0x0000EE30
 		public override void GiveEndEffect()
 		{
 			this.beginEffect.LifeTime = this.beginEffect.Time + 1;
 		}
 
-		// Token: 0x0600028E RID: 654 RVA: 0x00010C4C File Offset: 0x0000EE4C
 		public override void Show()
 		{
 			if (base.TxtureObject != null)
@@ -119,7 +106,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x0600028F RID: 655 RVA: 0x00010D08 File Offset: 0x0000EF08
 		public override void ShowRegion()
 		{
 			PointF originalPosition = base.OriginalPosition;
@@ -128,7 +114,6 @@ namespace Shooting
 			base.OriginalPosition = originalPosition;
 		}
 
-		// Token: 0x040000C1 RID: 193
 		private BaseEffect beginEffect;
 	}
 }

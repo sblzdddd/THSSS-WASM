@@ -4,10 +4,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x020001A6 RID: 422
 	internal class MenuGroup_PlayerSelect : BaseMenuGroup
 	{
-		// Token: 0x06000A08 RID: 2568 RVA: 0x0005F1A8 File Offset: 0x0005D3A8
 		public MenuGroup_PlayerSelect(StageDataPackage StageData, bool StageSelect)
 			: base(StageData)
 		{
@@ -78,7 +76,6 @@ namespace Shooting
 			base.OriginalPosition = new PointF((float)(base.BoundRect.Width / 2 + 30 * (StageData.StateSwitchData.SDPswitch.Difficulty - DifficultLevel.Normal)), (float)(base.BoundRect.Height / 2 - 20 * (StageData.StateSwitchData.SDPswitch.Difficulty - DifficultLevel.Normal)));
 		}
 
-		// Token: 0x06000A09 RID: 2569 RVA: 0x0005F591 File Offset: 0x0005D791
 		public override void Ctrl()
 		{
 			base.Ctrl();
@@ -88,7 +85,6 @@ namespace Shooting
 			});
 		}
 
-		// Token: 0x06000A0A RID: 2570 RVA: 0x0005F5C8 File Offset: 0x0005D7C8
 		public override void ProcessKeys()
 		{
 			if (base.KClass.ArrowLeft && this.LastLeft == 0)
@@ -127,7 +123,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000A0B RID: 2571 RVA: 0x0005F7C8 File Offset: 0x0005D9C8
 		public override void SelectItemChanged()
 		{
 			base.SelectItemChanged();
@@ -144,7 +139,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000A0C RID: 2572 RVA: 0x0005F834 File Offset: 0x0005DA34
 		public override void ProcessZ()
 		{
 			Point point = new Point(192, 398);
@@ -212,7 +206,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000A0D RID: 2573 RVA: 0x0005FC00 File Offset: 0x0005DE00
 		public override void Show()
 		{
 			base.Show();
@@ -225,10 +218,8 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x040003C1 RID: 961
 		private bool StageSelect;
 
-		// Token: 0x040003C2 RID: 962
 		protected List<BaseMenuItem> PlayerDescription;
 	}
 }

@@ -5,10 +5,8 @@ using Shooting.Planes.Story;
 
 namespace Shooting
 {
-	// Token: 0x02000090 RID: 144
 	internal class MenuGroup_SCPractice : BaseMenuGroup
 	{
-		// Token: 0x06000493 RID: 1171 RVA: 0x00022CA4 File Offset: 0x00020EA4
 		public MenuGroup_SCPractice(StageDataPackage StageData)
 			: base(StageData)
 		{
@@ -55,7 +53,6 @@ namespace Shooting
 			};
 		}
 
-		// Token: 0x06000494 RID: 1172 RVA: 0x00022FB8 File Offset: 0x000211B8
 		public override void SelectItemChanged()
 		{
 			base.SelectItemChanged();
@@ -73,7 +70,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000495 RID: 1173 RVA: 0x00023058 File Offset: 0x00021258
 		public override void Ctrl()
 		{
 			base.Ctrl();
@@ -84,7 +80,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000496 RID: 1174 RVA: 0x000230EC File Offset: 0x000212EC
 		public override void ProcessKeys()
 		{
 			base.ProcessKeys();
@@ -105,17 +100,14 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000497 RID: 1175 RVA: 0x000231F8 File Offset: 0x000213F8
 		public override void Show()
 		{
 			base.Show();
 			this.DescriptionBox.Show();
 		}
 
-		// Token: 0x0400016B RID: 363
 		private DescriptionBox DescriptionBox;
 
-		// Token: 0x0400016C RID: 364
 		private int deltaY = 20;
 	}
 }

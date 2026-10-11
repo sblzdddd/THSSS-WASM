@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x020001F6 RID: 502
 	public class TenseiWing : BaseEffect
 	{
-		// Token: 0x06000B5E RID: 2910 RVA: 0x00070B50 File Offset: 0x0006ED50
 		public TenseiWing(StageDataPackage StageData)
 			: base(StageData, null, PointF.Empty, 0f, 0.0)
 		{
@@ -16,7 +14,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000B5F RID: 2911 RVA: 0x00070B9C File Offset: 0x0006ED9C
 		public override void Ctrl()
 		{
 			base.Ctrl();

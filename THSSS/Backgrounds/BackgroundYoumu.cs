@@ -3,16 +3,13 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x0200017F RID: 383
 	public class BackgroundYoumu : BackgroundRotate
 	{
-		// Token: 0x06000932 RID: 2354 RVA: 0x00058761 File Offset: 0x00056961
 		public BackgroundYoumu(StageDataPackage StageData, string textureName)
 			: base(StageData, textureName)
 		{
 		}
 
-		// Token: 0x06000933 RID: 2355 RVA: 0x0005877C File Offset: 0x0005697C
 		public override void Ctrl()
 		{
 			base.Ctrl();
@@ -37,7 +34,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000934 RID: 2356 RVA: 0x00058870 File Offset: 0x00056A70
 		public override void Show()
 		{
 			if (base.StageData.SlowMode > 0)
@@ -56,10 +52,8 @@ namespace Shooting
 			base.Show();
 		}
 
-		// Token: 0x04000361 RID: 865
 		private double[] lastAngle = new double[10];
 
-		// Token: 0x04000362 RID: 866
 		private float sc;
 	}
 }

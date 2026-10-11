@@ -5,40 +5,22 @@ using System.Text;
 
 namespace Shooting
 {
-	// Token: 0x02000031 RID: 49
 	public class BaseBossTouhou : BaseBoss
 	{
-		// Token: 0x170000A1 RID: 161
-		// (get) Token: 0x06000203 RID: 515 RVA: 0x0000BE14 File Offset: 0x0000A014
-		// (set) Token: 0x06000204 RID: 516 RVA: 0x0000BE2B File Offset: 0x0000A02B
 		public TextureObject[,] TxtureObjects { get; set; }
 
-		// Token: 0x170000A2 RID: 162
-		// (get) Token: 0x06000205 RID: 517 RVA: 0x0000BE34 File Offset: 0x0000A034
-		// (set) Token: 0x06000206 RID: 518 RVA: 0x0000BE4B File Offset: 0x0000A04B
 		public float IndexX { get; set; }
 
-		// Token: 0x170000A3 RID: 163
-		// (get) Token: 0x06000207 RID: 519 RVA: 0x0000BE54 File Offset: 0x0000A054
-		// (set) Token: 0x06000208 RID: 520 RVA: 0x0000BE6B File Offset: 0x0000A06B
 		public int IndexY { get; set; }
 
-		// Token: 0x170000A4 RID: 164
-		// (get) Token: 0x06000209 RID: 521 RVA: 0x0000BE74 File Offset: 0x0000A074
-		// (set) Token: 0x0600020A RID: 522 RVA: 0x0000BE8B File Offset: 0x0000A08B
 		public int OnAction { get; set; }
 
-		// Token: 0x170000A5 RID: 165
-		// (get) Token: 0x0600020B RID: 523 RVA: 0x0000BE94 File Offset: 0x0000A094
-		// (set) Token: 0x0600020C RID: 524 RVA: 0x0000BEAB File Offset: 0x0000A0AB
 		public float[] ArmonArray { get; set; }
 
-		// Token: 0x0600020D RID: 525 RVA: 0x0000BEB4 File Offset: 0x0000A0B4
 		public BaseBossTouhou()
 		{
 		}
 
-		// Token: 0x0600020E RID: 526 RVA: 0x0000BEBF File Offset: 0x0000A0BF
 		public BaseBossTouhou(StageDataPackage StageData)
 		{
 			base.StageData = StageData;
@@ -48,12 +30,10 @@ namespace Shooting
 			this.SetBossLifeLineTex();
 		}
 
-		// Token: 0x0600020F RID: 527 RVA: 0x0000BEF9 File Offset: 0x0000A0F9
 		public void SetBossLifeLineTex()
 		{
 		}
 
-		// Token: 0x06000210 RID: 528 RVA: 0x0000BEFC File Offset: 0x0000A0FC
 		public void MoveToPoint(PointF destOriginalPosition)
 		{
 			float num = (float)base.GetDistance(destOriginalPosition);
@@ -73,7 +53,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000211 RID: 529 RVA: 0x0000BF94 File Offset: 0x0000A194
 		public void MoveUpDown()
 		{
 			if (base.Velocity < 0.01f)
@@ -95,7 +74,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000212 RID: 530 RVA: 0x0000C064 File Offset: 0x0000A264
 		public void MoveUpDown(int circle)
 		{
 			if (base.Velocity < 0.01f)
@@ -117,7 +95,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000213 RID: 531 RVA: 0x0000C134 File Offset: 0x0000A334
 		public void RandomMove(int T, float velocity)
 		{
 			if (base.Time % T == 0)
@@ -128,7 +105,6 @@ namespace Shooting
 			this.MoveToPoint(base.DestPoint);
 		}
 
-		// Token: 0x06000214 RID: 532 RVA: 0x0000C1AC File Offset: 0x0000A3AC
 		public void RandomMove(int T, float velocity, Rectangle RangeRect)
 		{
 			if (base.Time % T == 0)
@@ -139,7 +115,6 @@ namespace Shooting
 			this.MoveToPoint(base.DestPoint);
 		}
 
-		// Token: 0x06000215 RID: 533 RVA: 0x0000C228 File Offset: 0x0000A428
 		public void RandomMove(int T, int Dist, float Velocity, Rectangle RangeRect)
 		{
 			if (base.Time % T == 0)
@@ -160,7 +135,6 @@ namespace Shooting
 			this.MoveToPoint(base.DestPoint);
 		}
 
-		// Token: 0x06000216 RID: 534 RVA: 0x0000C328 File Offset: 0x0000A528
 		public void RandomMove1(int T, float velocity)
 		{
 			if (base.Time % T == 0)
@@ -186,7 +160,6 @@ namespace Shooting
 			this.MoveToPoint(base.DestPoint);
 		}
 
-		// Token: 0x06000217 RID: 535 RVA: 0x0000C594 File Offset: 0x0000A794
 		public virtual void TextureCtrl()
 		{
 			int num = (base.Mirrored ? this.IndexY : (-this.IndexY));
@@ -261,7 +234,6 @@ namespace Shooting
 			base.TxtureObject = this.TxtureObjects[this.IndexY, (int)this.IndexX];
 		}
 
-		// Token: 0x06000218 RID: 536 RVA: 0x0000C800 File Offset: 0x0000AA00
 		public override void Ctrl()
 		{
 			base.Ctrl();
@@ -273,13 +245,11 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000219 RID: 537 RVA: 0x0000C83C File Offset: 0x0000AA3C
 		public override bool OutBoundary()
 		{
 			return base.Time > base.LifeTime;
 		}
 
-		// Token: 0x0600021A RID: 538 RVA: 0x0000C86C File Offset: 0x0000AA6C
 		public override void GiveItems()
 		{
 			if (base.MyPlane.Power < 400)
@@ -305,7 +275,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x0600021B RID: 539 RVA: 0x0000C9D0 File Offset: 0x0000ABD0
 		protected virtual void LoadArmon(string fileName)
 		{
 			if (File.Exists(fileName))

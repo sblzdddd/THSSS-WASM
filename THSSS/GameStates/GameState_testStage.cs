@@ -4,17 +4,14 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x02000141 RID: 321
 	internal class GameState_testStage : BaseStage, IGameState
 	{
-		// Token: 0x06000872 RID: 2162 RVA: 0x0004DA8B File Offset: 0x0004BC8B
 		public GameState_testStage(GlobalDataPackage GlobalData)
 			: base(GlobalData)
 		{
 			base.StageName = "Stage_test";
 		}
 
-		// Token: 0x06000873 RID: 2163 RVA: 0x0004DAA4 File Offset: 0x0004BCA4
 		public override void Drama()
 		{
 			if (base.TimeMain == 1)
@@ -61,7 +58,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000874 RID: 2164 RVA: 0x0004DC94 File Offset: 0x0004BE94
 		public override void BGM_ON()
 		{
 		}

@@ -3,20 +3,12 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x020000D8 RID: 216
 	internal class BulletLaser : BaseBullet
 	{
-		// Token: 0x1700015B RID: 347
-		// (get) Token: 0x060005F9 RID: 1529 RVA: 0x00035128 File Offset: 0x00033328
-		// (set) Token: 0x060005FA RID: 1530 RVA: 0x0003513F File Offset: 0x0003333F
 		public float DesScaleWidth { get; set; }
 
-		// Token: 0x1700015C RID: 348
-		// (get) Token: 0x060005FB RID: 1531 RVA: 0x00035148 File Offset: 0x00033348
-		// (set) Token: 0x060005FC RID: 1532 RVA: 0x0003515F File Offset: 0x0003335F
 		public float DesScaleLength { get; set; }
 
-		// Token: 0x060005FD RID: 1533 RVA: 0x00035168 File Offset: 0x00033368
 		public BulletLaser(StageDataPackage StageData, string textureName, PointF OriginalPosition, float Velocity, double Direction)
 			: base(StageData, textureName, OriginalPosition, Velocity, Direction)
 		{
@@ -24,7 +16,6 @@ namespace Shooting
 			this.DesScaleLength = 3f;
 		}
 
-		// Token: 0x060005FE RID: 1534 RVA: 0x00035194 File Offset: 0x00033394
 		public override void Ctrl()
 		{
 			base.Ctrl();
@@ -34,7 +25,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x060005FF RID: 1535 RVA: 0x000351D0 File Offset: 0x000333D0
 		public override bool HitCheck(BaseObject MyPlane)
 		{
 			double distance = base.GetDistance(MyPlane);
@@ -46,12 +36,10 @@ namespace Shooting
 			return num2 * num2 / num3 / num3 + (num - (double)((float)base.TxtureObject.Height * base.ScaleLength / 2f)) * (num - (double)((float)base.TxtureObject.Height * base.ScaleLength / 2f)) / num4 / num4 < 1.0;
 		}
 
-		// Token: 0x06000600 RID: 1536 RVA: 0x000352AA File Offset: 0x000334AA
 		public override void GiveItems()
 		{
 		}
 
-		// Token: 0x06000601 RID: 1537 RVA: 0x000352B0 File Offset: 0x000334B0
 		public override void Show()
 		{
 			if (base.TxtureObject != null)
@@ -61,7 +49,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000602 RID: 1538 RVA: 0x0003536C File Offset: 0x0003356C
 		public override void ShowRegion()
 		{
 			PointF originalPosition = base.OriginalPosition;

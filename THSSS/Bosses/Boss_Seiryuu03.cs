@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x020001D7 RID: 471
 	internal class Boss_Seiryuu03 : BaseBossTouhou
 	{
-		// Token: 0x06000AC1 RID: 2753 RVA: 0x00069F24 File Offset: 0x00068124
 		public Boss_Seiryuu03(StageDataPackage StageData)
 			: base(StageData)
 		{
@@ -40,7 +38,6 @@ namespace Shooting
 			this.LoadArmon(".\\CS\\StEx\\道中Boss\\ctrl.csv");
 		}
 
-		// Token: 0x06000AC2 RID: 2754 RVA: 0x0006A138 File Offset: 0x00068338
 		public override void Ctrl()
 		{
 			base.Ctrl();
@@ -108,7 +105,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000AC3 RID: 2755 RVA: 0x0006A448 File Offset: 0x00068648
 		public override void TextureCtrl()
 		{
 			int num = (base.Mirrored ? base.IndexY : (-base.IndexY));
@@ -183,7 +179,6 @@ namespace Shooting
 			base.TxtureObject = base.TxtureObjects[base.IndexY, (int)base.IndexX];
 		}
 
-		// Token: 0x06000AC4 RID: 2756 RVA: 0x0006A6B4 File Offset: 0x000688B4
 		public override void GiveEndEffect()
 		{
 			new EndBoss_Touhou_Small(base.StageData, base.OriginalPosition, Color.ForestGreen, Color.Green);
@@ -192,7 +187,6 @@ namespace Shooting
 			new LifeItem_Touhou(base.StageData, base.OriginalPosition);
 		}
 
-		// Token: 0x06000AC5 RID: 2757 RVA: 0x0006A70C File Offset: 0x0006890C
 		private void Ctrl3()
 		{
 			if (!base.OnSpell)
@@ -215,7 +209,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000AC6 RID: 2758 RVA: 0x0006A7CC File Offset: 0x000689CC
 		private void Ctrl2()
 		{
 			if (!base.OnSpell)
@@ -238,7 +231,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000AC7 RID: 2759 RVA: 0x0006A888 File Offset: 0x00068A88
 		private void Ctrl1()
 		{
 			if (!base.OnSpell)

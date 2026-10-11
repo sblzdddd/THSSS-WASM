@@ -4,10 +4,8 @@ using SlimDX;
 
 namespace Shooting
 {
-	// Token: 0x0200001B RID: 27
 	internal class EndBoss_Touhou : BaseEffect
 	{
-		// Token: 0x06000179 RID: 377 RVA: 0x00008A14 File Offset: 0x00006C14
 		public EndBoss_Touhou(StageDataPackage StageData, PointF OriginalPosition, Color Color1, Color Color2)
 			: this(StageData)
 		{
@@ -20,14 +18,12 @@ namespace Shooting
 			this.B1 = (int)Math.Min(Color1.B, Color2.B);
 		}
 
-		// Token: 0x0600017A RID: 378 RVA: 0x00008AC9 File Offset: 0x00006CC9
 		public EndBoss_Touhou(StageDataPackage StageData)
 			: base(StageData)
 		{
 			base.LifeTime = 250;
 		}
 
-		// Token: 0x0600017B RID: 379 RVA: 0x00008AE4 File Offset: 0x00006CE4
 		public override void Move()
 		{
 			if (base.Boss != null)
@@ -36,7 +32,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x0600017C RID: 380 RVA: 0x00008B14 File Offset: 0x00006D14
 		public override void Shoot()
 		{
 			if (base.Time == 1)
@@ -72,27 +67,20 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x0600017D RID: 381 RVA: 0x00008F37 File Offset: 0x00007137
 		public override void Show()
 		{
 		}
 
-		// Token: 0x04000078 RID: 120
 		public int R1;
 
-		// Token: 0x04000079 RID: 121
 		public int R2;
 
-		// Token: 0x0400007A RID: 122
 		public int G1;
 
-		// Token: 0x0400007B RID: 123
 		public int G2;
 
-		// Token: 0x0400007C RID: 124
 		public int B1;
 
-		// Token: 0x0400007D RID: 125
 		public int B2;
 	}
 }

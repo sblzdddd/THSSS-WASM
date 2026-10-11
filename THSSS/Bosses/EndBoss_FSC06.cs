@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x020001CB RID: 459
 	internal class EndBoss_FSC06 : EndBoss_Touhou_Small
 	{
-		// Token: 0x06000A92 RID: 2706 RVA: 0x00066750 File Offset: 0x00064950
 		public EndBoss_FSC06(StageDataPackage StageData, PointF OriginalPosition, Color Color1, Color Color2)
 			: base(StageData, OriginalPosition, Color1, Color2)
 		{
@@ -14,7 +12,6 @@ namespace Shooting
 			base.LifeTime = 300;
 		}
 
-		// Token: 0x06000A93 RID: 2707 RVA: 0x00066780 File Offset: 0x00064980
 		public override void Ctrl()
 		{
 			base.Ctrl();
@@ -34,7 +31,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x040003E9 RID: 1001
 		private int tempVolumn;
 	}
 }

@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x02000032 RID: 50
 	internal class Boss_Koreirei01 : BaseBossTouhou
 	{
-		// Token: 0x0600021C RID: 540 RVA: 0x0000CA40 File Offset: 0x0000AC40
 		public Boss_Koreirei01(StageDataPackage StageData)
 			: base(StageData)
 		{
@@ -41,7 +39,6 @@ namespace Shooting
 			new ItemGetter(StageData);
 		}
 
-		// Token: 0x0600021D RID: 541 RVA: 0x0000CC54 File Offset: 0x0000AE54
 		public override void Ctrl()
 		{
 			base.Ctrl();
@@ -112,7 +109,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x0600021E RID: 542 RVA: 0x0000CF68 File Offset: 0x0000B168
 		public override void GiveEndEffect()
 		{
 			new EndBoss_Touhou_Small(base.StageData, base.OriginalPosition, Color.Yellow, Color.OrangeRed);
@@ -121,7 +117,6 @@ namespace Shooting
 			new LifeItem_Touhou(base.StageData, base.OriginalPosition);
 		}
 
-		// Token: 0x0600021F RID: 543 RVA: 0x0000CFC0 File Offset: 0x0000B1C0
 		private void Ctrl2()
 		{
 			if (!base.OnSpell)
@@ -148,7 +143,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000220 RID: 544 RVA: 0x0000D090 File Offset: 0x0000B290
 		private void Ctrl1()
 		{
 			if (!base.OnSpell)

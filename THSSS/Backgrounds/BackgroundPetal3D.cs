@@ -4,24 +4,20 @@ using SlimDX;
 
 namespace Shooting
 {
-	// Token: 0x020000E1 RID: 225
 	internal class BackgroundPetal3D : BaseParticle3D
 	{
-		// Token: 0x06000625 RID: 1573 RVA: 0x00036B0D File Offset: 0x00034D0D
 		public BackgroundPetal3D(StageDataPackage StageData)
 		{
 			base.StageData = StageData;
 			base.Background3D.BackgroundParticleList.Add(this);
 		}
 
-		// Token: 0x06000626 RID: 1574 RVA: 0x00036B32 File Offset: 0x00034D32
 		public override void Ctrl()
 		{
 			base.Time++;
 			this.Shoot();
 		}
 
-		// Token: 0x06000627 RID: 1575 RVA: 0x00036B4C File Offset: 0x00034D4C
 		public override void Shoot()
 		{
 			if (base.Time % 5 == 0)
@@ -39,7 +35,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000628 RID: 1576 RVA: 0x00036D17 File Offset: 0x00034F17
 		public override void Show()
 		{
 		}

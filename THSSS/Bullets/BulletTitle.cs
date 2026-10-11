@@ -3,24 +3,20 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x0200012F RID: 303
 	internal class BulletTitle : MusicTitle
 	{
-		// Token: 0x06000812 RID: 2066 RVA: 0x0004987C File Offset: 0x00047A7C
 		public BulletTitle(StageDataPackage StageData, string textureName)
 			: this(StageData, textureName, new Point(0, 0))
 		{
 			base.DestPoint = new Point(base.BoundRect.Width - 10, 20);
 		}
 
-		// Token: 0x06000813 RID: 2067 RVA: 0x000498BF File Offset: 0x00047ABF
 		public BulletTitle(StageDataPackage StageData, string textureName, Point DestPoint)
 			: base(StageData, textureName, DestPoint)
 		{
 			base.Layer = 1;
 		}
 
-		// Token: 0x06000814 RID: 2068 RVA: 0x000498D8 File Offset: 0x00047AD8
 		public override void Ctrl()
 		{
 			base.Ctrl();
@@ -63,7 +59,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000815 RID: 2069 RVA: 0x00049B50 File Offset: 0x00047D50
 		public void DrawText(string Text, Point Pos, float Scale)
 		{
 			int num = 0;
@@ -91,7 +86,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000816 RID: 2070 RVA: 0x00049C7C File Offset: 0x00047E7C
 		public override void Show()
 		{
 			TextureObject textureObject = base.StageData.TextureObjectDictionary["tiaotiao2"];

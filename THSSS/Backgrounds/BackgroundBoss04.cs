@@ -4,10 +4,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x0200005A RID: 90
 	public class BackgroundBoss04 : BaseObject
 	{
-		// Token: 0x060002B4 RID: 692 RVA: 0x00012F18 File Offset: 0x00011118
 		public BackgroundBoss04(StageDataPackage StageData)
 			: base(StageData, null, new PointF(0f, 0f), 0f, 0.0)
 		{

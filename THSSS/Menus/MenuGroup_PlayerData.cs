@@ -4,10 +4,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x020000B6 RID: 182
 	internal class MenuGroup_PlayerData : BaseMenuGroup
 	{
-		// Token: 0x06000532 RID: 1330 RVA: 0x0002A018 File Offset: 0x00028218
 		public MenuGroup_PlayerData(StageDataPackage StageData)
 			: base(StageData)
 		{
@@ -68,7 +66,6 @@ namespace Shooting
 			this.AddNewScorePage();
 		}
 
-		// Token: 0x06000533 RID: 1331 RVA: 0x0002A35C File Offset: 0x0002855C
 		public override void Ctrl()
 		{
 			base.Ctrl();
@@ -86,7 +83,6 @@ namespace Shooting
 			});
 		}
 
-		// Token: 0x06000534 RID: 1332 RVA: 0x0002A3F4 File Offset: 0x000285F4
 		public override void ProcessKeys()
 		{
 			base.ProcessKeys();
@@ -137,7 +133,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000535 RID: 1333 RVA: 0x0002A6C0 File Offset: 0x000288C0
 		public override void SelectItemChanged()
 		{
 			base.SelectItemChanged();
@@ -158,7 +153,6 @@ namespace Shooting
 			this.AddNewScorePage();
 		}
 
-		// Token: 0x06000536 RID: 1334 RVA: 0x0002A788 File Offset: 0x00028988
 		private void AddNewScorePage()
 		{
 			this.ScorePageList.Clear();
@@ -459,7 +453,6 @@ namespace Shooting
 			});
 		}
 
-		// Token: 0x06000537 RID: 1335 RVA: 0x0002BB84 File Offset: 0x00029D84
 		public override void Show()
 		{
 			base.Show();
@@ -477,37 +470,29 @@ namespace Shooting
 			});
 		}
 
-		// Token: 0x06000538 RID: 1336 RVA: 0x0002BC1C File Offset: 0x00029E1C
 		public bool FindScore(ScoreHistory SH)
 		{
 			return SH.Rank.ToString() == base.MenuItemList[base.MenuSelectIndex].Name.Replace("History_", string.Empty) && SH.MyPlaneFullName == this.MenuItemListPlane[this.MenuPlaneSelectIndex].Name.Replace("History_", string.Empty);
 		}
 
-		// Token: 0x06000539 RID: 1337 RVA: 0x0002BCA0 File Offset: 0x00029EA0
 		public bool FindClear(ClearHistory CH)
 		{
 			return CH.Rank.ToString() == base.MenuItemList[base.MenuSelectIndex].Name.Replace("History_", string.Empty) && CH.MyPlaneFullName == this.MenuItemListPlane[this.MenuPlaneSelectIndex].Name.Replace("History_", string.Empty);
 		}
 
-		// Token: 0x0600053A RID: 1338 RVA: 0x0002BD24 File Offset: 0x00029F24
 		public bool FindSC(SpellCardHistory SCH)
 		{
 			return SCH.Rank.ToString() == base.MenuItemList[base.MenuSelectIndex].Name.Replace("History_", string.Empty) && SCH.MyPlaneFullName == this.MenuItemListPlane[this.MenuPlaneSelectIndex].Name.Replace("History_", string.Empty);
 		}
 
-		// Token: 0x040001B8 RID: 440
 		private List<BaseMenuItem> MenuItemListPlane;
 
-		// Token: 0x040001B9 RID: 441
 		private int MenuPlaneSelectIndex;
 
-		// Token: 0x040001BA RID: 442
 		private List<DescriptionMenuItem> ScorePageList;
 
-		// Token: 0x040001BB RID: 443
 		private int ScorePageIndex = 0;
 
-		// Token: 0x040001BC RID: 444
 		private List<BaseMenuItem> ClearHistoryList;
 	}
 }

@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x020000B2 RID: 178
 	public class Spell_AyaA : BaseSpell
 	{
-		// Token: 0x0600051E RID: 1310 RVA: 0x000295A0 File Offset: 0x000277A0
 		public Spell_AyaA(StageDataPackage StageData)
 		{
 			base.StageData = StageData;
@@ -41,13 +39,11 @@ namespace Shooting
 			base.MaxScale = 2f;
 		}
 
-		// Token: 0x0600051F RID: 1311 RVA: 0x0002972B File Offset: 0x0002792B
 		public override void Move()
 		{
 			base.OriginalPosition = base.MyPlane.OriginalPosition;
 		}
 
-		// Token: 0x06000520 RID: 1312 RVA: 0x00029740 File Offset: 0x00027940
 		public override void Ctrl()
 		{
 			base.Ctrl();
@@ -70,7 +66,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000521 RID: 1313 RVA: 0x0002986C File Offset: 0x00027A6C
 		public override bool OutBoundary()
 		{
 			bool flag = base.OutBoundary();
@@ -82,13 +77,11 @@ namespace Shooting
 			return flag;
 		}
 
-		// Token: 0x06000522 RID: 1314 RVA: 0x000298B4 File Offset: 0x00027AB4
 		public override bool HitCheck(BaseObject Target)
 		{
 			return Target.OriginalPosition.Y - base.OriginalPosition.Y < 2.8f * (Target.OriginalPosition.X - base.OriginalPosition.X) + 136f && Target.OriginalPosition.Y - base.OriginalPosition.Y < -2.8f * (Target.OriginalPosition.X - base.OriginalPosition.X) + 136f;
 		}
 
-		// Token: 0x06000523 RID: 1315 RVA: 0x00029968 File Offset: 0x00027B68
 		public override void HitCheckAll()
 		{
 			for (int i = base.BulletList.Count - 1; i >= 0; i--)

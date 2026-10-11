@@ -4,10 +4,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x020000B7 RID: 183
 	internal class MenuGroup_ReplayNamer : BaseMenuGroup
 	{
-		// Token: 0x06000542 RID: 1346 RVA: 0x0002BDA8 File Offset: 0x00029FA8
 		public MenuGroup_ReplayNamer(StageDataPackage StageData, PointF OriginalPosition, DescriptionMenuItem RepMenuItem)
 			: base(StageData)
 		{
@@ -161,7 +159,6 @@ namespace Shooting
 			this.ShowPlayerName();
 		}
 
-		// Token: 0x06000543 RID: 1347 RVA: 0x0002C62C File Offset: 0x0002A82C
 		public override void ProcessKeys()
 		{
 			if (base.KClass.ArrowDown && (this.LastDown == 0 || this.LastDown > 30))
@@ -224,7 +221,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000544 RID: 1348 RVA: 0x0002C95C File Offset: 0x0002AB5C
 		public override void ProcessZ()
 		{
 			if (base.MenuSelectIndex == base.MenuItemList.Count - 1)
@@ -268,7 +264,6 @@ namespace Shooting
 			this.ShowPlayerName();
 		}
 
-		// Token: 0x06000545 RID: 1349 RVA: 0x0002CB9C File Offset: 0x0002AD9C
 		private void ShowPlayerName()
 		{
 			string text = null;
@@ -281,16 +276,12 @@ namespace Shooting
 			stageData.PData.PlayerName = text;
 		}
 
-		// Token: 0x040001C4 RID: 452
 		private int NameIndex = 0;
 
-		// Token: 0x040001C5 RID: 453
 		private string[] PlayerName = new string[8];
 
-		// Token: 0x040001C6 RID: 454
 		private string RepDescription = null;
 
-		// Token: 0x040001C7 RID: 455
 		private DescriptionMenuItem RepMenuItem;
 	}
 }

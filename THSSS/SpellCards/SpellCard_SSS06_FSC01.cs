@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x0200017A RID: 378
 	internal class SpellCard_SSS06_FSC01 : BaseFSC
 	{
-		// Token: 0x06000928 RID: 2344 RVA: 0x000580D8 File Offset: 0x000562D8
 		public SpellCard_SSS06_FSC01(StageDataPackage StageData)
 			: base(StageData)
 		{
@@ -20,7 +18,6 @@ namespace Shooting
 			new FullPic3(StageData, "FaceTensei_ct3");
 		}
 
-		// Token: 0x06000929 RID: 2345 RVA: 0x00058168 File Offset: 0x00056368
 		public override void Shoot()
 		{
 			if (base.Time > 100)

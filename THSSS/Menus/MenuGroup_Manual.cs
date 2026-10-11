@@ -4,10 +4,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x020001FB RID: 507
 	internal class MenuGroup_Manual : BaseMenuGroup
 	{
-		// Token: 0x06000B6D RID: 2925 RVA: 0x00071948 File Offset: 0x0006FB48
 		public MenuGroup_Manual(StageDataPackage StageData)
 			: base(StageData)
 		{
@@ -58,7 +56,6 @@ namespace Shooting
 			base.ColorValue = Color.FromArgb(30, 110, 150);
 		}
 
-		// Token: 0x06000B6E RID: 2926 RVA: 0x00071C3C File Offset: 0x0006FE3C
 		public override void SelectItemChanged()
 		{
 			base.SelectItemChanged();
@@ -69,7 +66,6 @@ namespace Shooting
 			this.MenuItemListManual[base.MenuSelectIndex].Select();
 		}
 
-		// Token: 0x06000B6F RID: 2927 RVA: 0x00071C9C File Offset: 0x0006FE9C
 		public override void Ctrl()
 		{
 			base.Ctrl();
@@ -79,7 +75,6 @@ namespace Shooting
 			});
 		}
 
-		// Token: 0x06000B70 RID: 2928 RVA: 0x00071CD4 File Offset: 0x0006FED4
 		public override void ProcessKeys()
 		{
 			base.ProcessKeys();
@@ -102,7 +97,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000B71 RID: 2929 RVA: 0x00071E0D File Offset: 0x0007000D
 		public override void Show()
 		{
 			base.Show();
@@ -112,7 +106,6 @@ namespace Shooting
 			});
 		}
 
-		// Token: 0x04000434 RID: 1076
 		private List<BaseMenuItem> MenuItemListManual;
 	}
 }

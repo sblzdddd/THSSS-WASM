@@ -1,9 +1,7 @@
 ﻿namespace Shooting
 {
-	// Token: 0x0200005D RID: 93
 	internal partial class BaseStage : global::Shooting.BaseGameState, global::Shooting.IGameState
 	{
-		// Token: 0x06000307 RID: 775 RVA: 0x00013794 File Offset: 0x00011994
 		protected override void Dispose(bool disposing)
 		{
 			if (disposing && this.components != null)
@@ -13,7 +11,6 @@
 			base.Dispose(disposing);
 		}
 
-		// Token: 0x06000308 RID: 776 RVA: 0x000137CC File Offset: 0x000119CC
 		private void InitializeComponent()
 		{
 			this.gameRegion_ScoreValue = new global::Shooting.GameRegion();
@@ -162,49 +159,34 @@
 			base.ResumeLayout(false);
 		}
 
-		// Token: 0x040000CC RID: 204
 		private global::System.ComponentModel.IContainer components = null;
 
-		// Token: 0x040000CD RID: 205
 		private global::Shooting.GameRegion GameRegion_Main;
 
-		// Token: 0x040000CE RID: 206
 		private global::Shooting.GameRegion gameRegion_Score;
 
-		// Token: 0x040000CF RID: 207
 		private global::Shooting.GameRegion gameRegion_Player;
 
-		// Token: 0x040000D0 RID: 208
 		private global::Shooting.GameRegion gameRegion_Spell;
 
-		// Token: 0x040000D1 RID: 209
 		private global::Shooting.GameRegion gameRegion_Power;
 
-		// Token: 0x040000D2 RID: 210
 		private global::Shooting.GameRegion gameRegion_LifeSelf;
 
-		// Token: 0x040000D3 RID: 211
 		private global::Shooting.GameRegion gameRegion_SpellLine;
 
-		// Token: 0x040000D4 RID: 212
 		private global::Shooting.GameRegion gameRegion_ScoreValue;
 
-		// Token: 0x040000D5 RID: 213
 		private global::Shooting.GameRegion gameRegion_BluePoint;
 
-		// Token: 0x040000D6 RID: 214
 		private global::Shooting.GameRegion gameRegion_GreenPoint;
 
-		// Token: 0x040000D7 RID: 215
 		private global::Shooting.GameRegion gameRegion_Graze;
 
-		// Token: 0x040000D8 RID: 216
 		private global::Shooting.GameRegion gameRegion_HiScoreValue;
 
-		// Token: 0x040000D9 RID: 217
 		private global::Shooting.GameRegion gameRegion1;
 
-		// Token: 0x040000DA RID: 218
 		private global::Shooting.GameRegion gameRegion_HiScore;
 	}
 }

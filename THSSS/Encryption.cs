@@ -5,10 +5,8 @@ using System.Text;
 
 namespace Shooting
 {
-	// Token: 0x0200020E RID: 526
 	internal class Encryption
 	{
-		// Token: 0x06000BA7 RID: 2983 RVA: 0x00073A20 File Offset: 0x00071C20
 		public static string Encrypt(string pToEncrypt)
 		{
 			string text = "SeiweLL0";
@@ -29,7 +27,6 @@ namespace Shooting
 			return stringBuilder.ToString();
 		}
 
-		// Token: 0x06000BA8 RID: 2984 RVA: 0x00073AF0 File Offset: 0x00071CF0
 		public static string Decrypt(string pToDecrypt)
 		{
 			string text = "SeiweLL0";

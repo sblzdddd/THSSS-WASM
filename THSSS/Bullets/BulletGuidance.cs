@@ -3,15 +3,10 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x0200003B RID: 59
 	public class BulletGuidance : BaseObject
 	{
-		// Token: 0x170000A6 RID: 166
-		// (get) Token: 0x06000232 RID: 562 RVA: 0x0000DB44 File Offset: 0x0000BD44
-		// (set) Token: 0x06000233 RID: 563 RVA: 0x0000DB5B File Offset: 0x0000BD5B
 		public BaseObject Target { get; set; }
 
-		// Token: 0x06000234 RID: 564 RVA: 0x0000DB64 File Offset: 0x0000BD64
 		public BulletGuidance(StageDataPackage StageData, string textureName, PointF Position, float Velocity, double Direction)
 			: base(StageData, textureName, Position, Velocity, Direction)
 		{
@@ -32,7 +27,6 @@ namespace Shooting
 			base.GhostingCount = 5;
 		}
 
-		// Token: 0x06000235 RID: 565 RVA: 0x0000DCCC File Offset: 0x0000BECC
 		public override void Ctrl()
 		{
 			base.Ctrl();
@@ -95,7 +89,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000236 RID: 566 RVA: 0x0000DE7C File Offset: 0x0000C07C
 		public override bool OutBoundary()
 		{
 			bool flag;
@@ -115,7 +108,6 @@ namespace Shooting
 			return flag;
 		}
 
-		// Token: 0x06000237 RID: 567 RVA: 0x0000DF48 File Offset: 0x0000C148
 		public override void GiveEndEffect()
 		{
 			ParticleBiger particleBiger = new ParticleBiger(base.StageData, null, base.Position, 2f, base.Direction);
@@ -125,7 +117,6 @@ namespace Shooting
 			particleBiger.Angle = base.Angle;
 		}
 
-		// Token: 0x040000AE RID: 174
 		private bool targetFlag = false;
 	}
 }

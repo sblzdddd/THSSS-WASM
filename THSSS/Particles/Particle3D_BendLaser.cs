@@ -5,10 +5,8 @@ using SlimDX.Direct3D9;
 
 namespace Shooting
 {
-	// Token: 0x020001F7 RID: 503
 	public class Particle3D_BendLaser : BaseParticle3D
 	{
-		// Token: 0x06000B60 RID: 2912 RVA: 0x00070EC0 File Offset: 0x0006F0C0
 		public Particle3D_BendLaser(StageDataPackage StageData, int Length, int Width, int ColorType)
 		{
 			StageData.Particle3D.ParticleList.Add(this);
@@ -22,13 +20,11 @@ namespace Shooting
 			this.material = default(Material);
 		}
 
-		// Token: 0x06000B61 RID: 2913 RVA: 0x00070F5A File Offset: 0x0006F15A
 		public override void Ctrl()
 		{
 			base.Time++;
 		}
 
-		// Token: 0x06000B62 RID: 2914 RVA: 0x00070F6C File Offset: 0x0006F16C
 		private void SetupVertex()
 		{
 			this.Length = base.GhostingCount;
@@ -63,13 +59,11 @@ namespace Shooting
 			this.vertexBuffer.Unlock();
 		}
 
-		// Token: 0x06000B63 RID: 2915 RVA: 0x000713B4 File Offset: 0x0006F5B4
 		public override bool OutBoundary()
 		{
 			return false;
 		}
 
-		// Token: 0x06000B64 RID: 2916 RVA: 0x000713C8 File Offset: 0x0006F5C8
 		public override void SetupMatrices()
 		{
 			Matrix matrix = Matrix.Identity;
@@ -77,7 +71,6 @@ namespace Shooting
 			base.DeviceMain.SetTransform(TransformState.World, matrix);
 		}
 
-		// Token: 0x06000B65 RID: 2917 RVA: 0x00071428 File Offset: 0x0006F628
 		public override void Show()
 		{
 			this.SetupVertex();
@@ -98,25 +91,19 @@ namespace Shooting
 			base.DeviceMain.DrawPrimitives(PrimitiveType.TriangleStrip, 0, 2 * this.Length - 2);
 		}
 
-		// Token: 0x06000B66 RID: 2918 RVA: 0x00071514 File Offset: 0x0006F714
 		public override void Dispose()
 		{
 			this.vertexBuffer.Dispose();
 		}
 
-		// Token: 0x0400042E RID: 1070
 		private VertexBuffer vertexBuffer;
 
-		// Token: 0x0400042F RID: 1071
 		private Material material;
 
-		// Token: 0x04000430 RID: 1072
 		private int Length;
 
-		// Token: 0x04000431 RID: 1073
 		private int Width;
 
-		// Token: 0x04000432 RID: 1074
 		private int ColorType;
 	}
 }

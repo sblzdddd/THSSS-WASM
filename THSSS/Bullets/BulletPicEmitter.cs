@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x020000FA RID: 250
 	public class BulletPicEmitter
 	{
-		// Token: 0x06000703 RID: 1795 RVA: 0x0003EB28 File Offset: 0x0003CD28
 		public static void ShootBulletPic00(StageDataPackage StageData, bool[,] BulletPic, string BulletName, PointF OriginalPosition, byte ColorType)
 		{
 			int num = (int)Math.Sqrt((double)BulletPic.Length);
@@ -25,13 +23,11 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000704 RID: 1796 RVA: 0x0003EC00 File Offset: 0x0003CE00
 		public static void ShootBulletPic01(StageDataPackage StageData, bool[,] BulletPic, string BulletName, PointF OriginalPosition, double Direction, byte ColorType, float Scale, float bigger)
 		{
 			BulletPicEmitter.ShootBulletPic01(StageData, BulletPic, BulletName, OriginalPosition, 1f, Direction, ColorType, Scale, bigger);
 		}
 
-		// Token: 0x06000705 RID: 1797 RVA: 0x0003EC28 File Offset: 0x0003CE28
 		public static void ShootBulletPic01(StageDataPackage StageData, bool[,] BulletPic, string BulletName, PointF OriginalPosition, float BaseVelocity, double Direction, byte ColorType, float Scale, float bigger)
 		{
 			int num = (int)Math.Sqrt((double)BulletPic.Length);
@@ -51,7 +47,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000706 RID: 1798 RVA: 0x0003ED40 File Offset: 0x0003CF40
 		public static void ShootBulletPic02(StageDataPackage StageData, string BPicName, BaseObject Bullet, PointF OriginalPosition, double Direction, byte ColorType, float Scale, bool Mirrored)
 		{
 			bool[,] array = StageData.GlobalData.BulletPicDictionary[BPicName];
@@ -76,7 +71,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000707 RID: 1799 RVA: 0x0003EECC File Offset: 0x0003D0CC
 		public static void ShootItem(StageDataPackage StageData, string BPicName, PointF OriginalPosition, float Scale)
 		{
 			bool[,] array = StageData.GlobalData.BulletPicDictionary[BPicName];

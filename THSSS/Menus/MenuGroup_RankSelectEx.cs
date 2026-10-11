@@ -4,10 +4,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x02000115 RID: 277
 	internal class MenuGroup_RankSelectEx : MenuGroup_RankSelect
 	{
-		// Token: 0x06000778 RID: 1912 RVA: 0x00043E38 File Offset: 0x00042038
 		public MenuGroup_RankSelectEx(StageDataPackage StageData)
 			: base(StageData, false)
 		{
@@ -35,7 +33,6 @@ namespace Shooting
 			base.MenuItemList[base.MenuSelectIndex].Selected = true;
 		}
 
-		// Token: 0x06000779 RID: 1913 RVA: 0x00043F74 File Offset: 0x00042174
 		public override void SelectItemChanged()
 		{
 			if (base.MenuSelectIndex < 0)
@@ -54,7 +51,6 @@ namespace Shooting
 			base.MenuItemList[base.MenuSelectIndex].Select();
 		}
 
-		// Token: 0x0600077A RID: 1914 RVA: 0x00044020 File Offset: 0x00042220
 		public override void ProcessZ()
 		{
 			base.StageData.StateSwitchData.SDPswitch.Difficulty = DifficultLevel.Extra;

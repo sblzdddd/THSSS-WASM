@@ -3,10 +3,8 @@ using System.IO;
 
 namespace Shooting
 {
-	// Token: 0x02000035 RID: 53
 	internal class ErrorLog
 	{
-		// Token: 0x06000228 RID: 552 RVA: 0x0000D88C File Offset: 0x0000BA8C
 		public static void SaveErrorLog(string Message, string Description)
 		{
 			string text = null;

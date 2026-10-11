@@ -3,15 +3,10 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x020000D3 RID: 211
 	internal class ClearBonus : BaseEffect
 	{
-		// Token: 0x17000152 RID: 338
-		// (get) Token: 0x060005D4 RID: 1492 RVA: 0x0003434C File Offset: 0x0003254C
-		// (set) Token: 0x060005D5 RID: 1493 RVA: 0x00034363 File Offset: 0x00032563
 		private char[] BonusCharArray { get; set; }
 
-		// Token: 0x060005D6 RID: 1494 RVA: 0x0003436C File Offset: 0x0003256C
 		public ClearBonus(StageDataPackage StageData, int Bonus)
 			: base(StageData)
 		{
@@ -32,7 +27,6 @@ namespace Shooting
 			this.ValuePoint = new PointF(base.OriginalPosition.X - (float)(num / 2), base.OriginalPosition.Y + 36f);
 		}
 
-		// Token: 0x060005D7 RID: 1495 RVA: 0x000344A4 File Offset: 0x000326A4
 		public override void Ctrl()
 		{
 			base.Ctrl();
@@ -61,10 +55,8 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x04000204 RID: 516
 		private PointF ValuePoint;
 
-		// Token: 0x04000205 RID: 517
 		private int Index = 0;
 	}
 }

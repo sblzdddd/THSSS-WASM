@@ -3,20 +3,12 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x020001E8 RID: 488
 	public class ParticleEndBullet : BaseEffect
 	{
-		// Token: 0x17000247 RID: 583
-		// (get) Token: 0x06000B29 RID: 2857 RVA: 0x0006E420 File Offset: 0x0006C620
-		// (set) Token: 0x06000B2A RID: 2858 RVA: 0x0006E437 File Offset: 0x0006C637
 		public TextureObject[] TxtureObjects { get; set; }
 
-		// Token: 0x17000248 RID: 584
-		// (get) Token: 0x06000B2B RID: 2859 RVA: 0x0006E440 File Offset: 0x0006C640
-		// (set) Token: 0x06000B2C RID: 2860 RVA: 0x0006E457 File Offset: 0x0006C657
 		public int IndexX { get; set; }
 
-		// Token: 0x06000B2D RID: 2861 RVA: 0x0006E460 File Offset: 0x0006C660
 		public ParticleEndBullet(StageDataPackage StageData, PointF OriginalPosition, byte ColorType, int Size)
 			: this(StageData, OriginalPosition)
 		{
@@ -77,7 +69,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000B2E RID: 2862 RVA: 0x0006E5D8 File Offset: 0x0006C7D8
 		public ParticleEndBullet(StageDataPackage StageData, PointF OriginalPosition, Color ColorValue, int Size)
 			: this(StageData, OriginalPosition)
 		{
@@ -85,7 +76,6 @@ namespace Shooting
 			base.Scale = (float)Size / 32f;
 		}
 
-		// Token: 0x06000B2F RID: 2863 RVA: 0x0006E600 File Offset: 0x0006C800
 		public ParticleEndBullet(StageDataPackage StageData, PointF OriginalPosition)
 			: base(StageData, null, new PointF(0f, 0f), 0f, 0.0)
 		{
@@ -108,7 +98,6 @@ namespace Shooting
 			base.ScaleVelocity = 0.05f;
 		}
 
-		// Token: 0x06000B30 RID: 2864 RVA: 0x0006E748 File Offset: 0x0006C948
 		public override void Ctrl()
 		{
 			base.Ctrl();

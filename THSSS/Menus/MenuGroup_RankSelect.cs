@@ -4,10 +4,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x02000013 RID: 19
 	internal class MenuGroup_RankSelect : BaseMenuGroup
 	{
-		// Token: 0x06000128 RID: 296 RVA: 0x00006A34 File Offset: 0x00004C34
 		public MenuGroup_RankSelect(StageDataPackage StageData, bool StageSelect)
 			: base(StageData)
 		{
@@ -56,7 +54,6 @@ namespace Shooting
 			base.AngleWithDirection = false;
 		}
 
-		// Token: 0x06000129 RID: 297 RVA: 0x00006CE0 File Offset: 0x00004EE0
 		public override void SelectItemChanged()
 		{
 			base.SelectItemChanged();
@@ -72,7 +69,6 @@ namespace Shooting
 			base.Velocity = 4f;
 		}
 
-		// Token: 0x0600012A RID: 298 RVA: 0x00006DD4 File Offset: 0x00004FD4
 		public override void ProcessKeys()
 		{
 			if ((base.KClass.ArrowDown && (this.LastDown == 0 || this.LastDown > 30)) || (base.KClass.ArrowLeft && (this.LastLeft == 0 || this.LastLeft > 30)))
@@ -106,7 +102,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x0600012B RID: 299 RVA: 0x00006FEC File Offset: 0x000051EC
 		public override void ProcessZ()
 		{
 			string name = base.MenuItemList[base.MenuSelectIndex].Name;
@@ -148,14 +143,12 @@ namespace Shooting
 			base.StageData.MenuGroupList.Add(new MenuGroup_PlayerSelect(base.StageData, this.StageSelect));
 		}
 
-		// Token: 0x0600012C RID: 300 RVA: 0x00007129 File Offset: 0x00005329
 		public override void Show()
 		{
 			base.Show();
 			base.MenuItemList[base.MenuSelectIndex].Show();
 		}
 
-		// Token: 0x04000062 RID: 98
 		private bool StageSelect;
 	}
 }

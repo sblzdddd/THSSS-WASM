@@ -4,10 +4,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x020001C3 RID: 451
 	public class MyPlane_Sanae : BaseMyPlane_Touhou
 	{
-		// Token: 0x06000A6B RID: 2667 RVA: 0x000642E0 File Offset: 0x000624E0
 		public MyPlane_Sanae(StageDataPackage StageData, Point OriginalPosition)
 			: base(StageData, OriginalPosition, "Sanae")
 		{
@@ -29,7 +27,6 @@ namespace Shooting
 			base.LowSpeed = 2f;
 		}
 
-		// Token: 0x06000A6C RID: 2668 RVA: 0x00064390 File Offset: 0x00062590
 		public override void Shoot()
 		{
 			if (base.Time % 3 == 0)
@@ -49,13 +46,11 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000A6D RID: 2669 RVA: 0x0006449B File Offset: 0x0006269B
 		public override void SpellShoot()
 		{
 			new Spell_Sanae(base.StageData);
 		}
 
-		// Token: 0x06000A6E RID: 2670 RVA: 0x000644AC File Offset: 0x000626AC
 		public override void SubPlaneCtrl()
 		{
 			if (base.KClass.Key_Shift)

@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x020001A3 RID: 419
 	public class Spell_AyaB_Laser : BaseSpell
 	{
-		// Token: 0x060009DA RID: 2522 RVA: 0x0005E164 File Offset: 0x0005C364
 		public Spell_AyaB_Laser(StageDataPackage StageData, PointF OriginalPosition, bool Left)
 		{
 			base.StageData = StageData;
@@ -59,7 +57,6 @@ namespace Shooting
 			base.SpellList[0].OriginalPosition = this.Target.OriginalPosition;
 		}
 
-		// Token: 0x060009DB RID: 2523 RVA: 0x0005E480 File Offset: 0x0005C680
 		public override void Ctrl()
 		{
 			base.Ctrl();
@@ -77,7 +74,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x060009DC RID: 2524 RVA: 0x0005E4F4 File Offset: 0x0005C6F4
 		public override bool HitCheck(BaseObject Target)
 		{
 			double distance = base.GetDistance(Target);
@@ -89,14 +85,12 @@ namespace Shooting
 			return num2 * num2 / num3 / num3 + (num - (double)((float)base.TxtureObject.Height * base.ScaleLength / 2f)) * (num - (double)((float)base.TxtureObject.Height * base.ScaleLength / 2f)) / num4 / num4 < 1.0;
 		}
 
-		// Token: 0x060009DD RID: 2525 RVA: 0x0005E5D0 File Offset: 0x0005C7D0
 		public override void Show()
 		{
 			SizeF sizeF = new SizeF((float)base.TxtureObject.Width * base.ScaleWidth, (float)base.TxtureObject.Height * base.ScaleLength);
 			base.SpriteMain.Draw2D(base.TxtureObject.TXTure, base.TxtureObject.PosRect, sizeF, new PointF((float)(base.TxtureObject.Width / 2), 0f), (float)(base.Direction - 1.5707963267948966 + base.Angle), base.Position, Color.FromArgb(base.TransparentValue, base.ColorValue));
 		}
 
-		// Token: 0x060009DE RID: 2526 RVA: 0x0005E678 File Offset: 0x0005C878
 		public override void ShowRegion()
 		{
 			PointF originalPosition = base.OriginalPosition;
@@ -105,7 +99,6 @@ namespace Shooting
 			base.OriginalPosition = originalPosition;
 		}
 
-		// Token: 0x040003B6 RID: 950
 		private BaseObject Target;
 	}
 }

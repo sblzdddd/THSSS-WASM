@@ -4,22 +4,18 @@ using SlimDX;
 
 namespace Shooting
 {
-	// Token: 0x0200001C RID: 28
 	internal class EndBoss_Touhou_Small : EndBoss_Touhou
 	{
-		// Token: 0x0600017E RID: 382 RVA: 0x00008F3A File Offset: 0x0000713A
 		public EndBoss_Touhou_Small(StageDataPackage StageData, PointF OriginalPosition, Color Color1, Color Color2)
 			: base(StageData, OriginalPosition, Color1, Color2)
 		{
 		}
 
-		// Token: 0x0600017F RID: 383 RVA: 0x00008F4A File Offset: 0x0000714A
 		public EndBoss_Touhou_Small(StageDataPackage StageData)
 			: base(StageData)
 		{
 		}
 
-		// Token: 0x06000180 RID: 384 RVA: 0x00008F58 File Offset: 0x00007158
 		public override void Shoot()
 		{
 			if (base.Time == 1)
@@ -40,7 +36,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000181 RID: 385 RVA: 0x0000916F File Offset: 0x0000736F
 		public override void Show()
 		{
 		}

@@ -3,11 +3,9 @@ using System.Collections.Generic;
 
 namespace Shooting
 {
-	// Token: 0x020000BF RID: 191
 	[Serializable]
 	public class EventGroup
 	{
-		// Token: 0x0600055C RID: 1372 RVA: 0x0002E7CC File Offset: 0x0002C9CC
 		public void Update(BaseEmitter_CS CS_Emitter)
 		{
 			if (CS_Emitter.Time < 1)
@@ -148,7 +146,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x0600055D RID: 1373 RVA: 0x0002EEB8 File Offset: 0x0002D0B8
 		public void Update(BaseObject_CS CS_Bullet)
 		{
 			float[] array = new float[3];
@@ -232,7 +229,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x0600055E RID: 1374 RVA: 0x0002F26C File Offset: 0x0002D46C
 		private bool CheckCondition(float[] conditions, Event ev)
 		{
 			bool flag = false;
@@ -277,7 +273,6 @@ namespace Shooting
 			return flag3;
 		}
 
-		// Token: 0x0600055F RID: 1375 RVA: 0x0002F460 File Offset: 0x0002D660
 		private float Twopointangle(float x2, float y2, float x1, float y1)
 		{
 			float num;
@@ -296,7 +291,6 @@ namespace Shooting
 			return num;
 		}
 
-		// Token: 0x06000560 RID: 1376 RVA: 0x0002F4F0 File Offset: 0x0002D6F0
 		public object Clone()
 		{
 			EventGroup ev = (EventGroup)base.MemberwiseClone();
@@ -308,25 +302,18 @@ namespace Shooting
 			return ev;
 		}
 
-		// Token: 0x040001CB RID: 459
 		public int index;
 
-		// Token: 0x040001CC RID: 460
 		public string tag = "";
 
-		// Token: 0x040001CD RID: 461
 		public int t = 1;
 
-		// Token: 0x040001CE RID: 462
 		public int loop;
 
-		// Token: 0x040001CF RID: 463
 		public int addtime;
 
-		// Token: 0x040001D0 RID: 464
 		public int special;
 
-		// Token: 0x040001D1 RID: 465
 		public List<Event> EventList = new List<Event>();
 	}
 }

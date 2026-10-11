@@ -3,16 +3,13 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x0200020A RID: 522
 	internal class BackgroundParticleEmitter : Background3DObject
 	{
-		// Token: 0x06000B9B RID: 2971 RVA: 0x0007352A File Offset: 0x0007172A
 		public BackgroundParticleEmitter(StageDataPackage StageData, PointF OriginalPosition)
 			: base(StageData, null, OriginalPosition, true)
 		{
 		}
 
-		// Token: 0x06000B9C RID: 2972 RVA: 0x0007353C File Offset: 0x0007173C
 		public override void Ctrl()
 		{
 			base.Ctrl();
@@ -33,7 +30,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000B9D RID: 2973 RVA: 0x00073691 File Offset: 0x00071891
 		public override void Show()
 		{
 		}

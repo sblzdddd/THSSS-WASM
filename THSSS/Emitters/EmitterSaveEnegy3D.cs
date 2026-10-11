@@ -4,10 +4,8 @@ using SlimDX;
 
 namespace Shooting
 {
-	// Token: 0x020001E9 RID: 489
 	internal class EmitterSaveEnegy3D : BaseEffect
 	{
-		// Token: 0x06000B31 RID: 2865 RVA: 0x0006E7AC File Offset: 0x0006C9AC
 		public EmitterSaveEnegy3D(StageDataPackage StageData, PointF OriginalPosition, Color color)
 			: base(StageData)
 		{
@@ -26,7 +24,6 @@ namespace Shooting
 			baseEffect.MaxTransparent = 128;
 		}
 
-		// Token: 0x06000B32 RID: 2866 RVA: 0x0006E868 File Offset: 0x0006CA68
 		public override void Shoot()
 		{
 			if (base.Time % 2 == 0)
@@ -51,7 +48,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000B33 RID: 2867 RVA: 0x0006EA69 File Offset: 0x0006CC69
 		public override void Show()
 		{
 		}

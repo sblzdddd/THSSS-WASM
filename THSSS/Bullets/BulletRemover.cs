@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x020000F7 RID: 247
 	public class BulletRemover : BaseBackground
 	{
-		// Token: 0x0600069F RID: 1695 RVA: 0x0003AEE7 File Offset: 0x000390E7
 		public BulletRemover(StageDataPackage StageData, PointF OriginalPosition)
 			: base(StageData, null, new Point(0, 0), 0f, 1.5707963267948966)
 		{
@@ -15,7 +13,6 @@ namespace Shooting
 			base.Region = 2;
 		}
 
-		// Token: 0x060006A0 RID: 1696 RVA: 0x0003AF28 File Offset: 0x00039128
 		public override void Ctrl()
 		{
 			base.Ctrl();

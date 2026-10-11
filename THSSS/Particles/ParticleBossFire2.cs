@@ -3,15 +3,10 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x02000192 RID: 402
 	internal class ParticleBossFire2 : BaseObject
 	{
-		// Token: 0x1700020D RID: 525
-		// (get) Token: 0x0600099D RID: 2461 RVA: 0x0005BDA8 File Offset: 0x00059FA8
-		// (set) Token: 0x0600099E RID: 2462 RVA: 0x0005BDBF File Offset: 0x00059FBF
 		public double AngularVelocity { get; set; }
 
-		// Token: 0x0600099F RID: 2463 RVA: 0x0005BDC8 File Offset: 0x00059FC8
 		public ParticleBossFire2(StageDataPackage StageData, string textureName, PointF OriginalPosition, float Velocity, double Direction, int LifeTime)
 		{
 			base.StageData = StageData;
@@ -29,7 +24,6 @@ namespace Shooting
 			base.Background.BackgroundList.Add(this);
 		}
 
-		// Token: 0x060009A0 RID: 2464 RVA: 0x0005BE78 File Offset: 0x0005A078
 		public override void Ctrl()
 		{
 			base.Ctrl();

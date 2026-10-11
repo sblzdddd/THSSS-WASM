@@ -5,10 +5,8 @@ using SlimDX.Direct3D9;
 
 namespace Shooting
 {
-	// Token: 0x020001BA RID: 442
 	public class Model_Circle : Model, IModel
 	{
-		// Token: 0x06000A55 RID: 2645 RVA: 0x000631C8 File Offset: 0x000613C8
 		public Model_Circle(Device DeviceMain, TextureObject TxtureObject, string Name)
 		{
 			base.TransparentValue = 255;
@@ -22,7 +20,6 @@ namespace Shooting
 			this.SetupVertex();
 		}
 
-		// Token: 0x06000A56 RID: 2646 RVA: 0x0006326C File Offset: 0x0006146C
 		public override void SetupVertex()
 		{
 			float num = (float)base.TxtureObject.PosRect.X / (float)base.TxtureObject.SrcWidth;
@@ -42,20 +39,16 @@ namespace Shooting
 			this.vertexBuffer.Unlock();
 		}
 
-		// Token: 0x06000A57 RID: 2647 RVA: 0x000633F4 File Offset: 0x000615F4
 		public override void Draw()
 		{
 			base.SetupMaterial();
 			base.DeviceMain.DrawPrimitives(PrimitiveType.TriangleStrip, 0, 2 * this.Length);
 		}
 
-		// Token: 0x040003DA RID: 986
 		private int Length = 64;
 
-		// Token: 0x040003DB RID: 987
 		private int Width = 16;
 
-		// Token: 0x040003DC RID: 988
 		private int Radius = 100;
 	}
 }

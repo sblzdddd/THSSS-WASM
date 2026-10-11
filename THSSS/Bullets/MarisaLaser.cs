@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x020001C4 RID: 452
 	public class MarisaLaser : BaseEffect
 	{
-		// Token: 0x06000A6F RID: 2671 RVA: 0x00064CDC File Offset: 0x00062EDC
 		public MarisaLaser(StageDataPackage StageData, string textureName, PointF OriginalPosition, float v, double drctn)
 			: base(StageData, textureName, new PointF(0f, 0f), v, drctn)
 		{
@@ -20,7 +18,6 @@ namespace Shooting
 			base.LifeTime = 5;
 		}
 
-		// Token: 0x06000A70 RID: 2672 RVA: 0x00064D54 File Offset: 0x00062F54
 		public override void Ctrl()
 		{
 			base.Ctrl();
@@ -82,7 +79,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000A71 RID: 2673 RVA: 0x00064FF0 File Offset: 0x000631F0
 		public override bool HitCheck(BaseObject Target)
 		{
 			double distance = base.GetDistance(Target);
@@ -94,7 +90,6 @@ namespace Shooting
 			return num2 * num2 / num4 / num4 + (num - 256.0 + 64.0 - (double)((float)base.TxtureObject.Height * base.ScaleLength / 2f)) * (num - 256.0 + 64.0 - (double)((float)base.TxtureObject.Height * base.ScaleLength / 2f)) / num3 / num3 < 1.0;
 		}
 
-		// Token: 0x06000A72 RID: 2674 RVA: 0x00065100 File Offset: 0x00063300
 		public override void Show()
 		{
 			int num = base.TimeMain % 8 * 8;
@@ -102,7 +97,6 @@ namespace Shooting
 			base.SpriteMain.Draw2D(base.TxtureObject.TXTure, new Rectangle(base.TxtureObject.PosRect.X + 64 - num, base.TxtureObject.PosRect.Y, base.TxtureObject.PosRect.Width - 64, base.TxtureObject.PosRect.Height), sizeF, new PointF((float)((base.TxtureObject.Width - 64) / 2), (float)(base.TxtureObject.Height / 2)), (float)(base.Direction - 1.5707963267948966 + base.Angle), base.Position, Color.FromArgb(base.TransparentValue, base.ColorValue));
 		}
 
-		// Token: 0x06000A73 RID: 2675 RVA: 0x00065210 File Offset: 0x00063410
 		public override void ShowRegion()
 		{
 			base.SpriteMain.Draw2D(base.TextureObjectDictionary["Region"], (float)(base.TxtureObject.Width - 64) * 1f / (float)base.TextureObjectDictionary["Region"].Width * base.ScaleWidth, (float)base.TxtureObject.Height * 1f / (float)base.TextureObjectDictionary["Region"].Height * base.ScaleLength, (float)(base.Direction - 1.5707963267948966 + base.Angle), base.Position, Color.White, base.Mirrored);

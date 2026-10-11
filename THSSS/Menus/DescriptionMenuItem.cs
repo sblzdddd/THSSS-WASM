@@ -3,20 +3,12 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x020000D4 RID: 212
 	public class DescriptionMenuItem : BaseMenuItem
 	{
-		// Token: 0x17000153 RID: 339
-		// (get) Token: 0x060005D8 RID: 1496 RVA: 0x00034698 File Offset: 0x00032898
-		// (set) Token: 0x060005D9 RID: 1497 RVA: 0x000346AF File Offset: 0x000328AF
 		public string Description { get; set; }
 
-		// Token: 0x17000154 RID: 340
-		// (get) Token: 0x060005DA RID: 1498 RVA: 0x000346B8 File Offset: 0x000328B8
-		// (set) Token: 0x060005DB RID: 1499 RVA: 0x000346CF File Offset: 0x000328CF
 		public Color DefaultColor { get; set; }
 
-		// Token: 0x060005DC RID: 1500 RVA: 0x000346D8 File Offset: 0x000328D8
 		public DescriptionMenuItem(StageDataPackage StageData, string Name)
 		{
 			base.StageData = StageData;
@@ -27,7 +19,6 @@ namespace Shooting
 			this.DefaultColor = Color.Gray;
 		}
 
-		// Token: 0x060005DD RID: 1501 RVA: 0x00034728 File Offset: 0x00032928
 		public override void Ctrl()
 		{
 			if (base.Enabled)
@@ -57,7 +48,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x060005DE RID: 1502 RVA: 0x00034811 File Offset: 0x00032A11
 		public override void Select()
 		{
 			base.Time = 1;
@@ -66,7 +56,6 @@ namespace Shooting
 			base.TwinkleTime = 0;
 		}
 
-		// Token: 0x060005DF RID: 1503 RVA: 0x00034834 File Offset: 0x00032A34
 		public override void Click()
 		{
 			base.Time = 1;
@@ -74,7 +63,6 @@ namespace Shooting
 			base.TwinkleTime = base.Time + 30;
 		}
 
-		// Token: 0x060005E0 RID: 1504 RVA: 0x00034858 File Offset: 0x00032A58
 		public void DrawText(string text, PointF Pos)
 		{
 			text = text.Replace("\t", "    ");
@@ -96,7 +84,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x060005E1 RID: 1505 RVA: 0x00034950 File Offset: 0x00032B50
 		public override void Show()
 		{
 			this.DrawText(base.Name + " " + this.Description, base.OriginalPosition);

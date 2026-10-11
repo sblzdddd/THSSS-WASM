@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x02000073 RID: 115
 	internal class EmitterStageTitleStar : BaseEffect
 	{
-		// Token: 0x06000400 RID: 1024 RVA: 0x0001B7C0 File Offset: 0x000199C0
 		public EmitterStageTitleStar(StageDataPackage StageData)
 			: base(StageData, null, new PointF(0f, 0f), 0f, 0.0)
 		{
@@ -17,7 +15,6 @@ namespace Shooting
 			base.AccDirection = 0.0;
 		}
 
-		// Token: 0x06000401 RID: 1025 RVA: 0x0001B850 File Offset: 0x00019A50
 		public override void Shoot()
 		{
 			if (base.Time % 1 == 0)

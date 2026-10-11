@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x020001E7 RID: 487
 	internal class EndBoss_Touhou06 : EndBoss_Touhou
 	{
-		// Token: 0x06000B27 RID: 2855 RVA: 0x0006E1F4 File Offset: 0x0006C3F4
 		public EndBoss_Touhou06(StageDataPackage StageData, PointF OriginalPosition, Color Color1, Color Color2)
 			: base(StageData, OriginalPosition, Color1, Color2)
 		{
@@ -20,7 +18,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000B28 RID: 2856 RVA: 0x0006E254 File Offset: 0x0006C454
 		public override void Ctrl()
 		{
 			base.Ctrl();

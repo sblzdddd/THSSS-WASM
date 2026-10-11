@@ -3,12 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x02000047 RID: 71
 	public class HP_Line : BaseObject
 	{
-		// Token: 0x170000AF RID: 175
-		// (get) Token: 0x06000270 RID: 624 RVA: 0x0000FD28 File Offset: 0x0000DF28
-		// (set) Token: 0x06000271 RID: 625 RVA: 0x0000FD40 File Offset: 0x0000DF40
 		public int HP
 		{
 			get
@@ -32,12 +28,8 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x170000B0 RID: 176
-		// (get) Token: 0x06000272 RID: 626 RVA: 0x0000FD90 File Offset: 0x0000DF90
-		// (set) Token: 0x06000273 RID: 627 RVA: 0x0000FDA7 File Offset: 0x0000DFA7
 		public int MaxHP { get; set; }
 
-		// Token: 0x06000274 RID: 628 RVA: 0x0000FDB0 File Offset: 0x0000DFB0
 		public HP_Line(StageDataPackage StageData, string textureName, PointF OriginalPosition)
 		{
 			base.StageData = StageData;
@@ -47,7 +39,6 @@ namespace Shooting
 			base.TransparentValueF = 0f;
 		}
 
-		// Token: 0x06000275 RID: 629 RVA: 0x0000FE04 File Offset: 0x0000E004
 		public override void Ctrl()
 		{
 			if (base.Boss == null)
@@ -81,7 +72,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000276 RID: 630 RVA: 0x0000FF0C File Offset: 0x0000E10C
 		public override void Show()
 		{
 			int num = base.TxtureObject.Width * this.HP / this.MaxHP;
@@ -100,7 +90,6 @@ namespace Shooting
 			base.SpriteMain.Draw2D(base.TextureObjectDictionary["HP_Line2"], 1f, 0f, base.OriginalPosition, Color.FromArgb(base.TransparentValue, Color.White));
 		}
 
-		// Token: 0x040000BF RID: 191
 		private int hp = 0;
 	}
 }

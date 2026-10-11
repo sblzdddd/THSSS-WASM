@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x0200009D RID: 157
 	internal class CG : BaseStoryItem
 	{
-		// Token: 0x060004BF RID: 1215 RVA: 0x00024C74 File Offset: 0x00022E74
 		public CG(StageDataPackage StageData, string textureName)
 			: base(StageData)
 		{

@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x020000D9 RID: 217
 	internal class BulletYukaLaser : BulletLaser
 	{
-		// Token: 0x06000603 RID: 1539 RVA: 0x000354A0 File Offset: 0x000336A0
 		public BulletYukaLaser(StageDataPackage StageData, string textureName, PointF OriginalPosition, float Velocity, double Direction)
 			: base(StageData, textureName, OriginalPosition, Velocity, Direction)
 		{
@@ -19,7 +17,6 @@ namespace Shooting
 			base.Angle = 0.0;
 		}
 
-		// Token: 0x06000604 RID: 1540 RVA: 0x00035514 File Offset: 0x00033714
 		public override void Ctrl()
 		{
 			base.Ctrl();
@@ -42,7 +39,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000605 RID: 1541 RVA: 0x00035600 File Offset: 0x00033800
 		public override void HitCheckAll()
 		{
 			if (base.MyPlane.HitEnabled && this.HitCheck(base.MyPlane) && base.Time < base.LifeTime - 50)

@@ -5,21 +5,12 @@ using SlimDX;
 
 namespace Shooting
 {
-	// Token: 0x02000066 RID: 102
 	public class BaseMyPlane : BaseObject
 	{
-		// Token: 0x170000E5 RID: 229
-		// (get) Token: 0x0600035C RID: 860 RVA: 0x00016AEC File Offset: 0x00014CEC
-		// (set) Token: 0x0600035D RID: 861 RVA: 0x00016B03 File Offset: 0x00014D03
 		public string Name { get; set; }
 
-		// Token: 0x170000E6 RID: 230
-		// (get) Token: 0x0600035E RID: 862 RVA: 0x00016B0C File Offset: 0x00014D0C
-		// (set) Token: 0x0600035F RID: 863 RVA: 0x00016B23 File Offset: 0x00014D23
 		public string WeaponType { get; set; }
 
-		// Token: 0x170000E7 RID: 231
-		// (get) Token: 0x06000360 RID: 864 RVA: 0x00016B2C File Offset: 0x00014D2C
 		public string FullName
 		{
 			get
@@ -28,39 +19,18 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x170000E8 RID: 232
-		// (get) Token: 0x06000361 RID: 865 RVA: 0x00016B50 File Offset: 0x00014D50
-		// (set) Token: 0x06000362 RID: 866 RVA: 0x00016B67 File Offset: 0x00014D67
 		public bool SlowMove { get; private set; }
 
-		// Token: 0x170000E9 RID: 233
-		// (get) Token: 0x06000363 RID: 867 RVA: 0x00016B70 File Offset: 0x00014D70
-		// (set) Token: 0x06000364 RID: 868 RVA: 0x00016B87 File Offset: 0x00014D87
 		public float HighSpeed { get; set; }
 
-		// Token: 0x170000EA RID: 234
-		// (get) Token: 0x06000365 RID: 869 RVA: 0x00016B90 File Offset: 0x00014D90
-		// (set) Token: 0x06000366 RID: 870 RVA: 0x00016BA7 File Offset: 0x00014DA7
 		public float LowSpeed { get; set; }
 
-		// Token: 0x170000EB RID: 235
-		// (get) Token: 0x06000367 RID: 871 RVA: 0x00016BB0 File Offset: 0x00014DB0
-		// (set) Token: 0x06000368 RID: 872 RVA: 0x00016BC7 File Offset: 0x00014DC7
 		public new float Vx { get; private set; }
 
-		// Token: 0x170000EC RID: 236
-		// (get) Token: 0x06000369 RID: 873 RVA: 0x00016BD0 File Offset: 0x00014DD0
-		// (set) Token: 0x0600036A RID: 874 RVA: 0x00016BE7 File Offset: 0x00014DE7
 		public new float Vy { get; private set; }
 
-		// Token: 0x170000ED RID: 237
-		// (get) Token: 0x0600036B RID: 875 RVA: 0x00016BF0 File Offset: 0x00014DF0
-		// (set) Token: 0x0600036C RID: 876 RVA: 0x00016C07 File Offset: 0x00014E07
 		public int DeadTime { get; set; }
 
-		// Token: 0x170000EE RID: 238
-		// (get) Token: 0x0600036D RID: 877 RVA: 0x00016C10 File Offset: 0x00014E10
-		// (set) Token: 0x0600036E RID: 878 RVA: 0x00016C28 File Offset: 0x00014E28
 		public int Life
 		{
 			get
@@ -80,9 +50,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x170000EF RID: 239
-		// (get) Token: 0x0600036F RID: 879 RVA: 0x00016C58 File Offset: 0x00014E58
-		// (set) Token: 0x06000370 RID: 880 RVA: 0x00016C70 File Offset: 0x00014E70
 		public int Spell
 		{
 			get
@@ -106,9 +73,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x170000F0 RID: 240
-		// (get) Token: 0x06000371 RID: 881 RVA: 0x00016CB4 File Offset: 0x00014EB4
-		// (set) Token: 0x06000372 RID: 882 RVA: 0x00016CCC File Offset: 0x00014ECC
 		public int LifeChip
 		{
 			get
@@ -127,9 +91,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x170000F1 RID: 241
-		// (get) Token: 0x06000373 RID: 883 RVA: 0x00016D30 File Offset: 0x00014F30
-		// (set) Token: 0x06000374 RID: 884 RVA: 0x00016D48 File Offset: 0x00014F48
 		public int SpellChip
 		{
 			get
@@ -147,9 +108,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x170000F2 RID: 242
-		// (get) Token: 0x06000375 RID: 885 RVA: 0x00016D90 File Offset: 0x00014F90
-		// (set) Token: 0x06000376 RID: 886 RVA: 0x00016DA8 File Offset: 0x00014FA8
 		public int Power
 		{
 			get
@@ -173,8 +131,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x170000F3 RID: 243
-		// (get) Token: 0x06000377 RID: 887 RVA: 0x00016DF8 File Offset: 0x00014FF8
 		public int PowerLevel
 		{
 			get
@@ -183,9 +139,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x170000F4 RID: 244
-		// (get) Token: 0x06000378 RID: 888 RVA: 0x00016E14 File Offset: 0x00015014
-		// (set) Token: 0x06000379 RID: 889 RVA: 0x00016E2C File Offset: 0x0001502C
 		public long Score
 		{
 			get
@@ -209,9 +162,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x170000F5 RID: 245
-		// (get) Token: 0x0600037A RID: 890 RVA: 0x00016E84 File Offset: 0x00015084
-		// (set) Token: 0x0600037B RID: 891 RVA: 0x00016EBC File Offset: 0x000150BC
 		public long HiScore
 		{
 			get
@@ -244,9 +194,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x170000F6 RID: 246
-		// (get) Token: 0x0600037C RID: 892 RVA: 0x00016F14 File Offset: 0x00015114
-		// (set) Token: 0x0600037D RID: 893 RVA: 0x00016F2C File Offset: 0x0001512C
 		public int BluePoint
 		{
 			get
@@ -259,9 +206,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x170000F7 RID: 247
-		// (get) Token: 0x0600037E RID: 894 RVA: 0x00016F38 File Offset: 0x00015138
-		// (set) Token: 0x0600037F RID: 895 RVA: 0x00016F50 File Offset: 0x00015150
 		public int GreenPoint
 		{
 			get
@@ -274,9 +218,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x170000F8 RID: 248
-		// (get) Token: 0x06000380 RID: 896 RVA: 0x00016F5C File Offset: 0x0001515C
-		// (set) Token: 0x06000381 RID: 897 RVA: 0x00016F74 File Offset: 0x00015174
 		public int NextBluePoint
 		{
 			get
@@ -289,9 +230,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x170000F9 RID: 249
-		// (get) Token: 0x06000382 RID: 898 RVA: 0x00016F80 File Offset: 0x00015180
-		// (set) Token: 0x06000383 RID: 899 RVA: 0x00016F98 File Offset: 0x00015198
 		public int NextGreenPoint
 		{
 			get
@@ -304,9 +242,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x170000FA RID: 250
-		// (get) Token: 0x06000384 RID: 900 RVA: 0x00016FA4 File Offset: 0x000151A4
-		// (set) Token: 0x06000385 RID: 901 RVA: 0x00016FBC File Offset: 0x000151BC
 		public int StarPoint
 		{
 			get
@@ -365,9 +300,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x170000FB RID: 251
-		// (get) Token: 0x06000386 RID: 902 RVA: 0x000171AC File Offset: 0x000153AC
-		// (set) Token: 0x06000387 RID: 903 RVA: 0x000171C4 File Offset: 0x000153C4
 		public EnchantmentType EnchantmentState
 		{
 			get
@@ -380,9 +312,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x170000FC RID: 252
-		// (get) Token: 0x06000388 RID: 904 RVA: 0x000171D0 File Offset: 0x000153D0
-		// (set) Token: 0x06000389 RID: 905 RVA: 0x000171E8 File Offset: 0x000153E8
 		public EnchantmentType LastColor
 		{
 			get
@@ -395,9 +324,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x170000FD RID: 253
-		// (get) Token: 0x0600038A RID: 906 RVA: 0x000171F4 File Offset: 0x000153F4
-		// (set) Token: 0x0600038B RID: 907 RVA: 0x0001720C File Offset: 0x0001540C
 		public int EnchantmentTime
 		{
 			get
@@ -530,9 +456,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x170000FE RID: 254
-		// (get) Token: 0x0600038C RID: 908 RVA: 0x000178D0 File Offset: 0x00015AD0
-		// (set) Token: 0x0600038D RID: 909 RVA: 0x000178E8 File Offset: 0x00015AE8
 		public int EnchantmentCount
 		{
 			get
@@ -545,9 +468,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x170000FF RID: 255
-		// (get) Token: 0x0600038E RID: 910 RVA: 0x000178F4 File Offset: 0x00015AF4
-		// (set) Token: 0x0600038F RID: 911 RVA: 0x0001790C File Offset: 0x00015B0C
 		public int EnchantmentCountNeeded
 		{
 			get
@@ -560,8 +480,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x17000100 RID: 256
-		// (get) Token: 0x06000390 RID: 912 RVA: 0x00017918 File Offset: 0x00015B18
 		public bool FscEnabled
 		{
 			get
@@ -570,9 +488,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x17000101 RID: 257
-		// (get) Token: 0x06000391 RID: 913 RVA: 0x00017944 File Offset: 0x00015B44
-		// (set) Token: 0x06000392 RID: 914 RVA: 0x0001795C File Offset: 0x00015B5C
 		public float Rate
 		{
 			get
@@ -585,18 +500,10 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x17000102 RID: 258
-		// (get) Token: 0x06000393 RID: 915 RVA: 0x00017968 File Offset: 0x00015B68
-		// (set) Token: 0x06000394 RID: 916 RVA: 0x0001797F File Offset: 0x00015B7F
 		public int HighItemScore { get; set; }
 
-		// Token: 0x17000103 RID: 259
-		// (get) Token: 0x06000395 RID: 917 RVA: 0x00017988 File Offset: 0x00015B88
-		// (set) Token: 0x06000396 RID: 918 RVA: 0x0001799F File Offset: 0x00015B9F
 		public int Graze { get; set; }
 
-		// Token: 0x17000104 RID: 260
-		// (get) Token: 0x06000397 RID: 919 RVA: 0x000179A8 File Offset: 0x00015BA8
 		public int UnmatchedTime
 		{
 			get
@@ -605,29 +512,14 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x17000105 RID: 261
-		// (get) Token: 0x06000398 RID: 920 RVA: 0x000179C0 File Offset: 0x00015BC0
-		// (set) Token: 0x06000399 RID: 921 RVA: 0x000179D7 File Offset: 0x00015BD7
 		public TextureObject[] TxtureObjects { get; set; }
 
-		// Token: 0x17000106 RID: 262
-		// (get) Token: 0x0600039A RID: 922 RVA: 0x000179E0 File Offset: 0x00015BE0
-		// (set) Token: 0x0600039B RID: 923 RVA: 0x000179F7 File Offset: 0x00015BF7
 		public PointF[] SubPlanePoint { get; set; }
 
-		// Token: 0x17000107 RID: 263
-		// (get) Token: 0x0600039C RID: 924 RVA: 0x00017A00 File Offset: 0x00015C00
-		// (set) Token: 0x0600039D RID: 925 RVA: 0x00017A17 File Offset: 0x00015C17
 		public List<BaseSubPlane> SubPlaneList { get; set; }
 
-		// Token: 0x17000108 RID: 264
-		// (get) Token: 0x0600039E RID: 926 RVA: 0x00017A20 File Offset: 0x00015C20
-		// (set) Token: 0x0600039F RID: 927 RVA: 0x00017A37 File Offset: 0x00015C37
 		public bool SpellEnabled { get; set; }
 
-		// Token: 0x17000109 RID: 265
-		// (get) Token: 0x060003A0 RID: 928 RVA: 0x00017A40 File Offset: 0x00015C40
-		// (set) Token: 0x060003A1 RID: 929 RVA: 0x00017A58 File Offset: 0x00015C58
 		public int LifeUpCount
 		{
 			get
@@ -640,12 +532,10 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x060003A2 RID: 930 RVA: 0x00017A8C File Offset: 0x00015C8C
 		public BaseMyPlane()
 		{
 		}
 
-		// Token: 0x060003A3 RID: 931 RVA: 0x00017BA4 File Offset: 0x00015DA4
 		public BaseMyPlane(StageDataPackage StageData, Point Position)
 		{
 			base.StageData = StageData;
@@ -675,7 +565,6 @@ namespace Shooting
 			this.HighItemScore = 100000;
 		}
 
-		// Token: 0x060003A4 RID: 932 RVA: 0x00017DE8 File Offset: 0x00015FE8
 		public virtual void Refresh()
 		{
 			base.Time = 300;
@@ -687,7 +576,6 @@ namespace Shooting
 			this.SpellEnabled = true;
 		}
 
-		// Token: 0x060003A5 RID: 933 RVA: 0x00017E40 File Offset: 0x00016040
 		public override void Move()
 		{
 			this.Vx = 0f;
@@ -759,7 +647,6 @@ namespace Shooting
 			base.OriginalPosition = new PointF(num, num2);
 		}
 
-		// Token: 0x060003A6 RID: 934 RVA: 0x00018148 File Offset: 0x00016348
 		public virtual void SubPlaneCtrl()
 		{
 			if (base.KClass.Key_Shift)
@@ -823,7 +710,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x060003A7 RID: 935 RVA: 0x0001875C File Offset: 0x0001695C
 		public virtual void TextureCtrl()
 		{
 			if (this.Vx > 0.5f)
@@ -915,7 +801,6 @@ namespace Shooting
 			base.TxtureObject = this.TxtureObjects[num];
 		}
 
-		// Token: 0x060003A8 RID: 936 RVA: 0x00018A04 File Offset: 0x00016C04
 		public override void Shoot()
 		{
 			if (base.Time % 3 == 0)
@@ -937,14 +822,12 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x060003A9 RID: 937 RVA: 0x00018B37 File Offset: 0x00016D37
 		public virtual void SpellShoot()
 		{
 			new Spell(base.StageData);
 			base.StageData.SoundPlay("se_nep00.wav");
 		}
 
-		// Token: 0x060003AA RID: 938 RVA: 0x00018B88 File Offset: 0x00016D88
 		public virtual void PreMiss()
 		{
 			if (base.Time >= this.UnmatchedTime)
@@ -977,7 +860,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x060003AB RID: 939 RVA: 0x00018CA0 File Offset: 0x00016EA0
 		public virtual void Miss()
 		{
 			if (this.EnchantmentState == EnchantmentType.Red || this.EnchantmentState == EnchantmentType.Blue)
@@ -994,7 +876,6 @@ namespace Shooting
 			this.DeadTime = -1;
 		}
 
-		// Token: 0x060003AC RID: 940 RVA: 0x00018DBC File Offset: 0x00016FBC
 		public override void Ctrl()
 		{
 			if (base.Enabled)
@@ -1075,7 +956,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x060003AD RID: 941 RVA: 0x00019058 File Offset: 0x00017258
 		public void RetryClear()
 		{
 			this.EnchantmentTime = 0;
@@ -1094,7 +974,6 @@ namespace Shooting
 			this.LastColor = EnchantmentType.Green;
 		}
 
-		// Token: 0x060003AE RID: 942 RVA: 0x00019104 File Offset: 0x00017304
 		public void Extend()
 		{
 			if (this.Life < 8)
@@ -1118,7 +997,6 @@ namespace Shooting
 			baseEffect.TransparentVelocityDictionary.Add(70, -13f);
 		}
 
-		// Token: 0x060003AF RID: 943 RVA: 0x000191F4 File Offset: 0x000173F4
 		public void SpellExtand()
 		{
 			base.StageData.SoundPlay("se_cardget.wav");
@@ -1135,7 +1013,6 @@ namespace Shooting
 			baseEffect.TransparentVelocityDictionary.Add(70, -13f);
 		}
 
-		// Token: 0x060003B0 RID: 944 RVA: 0x000192C0 File Offset: 0x000174C0
 		public void ChangeEnchantment(EnchantmentType EnchantmentState)
 		{
 			switch (EnchantmentState)
@@ -1161,7 +1038,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x060003B1 RID: 945 RVA: 0x00019340 File Offset: 0x00017540
 		public override void Show()
 		{
 			if (base.Time >= this.DeadTime)
@@ -1184,7 +1060,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x060003B2 RID: 946 RVA: 0x00019424 File Offset: 0x00017624
 		public virtual void ShowCenter()
 		{
 			if (this.SlowMove)
@@ -1193,91 +1068,62 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x04000100 RID: 256
 		private const int unmatchedTime = 300;
 
-		// Token: 0x04000101 RID: 257
 		private const int deltaGreen = 120;
 
-		// Token: 0x04000102 RID: 258
 		private int life = 2;
 
-		// Token: 0x04000103 RID: 259
 		private int spell = 2;
 
-		// Token: 0x04000104 RID: 260
 		private int lifeChip = 0;
 
-		// Token: 0x04000105 RID: 261
 		private int spellChip = 0;
 
-		// Token: 0x04000106 RID: 262
 		public readonly int nextSpellChip = 4;
 
-		// Token: 0x04000107 RID: 263
 		public readonly int[] nextLifeChip = new int[] { 3, 5, 8, 10, 12, 15, 18, 20, 22 };
 
-		// Token: 0x04000108 RID: 264
 		private int lifeUpCount = 0;
 
-		// Token: 0x04000109 RID: 265
 		private int power = 100;
 
-		// Token: 0x0400010A RID: 266
 		private long score = 0L;
 
-		// Token: 0x0400010B RID: 267
 		private long hiScore = 0L;
 
-		// Token: 0x0400010C RID: 268
 		private bool lastX = false;
 
-		// Token: 0x0400010D RID: 269
 		private int starPoint = 0;
 
-		// Token: 0x0400010E RID: 270
 		public readonly int maxStarPoint = 3000;
 
-		// Token: 0x0400010F RID: 271
 		private int nextBluePoint = 300;
 
-		// Token: 0x04000110 RID: 272
 		private int nextGreenPoint = 3000;
 
-		// Token: 0x04000111 RID: 273
 		private int bluePoint = 0;
 
-		// Token: 0x04000112 RID: 274
 		private int greenPoint = 0;
 
-		// Token: 0x04000113 RID: 275
 		private int blueLevel = 0;
 
-		// Token: 0x04000114 RID: 276
 		private int greenLevel = 0;
 
-		// Token: 0x04000115 RID: 277
 		private EnchantmentType enchantmentState = EnchantmentType.None;
 
-		// Token: 0x04000116 RID: 278
 		private EnchantmentType lastColor = EnchantmentType.Green;
 
-		// Token: 0x04000117 RID: 279
 		private int enchantmentTime;
 
-		// Token: 0x04000118 RID: 280
 		private float rate = 1f;
 
-		// Token: 0x04000119 RID: 281
 		private int enchantmentCount = 0;
 
-		// Token: 0x0400011A RID: 282
 		private int enchantmentCountNeeded = 0;
 
-		// Token: 0x0400011B RID: 283
 		private bool OnRotate = false;
 
-		// Token: 0x0400011C RID: 284
 		private int Angle3D = 0;
 	}
 }

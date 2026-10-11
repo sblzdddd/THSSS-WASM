@@ -3,17 +3,14 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x020001E3 RID: 483
 	internal class ScoreItem_Touhou : BaseItem_Touhou
 	{
-		// Token: 0x06000B18 RID: 2840 RVA: 0x0006DE7C File Offset: 0x0006C07C
 		public ScoreItem_Touhou(StageDataPackage StageData, PointF OriginalPosition)
 			: base(StageData, "Item-1", OriginalPosition)
 		{
 			base.Region = 5;
 		}
 
-		// Token: 0x06000B19 RID: 2841 RVA: 0x0006DE98 File Offset: 0x0006C098
 		public override void HitCheckAll()
 		{
 			base.HitCheckAll();
@@ -42,7 +39,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000B1A RID: 2842 RVA: 0x0006DFE0 File Offset: 0x0006C1E0
 		public override void Show()
 		{
 			base.Show();

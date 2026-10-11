@@ -3,32 +3,22 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x020000A3 RID: 163
 	public class Bullet_StraightLaser : BaseBullet_Touhou
 	{
-		// Token: 0x17000130 RID: 304
-		// (get) Token: 0x060004D1 RID: 1233 RVA: 0x000262D0 File Offset: 0x000244D0
-		// (set) Token: 0x060004D2 RID: 1234 RVA: 0x000262E7 File Offset: 0x000244E7
 		public bool LaserHead { get; set; }
 
-		// Token: 0x17000131 RID: 305
-		// (get) Token: 0x060004D3 RID: 1235 RVA: 0x000262F0 File Offset: 0x000244F0
-		// (set) Token: 0x060004D4 RID: 1236 RVA: 0x00026307 File Offset: 0x00024507
 		private int HeadTransparent { get; set; }
 
-		// Token: 0x060004D5 RID: 1237 RVA: 0x00026310 File Offset: 0x00024510
 		public Bullet_StraightLaser(StageDataPackage StageData)
 			: base(StageData)
 		{
 		}
 
-		// Token: 0x060004D6 RID: 1238 RVA: 0x0002631C File Offset: 0x0002451C
 		public Bullet_StraightLaser(StageDataPackage StageData, PointF OriginalPosition, float Velocity, double Direction, byte ColorType, int Length)
 			: this(StageData, OriginalPosition, Velocity, Direction, ColorType, Length, 16)
 		{
 		}
 
-		// Token: 0x060004D7 RID: 1239 RVA: 0x00026334 File Offset: 0x00024534
 		public Bullet_StraightLaser(StageDataPackage StageData, PointF OriginalPosition, float Velocity, double Direction, byte ColorType, int Length, int Width)
 			: this(StageData, "Laser0_" + ColorType, OriginalPosition, Velocity, Direction, Length)
 		{
@@ -38,7 +28,6 @@ namespace Shooting
 			base.ScaleLength = (float)Width / (float)base.TxtureObject.Height;
 		}
 
-		// Token: 0x060004D8 RID: 1240 RVA: 0x0002639A File Offset: 0x0002459A
 		public Bullet_StraightLaser(StageDataPackage StageData, string textureName, PointF OriginalPosition, float Velocity, double Direction, int Length)
 			: base(StageData, textureName, OriginalPosition, Velocity, Direction)
 		{
@@ -46,7 +35,6 @@ namespace Shooting
 			base.Region = 2;
 		}
 
-		// Token: 0x060004D9 RID: 1241 RVA: 0x000263C0 File Offset: 0x000245C0
 		public override void Ctrl()
 		{
 			base.Ctrl();
@@ -68,7 +56,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x060004DA RID: 1242 RVA: 0x000264A0 File Offset: 0x000246A0
 		public override bool OutBoundary()
 		{
 			bool flag;
@@ -117,7 +104,6 @@ namespace Shooting
 			return flag;
 		}
 
-		// Token: 0x060004DB RID: 1243 RVA: 0x0002677C File Offset: 0x0002497C
 		public override bool HitCheck(BaseObject Target, float Radius)
 		{
 			for (int i = 3; i < base.LastPoints.Length - 3; i++)
@@ -132,7 +118,6 @@ namespace Shooting
 			return false;
 		}
 
-		// Token: 0x060004DC RID: 1244 RVA: 0x00026854 File Offset: 0x00024A54
 		public override void GiveEndEffect()
 		{
 			for (int i = 0; i < base.LastPoints.Length; i++)
@@ -144,7 +129,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x060004DD RID: 1245 RVA: 0x000268B4 File Offset: 0x00024AB4
 		public override void GiveItems()
 		{
 			int num = 5;
@@ -164,7 +148,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x060004DE RID: 1246 RVA: 0x00026994 File Offset: 0x00024B94
 		public override void Show()
 		{
 			if (base.TxtureObject != null)
@@ -192,7 +175,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x060004DF RID: 1247 RVA: 0x00026BAC File Offset: 0x00024DAC
 		public override void ShowRegion()
 		{
 			PointF originalPosition = base.OriginalPosition;

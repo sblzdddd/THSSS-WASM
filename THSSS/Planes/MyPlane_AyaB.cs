@@ -4,10 +4,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x020001E0 RID: 480
 	public class MyPlane_AyaB : BaseMyPlane_Touhou
 	{
-		// Token: 0x06000B0C RID: 2828 RVA: 0x0006D1E0 File Offset: 0x0006B3E0
 		public MyPlane_AyaB(StageDataPackage StageData, Point OriginalPosition)
 			: base(StageData, OriginalPosition, "Aya")
 		{
@@ -23,7 +21,6 @@ namespace Shooting
 			base.LowSpeed = 2f;
 		}
 
-		// Token: 0x06000B0D RID: 2829 RVA: 0x0006D27C File Offset: 0x0006B47C
 		public override void Shoot()
 		{
 			if (base.SpellList.Count <= 0)
@@ -46,7 +43,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000B0E RID: 2830 RVA: 0x0006D37C File Offset: 0x0006B57C
 		public override void Ctrl()
 		{
 			if (base.SpellList.Count <= 0)
@@ -55,7 +51,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000B0F RID: 2831 RVA: 0x0006D3A9 File Offset: 0x0006B5A9
 		public override void SpellShoot()
 		{
 			new Spell_AyaB(base.StageData);
@@ -63,7 +58,6 @@ namespace Shooting
 			base.StageData.SoundPlay("se_nep00.wav");
 		}
 
-		// Token: 0x06000B10 RID: 2832 RVA: 0x0006D3DC File Offset: 0x0006B5DC
 		public override void SubPlaneCtrl()
 		{
 			if (base.KClass.Key_Shift)
@@ -147,7 +141,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000B11 RID: 2833 RVA: 0x0006DC0C File Offset: 0x0006BE0C
 		public override void ShowCenter()
 		{
 			if (base.SpellList.Count <= 0)
@@ -156,7 +149,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000B12 RID: 2834 RVA: 0x0006DC3C File Offset: 0x0006BE3C
 		public override void Show()
 		{
 			if (base.SpellList.Count <= 0)

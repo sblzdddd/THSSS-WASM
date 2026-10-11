@@ -3,15 +3,10 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x02000050 RID: 80
 	internal class Bullet_TouhouFire : Bullet_Touhou_01
 	{
-		// Token: 0x170000B3 RID: 179
-		// (get) Token: 0x06000296 RID: 662 RVA: 0x00010F88 File Offset: 0x0000F188
-		// (set) Token: 0x06000297 RID: 663 RVA: 0x00010F9F File Offset: 0x0000F19F
 		public TextureObject[] TxtureObjects { get; set; }
 
-		// Token: 0x06000298 RID: 664 RVA: 0x00010FA8 File Offset: 0x0000F1A8
 		public Bullet_TouhouFire(StageDataPackage StageData, int type, PointF OriginalPosition, float Velocity, double Direction)
 			: base(StageData, null, OriginalPosition, Velocity, Direction, 0)
 		{
@@ -103,14 +98,12 @@ namespace Shooting
 			base.TxtureObject = this.TxtureObjects[(base.Time + this.timeOffset) % 16 / 4];
 		}
 
-		// Token: 0x06000299 RID: 665 RVA: 0x00011372 File Offset: 0x0000F572
 		public override void Ctrl()
 		{
 			base.Ctrl();
 			base.TxtureObject = this.TxtureObjects[(base.Time + this.timeOffset) % 16 / 4];
 		}
 
-		// Token: 0x040000C4 RID: 196
 		private int timeOffset;
 	}
 }

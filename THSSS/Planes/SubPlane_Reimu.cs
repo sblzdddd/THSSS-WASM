@@ -3,16 +3,13 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x020000F0 RID: 240
 	public class SubPlane_Reimu : BaseSubPlane
 	{
-		// Token: 0x0600067C RID: 1660 RVA: 0x000399E1 File Offset: 0x00037BE1
 		public SubPlane_Reimu(StageDataPackage StageData, PointF Position)
 			: base(StageData, "ReimuSubPlane", Position)
 		{
 		}
 
-		// Token: 0x0600067D RID: 1661 RVA: 0x000399F4 File Offset: 0x00037BF4
 		public override void Ctrl()
 		{
 			base.Ctrl();
@@ -26,7 +23,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x0600067E RID: 1662 RVA: 0x00039A3C File Offset: 0x00037C3C
 		public override void Shoot()
 		{
 			if (base.KClass.Key_Shift)
@@ -47,7 +43,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x0600067F RID: 1663 RVA: 0x00039B3C File Offset: 0x00037D3C
 		public override void Show()
 		{
 			if (base.Enabled)

@@ -6,55 +6,26 @@ using System.Windows.Forms;
 
 namespace Shooting
 {
-	// Token: 0x02000124 RID: 292
 	public class PlayerData
 	{
-		// Token: 0x170001C1 RID: 449
-		// (get) Token: 0x060007AE RID: 1966 RVA: 0x00047610 File Offset: 0x00045810
-		// (set) Token: 0x060007AF RID: 1967 RVA: 0x00047627 File Offset: 0x00045827
 		private FileStream ScoreFile { get; set; }
 
-		// Token: 0x170001C2 RID: 450
-		// (get) Token: 0x060007B0 RID: 1968 RVA: 0x00047630 File Offset: 0x00045830
-		// (set) Token: 0x060007B1 RID: 1969 RVA: 0x00047647 File Offset: 0x00045847
 		public bool PlaneAEnabled { get; set; }
 
-		// Token: 0x170001C3 RID: 451
-		// (get) Token: 0x060007B2 RID: 1970 RVA: 0x00047650 File Offset: 0x00045850
-		// (set) Token: 0x060007B3 RID: 1971 RVA: 0x00047667 File Offset: 0x00045867
 		public bool PlaneBEnabled { get; set; }
 
-		// Token: 0x170001C4 RID: 452
-		// (get) Token: 0x060007B4 RID: 1972 RVA: 0x00047670 File Offset: 0x00045870
-		// (set) Token: 0x060007B5 RID: 1973 RVA: 0x00047687 File Offset: 0x00045887
 		public bool UltraEnabled { get; set; }
 
-		// Token: 0x170001C5 RID: 453
-		// (get) Token: 0x060007B6 RID: 1974 RVA: 0x00047690 File Offset: 0x00045890
-		// (set) Token: 0x060007B7 RID: 1975 RVA: 0x000476A7 File Offset: 0x000458A7
 		public bool ExtraEnabled { get; set; }
 
-		// Token: 0x170001C6 RID: 454
-		// (get) Token: 0x060007B8 RID: 1976 RVA: 0x000476B0 File Offset: 0x000458B0
-		// (set) Token: 0x060007B9 RID: 1977 RVA: 0x000476C7 File Offset: 0x000458C7
 		public string PlayerName { get; set; }
 
-		// Token: 0x170001C7 RID: 455
-		// (get) Token: 0x060007BA RID: 1978 RVA: 0x000476D0 File Offset: 0x000458D0
-		// (set) Token: 0x060007BB RID: 1979 RVA: 0x000476E7 File Offset: 0x000458E7
 		public bool[] MusicState { get; set; }
 
-		// Token: 0x170001C8 RID: 456
-		// (get) Token: 0x060007BC RID: 1980 RVA: 0x000476F0 File Offset: 0x000458F0
-		// (set) Token: 0x060007BD RID: 1981 RVA: 0x00047707 File Offset: 0x00045907
 		public List<ScoreHistory> S_History { get; set; }
 
-		// Token: 0x170001C9 RID: 457
-		// (get) Token: 0x060007BE RID: 1982 RVA: 0x00047710 File Offset: 0x00045910
-		// (set) Token: 0x060007BF RID: 1983 RVA: 0x00047727 File Offset: 0x00045927
 		public List<ClearHistory> C_History { get; set; }
 
-		// Token: 0x060007C0 RID: 1984 RVA: 0x00047730 File Offset: 0x00045930
 		public PlayerData()
 		{
 			this.CreatNewData();
@@ -75,7 +46,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x060007C1 RID: 1985 RVA: 0x0004779C File Offset: 0x0004599C
 		private void CreatNewData()
 		{
 			this.PlayerName = "";
@@ -244,7 +214,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x060007C2 RID: 1986 RVA: 0x00047C5C File Offset: 0x00045E5C
 		public void SaveData()
 		{
 			this.ScoreFile = new FileStream("Score.dat", FileMode.Create);
@@ -268,7 +237,6 @@ namespace Shooting
 			streamWriter.Close();
 		}
 
-		// Token: 0x060007C3 RID: 1987 RVA: 0x00047DB8 File Offset: 0x00045FB8
 		public void LoadData()
 		{
 			string[] array = File.ReadAllLines("Score.dat", Encoding.Default);
@@ -292,7 +260,6 @@ namespace Shooting
 			this.CheckEnable();
 		}
 
-		// Token: 0x060007C4 RID: 1988 RVA: 0x00047EB8 File Offset: 0x000460B8
 		public void CheckEnable()
 		{
 			this.C_History.ForEach(delegate(ClearHistory x)
@@ -304,13 +271,10 @@ namespace Shooting
 			});
 		}
 
-		// Token: 0x040002AF RID: 687
 		private const string FileName = "Score.dat";
 
-		// Token: 0x040002B0 RID: 688
 		public List<SpellCardHistory> SC_History;
 
-		// Token: 0x040002B1 RID: 689
 		private static string[] SCNameEN = new string[]
 		{
 			"星符「夏夜的晚星」", "四叶「大自然之花环」", "魔矢「无限之箭」", "天诏「琴引山之诏琴」", "使魔「自动狩猎装置」", "天箭「星之箭」", "火符「逼近的火焰」", "火光「火精灵之灾」", "木灵「大屋津姬命」", "妖符「柳下妖蝉」",
@@ -319,7 +283,6 @@ namespace Shooting
 			"「星神降临仪式」", "许愿星「星火辉迹」", "耀星「白夜永昼之光」", "星雨「故乡之星」", "星图「宇宙棋盘」", "「弹幕之海」", "「流星神话」"
 		};
 
-		// Token: 0x040002B2 RID: 690
 		private static string[] SCNameHL = new string[]
 		{
 			"微风「摇曳的三叶草」", "星符「夏夜的晚星」", "四叶「大自然之花环」", "夜风「轮回的幸运之星」", "魔矢「轮回的万箭」", "异器「琴引山之神弓」", "魔狩「星夜的狩猎舞曲」", "华箭「紫星之花」", "秘术「龙卷旋风之箭」", "火符「燃烧地狱火海」",
@@ -329,7 +292,6 @@ namespace Shooting
 			"星图「宇宙棋盘」", "「弹幕之海」", "「流星神话」", "第一个愿望「无尽之财」", "第二个愿望「无穷之力」", "第三个愿望「永生不灭」"
 		};
 
-		// Token: 0x040002B3 RID: 691
 		private static string[] SCNameEx = new string[]
 		{
 			"青符「东之国度的树叶」", "柳符「新生的柳叶绿芽」", "蝶恋「千年之愿」", "风符「环形气流」", "速风「双龙卷」", "风切「狂风交错」", "舞风「阵风螺旋」", "飓风「台风眼」", "天岚「逆卷神风」", "「雾隐流剑技 ～ 暴风疾斩」",

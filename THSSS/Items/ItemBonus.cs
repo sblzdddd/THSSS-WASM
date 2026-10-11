@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x0200004C RID: 76
 	public class ItemBonus : BaseEffect
 	{
-		// Token: 0x0600027F RID: 639 RVA: 0x000105FC File Offset: 0x0000E7FC
 		public ItemBonus(StageDataPackage StageData)
 			: base(StageData, null, new Point(0, 0), 0f, 1.5707963267948966)
 		{
@@ -16,14 +14,12 @@ namespace Shooting
 			base.Accelerate = 0.1f;
 		}
 
-		// Token: 0x06000280 RID: 640 RVA: 0x0001067D File Offset: 0x0000E87D
 		public override void Ctrl()
 		{
 			base.Ctrl();
 			base.Direction = base.GetDirection(base.MyPlane);
 		}
 
-		// Token: 0x06000281 RID: 641 RVA: 0x0001069C File Offset: 0x0000E89C
 		public override void Shoot()
 		{
 			int num = 160 - base.Time;

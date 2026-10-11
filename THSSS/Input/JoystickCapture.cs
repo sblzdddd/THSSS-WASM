@@ -4,10 +4,8 @@ using SlimDX.DirectInput;
 
 namespace Shooting
 {
-	// Token: 0x020001BD RID: 445
 	public class JoystickCapture
 	{
-		// Token: 0x06000A5E RID: 2654 RVA: 0x000637BC File Offset: 0x000619BC
 		public JoystickCapture(IntPtr handle)
 		{
 			DirectInput directInput = new DirectInput();
@@ -36,7 +34,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000A5F RID: 2655 RVA: 0x00063918 File Offset: 0x00061B18
 		public void UpdateInput(ref KeyClass KClass)
 		{
 			if (this.joystick != null)
@@ -66,7 +63,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000A60 RID: 2656 RVA: 0x00063AB0 File Offset: 0x00061CB0
 		public void Dispose()
 		{
 			if (this.joystick != null)
@@ -77,13 +73,10 @@ namespace Shooting
 			this.joystick = null;
 		}
 
-		// Token: 0x040003DF RID: 991
 		private Joystick joystick;
 
-		// Token: 0x040003E0 RID: 992
 		public JoystickState currentJoystickState = new JoystickState();
 
-		// Token: 0x040003E1 RID: 993
 		public JoystickState lastJoystickState = new JoystickState();
 	}
 }

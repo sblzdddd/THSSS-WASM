@@ -6,10 +6,8 @@ using SlimDX.Direct3D9;
 
 namespace Shooting
 {
-	// Token: 0x0200014E RID: 334
 	internal partial class GameState_MainMenu : BaseMenu, IGameState
 	{
-		// Token: 0x0600089C RID: 2204 RVA: 0x0004F0D4 File Offset: 0x0004D2D4
 		public GameState_MainMenu(GlobalDataPackage GlobalData)
 			: base(GlobalData)
 		{
@@ -18,7 +16,6 @@ namespace Shooting
 			base.DXFont = new SlimDX.Direct3D9.Font(base.DeviceMain, font);
 		}
 
-		// Token: 0x0600089D RID: 2205 RVA: 0x0004F118 File Offset: 0x0004D318
 		public override void Init()
 		{
 			base.StageData.PData.CheckEnable();
@@ -27,7 +24,6 @@ namespace Shooting
 			base.BGM_Player.Volume = base.StageData.GlobalData.BGMVolume;
 		}
 
-		// Token: 0x0600089E RID: 2206 RVA: 0x0004F16C File Offset: 0x0004D36C
 		public override void UpdateData()
 		{
 			if (base.TimeMain == 50)
@@ -105,7 +101,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x0600089F RID: 2207 RVA: 0x0004F6F4 File Offset: 0x0004D8F4
 		public override void Render()
 		{
 			base.SpriteMain.Begin(SpriteFlags.AlphaBlend);
@@ -155,18 +150,15 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x060008A0 RID: 2208 RVA: 0x0004F984 File Offset: 0x0004DB84
 		public override void BGM_ON()
 		{
 			base.StageData.ChangeBGM(".\\BGM\\OP.wav", 0, 0, 255, 604611, 6047874);
 		}
 
-		// Token: 0x060008A1 RID: 2209 RVA: 0x0004F9A9 File Offset: 0x0004DBA9
 		public override void BGM_Resume()
 		{
 		}
 
-		// Token: 0x04000317 RID: 791
 		private BaseEffect SelectFrame;
 	}
 }

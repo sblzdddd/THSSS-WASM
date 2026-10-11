@@ -4,10 +4,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x02000133 RID: 307
 	internal class MenuGroup_GameSet : MenuGroup_GameOver
 	{
-		// Token: 0x06000831 RID: 2097 RVA: 0x0004B6C4 File Offset: 0x000498C4
 		public MenuGroup_GameSet(StageDataPackage StageData)
 			: base(StageData)
 		{

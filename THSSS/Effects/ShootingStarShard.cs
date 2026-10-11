@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x020001C7 RID: 455
 	internal class ShootingStarShard : BaseItem_Touhou
 	{
-		// Token: 0x06000A7D RID: 2685 RVA: 0x00065CE8 File Offset: 0x00063EE8
 		public ShootingStarShard(StageDataPackage StageData, PointF OriginalPosition)
 			: base(StageData, "StarShardBS", OriginalPosition)
 		{
@@ -19,7 +17,6 @@ namespace Shooting
 			base.ColorValue = Color.Blue;
 		}
 
-		// Token: 0x06000A7E RID: 2686 RVA: 0x00065D6C File Offset: 0x00063F6C
 		public override void HitCheckAll()
 		{
 			if (this.HitCheck(base.MyPlane, 48f))
@@ -67,7 +64,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000A7F RID: 2687 RVA: 0x00065FB8 File Offset: 0x000641B8
 		public override void Ctrl()
 		{
 			base.Ctrl();
@@ -98,7 +94,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000A80 RID: 2688 RVA: 0x000660F8 File Offset: 0x000642F8
 		public override void Show()
 		{
 			Color colorValue = base.ColorValue;

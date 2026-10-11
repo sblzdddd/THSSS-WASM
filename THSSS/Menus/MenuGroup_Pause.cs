@@ -4,10 +4,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x02000015 RID: 21
 	internal class MenuGroup_Pause : MenuGroup_GameOver
 	{
-		// Token: 0x06000130 RID: 304 RVA: 0x00007A84 File Offset: 0x00005C84
 		public MenuGroup_Pause(StageDataPackage StageData)
 			: base(StageData)
 		{
@@ -42,7 +40,6 @@ namespace Shooting
 			base.MenuItemList[base.MenuSelectIndex].Selected = true;
 		}
 
-		// Token: 0x06000131 RID: 305 RVA: 0x00007C38 File Offset: 0x00005E38
 		public override void ProcessKeys()
 		{
 			base.ProcessKeys();

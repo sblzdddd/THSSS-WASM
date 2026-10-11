@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x0200010F RID: 271
 	public class Spell_Reimu : BaseSpell
 	{
-		// Token: 0x06000767 RID: 1895 RVA: 0x0004333C File Offset: 0x0004153C
 		public Spell_Reimu(StageDataPackage StageData)
 		{
 			base.StageData = StageData;
@@ -27,7 +25,6 @@ namespace Shooting
 			base.SpellList.Add(this);
 		}
 
-		// Token: 0x06000768 RID: 1896 RVA: 0x00043438 File Offset: 0x00041638
 		public override void Ctrl()
 		{
 			base.Ctrl();
@@ -86,7 +83,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000769 RID: 1897 RVA: 0x00043778 File Offset: 0x00041978
 		public override void Show()
 		{
 			base.Show();

@@ -3,17 +3,14 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x0200003F RID: 63
 	internal class EndBoss : BaseEffect
 	{
-		// Token: 0x06000241 RID: 577 RVA: 0x0000E3AC File Offset: 0x0000C5AC
 		public EndBoss(StageDataPackage StageData)
 			: base(StageData)
 		{
 			base.LifeTime = 200;
 		}
 
-		// Token: 0x06000242 RID: 578 RVA: 0x0000E3C4 File Offset: 0x0000C5C4
 		public override void Move()
 		{
 			if (base.Boss != null)
@@ -22,7 +19,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000243 RID: 579 RVA: 0x0000E3F4 File Offset: 0x0000C5F4
 		public override void Shoot()
 		{
 			if (base.Time == 1)
@@ -67,7 +63,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000244 RID: 580 RVA: 0x0000E698 File Offset: 0x0000C898
 		public override void Show()
 		{
 		}

@@ -4,10 +4,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x02000068 RID: 104
 	public class MyPlane_Reimu : BaseMyPlane_Touhou
 	{
-		// Token: 0x060003BF RID: 959 RVA: 0x000198A0 File Offset: 0x00017AA0
 		public MyPlane_Reimu(StageDataPackage StageData, Point OriginalPosition)
 			: base(StageData, OriginalPosition, "Reimu")
 		{
@@ -23,7 +21,6 @@ namespace Shooting
 			base.LowSpeed = 2f;
 		}
 
-		// Token: 0x060003C0 RID: 960 RVA: 0x0001993C File Offset: 0x00017B3C
 		public override void Shoot()
 		{
 			if (base.Time % 3 == 0)
@@ -45,7 +42,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x060003C1 RID: 961 RVA: 0x00019A68 File Offset: 0x00017C68
 		public override void SpellShoot()
 		{
 			if (base.KClass.Key_Shift)
@@ -58,7 +54,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x060003C2 RID: 962 RVA: 0x00019AA8 File Offset: 0x00017CA8
 		public override void SubPlaneCtrl()
 		{
 			if (base.KClass.Key_Shift)

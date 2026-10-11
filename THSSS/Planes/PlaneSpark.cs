@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x020000D1 RID: 209
 	internal class PlaneSpark : BaseEffect
 	{
-		// Token: 0x060005C7 RID: 1479 RVA: 0x00033334 File Offset: 0x00031534
 		public PlaneSpark(StageDataPackage StageData, string textureName, PointF OriginalPosition, float Velocity, double Direction)
 			: base(StageData, textureName, OriginalPosition, Velocity, Direction)
 		{
@@ -21,7 +19,6 @@ namespace Shooting
 			base.ScaleVW = 0.1f;
 		}
 
-		// Token: 0x060005C8 RID: 1480 RVA: 0x000333C4 File Offset: 0x000315C4
 		public override void Ctrl()
 		{
 			base.Ctrl();
@@ -36,7 +33,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x060005C9 RID: 1481 RVA: 0x0003345C File Offset: 0x0003165C
 		public override void Show()
 		{
 			if (base.TxtureObject != null)

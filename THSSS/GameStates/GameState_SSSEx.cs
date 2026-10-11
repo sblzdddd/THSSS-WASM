@@ -5,17 +5,14 @@ using Shooting.Planes.Story;
 
 namespace Shooting
 {
-	// Token: 0x020000CD RID: 205
 	internal class GameState_SSSEx : BaseStage, IGameState
 	{
-		// Token: 0x060005B5 RID: 1461 RVA: 0x00032012 File Offset: 0x00030212
 		public GameState_SSSEx(GlobalDataPackage GlobalData)
 			: base(GlobalData)
 		{
 			base.StageName = "StEx";
 		}
 
-		// Token: 0x060005B6 RID: 1462 RVA: 0x00032044 File Offset: 0x00030244
 		public override void Drama()
 		{
 			base.Drama();
@@ -95,12 +92,10 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x060005B7 RID: 1463 RVA: 0x000324D2 File Offset: 0x000306D2
 		public override void BGM_ON()
 		{
 		}
 
-		// Token: 0x040001F4 RID: 500
 		private new int testStartTime = 0;
 	}
 }

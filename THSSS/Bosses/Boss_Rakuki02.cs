@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x020001F4 RID: 500
 	internal class Boss_Rakuki02 : BaseBossTouhou
 	{
-		// Token: 0x06000B56 RID: 2902 RVA: 0x0006FF30 File Offset: 0x0006E130
 		public Boss_Rakuki02(StageDataPackage StageData)
 			: base(StageData)
 		{
@@ -39,7 +37,6 @@ namespace Shooting
 			base.SetBossLifeLineTex();
 		}
 
-		// Token: 0x06000B57 RID: 2903 RVA: 0x00070140 File Offset: 0x0006E340
 		public override void Ctrl()
 		{
 			base.Ctrl();
@@ -107,7 +104,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000B58 RID: 2904 RVA: 0x00070450 File Offset: 0x0006E650
 		public override void GiveEndEffect()
 		{
 			base.TransparentValueF = 255f;
@@ -128,7 +124,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000B59 RID: 2905 RVA: 0x00070524 File Offset: 0x0006E724
 		private void Ctrl3()
 		{
 			if (!base.OnSpell)
@@ -176,7 +171,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000B5A RID: 2906 RVA: 0x00070690 File Offset: 0x0006E890
 		private void Ctrl2()
 		{
 			if (!base.OnSpell)
@@ -224,7 +218,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000B5B RID: 2907 RVA: 0x00070800 File Offset: 0x0006EA00
 		private void Ctrl1()
 		{
 			if (!base.OnSpell)

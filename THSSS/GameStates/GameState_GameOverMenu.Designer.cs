@@ -3,16 +3,13 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x020000EA RID: 234
 	internal class GameState_GameOverMenu : GameState_PauseMenu
 	{
-		// Token: 0x0600065A RID: 1626 RVA: 0x000381F6 File Offset: 0x000363F6
 		public GameState_GameOverMenu(GlobalDataPackage GlobalData)
 			: base(GlobalData)
 		{
 		}
 
-		// Token: 0x0600065B RID: 1627 RVA: 0x00038204 File Offset: 0x00036404
 		public override void Init()
 		{
 			base.StageData.MenuGroupList.Add(new MenuGroup_GameOver(base.StageData)

@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x0200008E RID: 142
 	internal class EmitterSaveEnegy2 : BaseEffect
 	{
-		// Token: 0x06000480 RID: 1152 RVA: 0x00020E4E File Offset: 0x0001F04E
 		public EmitterSaveEnegy2(StageDataPackage StageData, PointF Position)
 			: base(StageData)
 		{
@@ -16,7 +14,6 @@ namespace Shooting
 			base.LifeTime = 20;
 		}
 
-		// Token: 0x06000481 RID: 1153 RVA: 0x00020E88 File Offset: 0x0001F088
 		public override void Shoot()
 		{
 			if (base.Time % 3 == 0)
@@ -38,7 +35,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000482 RID: 1154 RVA: 0x00020FD8 File Offset: 0x0001F1D8
 		public override void Show()
 		{
 		}

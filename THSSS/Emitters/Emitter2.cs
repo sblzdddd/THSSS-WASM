@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x020000B4 RID: 180
 	internal class Emitter2 : BaseEffect
 	{
-		// Token: 0x06000529 RID: 1321 RVA: 0x00029DAE File Offset: 0x00027FAE
 		public Emitter2(StageDataPackage StageData, PointF Position)
 			: base(StageData)
 		{
@@ -16,7 +14,6 @@ namespace Shooting
 			base.LifeTime = 2;
 		}
 
-		// Token: 0x0600052A RID: 1322 RVA: 0x00029DE8 File Offset: 0x00027FE8
 		public override void Shoot()
 		{
 			int i = 0;

@@ -3,21 +3,15 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x02000028 RID: 40
 	public class Bullet_Touhou_01_01 : Bullet_Touhou_01
 	{
-		// Token: 0x17000094 RID: 148
-		// (get) Token: 0x060001D0 RID: 464 RVA: 0x0000AD44 File Offset: 0x00008F44
-		// (set) Token: 0x060001D1 RID: 465 RVA: 0x0000AD5B File Offset: 0x00008F5B
 		public string SubBulletName { get; set; }
 
-		// Token: 0x060001D2 RID: 466 RVA: 0x0000AD64 File Offset: 0x00008F64
 		public Bullet_Touhou_01_01(StageDataPackage StageData, string textureName, PointF OriginalPosition, float Velocity, double Direction, byte ColorType)
 			: base(StageData, textureName, OriginalPosition, Velocity, Direction, ColorType)
 		{
 		}
 
-		// Token: 0x060001D3 RID: 467 RVA: 0x0000AD78 File Offset: 0x00008F78
 		public override bool OutBoundary()
 		{
 			bool flag;

@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x02000176 RID: 374
 	public class BossStarEmitter01 : BaseEffect
 	{
-		// Token: 0x0600091E RID: 2334 RVA: 0x00057C3D File Offset: 0x00055E3D
 		public BossStarEmitter01(StageDataPackage StageData, PointF OriginalPosition)
 			: base(StageData, null, new Point(0, 0), 0f, 1.5707963267948966)
 		{
@@ -14,7 +12,6 @@ namespace Shooting
 			base.LifeTime = 130;
 		}
 
-		// Token: 0x0600091F RID: 2335 RVA: 0x00057C78 File Offset: 0x00055E78
 		public override void Shoot()
 		{
 			if (base.Time % 1 == 0)
@@ -32,7 +29,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x0400035F RID: 863
 		public int ColorType;
 	}
 }

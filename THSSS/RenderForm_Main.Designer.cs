@@ -1,9 +1,7 @@
 ﻿namespace Shooting
 {
-	// Token: 0x02000011 RID: 17
 	public partial class RenderForm_Main : global::SlimDX.Windows.RenderForm
 	{
-		// Token: 0x06000111 RID: 273 RVA: 0x0000630C File Offset: 0x0000450C
 		protected override void Dispose(bool disposing)
 		{
 			if (disposing && this.components != null)
@@ -13,7 +11,6 @@
 			base.Dispose(disposing);
 		}
 
-		// Token: 0x06000112 RID: 274 RVA: 0x00006344 File Offset: 0x00004544
 		private void InitializeComponent()
 		{
 			global::System.ComponentModel.ComponentResourceManager componentResourceManager = new global::System.ComponentModel.ComponentResourceManager(typeof(global::Shooting.RenderForm_Main));
@@ -29,7 +26,6 @@
 			base.ResumeLayout(false);
 		}
 
-		// Token: 0x04000050 RID: 80
 		private global::System.ComponentModel.IContainer components = null;
 	}
 }

@@ -4,12 +4,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x02000118 RID: 280
 	public class BaseBullet_CS : BaseBullet_Touhou
 	{
-		// Token: 0x170001BC RID: 444
-		// (get) Token: 0x06000784 RID: 1924 RVA: 0x00044D40 File Offset: 0x00042F40
-		// (set) Token: 0x06000785 RID: 1925 RVA: 0x00044D58 File Offset: 0x00042F58
 		public override int Type
 		{
 			get
@@ -39,7 +35,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000786 RID: 1926 RVA: 0x00044EE8 File Offset: 0x000430E8
 		public BaseBullet_CS(StageDataPackage StageData)
 			: base(StageData)
 		{
@@ -47,7 +42,6 @@ namespace Shooting
 			base.EventsExecutionList = new List<Execution>();
 		}
 
-		// Token: 0x06000787 RID: 1927 RVA: 0x00045870 File Offset: 0x00043A70
 		public override void Ctrl()
 		{
 			base.Ctrl();
@@ -69,7 +63,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000788 RID: 1928 RVA: 0x000459BD File Offset: 0x00043BBD
 		public override void EventCtrl()
 		{
 			base.EventGroupList.ForEach(delegate(EventGroup a)
@@ -82,7 +75,6 @@ namespace Shooting
 			});
 		}
 
-		// Token: 0x0400029D RID: 669
 		private readonly string[] BulletName = new string[]
 		{
 			null, "bullet1_1", "bullet1_3", "bullet1_5", "bullet1_7", "bullet1_9", "bullet1_13", "bullet1_14", "bullet1_15", "bullet2_1",
@@ -110,7 +102,6 @@ namespace Shooting
 			"Flower01", "bullet50_4", "bullet50_0", "bullet50_5", "bullet50_1", "bullet50_6", "bullet50_2", "bullet50_7", "bullet50_3"
 		};
 
-		// Token: 0x0400029E RID: 670
 		private readonly byte[] BulletColorType = new byte[]
 		{
 			0, 1, 3, 5, 7, 9, 13, 14, 15, 1,

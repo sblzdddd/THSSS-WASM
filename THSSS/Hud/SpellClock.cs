@@ -3,12 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x020001C5 RID: 453
 	public class SpellClock : BaseObject
 	{
-		// Token: 0x17000228 RID: 552
-		// (get) Token: 0x06000A74 RID: 2676 RVA: 0x000652C8 File Offset: 0x000634C8
-		// (set) Token: 0x06000A75 RID: 2677 RVA: 0x000652E0 File Offset: 0x000634E0
 		public int TimeRemaining
 		{
 			get
@@ -32,14 +28,12 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000A76 RID: 2678 RVA: 0x0006532C File Offset: 0x0006352C
 		public SpellClock(StageDataPackage StageData)
 		{
 			base.StageData = StageData;
 			base.OriginalPosition = new PointF((float)(base.BoundRect.Left + 25), 40f);
 		}
 
-		// Token: 0x06000A77 RID: 2679 RVA: 0x00065370 File Offset: 0x00063570
 		public override void Ctrl()
 		{
 			if (base.Boss != null)
@@ -90,7 +84,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000A78 RID: 2680 RVA: 0x0006555C File Offset: 0x0006375C
 		public override void Show()
 		{
 			if (base.Boss != null)
@@ -124,7 +117,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x040003E2 RID: 994
 		private int timeRemaining;
 	}
 }

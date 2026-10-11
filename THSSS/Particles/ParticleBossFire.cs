@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x02000022 RID: 34
 	internal class ParticleBossFire : BaseObject
 	{
-		// Token: 0x060001A3 RID: 419 RVA: 0x00009DB4 File Offset: 0x00007FB4
 		public ParticleBossFire(StageDataPackage StageData, string textureName, PointF OriginalPosition, float Velocity, double Direction, int LifeTime)
 		{
 			base.StageData = StageData;
@@ -25,7 +23,6 @@ namespace Shooting
 			base.DirectionDegree = (double)(90 + base.Ran.Next(-4, 5));
 		}
 
-		// Token: 0x060001A4 RID: 420 RVA: 0x00009E60 File Offset: 0x00008060
 		public override void Ctrl()
 		{
 			base.Ctrl();

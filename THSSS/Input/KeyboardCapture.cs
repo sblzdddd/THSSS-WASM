@@ -5,10 +5,8 @@ using SlimDX.DirectInput;
 
 namespace Shooting
 {
-	// Token: 0x02000123 RID: 291
 	public class KeyboardCapture
 	{
-		// Token: 0x060007AB RID: 1963 RVA: 0x000473AC File Offset: 0x000455AC
 		public KeyboardCapture(IntPtr handle)
 		{
 			DirectInput directInput = new DirectInput();
@@ -26,7 +24,6 @@ namespace Shooting
 			this.keyboard.Acquire();
 		}
 
-		// Token: 0x060007AC RID: 1964 RVA: 0x00047424 File Offset: 0x00045624
 		public void UpdateInput(ref KeyClass KClass)
 		{
 			if (!this.keyboard.Acquire().IsFailure)
@@ -56,7 +53,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x060007AD RID: 1965 RVA: 0x000475D4 File Offset: 0x000457D4
 		public void Dispose()
 		{
 			if (this.keyboard != null)
@@ -67,13 +63,10 @@ namespace Shooting
 			this.keyboard = null;
 		}
 
-		// Token: 0x040002AC RID: 684
 		private Keyboard keyboard;
 
-		// Token: 0x040002AD RID: 685
 		public KeyboardState currentKeyboardState;
 
-		// Token: 0x040002AE RID: 686
 		public KeyboardState lastKeyboardState;
 	}
 }

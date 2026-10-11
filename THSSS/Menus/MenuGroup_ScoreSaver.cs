@@ -4,10 +4,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x020000A2 RID: 162
 	internal class MenuGroup_ScoreSaver : BaseMenuGroup
 	{
-		// Token: 0x060004CA RID: 1226 RVA: 0x00025384 File Offset: 0x00023584
 		public MenuGroup_ScoreSaver(StageDataPackage StageData, PointF OriginalPosition)
 			: base(StageData)
 		{
@@ -181,7 +179,6 @@ namespace Shooting
 			this.ShowPlayerName();
 		}
 
-		// Token: 0x060004CB RID: 1227 RVA: 0x00025D40 File Offset: 0x00023F40
 		public override void ProcessKeys()
 		{
 			this.ScoreHistorys.ForEach(delegate(BaseMenuItem x)
@@ -237,7 +234,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x060004CC RID: 1228 RVA: 0x00025FCC File Offset: 0x000241CC
 		public override void ProcessZ()
 		{
 			if (base.MenuSelectIndex == base.MenuItemList.Count - 1)
@@ -272,7 +268,6 @@ namespace Shooting
 			this.ShowPlayerName();
 		}
 
-		// Token: 0x060004CD RID: 1229 RVA: 0x00026170 File Offset: 0x00024370
 		private void ShowPlayerName()
 		{
 			string text = null;
@@ -296,7 +291,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x060004CE RID: 1230 RVA: 0x00026278 File Offset: 0x00024478
 		public override void Show()
 		{
 			base.Show();
@@ -309,16 +303,12 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x0400018A RID: 394
 		private int NameIndex = 0;
 
-		// Token: 0x0400018B RID: 395
 		private string[] PlayerName = new string[8];
 
-		// Token: 0x0400018C RID: 396
 		private int HistorySelectIndex = -1;
 
-		// Token: 0x0400018D RID: 397
 		private List<BaseMenuItem> ScoreHistorys;
 	}
 }

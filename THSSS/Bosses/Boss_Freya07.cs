@@ -3,30 +3,16 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x020001D9 RID: 473
 	internal class Boss_Freya07 : BaseBossTouhou
 	{
-		// Token: 0x1700022E RID: 558
-		// (get) Token: 0x06000AC9 RID: 2761 RVA: 0x0006AA6C File Offset: 0x00068C6C
-		// (set) Token: 0x06000ACA RID: 2762 RVA: 0x0006AA83 File Offset: 0x00068C83
 		private bool ShowWings { get; set; }
 
-		// Token: 0x1700022F RID: 559
-		// (get) Token: 0x06000ACB RID: 2763 RVA: 0x0006AA8C File Offset: 0x00068C8C
-		// (set) Token: 0x06000ACC RID: 2764 RVA: 0x0006AAA3 File Offset: 0x00068CA3
 		private TextureObject TxtureObject2 { get; set; }
 
-		// Token: 0x17000230 RID: 560
-		// (get) Token: 0x06000ACD RID: 2765 RVA: 0x0006AAAC File Offset: 0x00068CAC
-		// (set) Token: 0x06000ACE RID: 2766 RVA: 0x0006AAC3 File Offset: 0x00068CC3
 		private TextureObject[] TxtureObjects2 { get; set; }
 
-		// Token: 0x17000231 RID: 561
-		// (get) Token: 0x06000ACF RID: 2767 RVA: 0x0006AACC File Offset: 0x00068CCC
-		// (set) Token: 0x06000AD0 RID: 2768 RVA: 0x0006AAE3 File Offset: 0x00068CE3
 		private int IndexX2 { get; set; }
 
-		// Token: 0x06000AD1 RID: 2769 RVA: 0x0006AAEC File Offset: 0x00068CEC
 		public Boss_Freya07(StageDataPackage StageData)
 			: base(StageData)
 		{
@@ -72,7 +58,6 @@ namespace Shooting
 			base.SetBossLifeLineTex();
 		}
 
-		// Token: 0x06000AD2 RID: 2770 RVA: 0x0006ADBC File Offset: 0x00068FBC
 		public override void Ctrl()
 		{
 			base.Ctrl();
@@ -140,7 +125,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000AD3 RID: 2771 RVA: 0x0006B0CC File Offset: 0x000692CC
 		public override void TextureCtrl()
 		{
 			int num = (base.Mirrored ? base.IndexY : (-base.IndexY));
@@ -222,7 +206,6 @@ namespace Shooting
 			this.TxtureObject2 = this.TxtureObjects2[this.IndexX2];
 		}
 
-		// Token: 0x06000AD4 RID: 2772 RVA: 0x0006B380 File Offset: 0x00069580
 		public override void GiveEndEffect()
 		{
 			base.TransparentValueF = 255f;
@@ -234,7 +217,6 @@ namespace Shooting
 			new EndBoss_Touhou01(base.StageData, base.OriginalPosition, Color.LightPink, Color.Pink);
 		}
 
-		// Token: 0x06000AD5 RID: 2773 RVA: 0x0006B3FC File Offset: 0x000695FC
 		private void Ctrl3()
 		{
 			if (!base.OnSpell)
@@ -282,7 +264,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000AD6 RID: 2774 RVA: 0x0006B568 File Offset: 0x00069768
 		private void Ctrl2()
 		{
 			if (!base.OnSpell)
@@ -340,7 +321,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000AD7 RID: 2775 RVA: 0x0006B79C File Offset: 0x0006999C
 		private void Ctrl1()
 		{
 			if (!base.OnSpell)
@@ -367,7 +347,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000AD8 RID: 2776 RVA: 0x0006B874 File Offset: 0x00069A74
 		public override void GiveItems()
 		{
 			for (int i = 0; i < 15; i++)
@@ -382,7 +361,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000AD9 RID: 2777 RVA: 0x0006B950 File Offset: 0x00069B50
 		public override void Show()
 		{
 			if (this.ShowWings && this.TxtureObject2 != null)

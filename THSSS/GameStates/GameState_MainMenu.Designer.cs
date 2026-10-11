@@ -1,9 +1,7 @@
 ﻿namespace Shooting
 {
-	// Token: 0x0200014E RID: 334
 	internal partial class GameState_MainMenu : global::Shooting.BaseMenu, global::Shooting.IGameState
 	{
-		// Token: 0x0600089B RID: 2203 RVA: 0x0004EFBC File Offset: 0x0004D1BC
 		private void InitializeComponent()
 		{
 			this.GameRegion_Menu = new global::Shooting.GameRegion();
@@ -27,7 +25,6 @@
 			base.PerformLayout();
 		}
 
-		// Token: 0x04000316 RID: 790
 		private global::Shooting.GameRegion GameRegion_Menu;
 	}
 }

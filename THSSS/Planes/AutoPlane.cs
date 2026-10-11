@@ -4,16 +4,13 @@ using SlimDX;
 
 namespace Shooting
 {
-	// Token: 0x020000EF RID: 239
 	public class AutoPlane : BaseMyPlane
 	{
-		// Token: 0x06000673 RID: 1651 RVA: 0x0003897A File Offset: 0x00036B7A
 		public AutoPlane(StageDataPackage StageData, Point Position)
 			: base(StageData, Position)
 		{
 		}
 
-		// Token: 0x06000674 RID: 1652 RVA: 0x000389E0 File Offset: 0x00036BE0
 		public override void Ctrl()
 		{
 			if (base.Time % this.CtrlCircle == 0)
@@ -55,7 +52,6 @@ namespace Shooting
 			base.Ctrl();
 		}
 
-		// Token: 0x06000675 RID: 1653 RVA: 0x00038DC8 File Offset: 0x00036FC8
 		private double GenerateDanger(PointF OriginalPos)
 		{
 			double tmp = 0.0;
@@ -92,7 +88,6 @@ namespace Shooting
 			return tmp;
 		}
 
-		// Token: 0x06000676 RID: 1654 RVA: 0x00038E94 File Offset: 0x00037094
 		private Vector2 GenerateDestPoint(int div, int count, float x, float y)
 		{
 			Vector2 zero = Vector2.Zero;
@@ -147,7 +142,6 @@ namespace Shooting
 			return vector;
 		}
 
-		// Token: 0x06000677 RID: 1655 RVA: 0x00039424 File Offset: 0x00037624
 		private Vector2 GenerateMove()
 		{
 			Vector2 forceSum = Vector2.Zero;
@@ -233,7 +227,6 @@ namespace Shooting
 			return forceSum;
 		}
 
-		// Token: 0x06000678 RID: 1656 RVA: 0x000397FC File Offset: 0x000379FC
 		private Vector2 GenerateEnemyBeat()
 		{
 			Vector2 zero = Vector2.Zero;
@@ -255,7 +248,6 @@ namespace Shooting
 			return zero;
 		}
 
-		// Token: 0x06000679 RID: 1657 RVA: 0x000398B4 File Offset: 0x00037AB4
 		private Vector2 GenerateItemGet()
 		{
 			Vector2 vector;
@@ -289,17 +281,14 @@ namespace Shooting
 			return vector;
 		}
 
-		// Token: 0x0600067A RID: 1658 RVA: 0x00039960 File Offset: 0x00037B60
 		public override void Show()
 		{
 			base.SpriteMain.Draw2D(base.TextureObjectDictionary["Region"], 0.1f, 0f, new PointF(base.DestPoint.X + (float)base.BoundRect.Left, base.DestPoint.Y + (float)base.BoundRect.Top), Color.White);
 			base.Show();
 		}
 
-		// Token: 0x04000231 RID: 561
 		private int CtrlCircle = 1;
 
-		// Token: 0x04000232 RID: 562
 		private KeyClass KC = new KeyClass();
 	}
 }

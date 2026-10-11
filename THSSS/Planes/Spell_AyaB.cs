@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x020001A2 RID: 418
 	public class Spell_AyaB : BaseSpell
 	{
-		// Token: 0x060009D4 RID: 2516 RVA: 0x0005DD10 File Offset: 0x0005BF10
 		public Spell_AyaB(StageDataPackage StageData)
 		{
 			base.StageData = StageData;
@@ -37,7 +35,6 @@ namespace Shooting
 			base.MyPlane.Region = -100;
 		}
 
-		// Token: 0x060009D5 RID: 2517 RVA: 0x0005DEB8 File Offset: 0x0005C0B8
 		public override void Ctrl()
 		{
 			base.Ctrl();
@@ -86,26 +83,20 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x060009D6 RID: 2518 RVA: 0x0005E115 File Offset: 0x0005C315
 		public override void HitCheckAll()
 		{
 		}
 
-		// Token: 0x060009D7 RID: 2519 RVA: 0x0005E118 File Offset: 0x0005C318
 		public override void Show()
 		{
 		}
 
-		// Token: 0x040003B0 RID: 944
 		private PointF tmpPoint;
 
-		// Token: 0x040003B1 RID: 945
 		private int tmpRegion;
 
-		// Token: 0x040003B2 RID: 946
 		private int Circle = 32;
 
-		// Token: 0x040003B3 RID: 947
 		private bool Left = true;
 	}
 }

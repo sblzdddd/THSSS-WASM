@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x020001B8 RID: 440
 	public class BackgroundMove2 : BaseObject_CS
 	{
-		// Token: 0x06000A4E RID: 2638 RVA: 0x00062DBC File Offset: 0x00060FBC
 		public BackgroundMove2(StageDataPackage StageData, string textureName)
 			: base(StageData, textureName, new PointF(0f, 0f), 0f, 0.0)
 		{
@@ -18,7 +16,6 @@ namespace Shooting
 			base.OutsideRegion = 10000;
 		}
 
-		// Token: 0x06000A4F RID: 2639 RVA: 0x00062E70 File Offset: 0x00061070
 		public override void Ctrl()
 		{
 			base.Scale = (float)this.Length / (float)base.TxtureObject.Height;
@@ -46,7 +43,6 @@ namespace Shooting
 			base.OriginalPosition = new PointF(num, num2);
 		}
 
-		// Token: 0x06000A50 RID: 2640 RVA: 0x00062FE0 File Offset: 0x000611E0
 		public override void Show()
 		{
 			float num = base.OriginalPosition.X;
@@ -65,10 +61,8 @@ namespace Shooting
 			base.OriginalPosition = new PointF(num, num2);
 		}
 
-		// Token: 0x040003D7 RID: 983
 		public int Length;
 
-		// Token: 0x040003D8 RID: 984
 		private float Width;
 	}
 }

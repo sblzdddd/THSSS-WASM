@@ -4,10 +4,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x020001DF RID: 479
 	public class MyPlane_Marisa : BaseMyPlane_Touhou
 	{
-		// Token: 0x06000B08 RID: 2824 RVA: 0x0006C7D0 File Offset: 0x0006A9D0
 		public MyPlane_Marisa(StageDataPackage StageData, Point OriginalPosition)
 			: base(StageData, OriginalPosition, "Marisa")
 		{
@@ -23,7 +21,6 @@ namespace Shooting
 			base.LowSpeed = 2f;
 		}
 
-		// Token: 0x06000B09 RID: 2825 RVA: 0x0006C86C File Offset: 0x0006AA6C
 		public override void Shoot()
 		{
 			if (base.SpellList.Count <= 0)
@@ -45,13 +42,11 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000B0A RID: 2826 RVA: 0x0006C9A1 File Offset: 0x0006ABA1
 		public override void SpellShoot()
 		{
 			new Spell_PlaneB(base.StageData);
 		}
 
-		// Token: 0x06000B0B RID: 2827 RVA: 0x0006C9B0 File Offset: 0x0006ABB0
 		public override void SubPlaneCtrl()
 		{
 			if (base.KClass.Key_Shift)

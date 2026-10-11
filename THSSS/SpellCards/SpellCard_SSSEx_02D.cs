@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x02000178 RID: 376
 	internal class SpellCard_SSSEx_02D : BaseSpellCard
 	{
-		// Token: 0x06000924 RID: 2340 RVA: 0x00057E64 File Offset: 0x00056064
 		public SpellCard_SSSEx_02D(StageDataPackage StageData)
 			: base(StageData)
 		{
@@ -21,7 +19,6 @@ namespace Shooting
 			new BackgroundBossEx(StageData);
 		}
 
-		// Token: 0x06000925 RID: 2341 RVA: 0x00057F00 File Offset: 0x00056100
 		public override void Shoot()
 		{
 			base.Boss.Armon = base.Boss.ArmonArray[3];

@@ -4,21 +4,15 @@ using SlimDX.Direct3D9;
 
 namespace Shooting
 {
-	// Token: 0x020001A5 RID: 421
 	internal class GameState_SplashScreen2 : GameState_SplashScreen, IGameState
 	{
-		// Token: 0x17000223 RID: 547
-		// (get) Token: 0x06000A01 RID: 2561 RVA: 0x0005EFD8 File Offset: 0x0005D1D8
-		// (set) Token: 0x06000A02 RID: 2562 RVA: 0x0005EFEF File Offset: 0x0005D1EF
 		public string PreNextState { get; set; }
 
-		// Token: 0x06000A03 RID: 2563 RVA: 0x0005EFF8 File Offset: 0x0005D1F8
 		public GameState_SplashScreen2(GlobalDataPackage GlobalData)
 			: this(GlobalData, "MainMenu")
 		{
 		}
 
-		// Token: 0x06000A04 RID: 2564 RVA: 0x0005F009 File Offset: 0x0005D209
 		public GameState_SplashScreen2(GlobalDataPackage GlobalData, string nextState)
 		{
 			base.GlobalData = GlobalData;
@@ -26,7 +20,6 @@ namespace Shooting
 			this.PreNextState = nextState;
 		}
 
-		// Token: 0x06000A05 RID: 2565 RVA: 0x0005F03C File Offset: 0x0005D23C
 		public override void UpdateData()
 		{
 			base.TimeMain++;
@@ -50,7 +43,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000A06 RID: 2566 RVA: 0x0005F108 File Offset: 0x0005D308
 		public override void Render()
 		{
 			base.SpriteMain.Begin(SpriteFlags.AlphaBlend);

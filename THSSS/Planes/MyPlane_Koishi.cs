@@ -4,10 +4,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x020000D2 RID: 210
 	public class MyPlane_Koishi : BaseMyPlane_Touhou
 	{
-		// Token: 0x060005CA RID: 1482 RVA: 0x00033518 File Offset: 0x00031718
 		public MyPlane_Koishi(StageDataPackage StageData, Point OriginalPosition)
 			: base(StageData, OriginalPosition, "Koishi")
 		{
@@ -23,7 +21,6 @@ namespace Shooting
 			base.LowSpeed = 2f;
 		}
 
-		// Token: 0x060005CB RID: 1483 RVA: 0x000335B4 File Offset: 0x000317B4
 		public override void Shoot()
 		{
 			if (base.Time % 3 == 0)
@@ -45,7 +42,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x060005CC RID: 1484 RVA: 0x000336E4 File Offset: 0x000318E4
 		public override void SpellShoot()
 		{
 			if (!this.GodMode)
@@ -55,7 +51,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x060005CD RID: 1485 RVA: 0x00033714 File Offset: 0x00031914
 		public override void Ctrl()
 		{
 			base.Ctrl();
@@ -64,7 +59,6 @@ namespace Shooting
 			base.SpellEnabled = !this.GodMode;
 		}
 
-		// Token: 0x060005CE RID: 1486 RVA: 0x00033764 File Offset: 0x00031964
 		public override void SubPlaneCtrl()
 		{
 			if (base.KClass.Key_Shift)
@@ -148,7 +142,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x060005CF RID: 1487 RVA: 0x00033FF4 File Offset: 0x000321F4
 		public override void PreMiss()
 		{
 			if (base.Time >= base.UnmatchedTime)
@@ -200,7 +193,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x060005D0 RID: 1488 RVA: 0x000341C4 File Offset: 0x000323C4
 		public override void Refresh()
 		{
 			if (this.GodMode)
@@ -211,7 +203,6 @@ namespace Shooting
 			base.Refresh();
 		}
 
-		// Token: 0x060005D1 RID: 1489 RVA: 0x000341F8 File Offset: 0x000323F8
 		public override void Show()
 		{
 			if (base.Time >= base.DeadTime)
@@ -238,7 +229,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x04000201 RID: 513
 		private bool GodMode;
 	}
 }

@@ -10,10 +10,8 @@ using SlimDX.XAudio2;
 
 namespace Shooting
 {
-	// Token: 0x02000131 RID: 305
 	public class GlobalDataPackage
 	{
-		// Token: 0x06000819 RID: 2073 RVA: 0x00049DF0 File Offset: 0x00047FF0
 		public GlobalDataPackage()
 		{
 			this.TextureObjectDictionary = new Dictionary<string, TextureObject>();
@@ -30,7 +28,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x0600081A RID: 2074 RVA: 0x00049E9C File Offset: 0x0004809C
 		public void LoadResources1()
 		{
 			this.ScreenTexMan = new ScreenTexManager(this.DeviceMain);
@@ -41,7 +38,6 @@ namespace Shooting
 			this.LoadFolderTextureList(".\\Image");
 		}
 
-		// Token: 0x0600081B RID: 2075 RVA: 0x00049EE4 File Offset: 0x000480E4
 		public void LoadResources()
 		{
 			this.PData = new PlayerData();
@@ -54,7 +50,6 @@ namespace Shooting
 			Hash.Init();
 		}
 
-		// Token: 0x0600081C RID: 2076 RVA: 0x00049F30 File Offset: 0x00048130
 		public void LoadFolderTextureList(string Path)
 		{
 			if (!(Path == ".\\Image\\NowLoading"))
@@ -73,7 +68,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x0600081D RID: 2077 RVA: 0x00049FD4 File Offset: 0x000481D4
 		private bool LoadEffect()
 		{
 			this.EffectDictionary = new Dictionary<string, Effect>();
@@ -92,7 +86,6 @@ namespace Shooting
 			return flag;
 		}
 
-		// Token: 0x0600081E RID: 2078 RVA: 0x0004A070 File Offset: 0x00048270
 		public void LoadModelDictionary()
 		{
 			this.ModelDictionary = new Dictionary<string, IModel>();
@@ -141,7 +134,6 @@ namespace Shooting
 			this.LoadModel("祭坛", 2);
 		}
 
-		// Token: 0x0600081F RID: 2079 RVA: 0x0004A2B8 File Offset: 0x000484B8
 		private void LoadModel(string Name, int ModelType)
 		{
 			bool flag = false;
@@ -188,7 +180,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000820 RID: 2080 RVA: 0x0004A3C4 File Offset: 0x000485C4
 		private void LoadBulletPic()
 		{
 			try
@@ -215,7 +206,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000821 RID: 2081 RVA: 0x0004A4E0 File Offset: 0x000486E0
 		public void LoadSound()
 		{
 			if (this.SoundInitSuccess)
@@ -236,13 +226,11 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000822 RID: 2082 RVA: 0x0004A5B1 File Offset: 0x000487B1
 		public void TextureObjectLoader(string imageFileName)
 		{
 			this.TextureObjectLoader(imageFileName, 0);
 		}
 
-		// Token: 0x06000823 RID: 2083 RVA: 0x0004A5C0 File Offset: 0x000487C0
 		public void TextureObjectLoader(string imageFileName, int colorKey)
 		{
 			if (File.Exists(imageFileName))
@@ -290,7 +278,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000824 RID: 2084 RVA: 0x0004A7E4 File Offset: 0x000489E4
 		private bool SetTexture(string imageFileName, int colorKey, Rectangle Rect, out Texture texture)
 		{
 			bool flag;
@@ -307,7 +294,6 @@ namespace Shooting
 			return flag;
 		}
 
-		// Token: 0x06000825 RID: 2085 RVA: 0x0004A838 File Offset: 0x00048A38
 		public void BGM_Play(string FileName)
 		{
 			try
@@ -322,19 +308,16 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000826 RID: 2086 RVA: 0x0004A890 File Offset: 0x00048A90
 		public void BGM_OFF()
 		{
 			this.BGM_Player.Stop();
 		}
 
-		// Token: 0x06000827 RID: 2087 RVA: 0x0004A89F File Offset: 0x00048A9F
 		public void BGM_Pause()
 		{
 			this.BGM_Player.Puase();
 		}
 
-		// Token: 0x06000828 RID: 2088 RVA: 0x0004A8B0 File Offset: 0x00048AB0
 		public void BGM_Resume()
 		{
 			if (this.BGM_Player != null)
@@ -343,7 +326,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000829 RID: 2089 RVA: 0x0004A8DC File Offset: 0x00048ADC
 		public void OnLostDevice()
 		{
 			if (this.SpriteMain != null)
@@ -363,7 +345,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x0600082A RID: 2090 RVA: 0x0004A988 File Offset: 0x00048B88
 		public void OnResetDevice()
 		{
 			this.SpriteMain.sprite.OnResetDevice();
@@ -381,7 +362,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x0600082B RID: 2091 RVA: 0x0004AA40 File Offset: 0x00048C40
 		public void Dispose()
 		{
 			this.DeviceMain.Direct3D.Dispose();
@@ -429,79 +409,54 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x040002D2 RID: 722
 		public const int WindowWidth = 640;
 
-		// Token: 0x040002D3 RID: 723
 		public const int WindowHeight = 480;
 
-		// Token: 0x040002D4 RID: 724
 		public XAudio2 DeviceXaudio2;
 
-		// Token: 0x040002D5 RID: 725
 		public MasteringVoice MasteringVoice;
 
-		// Token: 0x040002D6 RID: 726
 		public Device DeviceMain;
 
-		// Token: 0x040002D7 RID: 727
 		public PresentParameters presentParams;
 
-		// Token: 0x040002D8 RID: 728
 		public MySprite SpriteMain;
 
-		// Token: 0x040002D9 RID: 729
 		public Effect EffectMain;
 
-		// Token: 0x040002DA RID: 730
 		public Dictionary<string, Effect> EffectDictionary;
 
-		// Token: 0x040002DB RID: 731
 		public Dictionary<string, TextureObject> TextureObjectDictionary;
 
-		// Token: 0x040002DC RID: 732
 		public Dictionary<string, XAudio2_Player> SoundDictionary;
 
-		// Token: 0x040002DD RID: 733
 		public Dictionary<string, IModel> ModelDictionary;
 
-		// Token: 0x040002DE RID: 734
 		public Dictionary<string, bool[,]> BulletPicDictionary;
 
-		// Token: 0x040002DF RID: 735
 		public Wave_Player BGM_Player;
 
-		// Token: 0x040002E0 RID: 736
 		public List<string> LoadingList;
 
-		// Token: 0x040002E1 RID: 737
 		public KeyClass KClass = new KeyClass();
 
-		// Token: 0x040002E2 RID: 738
 		public bool Clear = false;
 
-		// Token: 0x040002E3 RID: 739
 		public Replay Rep;
 
-		// Token: 0x040002E4 RID: 740
 		public PlayerData PData;
 
-		// Token: 0x040002E5 RID: 741
 		public ScreenTexManager ScreenTexMan;
 
-		// Token: 0x040002E6 RID: 742
 		public IGameState LastState;
 
-		// Token: 0x040002E7 RID: 743
 		public int BGMVolume = 100;
 
-		// Token: 0x040002E8 RID: 744
 		public int SEVolume = 80;
 
-		// Token: 0x040002E9 RID: 745
 		public string FontType = "宋体";
 
-		// Token: 0x040002EA RID: 746
 		private bool SoundInitSuccess;
 	}
 }

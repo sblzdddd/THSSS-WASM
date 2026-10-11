@@ -3,16 +3,13 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x020001C8 RID: 456
 	public class InterfaceDifficulty : BaseInterface
 	{
-		// Token: 0x06000A81 RID: 2689 RVA: 0x00066128 File Offset: 0x00064328
 		public InterfaceDifficulty(StageDataPackage StageData, PointF OriginalPosition)
 			: base(StageData, null, OriginalPosition)
 		{
 		}
 
-		// Token: 0x06000A82 RID: 2690 RVA: 0x00066138 File Offset: 0x00064338
 		public override void Ctrl()
 		{
 			base.Ctrl();
@@ -36,7 +33,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000A83 RID: 2691 RVA: 0x000661F8 File Offset: 0x000643F8
 		public override void Show()
 		{
 			if (base.TxtureObject != null)

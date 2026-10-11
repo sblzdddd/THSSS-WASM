@@ -5,10 +5,8 @@ using SlimDX.Direct3D9;
 
 namespace Shooting
 {
-	// Token: 0x0200020C RID: 524
 	public class Model_Mesh : Model, IModel
 	{
-		// Token: 0x06000BA0 RID: 2976 RVA: 0x0007375C File Offset: 0x0007195C
 		public Model_Mesh(Device DeviceMain, string ModelName)
 		{
 			base.TransparentValue = 255;
@@ -18,7 +16,6 @@ namespace Shooting
 			this.SetupVertex();
 		}
 
-		// Token: 0x06000BA1 RID: 2977 RVA: 0x000737A8 File Offset: 0x000719A8
 		public override void SetupVertex()
 		{
 			this.mesh = Mesh.FromFile(base.DeviceMain, ".\\Model\\" + base.Name + ".x", MeshFlags.Managed);
@@ -44,12 +41,10 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000BA2 RID: 2978 RVA: 0x000738DE File Offset: 0x00071ADE
 		public override void SetModel()
 		{
 		}
 
-		// Token: 0x06000BA3 RID: 2979 RVA: 0x000738E4 File Offset: 0x00071AE4
 		public override void Draw()
 		{
 			for (int i = 0; i < this.materials.Length; i++)
@@ -64,7 +59,6 @@ namespace Shooting
 			base.DeviceMain.VertexFormat = TexturedVertex.Format;
 		}
 
-		// Token: 0x06000BA4 RID: 2980 RVA: 0x000739A0 File Offset: 0x00071BA0
 		public override void Dispose()
 		{
 			foreach (Texture texture in this.textures)
@@ -77,19 +71,14 @@ namespace Shooting
 			this.mesh.Dispose();
 		}
 
-		// Token: 0x0400043A RID: 1082
 		public GlobalDataPackage GlobalData;
 
-		// Token: 0x0400043B RID: 1083
 		private Mesh mesh;
 
-		// Token: 0x0400043C RID: 1084
 		private ExtendedMaterial[] materials;
 
-		// Token: 0x0400043D RID: 1085
 		private Texture[] textures;
 
-		// Token: 0x0400043E RID: 1086
 		public bool CullMode = false;
 	}
 }

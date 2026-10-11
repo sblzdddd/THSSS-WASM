@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x02000175 RID: 373
 	public class BossStar : BaseEffect
 	{
-		// Token: 0x0600091C RID: 2332 RVA: 0x00057A8F File Offset: 0x00055C8F
 		public BossStar(StageDataPackage StageData, PointF OriginalPosition)
 			: base(StageData, null, new Point(0, 0), 0f, 1.5707963267948966)
 		{
@@ -14,7 +12,6 @@ namespace Shooting
 			base.LifeTime = 130;
 		}
 
-		// Token: 0x0600091D RID: 2333 RVA: 0x00057ACC File Offset: 0x00055CCC
 		public override void Shoot()
 		{
 			if (base.Time == 1)
@@ -41,7 +38,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x0400035E RID: 862
 		public int ColorType;
 	}
 }

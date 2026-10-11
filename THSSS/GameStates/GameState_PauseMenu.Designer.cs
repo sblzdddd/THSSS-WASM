@@ -4,29 +4,24 @@ using SlimDX.Direct3D9;
 
 namespace Shooting
 {
-	// Token: 0x020000E9 RID: 233
 	internal class GameState_PauseMenu : BaseMenu, IGameState
 	{
-		// Token: 0x06000651 RID: 1617 RVA: 0x00037EDD File Offset: 0x000360DD
 		public GameState_PauseMenu(GlobalDataPackage GlobalData)
 			: base(GlobalData)
 		{
 			base.BackgroundLight = 255;
 		}
 
-		// Token: 0x06000652 RID: 1618 RVA: 0x00037EF5 File Offset: 0x000360F5
 		public GameState_PauseMenu()
 		{
 		}
 
-		// Token: 0x06000653 RID: 1619 RVA: 0x00037F00 File Offset: 0x00036100
 		public override void Init()
 		{
 			base.StageData.MenuGroupList.Add(new MenuGroup_Pause(base.StageData));
 			base.KClass.Hex2Key(0);
 		}
 
-		// Token: 0x06000654 RID: 1620 RVA: 0x00037F2C File Offset: 0x0003612C
 		public override void UpdateData()
 		{
 			base.UpdateData();
@@ -40,7 +35,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000655 RID: 1621 RVA: 0x00037F90 File Offset: 0x00036190
 		public override void Render()
 		{
 			base.GlobalData.ScreenTexMan.Begin();
@@ -78,17 +72,14 @@ namespace Shooting
 			base.SpriteMain.End();
 		}
 
-		// Token: 0x06000656 RID: 1622 RVA: 0x000381F0 File Offset: 0x000363F0
 		public override void BGM_Pause()
 		{
 		}
 
-		// Token: 0x06000657 RID: 1623 RVA: 0x000381F3 File Offset: 0x000363F3
 		public override void BGM_Resume()
 		{
 		}
 
-		// Token: 0x04000229 RID: 553
 		private float blurLevel;
 	}
 }

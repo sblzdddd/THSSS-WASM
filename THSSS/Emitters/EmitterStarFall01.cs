@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x020000BC RID: 188
 	internal class EmitterStarFall01 : BaseEffect
 	{
-		// Token: 0x06000553 RID: 1363 RVA: 0x0002E234 File Offset: 0x0002C434
 		public EmitterStarFall01(StageDataPackage StageData, PointF OriginalPosition)
 			: base(StageData, null, OriginalPosition, 0f, 0.0)
 		{
@@ -17,7 +15,6 @@ namespace Shooting
 			this.ScaleLengthVelocityDictionary.Add(base.LifeTime - 50, -0.02f);
 		}
 
-		// Token: 0x06000554 RID: 1364 RVA: 0x0002E2C4 File Offset: 0x0002C4C4
 		public override void Shoot()
 		{
 			for (int i = 0; i < 3; i++)

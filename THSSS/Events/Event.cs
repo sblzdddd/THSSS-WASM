@@ -2,11 +2,9 @@
 
 namespace Shooting
 {
-	// Token: 0x02000156 RID: 342
 	[Serializable]
 	public class Event
 	{
-		// Token: 0x060008BF RID: 2239 RVA: 0x000511D4 File Offset: 0x0004F3D4
 		public void String2EmitterEvent()
 		{
 			string eventString = this.EventString;
@@ -269,7 +267,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x060008C0 RID: 2240 RVA: 0x00051ED4 File Offset: 0x000500D4
 		public void String2BulletEvent()
 		{
 			string eventString = this.EventString;
@@ -532,70 +529,49 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x060008C1 RID: 2241 RVA: 0x00052BD4 File Offset: 0x00050DD4
 		public object Clone()
 		{
 			return base.MemberwiseClone();
 		}
 
-		// Token: 0x04000325 RID: 805
 		public string EventString;
 
-		// Token: 0x04000326 RID: 806
 		public float rand;
 
-		// Token: 0x04000327 RID: 807
 		public int special;
 
-		// Token: 0x04000328 RID: 808
 		public int special2;
 
-		// Token: 0x04000329 RID: 809
 		public string condition;
 
-		// Token: 0x0400032A RID: 810
 		public string condition2;
 
-		// Token: 0x0400032B RID: 811
 		public string result;
 
-		// Token: 0x0400032C RID: 812
 		public int contype;
 
-		// Token: 0x0400032D RID: 813
 		public int contype2;
 
-		// Token: 0x0400032E RID: 814
 		public string opreator;
 
-		// Token: 0x0400032F RID: 815
 		public string opreator2;
 
-		// Token: 0x04000330 RID: 816
 		public string collector;
 
-		// Token: 0x04000331 RID: 817
 		public int change;
 
-		// Token: 0x04000332 RID: 818
 		public int changetype;
 
-		// Token: 0x04000333 RID: 819
 		public int changevalue;
 
-		// Token: 0x04000334 RID: 820
 		public int changename;
 
-		// Token: 0x04000335 RID: 821
 		public float res;
 
-		// Token: 0x04000336 RID: 822
 		public int times;
 
-		// Token: 0x04000337 RID: 823
 		public int time;
 
-		// Token: 0x04000338 RID: 824
 		public bool noloop;
 	}
 }

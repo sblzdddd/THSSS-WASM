@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x0200009E RID: 158
 	public class BossLife_Line : Life_Line
 	{
-		// Token: 0x060004C0 RID: 1216 RVA: 0x00024D0F File Offset: 0x00022F0F
 		public BossLife_Line(StageDataPackage StageData, string textureName, PointF OriginalPosition)
 			: base(StageData, textureName, OriginalPosition)
 		{
@@ -14,7 +12,6 @@ namespace Shooting
 			base.TransparentValueF = 0f;
 		}
 
-		// Token: 0x060004C1 RID: 1217 RVA: 0x00024D38 File Offset: 0x00022F38
 		public override void Ctrl()
 		{
 			if (base.Boss != null)
@@ -36,7 +33,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x060004C2 RID: 1218 RVA: 0x00024E1C File Offset: 0x0002301C
 		public override void Show()
 		{
 			if (base.Boss != null)

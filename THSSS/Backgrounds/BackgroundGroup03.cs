@@ -4,10 +4,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x0200015D RID: 349
 	internal class BackgroundGroup03
 	{
-		// Token: 0x060008D5 RID: 2261 RVA: 0x000541A0 File Offset: 0x000523A0
 		public BackgroundGroup03(StageDataPackage StageData)
 		{
 			BackgroundTouhouWater backgroundTouhouWater = new BackgroundTouhouWater(StageData, "world02");

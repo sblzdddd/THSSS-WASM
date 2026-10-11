@@ -3,20 +3,12 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x02000191 RID: 401
 	internal class EnemyPlane_TouhouGhost : BaseEnemyPlane_Touhou
 	{
-		// Token: 0x1700020B RID: 523
-		// (get) Token: 0x06000995 RID: 2453 RVA: 0x0005B9F4 File Offset: 0x00059BF4
-		// (set) Token: 0x06000996 RID: 2454 RVA: 0x0005BA0B File Offset: 0x00059C0B
 		public bool BackFire { get; set; }
 
-		// Token: 0x1700020C RID: 524
-		// (get) Token: 0x06000997 RID: 2455 RVA: 0x0005BA14 File Offset: 0x00059C14
-		// (set) Token: 0x06000998 RID: 2456 RVA: 0x0005BA2B File Offset: 0x00059C2B
 		public Color BackFireColor { get; set; }
 
-		// Token: 0x06000999 RID: 2457 RVA: 0x0005BA34 File Offset: 0x00059C34
 		public EnemyPlane_TouhouGhost(StageDataPackage StageData, PointF OriginalPosition, float Velocity, double Direction, byte ColorType)
 			: base(StageData, null, OriginalPosition, Velocity, Direction, ColorType)
 		{
@@ -26,7 +18,6 @@ namespace Shooting
 			base.ScaleVelocity = 0.2f;
 		}
 
-		// Token: 0x0600099A RID: 2458 RVA: 0x0005BA84 File Offset: 0x00059C84
 		public override void GiveItems()
 		{
 			if (base.ColorType == 0 || base.ColorType == 2)
@@ -55,12 +46,10 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x0600099B RID: 2459 RVA: 0x0005BC2D File Offset: 0x00059E2D
 		public override void Shoot()
 		{
 		}
 
-		// Token: 0x0600099C RID: 2460 RVA: 0x0005BC30 File Offset: 0x00059E30
 		public override void TextureCtrl()
 		{
 			base.TxtureObject = base.TextureObjectDictionary[string.Concat(new object[]

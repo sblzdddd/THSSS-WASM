@@ -3,24 +3,20 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x020001B7 RID: 439
 	internal class BackgroundSakura : BaseParticle3D
 	{
-		// Token: 0x06000A4A RID: 2634 RVA: 0x00062C52 File Offset: 0x00060E52
 		public BackgroundSakura(StageDataPackage StageData)
 		{
 			base.StageData = StageData;
 			base.Background3D.BackgroundParticleList.Add(this);
 		}
 
-		// Token: 0x06000A4B RID: 2635 RVA: 0x00062C77 File Offset: 0x00060E77
 		public override void Ctrl()
 		{
 			base.Time++;
 			this.Shoot();
 		}
 
-		// Token: 0x06000A4C RID: 2636 RVA: 0x00062C90 File Offset: 0x00060E90
 		public override void Shoot()
 		{
 			int num = 25;
@@ -51,7 +47,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000A4D RID: 2637 RVA: 0x00062DB6 File Offset: 0x00060FB6
 		public override void Show()
 		{
 		}

@@ -4,10 +4,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x02000132 RID: 306
 	public class MyPlane_Aya : BaseMyPlane_Touhou
 	{
-		// Token: 0x0600082C RID: 2092 RVA: 0x0004AC54 File Offset: 0x00048E54
 		public MyPlane_Aya(StageDataPackage StageData, Point OriginalPosition)
 			: base(StageData, OriginalPosition, "Aya")
 		{
@@ -23,7 +21,6 @@ namespace Shooting
 			base.LowSpeed = 2f;
 		}
 
-		// Token: 0x0600082D RID: 2093 RVA: 0x0004ACF0 File Offset: 0x00048EF0
 		public override void Shoot()
 		{
 			if (base.Time % 3 == 0)
@@ -53,14 +50,12 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x0600082E RID: 2094 RVA: 0x0004AE2E File Offset: 0x0004902E
 		public override void SpellShoot()
 		{
 			new Spell_AyaA(base.StageData);
 			base.StageData.SoundPlay("se_nep00.wav");
 		}
 
-		// Token: 0x0600082F RID: 2095 RVA: 0x0004AE50 File Offset: 0x00049050
 		public override void SubPlaneCtrl()
 		{
 			if (base.KClass.Key_Shift)
@@ -144,7 +139,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000830 RID: 2096 RVA: 0x0004B680 File Offset: 0x00049880
 		public override void TextureCtrl()
 		{
 			base.TextureCtrl();

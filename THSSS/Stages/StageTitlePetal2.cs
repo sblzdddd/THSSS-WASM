@@ -4,10 +4,8 @@ using SlimDX;
 
 namespace Shooting
 {
-	// Token: 0x020001BB RID: 443
 	public class StageTitlePetal2 : BaseParticle3D
 	{
-		// Token: 0x06000A58 RID: 2648 RVA: 0x00063414 File Offset: 0x00061614
 		public StageTitlePetal2(StageDataPackage StageData)
 		{
 			base.StageData = StageData;
@@ -18,7 +16,6 @@ namespace Shooting
 			base.LifeTime = 80;
 		}
 
-		// Token: 0x06000A59 RID: 2649 RVA: 0x00063490 File Offset: 0x00061690
 		public override void Ctrl()
 		{
 			base.Ctrl();
@@ -28,7 +25,6 @@ namespace Shooting
 			base.Depth += 10f * (float)Math.Cos((double)((float)base.Time / num));
 		}
 
-		// Token: 0x06000A5A RID: 2650 RVA: 0x000634F4 File Offset: 0x000616F4
 		public override void Shoot()
 		{
 			if (base.Time % 1 == 0)
@@ -46,7 +42,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000A5B RID: 2651 RVA: 0x000636AB File Offset: 0x000618AB
 		public override void Show()
 		{
 		}

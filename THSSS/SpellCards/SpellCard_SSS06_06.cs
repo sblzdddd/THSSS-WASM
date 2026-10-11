@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x020001B0 RID: 432
 	internal class SpellCard_SSS06_06 : BaseSpellCard
 	{
-		// Token: 0x06000A34 RID: 2612 RVA: 0x00060DC4 File Offset: 0x0005EFC4
 		public SpellCard_SSS06_06(StageDataPackage StageData)
 			: base(StageData)
 		{
@@ -28,7 +26,6 @@ namespace Shooting
 			new FullPic3(StageData, "FaceTensei_ct3");
 		}
 
-		// Token: 0x06000A35 RID: 2613 RVA: 0x00060E8C File Offset: 0x0005F08C
 		public override void Shoot()
 		{
 			if (base.SpellList.Count > 0 || base.MyPlane.Time < base.MyPlane.UnmatchedTime - 30)
@@ -147,7 +144,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000A36 RID: 2614 RVA: 0x000611C0 File Offset: 0x0005F3C0
 		private void ClearEmitter()
 		{
 			for (int i = base.EnemyPlaneList.Count - 1; i >= 0; i--)
@@ -165,7 +161,6 @@ namespace Shooting
 			base.BulletList.Clear();
 		}
 
-		// Token: 0x040003D6 RID: 982
 		private int flag = 1;
 	}
 }

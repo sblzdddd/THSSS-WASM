@@ -4,10 +4,8 @@ using SlimDX;
 
 namespace Shooting
 {
-	// Token: 0x0200004B RID: 75
 	public class BossPetalEmitter01 : BaseEffect
 	{
-		// Token: 0x0600027D RID: 637 RVA: 0x0001040C File Offset: 0x0000E60C
 		public BossPetalEmitter01(StageDataPackage StageData, PointF OriginalPosition)
 			: base(StageData, null, new Point(0, 0), 0f, 1.5707963267948966)
 		{
@@ -15,7 +13,6 @@ namespace Shooting
 			base.LifeTime = 130;
 		}
 
-		// Token: 0x0600027E RID: 638 RVA: 0x00010448 File Offset: 0x0000E648
 		public override void Shoot()
 		{
 			if (base.Time % 1 == 0)

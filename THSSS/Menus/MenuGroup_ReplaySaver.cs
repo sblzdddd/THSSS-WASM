@@ -5,10 +5,8 @@ using System.IO;
 
 namespace Shooting
 {
-	// Token: 0x02000042 RID: 66
 	internal class MenuGroup_ReplaySaver : BaseMenuGroup
 	{
-		// Token: 0x06000254 RID: 596 RVA: 0x0000EA7C File Offset: 0x0000CC7C
 		public MenuGroup_ReplaySaver(StageDataPackage StageData, PointF OriginalPosition)
 			: base(StageData)
 		{
@@ -31,7 +29,6 @@ namespace Shooting
 			base.MenuItemList[base.MenuSelectIndex].Selected = true;
 		}
 
-		// Token: 0x06000255 RID: 597 RVA: 0x0000EBC4 File Offset: 0x0000CDC4
 		public virtual string SetDescroption(string fileName)
 		{
 			string text = "------- -------- ------ -- --- ";
@@ -83,14 +80,12 @@ namespace Shooting
 			return text;
 		}
 
-		// Token: 0x06000256 RID: 598 RVA: 0x0000ED58 File Offset: 0x0000CF58
 		public override void ProcessKeys()
 		{
 			base.ProcessKeys();
 			this.ProcessKeys2();
 		}
 
-		// Token: 0x06000257 RID: 599 RVA: 0x0000ED6C File Offset: 0x0000CF6C
 		public virtual void ProcessKeys2()
 		{
 			if (base.KClass.Key_Z && this.LastZ == 0)
@@ -117,7 +112,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000258 RID: 600 RVA: 0x0000EEA8 File Offset: 0x0000D0A8
 		public override void ProcessZ()
 		{
 			if (base.StageData.Rep.CanRead)

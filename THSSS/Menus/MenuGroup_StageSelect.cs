@@ -4,10 +4,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x02000173 RID: 371
 	internal class MenuGroup_StageSelect : BaseMenuGroup
 	{
-		// Token: 0x06000917 RID: 2327 RVA: 0x00056CA4 File Offset: 0x00054EA4
 		public MenuGroup_StageSelect(StageDataPackage StageData) : base(StageData)
 		{
 			base.MenuSelectIndex = 0;
@@ -78,7 +76,6 @@ namespace Shooting
 			base.OriginalPosition = new PointF((float)(base.BoundRect.Width / 2 + 30 * (StageData.StateSwitchData.SDPswitch.Difficulty - DifficultLevel.Normal)), (float)(base.BoundRect.Height / 2 - 20 * (StageData.StateSwitchData.SDPswitch.Difficulty - DifficultLevel.Normal)));
 		}
 
-		// Token: 0x06000918 RID: 2328 RVA: 0x00057080 File Offset: 0x00055280
 		public override void ProcessKeys()
 		{
 			if (base.KClass.ArrowDown && (this.LastDown == 0 || this.LastDown > 30))
@@ -124,7 +121,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000919 RID: 2329 RVA: 0x00057300 File Offset: 0x00055500
 		public override void ProcessZ()
 		{
 			base.StageData.StateSwitchData.SDPswitch.MyPlane.Life = 9;

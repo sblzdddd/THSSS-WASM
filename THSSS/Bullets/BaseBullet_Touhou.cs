@@ -3,41 +3,23 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x02000026 RID: 38
 	public class BaseBullet_Touhou : BaseObject_CS
 	{
-		// Token: 0x1700008A RID: 138
-		// (get) Token: 0x060001B1 RID: 433 RVA: 0x0000A21C File Offset: 0x0000841C
-		// (set) Token: 0x060001B2 RID: 434 RVA: 0x0000A233 File Offset: 0x00008433
 		public int Layer { get; set; }
 
-		// Token: 0x1700008B RID: 139
-		// (get) Token: 0x060001B3 RID: 435 RVA: 0x0000A23C File Offset: 0x0000843C
-		// (set) Token: 0x060001B4 RID: 436 RVA: 0x0000A253 File Offset: 0x00008453
 		public byte ColorType { get; set; }
 
-		// Token: 0x1700008C RID: 140
-		// (get) Token: 0x060001B5 RID: 437 RVA: 0x0000A25C File Offset: 0x0000845C
-		// (set) Token: 0x060001B6 RID: 438 RVA: 0x0000A273 File Offset: 0x00008473
 		public int SizeValue { get; set; }
 
-		// Token: 0x1700008D RID: 141
-		// (get) Token: 0x060001B7 RID: 439 RVA: 0x0000A27C File Offset: 0x0000847C
-		// (set) Token: 0x060001B8 RID: 440 RVA: 0x0000A293 File Offset: 0x00008493
 		public byte Reflect { get; set; }
 
-		// Token: 0x1700008E RID: 142
-		// (get) Token: 0x060001B9 RID: 441 RVA: 0x0000A29C File Offset: 0x0000849C
-		// (set) Token: 0x060001BA RID: 442 RVA: 0x0000A2B3 File Offset: 0x000084B3
 		public bool Grazed { get; set; }
 
-		// Token: 0x060001BB RID: 443 RVA: 0x0000A2BC File Offset: 0x000084BC
 		public BaseBullet_Touhou(StageDataPackage StageData)
 			: base(StageData)
 		{
 		}
 
-		// Token: 0x060001BC RID: 444 RVA: 0x0000A2C8 File Offset: 0x000084C8
 		public BaseBullet_Touhou(StageDataPackage StageData, string textureName, PointF OriginalPosition, float Velocity, double Direction, byte ColorType)
 			: this(StageData, textureName, OriginalPosition, Velocity, Direction)
 		{
@@ -45,7 +27,6 @@ namespace Shooting
 			base.BeginningEffect = true;
 		}
 
-		// Token: 0x060001BD RID: 445 RVA: 0x0000A2EC File Offset: 0x000084EC
 		public BaseBullet_Touhou(StageDataPackage StageData, string textureName, PointF OriginalPosition, float Velocity, double Direction)
 			: base(StageData, textureName, OriginalPosition, Velocity, Direction)
 		{
@@ -56,7 +37,6 @@ namespace Shooting
 			this.SetRegion(textureName);
 		}
 
-		// Token: 0x060001BE RID: 446 RVA: 0x0000A340 File Offset: 0x00008540
 		public void SetRegion(string textureName)
 		{
 			if (textureName != null)
@@ -169,7 +149,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x060001BF RID: 447 RVA: 0x0000A774 File Offset: 0x00008974
 		public override void Ctrl()
 		{
 			base.Ctrl();
@@ -188,7 +167,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x060001C0 RID: 448 RVA: 0x0000A810 File Offset: 0x00008A10
 		public override bool OutBoundary()
 		{
 			bool flag;
@@ -228,7 +206,6 @@ namespace Shooting
 			return flag;
 		}
 
-		// Token: 0x060001C1 RID: 449 RVA: 0x0000AA00 File Offset: 0x00008C00
 		public override void HitCheckAll()
 		{
 			if (base.MyPlane.HitEnabled)
@@ -260,13 +237,11 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x060001C2 RID: 450 RVA: 0x0000AB6A File Offset: 0x00008D6A
 		public override void GiveEndEffect()
 		{
 			new ParticleEndBullet(base.StageData, base.OriginalPosition, this.ColorType, this.SizeValue);
 		}
 
-		// Token: 0x060001C3 RID: 451 RVA: 0x0000AB8B File Offset: 0x00008D8B
 		public override void GiveItems()
 		{
 			new StarItem_Touhou(base.StageData, base.OriginalPosition);

@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x02000128 RID: 296
 	internal class SpellCard_SSS06_FSC03 : BaseTimeSC
 	{
-		// Token: 0x060007FD RID: 2045 RVA: 0x00048A90 File Offset: 0x00046C90
 		public SpellCard_SSS06_FSC03(StageDataPackage StageData)
 			: base(StageData)
 		{
@@ -20,7 +18,6 @@ namespace Shooting
 			new FullPic3(StageData, "FaceTensei_ct3");
 		}
 
-		// Token: 0x060007FE RID: 2046 RVA: 0x00048B20 File Offset: 0x00046D20
 		public override void Shoot()
 		{
 			if (base.Time > 100)
@@ -48,7 +45,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x060007FF RID: 2047 RVA: 0x00048BC8 File Offset: 0x00046DC8
 		public override void GiveEndEffect()
 		{
 			if (!base.Bombed && !base.Missed)
@@ -67,7 +63,6 @@ namespace Shooting
 			base.StageData.SCBstring = null;
 		}
 
-		// Token: 0x06000800 RID: 2048 RVA: 0x00048C64 File Offset: 0x00046E64
 		public override long GetSpellCardBonus()
 		{
 			long num;

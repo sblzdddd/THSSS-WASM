@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x02000017 RID: 23
 	public class BaseItem_Touhou : BaseItem
 	{
-		// Token: 0x0600013C RID: 316 RVA: 0x0000807C File Offset: 0x0000627C
 		public BaseItem_Touhou(StageDataPackage StageData, string textureName, PointF OriginalPosition)
 			: base(StageData, textureName, OriginalPosition)
 		{
@@ -18,7 +16,6 @@ namespace Shooting
 			base.AngularVelocity = 0.2f;
 		}
 
-		// Token: 0x0600013D RID: 317 RVA: 0x000080EC File Offset: 0x000062EC
 		public override void Ctrl()
 		{
 			if (base.Enabled)
@@ -70,7 +67,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x0600013E RID: 318 RVA: 0x0000830C File Offset: 0x0000650C
 		public override void HitCheckAll()
 		{
 			if (base.Time >= 10)

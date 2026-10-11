@@ -3,15 +3,10 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x020000B3 RID: 179
 	internal class EmitterSaveEnegy : BaseEffect
 	{
-		// Token: 0x1700013E RID: 318
-		// (get) Token: 0x06000524 RID: 1316 RVA: 0x00029C0C File Offset: 0x00027E0C
-		// (set) Token: 0x06000525 RID: 1317 RVA: 0x00029C23 File Offset: 0x00027E23
 		public int ColorType { get; set; }
 
-		// Token: 0x06000526 RID: 1318 RVA: 0x00029C2C File Offset: 0x00027E2C
 		public EmitterSaveEnegy(StageDataPackage StageData, PointF Position, int colorType)
 			: base(StageData)
 		{
@@ -22,7 +17,6 @@ namespace Shooting
 			this.ColorType = colorType;
 		}
 
-		// Token: 0x06000527 RID: 1319 RVA: 0x00029C7C File Offset: 0x00027E7C
 		public override void Shoot()
 		{
 			if (base.Time % 5 == 0)
@@ -41,7 +35,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000528 RID: 1320 RVA: 0x00029DAB File Offset: 0x00027FAB
 		public override void Show()
 		{
 		}

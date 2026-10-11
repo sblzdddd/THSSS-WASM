@@ -5,10 +5,8 @@ using SlimDX.Windows;
 
 namespace Shooting
 {
-	// Token: 0x0200009C RID: 156
 	internal static class Program
 	{
-		// Token: 0x060004BE RID: 1214 RVA: 0x00024C00 File Offset: 0x00022E00
 		[STAThread]
 		private static void Main()
 		{

@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x02000121 RID: 289
 	public class Particle3D1 : BaseParticle3D
 	{
-		// Token: 0x060007A6 RID: 1958 RVA: 0x0004713C File Offset: 0x0004533C
 		public Particle3D1(StageDataPackage StageData, string textureName, PointF OriginalPosition, float Velocity, double Direction, int LifeTime)
 			: base(StageData, textureName, OriginalPosition, Velocity, Direction)
 		{
@@ -17,7 +15,6 @@ namespace Shooting
 			base.LifeTime = LifeTime;
 		}
 
-		// Token: 0x060007A7 RID: 1959 RVA: 0x00047194 File Offset: 0x00045394
 		public override void Ctrl()
 		{
 			base.Ctrl();

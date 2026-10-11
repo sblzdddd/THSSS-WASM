@@ -3,15 +3,10 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x02000078 RID: 120
 	internal class SpellCardBonus : BaseEffect
 	{
-		// Token: 0x1700011A RID: 282
-		// (get) Token: 0x0600040F RID: 1039 RVA: 0x0001BC68 File Offset: 0x00019E68
-		// (set) Token: 0x06000410 RID: 1040 RVA: 0x0001BC7F File Offset: 0x00019E7F
 		private char[] BonusCharArray { get; set; }
 
-		// Token: 0x06000411 RID: 1041 RVA: 0x0001BC88 File Offset: 0x00019E88
 		public SpellCardBonus(StageDataPackage StageData, long Bonus)
 			: base(StageData)
 		{
@@ -32,7 +27,6 @@ namespace Shooting
 			this.ValuePoint = new PointF(base.OriginalPosition.X - (float)(num / 2), base.OriginalPosition.Y + 40f);
 		}
 
-		// Token: 0x06000412 RID: 1042 RVA: 0x0001BDC0 File Offset: 0x00019FC0
 		public override void Ctrl()
 		{
 			base.Ctrl();
@@ -56,10 +50,8 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x0400013F RID: 319
 		private PointF ValuePoint;
 
-		// Token: 0x04000140 RID: 320
 		private int Index = 0;
 	}
 }

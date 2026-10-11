@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x020000C1 RID: 193
 	internal class Boss_Rakuki04 : BaseBossTouhou
 	{
-		// Token: 0x06000563 RID: 1379 RVA: 0x0002F6C8 File Offset: 0x0002D8C8
 		public Boss_Rakuki04(StageDataPackage StageData)
 			: base(StageData)
 		{
@@ -41,7 +39,6 @@ namespace Shooting
 			this.LoadArmon(".\\CS\\St05\\道中Boss\\ctrl.csv");
 		}
 
-		// Token: 0x06000564 RID: 1380 RVA: 0x0002F8E0 File Offset: 0x0002DAE0
 		public override void Ctrl()
 		{
 			base.Ctrl();
@@ -109,7 +106,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000565 RID: 1381 RVA: 0x0002FBE8 File Offset: 0x0002DDE8
 		public override void GiveEndEffect()
 		{
 			new EndBoss_Touhou_Small(base.StageData, base.OriginalPosition, Color.YellowGreen, Color.Green);
@@ -118,7 +114,6 @@ namespace Shooting
 			new LifeItem_Touhou(base.StageData, base.OriginalPosition);
 		}
 
-		// Token: 0x06000566 RID: 1382 RVA: 0x0002FC40 File Offset: 0x0002DE40
 		private void Ctrl1()
 		{
 			if (!base.OnSpell)

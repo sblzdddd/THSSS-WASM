@@ -1,9 +1,7 @@
 ﻿namespace Shooting
 {
-	// Token: 0x02000109 RID: 265
 	public partial class Form_Test : global::System.Windows.Forms.Form
 	{
-		// Token: 0x06000749 RID: 1865 RVA: 0x00041FD4 File Offset: 0x000401D4
 		protected override void Dispose(bool disposing)
 		{
 			if (disposing && this.components != null)
@@ -13,7 +11,6 @@
 			base.Dispose(disposing);
 		}
 
-		// Token: 0x0600074A RID: 1866 RVA: 0x0004200C File Offset: 0x0004020C
 		private void InitializeComponent()
 		{
 			this.numericUpDown1 = new global::System.Windows.Forms.NumericUpDown();
@@ -188,46 +185,32 @@
 			base.PerformLayout();
 		}
 
-		// Token: 0x04000282 RID: 642
 		private global::System.ComponentModel.IContainer components = null;
 
-		// Token: 0x04000283 RID: 643
 		private global::System.Windows.Forms.NumericUpDown numericUpDown1;
 
-		// Token: 0x04000284 RID: 644
 		private global::System.Windows.Forms.NumericUpDown numericUpDown2;
 
-		// Token: 0x04000285 RID: 645
 		private global::System.Windows.Forms.NumericUpDown numericUpDown3;
 
-		// Token: 0x04000286 RID: 646
 		private global::System.Windows.Forms.NumericUpDown numericUpDown4;
 
-		// Token: 0x04000287 RID: 647
 		private global::System.Windows.Forms.NumericUpDown numericUpDown5;
 
-		// Token: 0x04000288 RID: 648
 		private global::System.Windows.Forms.NumericUpDown numericUpDown6;
 
-		// Token: 0x04000289 RID: 649
 		private global::System.Windows.Forms.RichTextBox richTextBox1;
 
-		// Token: 0x0400028A RID: 650
 		private global::System.Windows.Forms.NumericUpDown numericUpDown7;
 
-		// Token: 0x0400028B RID: 651
 		private global::System.Windows.Forms.NumericUpDown numericUpDown8;
 
-		// Token: 0x0400028C RID: 652
 		public global::System.Windows.Forms.ListBox listBox1;
 
-		// Token: 0x0400028D RID: 653
 		public global::System.Windows.Forms.CheckBox checkBox1;
 
-		// Token: 0x0400028E RID: 654
 		public global::System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
 
-		// Token: 0x0400028F RID: 655
 		public global::System.Windows.Forms.TreeView treeView1;
 	}
 }

@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x020001B2 RID: 434
 	internal class Boss_Kage02 : BaseBossTouhou
 	{
-		// Token: 0x06000A39 RID: 2617 RVA: 0x00061420 File Offset: 0x0005F620
 		public Boss_Kage02(StageDataPackage StageData)
 			: base(StageData)
 		{
@@ -40,7 +38,6 @@ namespace Shooting
 			this.LoadArmon(".\\CS\\St04\\关底Boss\\ctrl.csv");
 		}
 
-		// Token: 0x06000A3A RID: 2618 RVA: 0x00061640 File Offset: 0x0005F840
 		public override void Ctrl()
 		{
 			base.Ctrl();
@@ -102,7 +99,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000A3B RID: 2619 RVA: 0x00061938 File Offset: 0x0005FB38
 		public override void GiveEndEffect()
 		{
 			base.TransparentValueF = 255f;
@@ -114,7 +110,6 @@ namespace Shooting
 			new EndBoss_Touhou04(base.StageData, base.OriginalPosition, Color.Pink, Color.Violet);
 		}
 
-		// Token: 0x06000A3C RID: 2620 RVA: 0x000619B4 File Offset: 0x0005FBB4
 		public override void TextureCtrl()
 		{
 			int num = (base.Mirrored ? base.IndexY : (-base.IndexY));
@@ -189,7 +184,6 @@ namespace Shooting
 			base.TxtureObject = base.TxtureObjects[base.IndexY, (int)base.IndexX];
 		}
 
-		// Token: 0x06000A3D RID: 2621 RVA: 0x00061C20 File Offset: 0x0005FE20
 		private void Ctrl1()
 		{
 			if (!base.OnSpell)
@@ -210,7 +204,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000A3E RID: 2622 RVA: 0x00061C93 File Offset: 0x0005FE93
 		public override void GiveItems()
 		{
 			base.GiveItems();

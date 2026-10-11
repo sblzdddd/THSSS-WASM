@@ -6,10 +6,8 @@ using SlimDX.Direct3D9;
 
 namespace Shooting
 {
-	// Token: 0x02000182 RID: 386
 	internal class GameState_ED : BaseGameState, IGameState
 	{
-		// Token: 0x06000936 RID: 2358 RVA: 0x0005891C File Offset: 0x00056B1C
 		public GameState_ED(GlobalDataPackage GlobalData)
 			: base(GlobalData)
 		{
@@ -18,7 +16,6 @@ namespace Shooting
 			base.DXFont = new SlimDX.Direct3D9.Font(base.DeviceMain, font);
 		}
 
-		// Token: 0x06000937 RID: 2359 RVA: 0x0005898C File Offset: 0x00056B8C
 		public override void UpdateData()
 		{
 			base.TimeMain++;
@@ -87,13 +84,11 @@ namespace Shooting
 			base.GlobalData.LastState = this;
 		}
 
-		// Token: 0x06000938 RID: 2360 RVA: 0x00058C3F File Offset: 0x00056E3F
 		public override void Init()
 		{
 			base.StageData.C_History = base.StageData.PData.C_History.Find(new Predicate<ClearHistory>(base.StageData.FindClear));
 		}
 
-		// Token: 0x06000939 RID: 2361 RVA: 0x00058CC8 File Offset: 0x00056EC8
 		public void Drama()
 		{
 			if (base.TimeMain == 2)
@@ -172,12 +167,10 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x0600093A RID: 2362 RVA: 0x0005906C File Offset: 0x0005726C
 		public override void BGM_ON()
 		{
 		}
 
-		// Token: 0x0600093B RID: 2363 RVA: 0x000591F0 File Offset: 0x000573F0
 		public override void Render()
 		{
 			base.GlobalData.ScreenTexMan.Begin();
@@ -269,13 +262,10 @@ namespace Shooting
 			base.GlobalData.EffectMain.End();
 		}
 
-		// Token: 0x04000370 RID: 880
 		private int testStartTime = 0;
 
-		// Token: 0x04000371 RID: 881
 		private bool StageFlag;
 
-		// Token: 0x04000372 RID: 882
 		private int[] keyTime = new int[] { 500 };
 	}
 }

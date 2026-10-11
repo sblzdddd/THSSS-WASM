@@ -3,34 +3,24 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x02000065 RID: 101
 	public class Shinmyoumaru : BaseSubPlane
 	{
-		// Token: 0x170000E3 RID: 227
-		// (get) Token: 0x06000353 RID: 851 RVA: 0x000166C0 File Offset: 0x000148C0
-		// (set) Token: 0x06000354 RID: 852 RVA: 0x000166D7 File Offset: 0x000148D7
 		public float IndexX { get; set; }
 
-		// Token: 0x170000E4 RID: 228
-		// (get) Token: 0x06000355 RID: 853 RVA: 0x000166E0 File Offset: 0x000148E0
-		// (set) Token: 0x06000356 RID: 854 RVA: 0x000166F7 File Offset: 0x000148F7
 		public int IndexY { get; set; }
 
-		// Token: 0x06000357 RID: 855 RVA: 0x00016700 File Offset: 0x00014900
 		public Shinmyoumaru(StageDataPackage StageData, PointF Position)
 			: base(StageData, "ReimuSubPlane", Position)
 		{
 			base.AngularVelocityDegree = 5f;
 		}
 
-		// Token: 0x06000358 RID: 856 RVA: 0x0001671E File Offset: 0x0001491E
 		public override void Ctrl()
 		{
 			base.Ctrl();
 			this.TextureCtrl();
 		}
 
-		// Token: 0x06000359 RID: 857 RVA: 0x00016730 File Offset: 0x00014930
 		public void TextureCtrl()
 		{
 			if (!base.KClass.Key_Shift)
@@ -83,7 +73,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x0600035A RID: 858 RVA: 0x000168DC File Offset: 0x00014ADC
 		public override void Shoot()
 		{
 			if (base.KClass.Key_Shift)
@@ -104,7 +93,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x0600035B RID: 859 RVA: 0x000169DC File Offset: 0x00014BDC
 		public override void Show()
 		{
 			if (base.Enabled)

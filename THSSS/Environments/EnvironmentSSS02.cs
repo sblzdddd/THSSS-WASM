@@ -5,21 +5,12 @@ using SlimDX.Direct3D9;
 
 namespace Shooting
 {
-	// Token: 0x02000104 RID: 260
 	public class EnvironmentSSS02 : BaseObject, IEnvironment
 	{
-		// Token: 0x170001A6 RID: 422
-		// (get) Token: 0x06000721 RID: 1825 RVA: 0x000408CC File Offset: 0x0003EACC
-		// (set) Token: 0x06000722 RID: 1826 RVA: 0x000408E3 File Offset: 0x0003EAE3
 		public Device DeviceMain { get; set; }
 
-		// Token: 0x170001A7 RID: 423
-		// (get) Token: 0x06000723 RID: 1827 RVA: 0x000408EC File Offset: 0x0003EAEC
-		// (set) Token: 0x06000724 RID: 1828 RVA: 0x00040903 File Offset: 0x0003EB03
 		public bool OnBossAttack { get; set; }
 
-		// Token: 0x170001A8 RID: 424
-		// (get) Token: 0x06000725 RID: 1829 RVA: 0x0004090C File Offset: 0x0003EB0C
 		public Vector3 CameraPos
 		{
 			get
@@ -28,8 +19,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x170001A9 RID: 425
-		// (get) Token: 0x06000726 RID: 1830 RVA: 0x00040924 File Offset: 0x0003EB24
 		public float CameraAngle
 		{
 			get
@@ -38,7 +27,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000727 RID: 1831 RVA: 0x0004096C File Offset: 0x0003EB6C
 		public EnvironmentSSS02(StageDataPackage StageData)
 		{
 			base.StageData = StageData;
@@ -54,7 +42,6 @@ namespace Shooting
 			this.light.Type = LightType.Directional;
 		}
 
-		// Token: 0x06000728 RID: 1832 RVA: 0x00040A4C File Offset: 0x0003EC4C
 		public override void Ctrl()
 		{
 			base.Time++;
@@ -142,7 +129,6 @@ namespace Shooting
 			this.light.Direction = new Vector3(0f, 0f, -1f);
 		}
 
-		// Token: 0x06000729 RID: 1833 RVA: 0x00041008 File Offset: 0x0003F208
 		public void SetRenderPara()
 		{
 			this.DeviceMain.Clear(ClearFlags.Target, this.FogColor, 0f, 0);
@@ -169,37 +155,26 @@ namespace Shooting
 			this.DeviceMain.EnableLight(0, true);
 		}
 
-		// Token: 0x0400026B RID: 619
 		private Light light;
 
-		// Token: 0x0400026C RID: 620
 		private Color LightColor;
 
-		// Token: 0x0400026D RID: 621
 		private Color FogColor;
 
-		// Token: 0x0400026E RID: 622
 		private float FogStart;
 
-		// Token: 0x0400026F RID: 623
 		private float FogEnd;
 
-		// Token: 0x04000270 RID: 624
 		public Vector3 CameraPosition;
 
-		// Token: 0x04000271 RID: 625
 		public Vector3 CameraTarget;
 
-		// Token: 0x04000272 RID: 626
 		public Vector3 CameraDirection;
 
-		// Token: 0x04000273 RID: 627
 		private int PosY = -1000;
 
-		// Token: 0x04000274 RID: 628
 		private int PosY2 = -1000;
 
-		// Token: 0x04000275 RID: 629
 		private int PosY3 = -1000;
 	}
 }

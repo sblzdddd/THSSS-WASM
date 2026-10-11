@@ -4,10 +4,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x02000044 RID: 68
 	internal class MenuGroup_WeaponSelect : BaseMenuGroup
 	{
-		// Token: 0x0600025D RID: 605 RVA: 0x0000F324 File Offset: 0x0000D524
 		public MenuGroup_WeaponSelect(StageDataPackage StageData, bool StageSelect, int PlaneType)
 			: base(StageData)
 		{
@@ -58,7 +56,6 @@ namespace Shooting
 			base.AngleDegree = 90.0;
 		}
 
-		// Token: 0x0600025E RID: 606 RVA: 0x0000F558 File Offset: 0x0000D758
 		public override void ProcessKeys()
 		{
 			if (base.KClass.ArrowLeft && this.LastLeft == 0)
@@ -92,7 +89,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x0600025F RID: 607 RVA: 0x0000F704 File Offset: 0x0000D904
 		public override void ProcessZ()
 		{
 			Point point = new Point(192, 398);
@@ -139,7 +135,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000260 RID: 608 RVA: 0x0000F8E4 File Offset: 0x0000DAE4
 		public override void Show()
 		{
 			if (base.StageData.MenuGroupList[base.StageData.MenuGroupList.Count - 1] == this)
@@ -148,7 +143,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x040000B8 RID: 184
 		private bool StageSelect;
 	}
 }

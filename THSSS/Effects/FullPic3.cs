@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x02000200 RID: 512
 	internal class FullPic3 : BaseObject
 	{
-		// Token: 0x06000B7F RID: 2943 RVA: 0x000722F4 File Offset: 0x000704F4
 		public FullPic3(StageDataPackage StageData, string textureName)
 		{
 			base.StageData = StageData;
@@ -25,7 +23,6 @@ namespace Shooting
 			base.OutsideRegion = 500;
 		}
 
-		// Token: 0x06000B80 RID: 2944 RVA: 0x000723FC File Offset: 0x000705FC
 		public override void Ctrl()
 		{
 			base.Ctrl();

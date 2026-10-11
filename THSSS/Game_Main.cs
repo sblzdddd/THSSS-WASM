@@ -10,12 +10,8 @@ using SlimDX.DirectInput;
 
 namespace Shooting
 {
-	// Token: 0x0200008F RID: 143
 	public class Game_Main
 	{
-		// Token: 0x17000126 RID: 294
-		// (get) Token: 0x06000483 RID: 1155 RVA: 0x00020FDC File Offset: 0x0001F1DC
-		// (set) Token: 0x06000484 RID: 1156 RVA: 0x00020FF4 File Offset: 0x0001F1F4
 		public GlobalDataPackage GlobalData
 		{
 			get
@@ -28,9 +24,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x17000127 RID: 295
-		// (get) Token: 0x06000486 RID: 1158 RVA: 0x00021010 File Offset: 0x0001F210
-		// (set) Token: 0x06000485 RID: 1157 RVA: 0x00020FFE File Offset: 0x0001F1FE
 		public global::SlimDX.Direct3D9.Device DeviceMain
 		{
 			get
@@ -43,7 +36,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000487 RID: 1159 RVA: 0x00021030 File Offset: 0x0001F230
 		public Game_Main()
 		{
 			this.Form_Main = new RenderForm_Main();
@@ -123,7 +115,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000488 RID: 1160 RVA: 0x000215A4 File Offset: 0x0001F7A4
 		public bool Direct3DInit()
 		{
 			bool flag;
@@ -189,7 +180,6 @@ namespace Shooting
 			return flag;
 		}
 
-		// Token: 0x06000489 RID: 1161 RVA: 0x000217DC File Offset: 0x0001F9DC
 		public void AddState()
 		{
 			Watch watch = new Watch();
@@ -313,7 +303,6 @@ namespace Shooting
 			this.InitFlag = true;
 		}
 
-		// Token: 0x0600048A RID: 1162 RVA: 0x00021B08 File Offset: 0x0001FD08
 		public void MainProcess()
 		{
 			if (this.firstFrame)
@@ -501,7 +490,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x0600048B RID: 1163 RVA: 0x0002219C File Offset: 0x0002039C
 		private void ToggleFullScreen()
 		{
 			this.fullWindow = !this.fullWindow;
@@ -526,7 +514,6 @@ namespace Shooting
 			MouseCtrl.DrawCursor(!this.fullWindow);
 		}
 
-		// Token: 0x0600048C RID: 1164 RVA: 0x00022298 File Offset: 0x00020498
 		private void WindowSwitch()
 		{
 			if (this.fullWindow)
@@ -554,7 +541,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x0600048D RID: 1165 RVA: 0x00022364 File Offset: 0x00020564
 		private void Form_Main_Deactivate(object sender, EventArgs e)
 		{
 			if (this.initSuccess)
@@ -563,7 +549,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x0600048E RID: 1166 RVA: 0x00022388 File Offset: 0x00020588
 		private void Form_Main_Activated(object sender, EventArgs e)
 		{
 			if (this.initSuccess)
@@ -573,7 +558,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x0600048F RID: 1167 RVA: 0x000223C0 File Offset: 0x000205C0
 		private void Form_Main_FormClosing(object sender, FormClosingEventArgs e)
 		{
 			if (this.LoadingThread != null && this.LoadingThread.IsAlive)
@@ -607,7 +591,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000490 RID: 1168 RVA: 0x00022508 File Offset: 0x00020708
 		private void Form_Main_KeyDown(object sender, KeyEventArgs e)
 		{
 			this.GlobalData.KClass.ArrowLeft = e.KeyCode.ToString() == this.mapkey.Left || this.GlobalData.KClass.ArrowLeft;
@@ -651,7 +634,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000491 RID: 1169 RVA: 0x00022884 File Offset: 0x00020A84
 		private void Form_Main_KeyUp(object sender, KeyEventArgs e)
 		{
 			this.GlobalData.KClass.ArrowLeft = !(e.KeyCode.ToString() == this.mapkey.Left) && this.GlobalData.KClass.ArrowLeft;
@@ -689,7 +671,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000492 RID: 1170 RVA: 0x00022BCC File Offset: 0x00020DCC
 		private void ScreenShot()
 		{
 			Surface backBuffer = this.DeviceMain.GetBackBuffer(0, 0);
@@ -711,82 +692,56 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x04000151 RID: 337
 		public RenderForm_Main Form_Main;
 
-		// Token: 0x04000152 RID: 338
 		private GlobalDataPackage GDP = new GlobalDataPackage();
 
-		// Token: 0x04000153 RID: 339
 		private IGameState PresentState;
 
-		// Token: 0x04000154 RID: 340
 		private Dictionary<string, IGameState> GameStatesDictionary;
 
-		// Token: 0x04000155 RID: 341
 		private Thread LoadingThread;
 
-		// Token: 0x04000156 RID: 342
 		private Watch fpsTimer = new Watch();
 
-		// Token: 0x04000157 RID: 343
 		private KeyboardCapture KCapture;
 
-		// Token: 0x04000158 RID: 344
 		private JoystickCapture JCapture;
 
-		// Token: 0x04000159 RID: 345
 		private MapKey mapkey = new MapKey();
 
-		// Token: 0x0400015A RID: 346
 		private bool fullWindow = false;
 
-		// Token: 0x0400015B RID: 347
 		private bool useDirectInput = false;
 
-		// Token: 0x0400015C RID: 348
 		private bool verticalSync = false;
 
-		// Token: 0x0400015D RID: 349
 		private bool antiAlias = false;
 
-		// Token: 0x0400015E RID: 350
 		private bool deviceLost = false;
 
-		// Token: 0x0400015F RID: 351
 		private bool singleThreaded = false;
 
-		// Token: 0x04000160 RID: 352
 		private int windowSize = 0;
 
-		// Token: 0x04000161 RID: 353
 		private int presentInterval = 1;
 
-		// Token: 0x04000162 RID: 354
 		private bool fixedFPS = false;
 
-		// Token: 0x04000163 RID: 355
 		private int delayTolerance = 10;
 
-		// Token: 0x04000164 RID: 356
 		private int bgmVolume;
 
-		// Token: 0x04000165 RID: 357
 		private int seVolume;
 
-		// Token: 0x04000166 RID: 358
 		private string fontType;
 
-		// Token: 0x04000167 RID: 359
 		public bool initSuccess = false;
 
-		// Token: 0x04000168 RID: 360
 		private bool firstFrame = true;
 
-		// Token: 0x04000169 RID: 361
 		private bool OnPause = false;
 
-		// Token: 0x0400016A RID: 362
 		private bool InitFlag = false;
 	}
 }

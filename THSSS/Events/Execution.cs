@@ -3,11 +3,9 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x02000117 RID: 279
 	[Serializable]
 	public class Execution
 	{
-		// Token: 0x0600077E RID: 1918 RVA: 0x0004417C File Offset: 0x0004237C
 		public void Update(BaseEmitter_CS objects)
 		{
 			switch (this.changevalue)
@@ -143,7 +141,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x0600077F RID: 1919 RVA: 0x00044780 File Offset: 0x00042980
 		public void Update(BaseObject_CS objects)
 		{
 			switch (this.changevalue)
@@ -237,19 +234,16 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000780 RID: 1920 RVA: 0x00044B14 File Offset: 0x00042D14
 		private int ChangeValue(int Value)
 		{
 			return (int)this.ChangeValue((double)Value);
 		}
 
-		// Token: 0x06000781 RID: 1921 RVA: 0x00044B30 File Offset: 0x00042D30
 		private float ChangeValue(float Value)
 		{
 			return (float)this.ChangeValue((double)Value);
 		}
 
-		// Token: 0x06000782 RID: 1922 RVA: 0x00044B4C File Offset: 0x00042D4C
 		private double ChangeValue(double Value)
 		{
 			double num;
@@ -298,31 +292,22 @@ namespace Shooting
 			return num;
 		}
 
-		// Token: 0x04000294 RID: 660
 		public int parentid;
 
-		// Token: 0x04000295 RID: 661
 		public int id;
 
-		// Token: 0x04000296 RID: 662
 		public int change;
 
-		// Token: 0x04000297 RID: 663
 		public int changetype;
 
-		// Token: 0x04000298 RID: 664
 		public int changevalue;
 
-		// Token: 0x04000299 RID: 665
 		public string region;
 
-		// Token: 0x0400029A RID: 666
 		public float value;
 
-		// Token: 0x0400029B RID: 667
 		public int time;
 
-		// Token: 0x0400029C RID: 668
 		public int ctime;
 	}
 }

@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x02000198 RID: 408
 	internal class BackgroundGroup01
 	{
-		// Token: 0x060009AB RID: 2475 RVA: 0x0005C46C File Offset: 0x0005A66C
 		public BackgroundGroup01(StageDataPackage StageData)
 		{
 			BackgroundTouhouStage01B_3D backgroundTouhouStage01B_3D = new BackgroundTouhouStage01B_3D(StageData, "stage01a1");

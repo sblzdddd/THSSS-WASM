@@ -5,17 +5,14 @@ using SlimDX.Direct3D9;
 
 namespace Shooting
 {
-	// Token: 0x020000AA RID: 170
 	public class StageTitle3D2 : StageTitle3D
 	{
-		// Token: 0x060004F9 RID: 1273 RVA: 0x00028140 File Offset: 0x00026340
 		public StageTitle3D2(StageDataPackage StageData, string TextureName)
 			: base(StageData, TextureName)
 		{
 			base.OriginalPosition = new PointF((float)(base.BoundRect.Width / 2), (float)(base.BoundRect.Height / 2 - 80));
 		}
 
-		// Token: 0x060004FA RID: 1274 RVA: 0x0002818C File Offset: 0x0002638C
 		public override void SetupVertex()
 		{
 			DataStream dataStream = this.vertexBuffer.Lock(0, 0, LockFlags.Discard);

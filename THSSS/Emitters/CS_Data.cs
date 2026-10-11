@@ -7,32 +7,22 @@ using System.Windows.Forms;
 
 namespace Shooting
 {
-	// Token: 0x020000F8 RID: 248
 	public class CS_Data
 	{
-		// Token: 0x17000178 RID: 376
-		// (get) Token: 0x060006A1 RID: 1697 RVA: 0x0003B090 File Offset: 0x00039290
-		// (set) Token: 0x060006A2 RID: 1698 RVA: 0x0003B0A7 File Offset: 0x000392A7
 		public List<BaseEmitter_CS> EmitterList { get; private set; }
 
-		// Token: 0x17000179 RID: 377
-		// (get) Token: 0x060006A3 RID: 1699 RVA: 0x0003B0B0 File Offset: 0x000392B0
-		// (set) Token: 0x060006A4 RID: 1700 RVA: 0x0003B0C7 File Offset: 0x000392C7
 		public int TimeTotal { get; private set; }
 
-		// Token: 0x060006A5 RID: 1701 RVA: 0x0003B0D0 File Offset: 0x000392D0
 		public CS_Data()
 		{
 		}
 
-		// Token: 0x060006A6 RID: 1702 RVA: 0x0003B0DB File Offset: 0x000392DB
 		public CS_Data(string FileName)
 		{
 			this.MBGtext = File.ReadAllLines(FileName, Encoding.UTF8);
 			this.EmitterList = new List<BaseEmitter_CS>();
 		}
 
-		// Token: 0x060006A7 RID: 1703 RVA: 0x0003B104 File Offset: 0x00039304
 		public void String2Data(StageDataPackage StageData)
 		{
 			this.EmitterList.Clear();
@@ -477,7 +467,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x060006A8 RID: 1704 RVA: 0x0003D160 File Offset: 0x0003B360
 		private void AddNode(int id, TreeNode treeNode)
 		{
 			this.EmitterList.ForEach(delegate(BaseEmitter_CS b)
@@ -502,7 +491,6 @@ namespace Shooting
 			});
 		}
 
-		// Token: 0x04000235 RID: 565
 		private string[] MBGtext;
 	}
 }

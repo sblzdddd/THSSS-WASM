@@ -8,20 +8,12 @@ using SlimDX.Direct3D9;
 
 namespace Shooting
 {
-	// Token: 0x0200005D RID: 93
 	internal partial class BaseStage : BaseGameState, IGameState
 	{
-		// Token: 0x170000D7 RID: 215
-		// (get) Token: 0x06000309 RID: 777 RVA: 0x00014154 File Offset: 0x00012354
-		// (set) Token: 0x0600030A RID: 778 RVA: 0x0001416B File Offset: 0x0001236B
 		private byte Slowflag { get; set; }
 
-		// Token: 0x170000D8 RID: 216
-		// (get) Token: 0x0600030B RID: 779 RVA: 0x00014174 File Offset: 0x00012374
-		// (set) Token: 0x0600030C RID: 780 RVA: 0x0001418B File Offset: 0x0001238B
 		protected bool RoadFlag { get; set; }
 
-		// Token: 0x0600030D RID: 781 RVA: 0x00014194 File Offset: 0x00012394
 		public BaseStage(GlobalDataPackage GlobalData)
 			: base(GlobalData)
 		{
@@ -30,7 +22,6 @@ namespace Shooting
 			base.DXFont = new SlimDX.Direct3D9.Font(base.DeviceMain, font);
 		}
 
-		// Token: 0x0600030E RID: 782 RVA: 0x000141E4 File Offset: 0x000123E4
 		public override void Init()
 		{
 			base.BoundRect = new Rectangle(this.GameRegion_Main.Location, this.GameRegion_Main.Size);
@@ -178,7 +169,6 @@ namespace Shooting
 			base.MyPlane.HiScore = base.StageData.S_History[0].Score;
 		}
 
-		// Token: 0x0600030F RID: 783 RVA: 0x00014CC4 File Offset: 0x00012EC4
 		public override void UpdateData()
 		{
 			if (base.StageData.OnReplay)
@@ -302,7 +292,6 @@ namespace Shooting
 			base.GlobalData.LastState = this;
 		}
 
-		// Token: 0x06000310 RID: 784 RVA: 0x000151AC File Offset: 0x000133AC
 		public virtual void HitCheckAllinOne()
 		{
 			if (base.MyPlane.Life < 0)
@@ -339,7 +328,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000311 RID: 785 RVA: 0x000152DC File Offset: 0x000134DC
 		public virtual void ShowInterface()
 		{
 			if (base.MyPlane != null)
@@ -350,7 +338,6 @@ namespace Shooting
 			base.DrawText(base.FPS.ToString("F1"), new Point(580, 460));
 		}
 
-		// Token: 0x06000312 RID: 786 RVA: 0x00015368 File Offset: 0x00013568
 		public virtual void Drama()
 		{
 			if (!base.StageData.OnReplay)
@@ -377,7 +364,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000313 RID: 787 RVA: 0x00015638 File Offset: 0x00013838
 		public override void Render()
 		{
 			base.GlobalData.ScreenTexMan.Begin();
@@ -520,10 +506,8 @@ namespace Shooting
 			base.GlobalData.EffectMain.End();
 		}
 
-		// Token: 0x040000DB RID: 219
 		protected int testStartTime = 0;
 
-		// Token: 0x040000DC RID: 220
 		private string testString;
 	}
 }

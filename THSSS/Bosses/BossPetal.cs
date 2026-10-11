@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x0200004A RID: 74
 	public class BossPetal : BaseEffect
 	{
-		// Token: 0x0600027B RID: 635 RVA: 0x0001027D File Offset: 0x0000E47D
 		public BossPetal(StageDataPackage StageData, PointF OriginalPosition)
 			: base(StageData, null, new Point(0, 0), 0f, 1.5707963267948966)
 		{
@@ -14,7 +12,6 @@ namespace Shooting
 			base.LifeTime = 130;
 		}
 
-		// Token: 0x0600027C RID: 636 RVA: 0x000102B8 File Offset: 0x0000E4B8
 		public override void Shoot()
 		{
 			if (base.Time == 1)

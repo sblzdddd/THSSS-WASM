@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x02000088 RID: 136
 	public class Spell_Shinmyoumaru : BaseSpell
 	{
-		// Token: 0x0600046D RID: 1133 RVA: 0x00020384 File Offset: 0x0001E584
 		public Spell_Shinmyoumaru(StageDataPackage StageData)
 		{
 			base.StageData = StageData;
@@ -22,13 +20,11 @@ namespace Shooting
 			base.SpellList.Add(this);
 		}
 
-		// Token: 0x0600046E RID: 1134 RVA: 0x0002041B File Offset: 0x0001E61B
 		public override void Move()
 		{
 			base.Position = base.MyPlane.Position;
 		}
 
-		// Token: 0x0600046F RID: 1135 RVA: 0x00020430 File Offset: 0x0001E630
 		public override void Ctrl()
 		{
 			base.Ctrl();

@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x020000F6 RID: 246
 	public class StarPointLineG : BaseObject
 	{
-		// Token: 0x0600069C RID: 1692 RVA: 0x0003ABC8 File Offset: 0x00038DC8
 		public StarPointLineG(StageDataPackage StageData, PointF OriginalPosition)
 		{
 			base.StageData = StageData;
@@ -16,7 +14,6 @@ namespace Shooting
 			this.type = "C";
 		}
 
-		// Token: 0x0600069D RID: 1693 RVA: 0x0003AC08 File Offset: 0x00038E08
 		public override void Ctrl()
 		{
 			base.Ctrl();
@@ -44,7 +41,6 @@ namespace Shooting
 			base.Velocity = 3f;
 		}
 
-		// Token: 0x0600069E RID: 1694 RVA: 0x0003AD30 File Offset: 0x00038F30
 		public override void Show()
 		{
 			if (base.TxtureObject != null)
@@ -59,7 +55,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x04000234 RID: 564
 		protected string type;
 	}
 }

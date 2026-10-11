@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x020000C3 RID: 195
 	internal class SpellCard_SSS01_03 : BaseSpellCard
 	{
-		// Token: 0x06000569 RID: 1385 RVA: 0x00030138 File Offset: 0x0002E338
 		public SpellCard_SSS01_03(StageDataPackage StageData)
 			: base(StageData)
 		{
@@ -33,7 +31,6 @@ namespace Shooting
 			new FullPic2(StageData, "FaceAmi_ct");
 		}
 
-		// Token: 0x0600056A RID: 1386 RVA: 0x00030244 File Offset: 0x0002E444
 		public override void Shoot()
 		{
 			base.Boss.Armon = 0.88f;

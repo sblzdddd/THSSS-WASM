@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x02000094 RID: 148
 	internal class SpellCardAttack : BaseEffect
 	{
-		// Token: 0x060004A3 RID: 1187 RVA: 0x00023620 File Offset: 0x00021820
 		public SpellCardAttack(StageDataPackage StageData)
 			: base(StageData)
 		{

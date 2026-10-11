@@ -2,21 +2,15 @@
 
 namespace Shooting
 {
-	// Token: 0x020001CC RID: 460
 	internal class EndStage : BaseEffect
 	{
-		// Token: 0x1700022C RID: 556
-		// (get) Token: 0x06000A94 RID: 2708 RVA: 0x00066890 File Offset: 0x00064A90
-		// (set) Token: 0x06000A95 RID: 2709 RVA: 0x000668A7 File Offset: 0x00064AA7
 		public int FadeOutTime { get; set; }
 
-		// Token: 0x06000A96 RID: 2710 RVA: 0x000668B0 File Offset: 0x00064AB0
 		public EndStage(StageDataPackage StageData, string NextState, bool NextInit)
 			: this(StageData, NextState, NextInit, 50)
 		{
 		}
 
-		// Token: 0x06000A97 RID: 2711 RVA: 0x000668C0 File Offset: 0x00064AC0
 		public EndStage(StageDataPackage StageData, string NextState, bool NextInit, int FadeOutTime)
 			: base(StageData)
 		{
@@ -33,7 +27,6 @@ namespace Shooting
 			new BackgroundTransitionOut(StageData, FadeOutTime);
 		}
 
-		// Token: 0x06000A98 RID: 2712 RVA: 0x00066958 File Offset: 0x00064B58
 		public override void Ctrl()
 		{
 			base.Ctrl();
@@ -98,18 +91,14 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000A99 RID: 2713 RVA: 0x00066BE6 File Offset: 0x00064DE6
 		public override void Show()
 		{
 		}
 
-		// Token: 0x040003EA RID: 1002
 		private int tempVolumn;
 
-		// Token: 0x040003EB RID: 1003
 		private string nextState = null;
 
-		// Token: 0x040003EC RID: 1004
 		private bool nextInit = false;
 	}
 }

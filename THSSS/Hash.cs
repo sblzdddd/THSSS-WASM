@@ -3,10 +3,8 @@ using System.Collections;
 
 namespace Shooting
 {
-	// Token: 0x020001CD RID: 461
 	public class Hash
 	{
-		// Token: 0x06000A9A RID: 2714 RVA: 0x00066BEC File Offset: 0x00064DEC
 		public static void Init()
 		{
 			Hash.type.Add("正比", 0);
@@ -103,37 +101,26 @@ namespace Shooting
 			Hash.cresults.Add("Y坐标", 10);
 		}
 
-		// Token: 0x040003EE RID: 1006
 		public static Hashtable conditions = new Hashtable();
 
-		// Token: 0x040003EF RID: 1007
 		public static Hashtable results = new Hashtable();
 
-		// Token: 0x040003F0 RID: 1008
 		public static Hashtable type = new Hashtable();
 
-		// Token: 0x040003F1 RID: 1009
 		public static Hashtable conditions2 = new Hashtable();
 
-		// Token: 0x040003F2 RID: 1010
 		public static Hashtable results2 = new Hashtable();
 
-		// Token: 0x040003F3 RID: 1011
 		public static Hashtable results3 = new Hashtable();
 
-		// Token: 0x040003F4 RID: 1012
 		public static Hashtable cconditions = new Hashtable();
 
-		// Token: 0x040003F5 RID: 1013
 		public static Hashtable cresults = new Hashtable();
 
-		// Token: 0x040003F6 RID: 1014
 		public static Hashtable lconditions = new Hashtable();
 
-		// Token: 0x040003F7 RID: 1015
 		public static Hashtable lresults = new Hashtable();
 
-		// Token: 0x040003F8 RID: 1016
 		public static Hashtable lresults2 = new Hashtable();
 	}
 }

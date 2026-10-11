@@ -4,10 +4,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x02000014 RID: 20
 	internal class MenuGroup_GameOver : BaseMenuGroup
 	{
-		// Token: 0x0600012D RID: 301 RVA: 0x0000714C File Offset: 0x0000534C
 		public MenuGroup_GameOver(StageDataPackage StageData)
 		{
 			base.StageData = StageData;
@@ -45,7 +43,6 @@ namespace Shooting
 			backgroundRotate.TransparentVelocity = 10f;
 		}
 
-		// Token: 0x0600012E RID: 302 RVA: 0x00007314 File Offset: 0x00005514
 		public override void ProcessKeys()
 		{
 			base.ProcessKeys();
@@ -57,7 +54,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x0600012F RID: 303 RVA: 0x00007384 File Offset: 0x00005584
 		public override void ProcessZ()
 		{
 			string text = base.MenuItemList[base.MenuSelectIndex].Name;

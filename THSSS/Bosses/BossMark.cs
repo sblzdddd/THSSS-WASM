@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x0200006E RID: 110
 	public class BossMark : BaseObject
 	{
-		// Token: 0x060003D3 RID: 979 RVA: 0x0001A884 File Offset: 0x00018A84
 		public BossMark(StageDataPackage StageData)
 		{
 			base.StageData = StageData;
@@ -15,7 +13,6 @@ namespace Shooting
 			base.AngleDegree = 90.0;
 		}
 
-		// Token: 0x060003D4 RID: 980 RVA: 0x0001A8FC File Offset: 0x00018AFC
 		public override void Ctrl()
 		{
 			base.Time++;
@@ -26,7 +23,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x060003D5 RID: 981 RVA: 0x0001A9A4 File Offset: 0x00018BA4
 		public override void Show()
 		{
 			if (base.Boss != null)

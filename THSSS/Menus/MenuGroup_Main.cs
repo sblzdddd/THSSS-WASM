@@ -4,10 +4,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x020001C6 RID: 454
 	internal class MenuGroup_Main : BaseMenuGroup
 	{
-		// Token: 0x06000A79 RID: 2681 RVA: 0x00065710 File Offset: 0x00063910
 		public MenuGroup_Main(StageDataPackage StageData)
 			: base(StageData)
 		{
@@ -47,7 +45,6 @@ namespace Shooting
 			base.MenuItemList[base.MenuSelectIndex].Selected = true;
 		}
 
-		// Token: 0x06000A7A RID: 2682 RVA: 0x00065904 File Offset: 0x00063B04
 		public override void ProcessKeys()
 		{
 			base.ProcessKeys();
@@ -65,7 +62,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000A7B RID: 2683 RVA: 0x000659D0 File Offset: 0x00063BD0
 		public override void ProcessZ()
 		{
 			string name = base.MenuItemList[base.MenuSelectIndex].Name;

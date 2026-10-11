@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x0200007B RID: 123
 	internal class Boss_Rika01 : BaseBossTouhou
 	{
-		// Token: 0x0600041A RID: 1050 RVA: 0x0001C14C File Offset: 0x0001A34C
 		public Boss_Rika01(StageDataPackage StageData)
 			: base(StageData)
 		{
@@ -40,7 +38,6 @@ namespace Shooting
 			this.LoadArmon(".\\CS\\StEx\\关底Boss\\ctrl.csv");
 		}
 
-		// Token: 0x0600041B RID: 1051 RVA: 0x0001C368 File Offset: 0x0001A568
 		public override void Ctrl()
 		{
 			base.Ctrl();
@@ -129,7 +126,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x0600041C RID: 1052 RVA: 0x0001C6E4 File Offset: 0x0001A8E4
 		public override void GiveEndEffect()
 		{
 			base.TransparentValueF = 255f;
@@ -150,7 +146,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x0600041D RID: 1053 RVA: 0x0001C7B8 File Offset: 0x0001A9B8
 		private void Ctrl10()
 		{
 			if (!base.OnSpell)
@@ -204,7 +199,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x0600041E RID: 1054 RVA: 0x0001C93C File Offset: 0x0001AB3C
 		private void Ctrl9()
 		{
 			if (!base.OnSpell)
@@ -259,7 +253,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x0600041F RID: 1055 RVA: 0x0001CAF0 File Offset: 0x0001ACF0
 		private void Ctrl8()
 		{
 			if (!base.OnSpell)
@@ -313,7 +306,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000420 RID: 1056 RVA: 0x0001CC78 File Offset: 0x0001AE78
 		private void Ctrl7()
 		{
 			if (!base.OnSpell)
@@ -368,7 +360,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000421 RID: 1057 RVA: 0x0001CE2C File Offset: 0x0001B02C
 		private void Ctrl6()
 		{
 			if (!base.OnSpell)
@@ -423,7 +414,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000422 RID: 1058 RVA: 0x0001CFE0 File Offset: 0x0001B1E0
 		private void Ctrl5()
 		{
 			if (!base.OnSpell)
@@ -478,7 +468,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000423 RID: 1059 RVA: 0x0001D198 File Offset: 0x0001B398
 		private void Ctrl4()
 		{
 			if (!base.OnSpell)
@@ -533,7 +522,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000424 RID: 1060 RVA: 0x0001D354 File Offset: 0x0001B554
 		private void Ctrl3()
 		{
 			if (!base.OnSpell)
@@ -563,7 +551,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000425 RID: 1061 RVA: 0x0001D480 File Offset: 0x0001B680
 		private void Ctrl2()
 		{
 			if (!base.OnSpell)
@@ -586,7 +573,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000426 RID: 1062 RVA: 0x0001D544 File Offset: 0x0001B744
 		private void Ctrl1()
 		{
 			if (!base.OnSpell)
@@ -609,7 +595,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000427 RID: 1063 RVA: 0x0001D608 File Offset: 0x0001B808
 		public override void HitCheckAll()
 		{
 			if (base.OnSpell && base.StageData.SpellList.Count > 0 && base.MyPlane.Name != "Koishi")

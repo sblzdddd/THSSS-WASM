@@ -4,10 +4,8 @@ using SlimDX;
 
 namespace Shooting
 {
-	// Token: 0x020001F8 RID: 504
 	public class BackgroundWing : BaseParticle3D
 	{
-		// Token: 0x06000B67 RID: 2919 RVA: 0x00071524 File Offset: 0x0006F724
 		public BackgroundWing(StageDataPackage StageData, string textureName, PointF OriginalPosition, float Velocity, double Direction, int LifeTime)
 			: base(StageData, textureName, OriginalPosition, Velocity, Direction)
 		{
@@ -24,7 +22,6 @@ namespace Shooting
 			this.lastlife = base.Boss.Life;
 		}
 
-		// Token: 0x06000B68 RID: 2920 RVA: 0x000715C8 File Offset: 0x0006F7C8
 		public override void Ctrl()
 		{
 			base.Ctrl();
@@ -63,7 +60,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x04000433 RID: 1075
 		private int lastlife;
 	}
 }

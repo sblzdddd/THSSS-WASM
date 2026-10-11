@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x0200018B RID: 395
 	internal class Emitter : BaseEffect
 	{
-		// Token: 0x06000959 RID: 2393 RVA: 0x0005A8ED File Offset: 0x00058AED
 		public Emitter(StageDataPackage StageData, PointF Position)
 			: base(StageData)
 		{
@@ -15,7 +13,6 @@ namespace Shooting
 			base.Direction = 0.0;
 		}
 
-		// Token: 0x0600095A RID: 2394 RVA: 0x0005A920 File Offset: 0x00058B20
 		public override void Shoot()
 		{
 			for (int i = 0; i < 10; i++)
@@ -28,13 +25,11 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x0600095B RID: 2395 RVA: 0x0005A9E8 File Offset: 0x00058BE8
 		public override bool OutBoundary()
 		{
 			return base.Time >= 4;
 		}
 
-		// Token: 0x0600095C RID: 2396 RVA: 0x0005AA0E File Offset: 0x00058C0E
 		public override void Show()
 		{
 		}

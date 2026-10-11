@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x02000159 RID: 345
 	internal class Boss_Tensei01 : BaseBossTouhou
 	{
-		// Token: 0x060008C6 RID: 2246 RVA: 0x00052E1C File Offset: 0x0005101C
 		public Boss_Tensei01(StageDataPackage StageData)
 			: base(StageData)
 		{
@@ -40,7 +38,6 @@ namespace Shooting
 			this.LoadArmon(".\\CS\\St06\\关底Boss\\ctrl.csv");
 		}
 
-		// Token: 0x060008C7 RID: 2247 RVA: 0x0005303C File Offset: 0x0005123C
 		public override void Ctrl()
 		{
 			base.Ctrl();
@@ -117,7 +114,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x060008C8 RID: 2248 RVA: 0x00053378 File Offset: 0x00051578
 		public override void GiveEndEffect()
 		{
 			base.TransparentValueF = 255f;
@@ -138,7 +134,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x060008C9 RID: 2249 RVA: 0x0005344C File Offset: 0x0005164C
 		private void Ctrl6()
 		{
 			if (!base.OnSpell)
@@ -186,7 +181,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x060008CA RID: 2250 RVA: 0x000535B8 File Offset: 0x000517B8
 		private void Ctrl5()
 		{
 			if (!base.OnSpell)
@@ -234,7 +228,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x060008CB RID: 2251 RVA: 0x00053724 File Offset: 0x00051924
 		private void Ctrl4()
 		{
 			if (!base.OnSpell)
@@ -282,7 +275,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x060008CC RID: 2252 RVA: 0x00053898 File Offset: 0x00051A98
 		private void Ctrl3()
 		{
 			if (!base.OnSpell)
@@ -335,7 +327,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x060008CD RID: 2253 RVA: 0x00053A34 File Offset: 0x00051C34
 		private void Ctrl2()
 		{
 			if (!base.OnSpell)
@@ -357,7 +348,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x060008CE RID: 2254 RVA: 0x00053AE4 File Offset: 0x00051CE4
 		private void Ctrl1()
 		{
 			if (!base.OnSpell)

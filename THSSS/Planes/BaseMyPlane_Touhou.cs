@@ -3,20 +3,12 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x02000067 RID: 103
 	public class BaseMyPlane_Touhou : BaseMyPlane
 	{
-		// Token: 0x1700010A RID: 266
-		// (get) Token: 0x060003B7 RID: 951 RVA: 0x0001947C File Offset: 0x0001767C
-		// (set) Token: 0x060003B8 RID: 952 RVA: 0x00019493 File Offset: 0x00017693
 		public float IndexX { get; set; }
 
-		// Token: 0x1700010B RID: 267
-		// (get) Token: 0x060003B9 RID: 953 RVA: 0x0001949C File Offset: 0x0001769C
-		// (set) Token: 0x060003BA RID: 954 RVA: 0x000194B3 File Offset: 0x000176B3
 		public int IndexY { get; set; }
 
-		// Token: 0x060003BB RID: 955 RVA: 0x000194BC File Offset: 0x000176BC
 		public BaseMyPlane_Touhou(StageDataPackage StageData, Point OriginalPosition, string Name)
 		{
 			base.StageData = StageData;
@@ -32,7 +24,6 @@ namespace Shooting
 			base.HighItemScore = 10000;
 		}
 
-		// Token: 0x060003BC RID: 956 RVA: 0x00019564 File Offset: 0x00017764
 		public override void TextureCtrl()
 		{
 			int indexY = this.IndexY;
@@ -77,7 +68,6 @@ namespace Shooting
 			base.TxtureObject = base.TextureObjectDictionary[text];
 		}
 
-		// Token: 0x060003BD RID: 957 RVA: 0x000196D4 File Offset: 0x000178D4
 		public override void ShowCenter()
 		{
 			if (base.SlowMove)
@@ -88,7 +78,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x060003BE RID: 958 RVA: 0x000197EC File Offset: 0x000179EC
 		public override void Miss()
 		{
 			double num = -2.2707963148739676;

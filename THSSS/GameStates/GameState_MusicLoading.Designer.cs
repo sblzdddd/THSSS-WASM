@@ -5,28 +5,23 @@ using SlimDX.Direct3D9;
 
 namespace Shooting
 {
-	// Token: 0x02000108 RID: 264
 	internal class GameState_MusicLoading : BaseMenu, IGameState
 	{
-		// Token: 0x0600073F RID: 1855 RVA: 0x000418F3 File Offset: 0x0003FAF3
 		public GameState_MusicLoading(GlobalDataPackage GlobalData)
 			: base(GlobalData)
 		{
 		}
 
-		// Token: 0x06000740 RID: 1856 RVA: 0x000418FF File Offset: 0x0003FAFF
 		public GameState_MusicLoading()
 		{
 		}
 
-		// Token: 0x06000741 RID: 1857 RVA: 0x0004190A File Offset: 0x0003FB0A
 		public override void Init()
 		{
 			this.LoadFlag = false;
 			base.Background.Light = 0;
 		}
 
-		// Token: 0x06000742 RID: 1858 RVA: 0x00041924 File Offset: 0x0003FB24
 		public override void UpdateData()
 		{
 			base.UpdateData();
@@ -66,7 +61,6 @@ namespace Shooting
 			particle.LifeTime = 70;
 		}
 
-		// Token: 0x06000743 RID: 1859 RVA: 0x00041B34 File Offset: 0x0003FD34
 		private void PreloadMusic()
 		{
 			if (base.GlobalData.LastState is BaseStage)
@@ -121,7 +115,6 @@ namespace Shooting
 			this.LoadFlag = true;
 		}
 
-		// Token: 0x06000744 RID: 1860 RVA: 0x00041EB8 File Offset: 0x000400B8
 		public override void Render()
 		{
 			base.GlobalData.LastState.Render();
@@ -145,20 +138,16 @@ namespace Shooting
 			base.SpriteMain.End();
 		}
 
-		// Token: 0x06000745 RID: 1861 RVA: 0x00041FCE File Offset: 0x000401CE
 		public override void BGM_Pause()
 		{
 		}
 
-		// Token: 0x06000746 RID: 1862 RVA: 0x00041FD1 File Offset: 0x000401D1
 		public override void BGM_Resume()
 		{
 		}
 
-		// Token: 0x0400027E RID: 638
 		private bool LoadFlag;
 
-		// Token: 0x0400027F RID: 639
 		private Thread LoadingThread;
 	}
 }

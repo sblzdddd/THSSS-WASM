@@ -4,16 +4,13 @@ using Shooting.Planes.Story;
 
 namespace Shooting
 {
-	// Token: 0x02000093 RID: 147
 	internal class EndBoss_Touhou01 : EndBoss_Touhou
 	{
-		// Token: 0x060004A1 RID: 1185 RVA: 0x00023538 File Offset: 0x00021738
 		public EndBoss_Touhou01(StageDataPackage StageData, PointF OriginalPosition, Color Color1, Color Color2)
 			: base(StageData, OriginalPosition, Color1, Color2)
 		{
 		}
 
-		// Token: 0x060004A2 RID: 1186 RVA: 0x00023548 File Offset: 0x00021748
 		public override void Ctrl()
 		{
 			base.Ctrl();

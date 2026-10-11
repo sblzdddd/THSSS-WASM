@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x02000105 RID: 261
 	public class Particle3D2 : BaseParticle3D
 	{
-		// Token: 0x0600072A RID: 1834 RVA: 0x00041208 File Offset: 0x0003F408
 		public Particle3D2(StageDataPackage StageData, string textureName, PointF OriginalPosition, float Velocity, double Direction, int LifeTime)
 			: base(StageData, textureName, OriginalPosition, Velocity, Direction)
 		{
@@ -18,7 +16,6 @@ namespace Shooting
 			base.Accelerate = -Velocity / (float)LifeTime;
 		}
 
-		// Token: 0x0600072B RID: 1835 RVA: 0x00041270 File Offset: 0x0003F470
 		public override void Ctrl()
 		{
 			base.Ctrl();

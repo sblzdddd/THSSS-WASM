@@ -5,10 +5,8 @@ using System.IO;
 
 namespace Shooting
 {
-	// Token: 0x0200014F RID: 335
 	internal class MenuGroup_ReplayStageSelect : BaseMenuGroup
 	{
-		// Token: 0x060008A5 RID: 2213 RVA: 0x0004F9AC File Offset: 0x0004DBAC
 		public MenuGroup_ReplayStageSelect(StageDataPackage StageData, PointF OriginalPosition, DescriptionMenuItem RepMenuItem)
 			: base(StageData)
 		{
@@ -77,7 +75,6 @@ namespace Shooting
 			base.ColorValue = Color.SkyBlue;
 		}
 
-		// Token: 0x060008A6 RID: 2214 RVA: 0x0004FD24 File Offset: 0x0004DF24
 		public override void ProcessKeys()
 		{
 			base.ProcessKeys();
@@ -99,7 +96,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x060008A7 RID: 2215 RVA: 0x0004FE6C File Offset: 0x0004E06C
 		public override void ProcessZ()
 		{
 			if (((DescriptionMenuItem)base.MenuItemList[base.MenuSelectIndex]).Description != "----------")
@@ -234,10 +230,8 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x0400031B RID: 795
 		private const string NullDescription = "----------";
 
-		// Token: 0x0400031C RID: 796
 		private string RepIndex;
 	}
 }

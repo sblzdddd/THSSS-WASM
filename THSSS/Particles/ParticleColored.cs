@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x02000040 RID: 64
 	internal class ParticleColored : BaseEffect
 	{
-		// Token: 0x06000245 RID: 581 RVA: 0x0000E69C File Offset: 0x0000C89C
 		public ParticleColored(StageDataPackage StageData, string textureName, PointF Position, float Velocity, double Direction)
 			: base(StageData, textureName, Position, Velocity, Direction)
 		{
@@ -42,7 +40,6 @@ namespace Shooting
 			base.LifeTime = 50;
 		}
 
-		// Token: 0x06000246 RID: 582 RVA: 0x0000E774 File Offset: 0x0000C974
 		public override void Ctrl()
 		{
 			base.Ctrl();
@@ -57,14 +54,12 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000247 RID: 583 RVA: 0x0000E7F0 File Offset: 0x0000C9F0
 		public override void Show()
 		{
 			SizeF sizeF = new SizeF((float)base.TxtureObject.Width * base.Scale, (float)base.TxtureObject.Height * base.Scale);
 			base.SpriteMain.Draw2D(base.TxtureObject.TXTure, base.TxtureObject.PosRect, sizeF, base.TxtureObject.RotatingCenter, 0f, base.Position, Color.FromArgb(base.TransparentValue, this.color));
 		}
 
-		// Token: 0x040000B1 RID: 177
 		private Color color;
 	}
 }

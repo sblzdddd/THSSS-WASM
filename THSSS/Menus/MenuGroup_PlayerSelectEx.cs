@@ -4,10 +4,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x020001A7 RID: 423
 	internal class MenuGroup_PlayerSelectEx : MenuGroup_PlayerSelect
 	{
-		// Token: 0x06000A10 RID: 2576 RVA: 0x0005FD84 File Offset: 0x0005DF84
 		public MenuGroup_PlayerSelectEx(StageDataPackage StageData)
 			: base(StageData, false)
 		{
@@ -84,7 +82,6 @@ namespace Shooting
 			this.PlayerDescription[base.MenuSelectIndex].Selected = true;
 		}
 
-		// Token: 0x06000A11 RID: 2577 RVA: 0x00060230 File Offset: 0x0005E430
 		public override void ProcessZ()
 		{
 			Point point = new Point(192, 398);
@@ -124,7 +121,6 @@ namespace Shooting
 			base.StageData.StateSwitchData.SDPswitch.SetReplayInfo(base.StageData.StateSwitchData.NextState);
 		}
 
-		// Token: 0x06000A12 RID: 2578 RVA: 0x00060428 File Offset: 0x0005E628
 		public override void Show()
 		{
 			base.Show();

@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x020000B1 RID: 177
 	public class Spell_PlaneB : BaseSpell
 	{
-		// Token: 0x06000518 RID: 1304 RVA: 0x000291B8 File Offset: 0x000273B8
 		public Spell_PlaneB(StageDataPackage StageData)
 		{
 			base.StageData = StageData;
@@ -25,13 +23,11 @@ namespace Shooting
 			StageData.SoundPlay("boss_change.wav");
 		}
 
-		// Token: 0x06000519 RID: 1305 RVA: 0x00029281 File Offset: 0x00027481
 		public override void Move()
 		{
 			base.OriginalPosition = base.MyPlane.OriginalPosition;
 		}
 
-		// Token: 0x0600051A RID: 1306 RVA: 0x00029298 File Offset: 0x00027498
 		public override void Ctrl()
 		{
 			base.Ctrl();
@@ -73,7 +69,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x0600051B RID: 1307 RVA: 0x0002949C File Offset: 0x0002769C
 		public override bool OutBoundary()
 		{
 			bool flag = base.OutBoundary();
@@ -85,13 +80,11 @@ namespace Shooting
 			return flag;
 		}
 
-		// Token: 0x0600051C RID: 1308 RVA: 0x000294E4 File Offset: 0x000276E4
 		public override bool HitCheck(BaseObject Target)
 		{
 			return Target.OriginalPosition.Y < base.OriginalPosition.Y + 5f && base.OriginalPosition.X - 120f < Target.OriginalPosition.X && Target.OriginalPosition.X < base.OriginalPosition.X + 120f;
 		}
 
-		// Token: 0x0600051D RID: 1309 RVA: 0x00029574 File Offset: 0x00027774
 		public override void HitCheckAll()
 		{
 			if (base.Time >= 90)

@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x0200007E RID: 126
 	internal class Boss_Ami01 : BaseBossTouhou
 	{
-		// Token: 0x06000433 RID: 1075 RVA: 0x0001E408 File Offset: 0x0001C608
 		public Boss_Ami01(StageDataPackage StageData)
 			: base(StageData)
 		{
@@ -39,7 +37,6 @@ namespace Shooting
 			base.SetBossLifeLineTex();
 		}
 
-		// Token: 0x06000434 RID: 1076 RVA: 0x0001E610 File Offset: 0x0001C810
 		public override void Ctrl()
 		{
 			base.Ctrl();
@@ -107,7 +104,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x06000435 RID: 1077 RVA: 0x0001E918 File Offset: 0x0001CB18
 		public override void GiveEndEffect()
 		{
 			new Background2DRemover(base.StageData);
@@ -117,7 +113,6 @@ namespace Shooting
 			base.StageData.SoundPlay("se_tan01.wav");
 		}
 
-		// Token: 0x06000436 RID: 1078 RVA: 0x0001E96C File Offset: 0x0001CB6C
 		private void Ctrl1()
 		{
 			if (!base.OnSpell)

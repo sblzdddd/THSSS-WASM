@@ -3,20 +3,12 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x020000D5 RID: 213
 	public class ParticleBeginBullet : BaseEffect
 	{
-		// Token: 0x17000155 RID: 341
-		// (get) Token: 0x060005E2 RID: 1506 RVA: 0x00034978 File Offset: 0x00032B78
-		// (set) Token: 0x060005E3 RID: 1507 RVA: 0x0003498F File Offset: 0x00032B8F
 		public TextureObject[] TxtureObjects { get; set; }
 
-		// Token: 0x17000156 RID: 342
-		// (get) Token: 0x060005E4 RID: 1508 RVA: 0x00034998 File Offset: 0x00032B98
-		// (set) Token: 0x060005E5 RID: 1509 RVA: 0x000349AF File Offset: 0x00032BAF
 		public int IndexX { get; set; }
 
-		// Token: 0x060005E6 RID: 1510 RVA: 0x000349B8 File Offset: 0x00032BB8
 		public ParticleBeginBullet(StageDataPackage StageData, PointF Position, byte ColorType)
 			: this(StageData, Position)
 		{
@@ -76,7 +68,6 @@ namespace Shooting
 			}
 		}
 
-		// Token: 0x060005E7 RID: 1511 RVA: 0x00034BE8 File Offset: 0x00032DE8
 		public ParticleBeginBullet(StageDataPackage StageData, PointF Position)
 			: base(StageData, null, Position, 0f, 0.0)
 		{
@@ -87,7 +78,6 @@ namespace Shooting
 			base.Active = false;
 		}
 
-		// Token: 0x060005E8 RID: 1512 RVA: 0x00034C70 File Offset: 0x00032E70
 		public override void Ctrl()
 		{
 			base.Ctrl();

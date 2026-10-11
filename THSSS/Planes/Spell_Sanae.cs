@@ -3,10 +3,8 @@ using System.Drawing;
 
 namespace Shooting
 {
-	// Token: 0x0200012D RID: 301
 	public class Spell_Sanae : BaseSpell
 	{
-		// Token: 0x06000809 RID: 2057 RVA: 0x00049274 File Offset: 0x00047474
 		public Spell_Sanae(StageDataPackage StageData)
 		{
 			base.StageData = StageData;
@@ -22,7 +20,6 @@ namespace Shooting
 			base.SpellList.Add(this);
 		}
 
-		// Token: 0x0600080A RID: 2058 RVA: 0x0004930C File Offset: 0x0004750C
 		public override void Ctrl()
 		{
 			base.Ctrl();
