@@ -1,0 +1,65 @@
+﻿using System;
+using System.Drawing;
+
+namespace Shooting
+{
+	// Token: 0x02000054 RID: 84
+	internal class SpellCard_SSS06_01 : BaseSpellCard
+	{
+		// Token: 0x060002A2 RID: 674 RVA: 0x00011B80 File Offset: 0x0000FD80
+		public SpellCard_SSS06_01(StageDataPackage StageData)
+			: base(StageData)
+		{
+			if (base.Difficulty < DifficultLevel.Hard)
+			{
+				base.SC_Name = "许愿星「星火辉迹」";
+			}
+			else
+			{
+				base.SC_Name = "许愿星「星火辉迹」";
+			}
+			base.BaseScore = 35000000L;
+			base.Boss.DestPoint = new Point(base.BoundRect.Width / 2, 120);
+			base.Boss.Velocity = 4f;
+			StageData.SoundPlay("se_cat00.wav");
+			new BackgroundBoss06(StageData);
+			new BulletTitle(StageData, base.SC_Name);
+			new SpellCardAttack(StageData);
+			new FullPic3(StageData, "FaceTensei_ct1");
+		}
+
+		// Token: 0x060002A3 RID: 675 RVA: 0x00011C40 File Offset: 0x0000FE40
+		public override void Shoot()
+		{
+			base.Boss.Armon = base.Boss.ArmonArray[1];
+			if (base.Time > 100)
+			{
+				base.Boss.MoveUpDown();
+			}
+			if (base.Time == 150)
+			{
+				string text;
+				switch (base.Difficulty)
+				{
+				case DifficultLevel.Easy:
+					text = ".\\CS\\St06\\关底Boss\\1符E.mbg";
+					break;
+				case DifficultLevel.Normal:
+					text = ".\\CS\\St06\\关底Boss\\1符N.mbg";
+					break;
+				case DifficultLevel.Hard:
+					text = ".\\CS\\St06\\关底Boss\\1符H.mbg";
+					break;
+				case DifficultLevel.Lunatic:
+					text = ".\\CS\\St06\\关底Boss\\1符L.mbg";
+					break;
+				default:
+					text = ".\\CS\\St06\\关底Boss\\1符L.mbg";
+					break;
+				}
+				CS_Data cs_Data = base.StageData.LoadCS(text);
+				new CSEmitterController(base.StageData, cs_Data);
+			}
+		}
+	}
+}

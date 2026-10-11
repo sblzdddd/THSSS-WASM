@@ -1,0 +1,65 @@
+﻿using System;
+using System.Drawing;
+
+namespace Shooting
+{
+	// Token: 0x020000C0 RID: 192
+	internal class SpellCard_SSS05_05 : BaseSpellCard
+	{
+		// Token: 0x06000561 RID: 1377 RVA: 0x0002F548 File Offset: 0x0002D748
+		public SpellCard_SSS05_05(StageDataPackage StageData)
+			: base(StageData)
+		{
+			if (base.Difficulty < DifficultLevel.Hard)
+			{
+				base.SC_Name = "「星神降临仪式」";
+			}
+			else
+			{
+				base.SC_Name = "「星神降临仪式」";
+			}
+			base.BaseScore = 30000000L;
+			base.Boss.DestPoint = new Point(base.BoundRect.Width / 2, 120);
+			base.Boss.Velocity = 4f;
+			StageData.SoundPlay("se_cat00.wav");
+			new BackgroundBoss05(StageData);
+			new BulletTitle(StageData, base.SC_Name);
+			new SpellCardAttack(StageData);
+			new FullPic2(StageData, "FaceRakukun_ct");
+		}
+
+		// Token: 0x06000562 RID: 1378 RVA: 0x0002F608 File Offset: 0x0002D808
+		public override void Shoot()
+		{
+			base.Boss.Armon = base.Boss.ArmonArray[7];
+			if (base.Time > 100)
+			{
+				base.Boss.MoveUpDown();
+			}
+			if (base.Time == 150)
+			{
+				string text;
+				switch (base.Difficulty)
+				{
+				case DifficultLevel.Easy:
+					text = ".\\CS\\St05\\关底Boss\\5符E.mbg";
+					break;
+				case DifficultLevel.Normal:
+					text = ".\\CS\\St05\\关底Boss\\5符N.mbg";
+					break;
+				case DifficultLevel.Hard:
+					text = ".\\CS\\St05\\关底Boss\\5符H.mbg";
+					break;
+				case DifficultLevel.Lunatic:
+					text = ".\\CS\\St05\\关底Boss\\5符L.mbg";
+					break;
+				default:
+					text = ".\\CS\\St05\\关底Boss\\5符L.mbg";
+					break;
+				}
+				CS_Data cs_Data = base.StageData.LoadCS(text);
+				new CSEmitterController(base.StageData, cs_Data);
+			}
+		}
+	}
+}
