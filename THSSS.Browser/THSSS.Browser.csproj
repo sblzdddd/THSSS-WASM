@@ -31,14 +31,14 @@
   </ItemGroup>
   <PropertyGroup>
     <CoreCompileDependsOn>TransformGameSources;$(CoreCompileDependsOn)</CoreCompileDependsOn>
-    <!-- Copies gitignored game content into wwwroot/assets and checks required folders.
-         Pass -p:StageGameAssets=false to compile without those files. -->
+    <!-- Packs gitignored game content into wwwroot/assets/thsss.dat and copies wav BGM and Sound beside it.
+         Pass -p:StageGameAssets=false to compile without those files. Delete thsss.dat to restage. -->
     <StageGameAssets Condition="'$(StageGameAssets)' == ''">true</StageGameAssets>
   </PropertyGroup>
   <Target Name="StageGameContent" BeforeTargets="Build">
     <Message Importance="high" Condition="'$(StageGameAssets)' != 'true'" Text="StageGameAssets is false; skipping game asset copy and validation." />
     <PropertyGroup Condition="'$(StageGameAssets)' == 'true'">
-      <_StageSkipCopy Condition="Exists('$(MSBuildProjectDirectory)\wwwroot\assets\manifest.txt')">-SkipCopy</_StageSkipCopy>
+      <_StageSkipCopy Condition="Exists('$(MSBuildProjectDirectory)\wwwroot\assets\thsss.dat')">-SkipCopy</_StageSkipCopy>
     </PropertyGroup>
     <Exec Condition="'$(StageGameAssets)' == 'true'" Command="powershell -NoProfile -ExecutionPolicy Bypass -File &quot;$(MSBuildProjectDirectory)\stage-content.ps1&quot; -Repo &quot;$(MSBuildProjectDirectory)\..&quot; -Dest &quot;$(MSBuildProjectDirectory)\wwwroot\assets&quot; $(_StageSkipCopy)" />
   </Target>
