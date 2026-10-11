@@ -10,6 +10,8 @@
 
 [Dd]ebug/
 [Rr]elease/
+.dotnet/
+.nuget/
 x64/
 [Bb]in/
 [Oo]bj/
@@ -131,16 +133,16 @@ $RECYCLE.BIN/
 .DS_Store
 
 _NCrunch*
-BGM/
-BPic/
-CS/
-FX/
-Image/
-Model/
-Replay/
-ScreenShot/
-Sound/
-Story/
+/BGM/
+/BPic/
+/CS/
+/FX/
+/Image/
+/Model/
+/Replay/
+/ScreenShot/
+/Sound/
+/Story/
 Score.dat
 
 # Staged browser content (copied at build from the repo root)
