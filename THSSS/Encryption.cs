@@ -9,6 +9,9 @@ namespace Shooting
 	{
 		public static string Encrypt(string pToEncrypt)
 		{
+#if BROWSER
+			return DesCbc.EncryptToHex(pToEncrypt, "SeiweLL0", "0SeiweLL");
+#else
 			string text = "SeiweLL0";
 			string text2 = "0SeiweLL";
 			DESCryptoServiceProvider descryptoServiceProvider = new DESCryptoServiceProvider();
@@ -25,10 +28,14 @@ namespace Shooting
 				stringBuilder.AppendFormat("{0:X2}", b);
 			}
 			return stringBuilder.ToString();
+#endif
 		}
 
 		public static string Decrypt(string pToDecrypt)
 		{
+#if BROWSER
+			return DesCbc.DecryptFromHex(pToDecrypt, "SeiweLL0", "0SeiweLL");
+#else
 			string text = "SeiweLL0";
 			string text2 = "0SeiweLL";
 			DESCryptoServiceProvider descryptoServiceProvider = new DESCryptoServiceProvider();
@@ -46,6 +53,7 @@ namespace Shooting
 			cryptoStream.FlushFinalBlock();
 			StringBuilder stringBuilder = new StringBuilder();
 			return Encoding.Default.GetString(memoryStream.ToArray());
+#endif
 		}
 	}
 }

@@ -13,6 +13,12 @@ namespace Shooting
 		{
 			get
 			{
+#if BROWSER
+				if (this.sourceVoice == null)
+				{
+					return 0L;
+				}
+#endif
 				return this.sourceVoice.State.SamplesPlayed / 44L;
 			}
 		}
@@ -148,6 +154,12 @@ namespace Shooting
 
 		public void SetLoop(int PlayBegin, int PlayLength, int LoopCount, int LoopBegin, int LoopEnd)
 		{
+#if BROWSER
+			if (this.buffer == null)
+			{
+				return;
+			}
+#endif
 			this.buffer.PlayBegin = PlayBegin;
 			this.buffer.PlayLength = PlayLength;
 			this.buffer.LoopCount = LoopCount;

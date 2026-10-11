@@ -15,6 +15,12 @@ namespace Shooting
 		{
 			get
 			{
+#if BROWSER
+				if (this.sourceVoice == null)
+				{
+					return 0L;
+				}
+#endif
 				return this.sourceVoice.State.SamplesPlayed / 44L;
 			}
 		}
