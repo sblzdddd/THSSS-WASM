@@ -37,7 +37,9 @@ namespace Shooting
 			Time -= this.GetDuration();
 			if (Time > 0f)
 			{
+#if !BROWSER
 				Thread.Sleep((int)Time);
+#endif
 			}
 		}
 	}

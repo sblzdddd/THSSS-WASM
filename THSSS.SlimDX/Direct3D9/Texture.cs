@@ -1,0 +1,131 @@
+using System;
+using System.Drawing;
+using SlimDX.Gl;
+using SlimDX.Imaging;
+
+namespace SlimDX.Direct3D9
+{
+	public class Texture : ComObject
+	{
+		public int GlId { get; private set; }
+
+		public int Width { get; private set; }
+
+		public int Height { get; private set; }
+
+		public byte[] Rgba { get; private set; }
+
+		public bool IsRenderTarget { get; private set; }
+
+		private byte[] lockBgra;
+
+		public Texture(Device device, int width, int height, int levelCount, Usage usage, Format format, Pool pool)
+		{
+			this.Width = Math.Max(1, width);
+			this.Height = Math.Max(1, height);
+			this.Rgba = new byte[this.Width * this.Height * 4];
+			for (int i = 3; i < this.Rgba.Length; i += 4)
+			{
+				this.Rgba[i] = byte.MaxValue;
+			}
+			this.IsRenderTarget = (usage & Usage.RenderTarget) != 0;
+			if (this.IsRenderTarget)
+			{
+				this.GlId = GlHost.Need().CreateRenderTarget(this.Width, this.Height);
+			}
+			else
+			{
+				this.GlId = GlHost.Need().CreateTexture(this.Width, this.Height, this.Rgba);
+			}
+		}
+
+		public static Texture FromFile(Device device, string fileName)
+		{
+			return FromFile(device, fileName, 0, 0, 0, Usage.None, Format.Unknown, Pool.Managed, Filter.Linear, Filter.None, 0);
+		}
+
+		public static Texture FromFile(Device device, string fileName, int width, int height, int levelCount, Usage usage, Format format, Pool pool, Filter filter, Filter mipFilter, int colorKey)
+		{
+			int num;
+			int num2;
+			byte[] array = ImageFiles.DecodeRgba(fileName, out num, out num2);
+			if (colorKey != 0)
+			{
+				byte b = (byte)((colorKey >> 16) & 255);
+				byte b2 = (byte)((colorKey >> 8) & 255);
+				byte b3 = (byte)(colorKey & 255);
+				for (int i = 0; i < array.Length; i += 4)
+				{
+					if (array[i] == b && array[i + 1] == b2 && array[i + 2] == b3)
+					{
+						array[i + 3] = 0;
+					}
+				}
+			}
+			Texture texture = new Texture(device, num, num2, 1, Usage.None, Format.A8R8G8B8, Pool.Managed);
+			texture.Rgba = array;
+			GlHost.Need().UpdateTexture(texture.GlId, num, num2, array);
+			return texture;
+		}
+
+		public Surface GetSurfaceLevel(int level)
+		{
+			return new Surface
+			{
+				GlTextureId = this.GlId,
+				Width = this.Width,
+				Height = this.Height
+			};
+		}
+
+		public SurfaceDescription GetLevelDescription(int level)
+		{
+			SurfaceDescription surfaceDescription = default(SurfaceDescription);
+			surfaceDescription.Width = this.Width;
+			surfaceDescription.Height = this.Height;
+			surfaceDescription.Format = Format.A8R8G8B8;
+			return surfaceDescription;
+		}
+
+		public DataRectangle LockRectangle(int level, Rectangle rect, LockFlags flags)
+		{
+			int num = Math.Max(0, rect.Width);
+			int num2 = Math.Max(0, rect.Height);
+			this.lockBgra = new byte[Math.Max(1, num * num2 * 4)];
+			return new DataRectangle
+			{
+				Data = new DataStream(this.lockBgra)
+			};
+		}
+
+		public void UnlockRectangle(int level)
+		{
+			if (this.lockBgra == null)
+			{
+				return;
+			}
+			int num = Math.Min(this.Rgba.Length / 4, this.lockBgra.Length / 4);
+			for (int i = 0; i < num; i++)
+			{
+				this.Rgba[i * 4] = this.lockBgra[i * 4 + 2];
+				this.Rgba[i * 4 + 1] = this.lockBgra[i * 4 + 1];
+				this.Rgba[i * 4 + 2] = this.lockBgra[i * 4];
+				this.Rgba[i * 4 + 3] = this.lockBgra[i * 4 + 3];
+			}
+			if (!this.IsRenderTarget)
+			{
+				GlHost.Need().UpdateTexture(this.GlId, this.Width, this.Height, this.Rgba);
+			}
+			this.lockBgra = null;
+		}
+
+		protected override void Dispose(bool disposing)
+		{
+			if (this.GlId != 0)
+			{
+				GlHost.Need().DeleteTexture(this.GlId);
+				this.GlId = 0;
+			}
+		}
+	}
+}

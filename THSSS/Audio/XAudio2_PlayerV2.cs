@@ -21,10 +21,22 @@ namespace Shooting
 		{
 			get
 			{
+#if BROWSER
+				if (this.sourceVoice == null)
+				{
+					return 0;
+				}
+#endif
 				return (int)(this.sourceVoice.Volume * 100f);
 			}
 			set
 			{
+#if BROWSER
+				if (this.sourceVoice == null)
+				{
+					return;
+				}
+#endif
 				if (0 <= value && value <= 100)
 				{
 					this.sourceVoice.Volume = (float)value / 100f;
@@ -148,6 +160,12 @@ namespace Shooting
 
 		public void FilterON()
 		{
+#if BROWSER
+			if (this.sourceVoice == null)
+			{
+				return;
+			}
+#endif
 			FilterParameters filterParameters = default(FilterParameters);
 			filterParameters.Type = FilterType.HighPassFilter;
 			filterParameters.Frequency = 0.5f;
@@ -158,6 +176,12 @@ namespace Shooting
 
 		public void FilterOFF()
 		{
+#if BROWSER
+			if (this.sourceVoice == null)
+			{
+				return;
+			}
+#endif
 			FilterParameters filterParameters = default(FilterParameters);
 			filterParameters.Type = FilterType.HighPassFilter;
 			filterParameters.Frequency = 0f;

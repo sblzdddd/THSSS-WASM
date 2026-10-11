@@ -110,8 +110,12 @@ namespace Shooting
 				this.PresentState.Init();
 				this.PresentState.BGM_ON();
 				this.GlobalData.LoadResources1();
+#if BROWSER
+				this.browserAwaitLoad = true;
+#else
 				this.LoadingThread = new Thread(new ThreadStart(this.AddState));
 				this.LoadingThread.Start();
+#endif
 			}
 		}
 
@@ -305,6 +309,13 @@ namespace Shooting
 
 		public void MainProcess()
 		{
+#if BROWSER
+			if (this.browserAwaitLoad && this.GlobalData.LoadingList != null && this.GlobalData.LoadingList.Count == 0)
+			{
+				this.browserAwaitLoad = false;
+				this.AddState();
+			}
+#endif
 			if (this.firstFrame)
 			{
 				this.fpsTimer.Start();
@@ -405,7 +416,9 @@ namespace Shooting
 			}
 			if (this.deviceLost)
 			{
+#if !BROWSER
 				Thread.Sleep(15);
+#endif
 				Result result = this.DeviceMain.TestCooperativeLevel();
 				if (result == global::SlimDX.Direct3D9.ResultCode.DeviceNotReset)
 				{
@@ -467,6 +480,7 @@ namespace Shooting
 				if (!this.verticalSync || (this.presentInterval != 1 && !this.fullWindow))
 				{
 					float num = 16f * (float)this.presentInterval - this.fpsTimer.GetDuration();
+#if !BROWSER
 					if (num > 0f)
 					{
 						Thread.Sleep((int)num);
@@ -474,6 +488,7 @@ namespace Shooting
 					while (16.62f * (float)this.presentInterval - this.fpsTimer.GetDuration() > 0f)
 					{
 					}
+#endif
 					if (this.fixedFPS)
 					{
 						if (num < -16.66667f * (float)this.delayTolerance)
@@ -743,5 +758,9 @@ namespace Shooting
 		private bool OnPause = false;
 
 		private bool InitFlag = false;
+
+#if BROWSER
+		private bool browserAwaitLoad;
+#endif
 	}
 }

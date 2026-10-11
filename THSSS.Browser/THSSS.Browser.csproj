@@ -1,0 +1,55 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <RuntimeIdentifier>browser-wasm</RuntimeIdentifier>
+    <OutputType>Exe</OutputType>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <LangVersion>latest</LangVersion>
+    <PublishTrimmed>false</PublishTrimmed>
+    <RunAOTCompilation>false</RunAOTCompilation>
+    <WasmEnableExceptionHandling>true</WasmEnableExceptionHandling>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <RootNamespace>Thsss.Browser</RootNamespace>
+    <AssemblyName>THSSS.Browser</AssemblyName>
+    <DefineConstants>$(DefineConstants);BROWSER</DefineConstants>
+    <NoWarn>$(NoWarn);SYSLIB0011;SYSLIB0021</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.9" />
+    <ProjectReference Include="..\THSSS.SlimDX\THSSS.SlimDX.csproj" />
+    <ProjectReference Include="..\THSSS.Platform\THSSS.Platform.csproj" />
+    <EmbeddedResource Include="Shooting.RenderForm_Main.resources">
+      <LogicalName>Shooting.RenderForm_Main.resources</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Shooting.Properties.Resources.resources">
+      <LogicalName>Shooting.Properties.Resources.resources</LogicalName>
+      <WithCulture>false</WithCulture>
+    </EmbeddedResource>
+  </ItemGroup>
+  <PropertyGroup>
+    <CoreCompileDependsOn>TransformGameSources;$(CoreCompileDependsOn)</CoreCompileDependsOn>
+  </PropertyGroup>
+  <Target Name="StageGameContent" BeforeTargets="Build" Condition="!Exists('$(MSBuildProjectDirectory)\wwwroot\assets\manifest.txt')">
+    <Exec Command="powershell -NoProfile -ExecutionPolicy Bypass -File &quot;$(MSBuildProjectDirectory)\stage-content.ps1&quot; -Repo &quot;$(MSBuildProjectDirectory)\..&quot; -Dest &quot;$(MSBuildProjectDirectory)\wwwroot\assets&quot;" />
+  </Target>
+  <Target Name="AddBrowserStaticFiles" BeforeTargets="_WasmGenerateAppBundle" DependsOnTargets="StageGameContent">
+    <ItemGroup>
+      <_BrowserStatic Include="$(MSBuildProjectDirectory)\wwwroot\**\*" />
+      <WasmExtraFilesToDeploy Include="@(_BrowserStatic)">
+        <TargetPath>%(RecursiveDir)%(Filename)%(Extension)</TargetPath>
+      </WasmExtraFilesToDeploy>
+    </ItemGroup>
+  </Target>
+  <Target Name="TransformGameSources">
+    <PropertyGroup>
+      <_GameSrc>$(IntermediateOutputPath)game-src</_GameSrc>
+    </PropertyGroup>
+    <Exec Command="powershell -NoProfile -ExecutionPolicy Bypass -File &quot;$(MSBuildProjectDirectory)\transform-sources.ps1&quot; -Source &quot;$(MSBuildProjectDirectory)\..\THSSS&quot; -Dest &quot;$(_GameSrc)&quot;" />
+    <ItemGroup>
+      <Compile Include="$(_GameSrc)\**\*.cs" />
+    </ItemGroup>
+  </Target>
+</Project>

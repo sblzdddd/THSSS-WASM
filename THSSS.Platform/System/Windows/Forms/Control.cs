@@ -1,0 +1,239 @@
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+
+namespace System.Windows.Forms
+{
+	public class Control : IDisposable
+	{
+		private readonly List<Control> controls = new List<Control>();
+
+		public string Name { get; set; }
+
+		public string Text { get; set; }
+
+		public bool Visible { get; set; }
+
+		public bool Enabled { get; set; }
+
+		public bool AutoSize { get; set; }
+
+		public int TabIndex { get; set; }
+
+		public Point Location { get; set; }
+
+		public Size Size { get; set; }
+
+		public Size MaximumSize { get; set; }
+
+		public Size MinimumSize { get; set; }
+
+		public Color BackColor { get; set; }
+
+		public Color ForeColor { get; set; }
+
+		public Image BackgroundImage { get; set; }
+
+		public ImageLayout BackgroundImageLayout { get; set; }
+
+		public BorderStyle BorderStyle { get; set; }
+
+		public Padding Margin { get; set; }
+
+		public Padding Padding { get; set; }
+
+		public AnchorStyles Anchor { get; set; }
+
+		public DockStyle Dock { get; set; }
+
+		public Font Font { get; set; }
+
+		public AutoScaleMode AutoScaleMode { get; set; }
+
+		public object Tag { get; set; }
+
+		public int Width
+		{
+			get
+			{
+				return this.Size.Width;
+			}
+			set
+			{
+				this.Size = new Size(value, this.Size.Height);
+			}
+		}
+
+		public int Height
+		{
+			get
+			{
+				return this.Size.Height;
+			}
+			set
+			{
+				this.Size = new Size(this.Size.Width, value);
+			}
+		}
+
+		public int Left
+		{
+			get
+			{
+				return this.Location.X;
+			}
+			set
+			{
+				this.Location = new Point(value, this.Location.Y);
+			}
+		}
+
+		public int Top
+		{
+			get
+			{
+				return this.Location.Y;
+			}
+			set
+			{
+				this.Location = new Point(this.Location.X, value);
+			}
+		}
+
+		public int Right
+		{
+			get
+			{
+				return this.Left + this.Width;
+			}
+		}
+
+		public int Bottom
+		{
+			get
+			{
+				return this.Top + this.Height;
+			}
+		}
+
+		public Rectangle Bounds
+		{
+			get
+			{
+				return new Rectangle(this.Location, this.Size);
+			}
+			set
+			{
+				this.Location = value.Location;
+				this.Size = value.Size;
+			}
+		}
+
+		public Size ClientSize
+		{
+			get
+			{
+				return this.Size;
+			}
+			set
+			{
+				this.Size = value;
+			}
+		}
+
+		public virtual IntPtr Handle
+		{
+			get
+			{
+				return new IntPtr(1);
+			}
+		}
+
+		public ControlCollection Controls { get; private set; }
+
+		public event EventHandler Click;
+
+		public event KeyEventHandler KeyDown;
+
+		public event KeyEventHandler KeyUp;
+
+		public Control()
+		{
+			this.Visible = true;
+			this.Enabled = true;
+			this.Controls = new ControlCollection(this.controls);
+			this.Size = new Size(640, 480);
+		}
+
+		public void SuspendLayout()
+		{
+		}
+
+		public void ResumeLayout()
+		{
+		}
+
+		public void ResumeLayout(bool performLayout)
+		{
+		}
+
+		public void PerformLayout()
+		{
+		}
+
+		public void RaiseKeyDown(Keys key)
+		{
+			KeyEventHandler keyEventHandler = this.KeyDown;
+			if (keyEventHandler != null)
+			{
+				keyEventHandler(this, new KeyEventArgs(key));
+			}
+		}
+
+		public void RaiseKeyUp(Keys key)
+		{
+			KeyEventHandler keyEventHandler = this.KeyUp;
+			if (keyEventHandler != null)
+			{
+				keyEventHandler(this, new KeyEventArgs(key));
+			}
+		}
+
+		public void Dispose()
+		{
+			this.Dispose(true);
+		}
+
+		protected virtual void Dispose(bool disposing)
+		{
+		}
+
+		public class ControlCollection
+		{
+			private readonly List<Control> items;
+
+			public ControlCollection(List<Control> items)
+			{
+				this.items = items;
+			}
+
+			public void Add(Control control)
+			{
+				this.items.Add(control);
+			}
+
+			public void Clear()
+			{
+				this.items.Clear();
+			}
+
+			public int Count
+			{
+				get
+				{
+					return this.items.Count;
+				}
+			}
+		}
+	}
+}

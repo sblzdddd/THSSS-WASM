@@ -52,7 +52,12 @@ namespace Shooting
 
 		public void LoadFolderTextureList(string Path)
 		{
+#if BROWSER
+			string folder = Path.Replace((char)92, '/');
+			if (!folder.EndsWith("/Image/NowLoading"))
+#else
 			if (!(Path == ".\\Image\\NowLoading"))
+#endif
 			{
 				string[] files = Directory.GetFiles(Path, "*.png");
 				foreach (string text in files)

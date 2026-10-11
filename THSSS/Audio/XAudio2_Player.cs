@@ -23,10 +23,22 @@ namespace Shooting
 		{
 			get
 			{
+#if BROWSER
+				if (this.sourceVoice == null)
+				{
+					return 0;
+				}
+#endif
 				return (int)(this.sourceVoice.Volume * 200f);
 			}
 			set
 			{
+#if BROWSER
+				if (this.sourceVoice == null)
+				{
+					return;
+				}
+#endif
 				if (0 <= value && value <= 100)
 				{
 					this.sourceVoice.Volume = (float)value / 200f;

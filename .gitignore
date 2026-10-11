@@ -142,3 +142,6 @@ ScreenShot/
 Sound/
 Story/
 Score.dat
+
+# Staged browser content (copied at build from the repo root)
+THSSS.Browser/wwwroot/assets/

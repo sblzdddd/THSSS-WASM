@@ -27,8 +27,12 @@ namespace Shooting
 			base.UpdateData();
 			if (base.TimeMain == 1)
 			{
+#if BROWSER
+				this.PreloadMusic();
+#else
 				this.LoadingThread = new Thread(new ThreadStart(this.PreloadMusic));
 				this.LoadingThread.Start();
+#endif
 			}
 			if (this.LoadFlag && base.TimeMain > 0)
 			{
@@ -38,7 +42,9 @@ namespace Shooting
 					NeedInit = false
 				};
 				((BaseGameState)base.StageData.GlobalData.LastState).TimeSycn();
+#if !BROWSER
 				this.LoadingThread.Abort();
+#endif
 			}
 			if (base.TimeMain < 50)
 			{
