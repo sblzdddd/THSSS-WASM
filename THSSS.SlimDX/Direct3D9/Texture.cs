@@ -66,7 +66,7 @@ namespace SlimDX.Direct3D9
 			return new Texture(num3, num, num2, true);
 		}
 
-		internal static Texture Wrap(int glId, int width, int height)
+		public static Texture Wrap(int glId, int width, int height)
 		{
 			return new Texture(glId, width, height, false);
 		}

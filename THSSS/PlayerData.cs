@@ -217,21 +217,22 @@ namespace Shooting
 		public void SaveData()
 		{
 			this.ScoreFile = new FileStream("Score.dat", FileMode.Create);
-			string tmp = null;
-			tmp = tmp + this.PlayerName + "\r\n";
+			StringBuilder score = new StringBuilder();
+			score.Append(this.PlayerName);
+			score.Append("\r\n");
 			this.SC_History.ForEach(delegate(SpellCardHistory x)
 			{
-				tmp += x.Data2String();
+				score.Append(x.Data2String());
 			});
 			this.S_History.ForEach(delegate(ScoreHistory x)
 			{
-				tmp += x.Data2String();
+				score.Append(x.Data2String());
 			});
 			this.C_History.ForEach(delegate(ClearHistory x)
 			{
-				tmp += x.Data2String();
+				score.Append(x.Data2String());
 			});
-			tmp = Encryption.Encrypt(tmp);
+			string tmp = Encryption.Encrypt(score.ToString());
 			StreamWriter streamWriter = new StreamWriter(this.ScoreFile);
 			streamWriter.Write(tmp);
 			streamWriter.Close();

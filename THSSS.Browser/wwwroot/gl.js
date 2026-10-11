@@ -11,6 +11,8 @@ let uTex;
 let spriteBuf;
 let fixedBuf;
 let viewX = 0, viewY = 0, viewW = 640, viewH = 480, fbW = 640, fbH = 480;
+const imageJobs = new Map();
+let imageJobId = 1;
 
 function compile(type, source) {
   const shader = gl.createShader(type);
@@ -176,6 +178,11 @@ void main() {
     setCull: glSetCull,
     drawSprites: glDrawSprites,
     drawFixed: glDrawFixed,
+    beginImage: glBeginImage,
+    imageState: glImageState,
+    finishImage: glFinishImage,
+    imageWidth: glImageWidth,
+    imageHeight: glImageHeight,
     rasterText: glRasterText,
     rasterTextBox: glRasterTextBox,
     paintText: glPaintText
@@ -194,6 +201,62 @@ export function glClear(r, g, b, a, color, depth) {
 
 export function glCreateTexture(width, height, pixels) {
   return makeTexture(width | 0, height | 0, pixels, false);
+}
+
+export function glBeginImage(bytes) {
+  const id = imageJobId++;
+  const job = { ready: false, failed: false, decoded: false, width: 0, height: 0, glId: 0, bitmap: null };
+  imageJobs.set(id, job);
+  const blob = new Blob([bytes]);
+  createImageBitmap(blob).then((bitmap) => {
+    job.bitmap = bitmap;
+    job.width = bitmap.width;
+    job.height = bitmap.height;
+    job.decoded = true;
+  }).catch(() => {
+    job.failed = true;
+  });
+  return id;
+}
+
+export function glImageState(id) {
+  const job = imageJobs.get(id | 0);
+  if (!job || job.failed) return -1;
+  if (job.ready) return 2;
+  if (job.decoded) return 1;
+  return 0;
+}
+
+export function glFinishImage(id) {
+  const job = imageJobs.get(id | 0);
+  if (!job || !job.bitmap) return 0;
+  const bitmap = job.bitmap;
+  const tex = gl.createTexture();
+  gl.bindTexture(gl.TEXTURE_2D, tex);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+  gl.pixelStorei(gl.UNPACK_ALIGNMENT, 1);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, bitmap);
+  const glId = nextId++;
+  textures.set(glId, { tex, width: bitmap.width, height: bitmap.height, renderTarget: false });
+  bitmap.close();
+  job.bitmap = null;
+  job.glId = glId;
+  job.ready = true;
+  job.decoded = false;
+  return glId;
+}
+
+export function glImageWidth(id) {
+  const job = imageJobs.get(id | 0);
+  return job ? job.width : 0;
+}
+
+export function glImageHeight(id) {
+  const job = imageJobs.get(id | 0);
+  return job ? job.height : 0;
 }
 
 export function glCreateRenderTarget(width, height) {

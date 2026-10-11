@@ -129,6 +129,11 @@ try {
     setCull: glApi.setCull,
     drawSprites: glApi.drawSprites,
     drawFixed: glApi.drawFixed,
+    beginImage: glApi.beginImage,
+    imageState: glApi.imageState,
+    finishImage: glApi.finishImage,
+    imageWidth: glApi.imageWidth,
+    imageHeight: glApi.imageHeight,
     rasterText: glApi.rasterText,
     rasterTextBox: glApi.rasterTextBox,
     paintText: glApi.paintText,
@@ -169,7 +174,6 @@ try {
     if (acc >= step) {
       try {
         host.Frame();
-        window.__thsssFrames = (window.__thsssFrames || 0) + 1;
       } catch (err) {
         failed = true;
         window.__thsssFrameError = String(err && err.stack || err);
