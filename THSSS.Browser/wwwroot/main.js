@@ -4,9 +4,11 @@ import { createAudio } from "./audio.js";
 
 const statusEl = document.getElementById("status");
 const canvas = document.getElementById("game");
+let lastStatus = "";
 
 function setStatus(text) {
-  statusEl.textContent = text || "";
+  lastStatus = text || "";
+  if (statusEl) statusEl.textContent = lastStatus;
   if (text) console.log(text);
 }
 
@@ -54,6 +56,25 @@ async function writeSave(path, b64) {
     tx.oncomplete = () => resolve();
     tx.onerror = () => reject(tx.error);
   });
+}
+
+async function removeSave(path) {
+  const db = await openDb();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(storeName, "readwrite");
+    tx.objectStore(storeName).delete(path);
+    tx.oncomplete = () => resolve();
+    tx.onerror = () => reject(tx.error);
+  });
+}
+
+function bytesToBase64(bytes) {
+  let binary = "";
+  const chunk = 0x8000;
+  for (let i = 0; i < bytes.length; i += chunk) {
+    binary += String.fromCharCode.apply(null, bytes.subarray(i, i + chunk));
+  }
+  return btoa(binary);
 }
 
 const keyMap = {
@@ -108,7 +129,7 @@ async function loadShader(path) {
   return response.text();
 }
 
-try {
+export async function prepareRuntime(options = {}) {
   const shaderSources = {};
   for (const name of ["Filter", "Blur", "Warp"]) {
     shaderSources[name + ".vert"] = await loadShader("shaders/" + name + ".vert");
@@ -120,6 +141,10 @@ try {
   canvas.addEventListener("pointerdown", unlockAudio);
   window.addEventListener("keydown", unlockAudio);
   const saves = await readAllSaves();
+  let pending = Promise.resolve();
+  const remember = (path, value) => {
+    pending = pending.then(() => (value == null ? removeSave(path) : writeSave(path, value))).catch((err) => console.error(err));
+  };
   const { setModuleImports, getAssemblyExports, runMain } = await dotnet.create();
   setModuleImports("thsss.js", {
     setStatus,
@@ -127,7 +152,12 @@ try {
     readSaves: () => JSON.stringify(saves),
     writeSave: (path, b64) => {
       saves[path] = b64;
-      writeSave(path, b64).catch((err) => console.error(err));
+      remember(path, b64);
+    },
+    takeArchive: () => {
+      const bytes = globalThis.__thsssArchive;
+      globalThis.__thsssArchive = null;
+      return bytes && bytes.byteLength ? bytes : new Uint8Array(0);
     },
     pageBase: () => document.baseURI,
     clear: glApi.clear,
@@ -163,22 +193,49 @@ try {
     audioSamples: audioApi.samplesPlayed,
     audioChannels: audioApi.channels
   });
+  return {
+    saves,
+    options: {},
+    host: null,
+    captureKeys: options.captureKeys !== false,
+    audioApi,
+    getAssemblyExports,
+    runMain,
+    writeUserFile(path, bytes) {
+      const b64 = bytesToBase64(bytes);
+      saves[path] = b64;
+      return writeSave(path, b64);
+    },
+    removeUserFile(path) {
+      delete saves[path];
+      return removeSave(path);
+    },
+    flushSaves() {
+      return pending;
+    }
+  };
+}
+
+export async function launchRuntime(runtime, hooks = {}) {
   setStatus("Starting the game…");
-  await runMain();
-  const bootStatus = statusEl.textContent || "";
-  window.__thsssBoot = bootStatus;
-  if (/Exception|Error|at Thsss|at Shooting|at SlimDX/i.test(bootStatus)) {
-    throw new Error(bootStatus);
+  await runtime.runMain();
+  window.__thsssBoot = lastStatus;
+  if (/Exception|Error|at Thsss|at Shooting|at SlimDX/i.test(lastStatus)) {
+    throw new Error(lastStatus);
   }
-  const exports = await getAssemblyExports("THSSS.Browser.dll");
+  const exports = await runtime.getAssemblyExports("THSSS.Browser.dll");
   const host = exports.Thsss.Browser.GameHost;
   if (!host || !host.Frame) {
     throw new Error("GameHost export missing. Keys: " + Object.keys(exports || {}).join(","));
   }
+  runtime.host = host;
   window.__thsssHost = true;
-  bootKeys((name, down) => host.OnKey(name, down));
+  if (runtime.captureKeys) bootKeys((name, down) => host.OnKey(name, down));
+  const optionSet = !!(runtime.options && Object.prototype.hasOwnProperty.call(runtime.options, "limitPresentationTo60"));
+  const unlimited = optionSet && runtime.options.limitPresentationTo60 === false && host.Simulate && host.Draw;
+  if ((runtime.captureKeys === false || optionSet) && host.SetFpsUnlocked) host.SetFpsUnlocked(unlimited ? 1 : 0);
   const fpsToggle = document.getElementById("unlock-fps");
-  if (host.FpsUnlocked && fpsToggle) fpsToggle.checked = host.FpsUnlocked() !== 0;
+  if (!unlimited && host.FpsUnlocked && fpsToggle) fpsToggle.checked = host.FpsUnlocked() !== 0;
   if (fpsToggle && host.SetFpsUnlocked) {
     fpsToggle.addEventListener("change", () => host.SetFpsUnlocked(fpsToggle.checked ? 1 : 0));
   }
@@ -186,12 +243,21 @@ try {
   let acc = 0;
   const step = 1000 / 60;
   let failed = false;
+  let running = true;
   const frame = (now) => {
-    if (failed) return;
+    if (!running || failed) return;
+    if (document.hidden) {
+      last = now;
+      requestAnimationFrame(frame);
+      return;
+    }
     const delta = Math.min(100, now - last);
     last = now;
+    let presented = false;
     try {
-      if (fpsToggle && fpsToggle.checked && host.Simulate && host.Draw) {
+      const unlocked = unlimited || !!(fpsToggle && fpsToggle.checked);
+      const fast = unlocked && host.Simulate && host.Draw;
+      if (fast) {
         acc += delta;
         if (acc >= step) {
           host.Simulate();
@@ -199,12 +265,14 @@ try {
           if (acc > step) acc = step;
         }
         host.Draw(acc / step);
+        presented = true;
       } else {
         acc += delta;
         if (acc >= step) {
           host.Frame();
           acc -= step;
           if (acc > step * 2) acc = 0;
+          presented = true;
         }
       }
     } catch (err) {
@@ -213,12 +281,22 @@ try {
       setStatus(window.__thsssFrameError);
       return;
     }
+    if (presented && hooks.onPresented) hooks.onPresented();
     requestAnimationFrame(frame);
   };
-  setStatus("Click the canvas, then use arrows, Z, X, Shift, and Esc.");
+  if (runtime.captureKeys) setStatus("Click the canvas, then use arrows, Z, X, Shift, and Esc.");
   requestAnimationFrame(frame);
-} catch (err) {
-  window.__thsssBootError = String(err && err.stack || err);
-  setStatus(window.__thsssBootError);
-  console.error(err);
+  return {
+    stop() {
+      running = false;
+    }
+  };
+}
+
+if (!document.querySelector('meta[name="eagler-data-provider"]')) {
+  prepareRuntime({ captureKeys: true }).then((runtime) => launchRuntime(runtime)).catch((err) => {
+    window.__thsssBootError = String(err && err.stack || err);
+    setStatus(window.__thsssBootError);
+    console.error(err);
+  });
 }

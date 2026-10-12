@@ -16,6 +16,7 @@ export function createAudio() {
   function publish() {
     const playsNow = plays.slice(-12);
     window.__thsssAudio = {
+      backend: "script",
       get state() {
         return ctx ? ctx.state : "none";
       },
@@ -34,12 +35,25 @@ export function createAudio() {
     publish();
   }
 
-  function assetUrl(path) {
+  function assetMatch(path) {
     const text = String(path || "").replace(/\\/g, "/");
     const match = text.match(/(?:^|\/)(BGM|Sound)\/([^/]+)$/i);
-    if (!match) return "";
+    if (!match) return null;
     const folder = match[1].toLowerCase() === "bgm" ? "BGM" : "Sound";
-    return new URL("assets/" + folder + "/" + match[2], document.baseURI).href;
+    return { folder, name: match[2] };
+  }
+
+  function hostedBytes(path) {
+    const files = window.__thsssFiles;
+    const match = assetMatch(path);
+    if (!files || !match || typeof files.get !== "function") return null;
+    return files.get("/" + match.folder + "/" + match.name) || null;
+  }
+
+  function assetUrl(path) {
+    const match = assetMatch(path);
+    if (!match) return "";
+    return new URL("assets/" + match.folder + "/" + match.name, document.baseURI).href;
   }
 
   function wavSampleRate(data) {
@@ -76,18 +90,21 @@ export function createAudio() {
   }
 
   function prepare(path) {
-    const url = assetUrl(path);
+    const hosted = hostedBytes(path);
+    const url = hosted ? "mem:" + String(path).replace(/\\/g, "/") : assetUrl(path);
     if (!url) return 0;
     let rec = buffers.get(url);
     if (rec) return rec.id;
     const audio = context();
     rec = { id: nextId++, url, audio: null, fileRate: 44100, failed: false, waiters: [] };
     buffers.set(url, rec);
-    fetch(url)
-      .then((response) => {
+    const load = hosted
+      ? Promise.resolve(hosted.buffer.slice(hosted.byteOffset, hosted.byteOffset + hosted.byteLength))
+      : fetch(url).then((response) => {
         if (!response.ok) throw new Error(String(response.status));
         return response.arrayBuffer();
-      })
+      });
+    load
       .then((data) => {
         rec.fileRate = wavSampleRate(data) || oggSampleRate(data) || 44100;
         return audio.decodeAudioData(data);

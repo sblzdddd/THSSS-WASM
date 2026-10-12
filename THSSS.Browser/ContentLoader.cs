@@ -58,19 +58,38 @@ namespace Thsss.Browser
 				Console.WriteLine("Using default directory: " + ex.Message);
 			}
 			ThsssJs.SetStatus("Fetching content…");
-			HttpClient client = new HttpClient();
-			client.Timeout = System.Threading.Timeout.InfiniteTimeSpan;
-			client.BaseAddress = new Uri(ThsssJs.PageBase());
+			byte[] hosted = Array.Empty<byte>();
 			try
 			{
-				using (Stream stream = await client.GetStreamAsync(ArchiveName))
+				hosted = ThsssJs.TakeArchive() ?? Array.Empty<byte>();
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+			}
+			if (hosted.Length > 0)
+			{
+				using (MemoryStream stream = new MemoryStream(hosted, false))
 				{
 					await UnpackAsync(stream);
 				}
 			}
-			finally
+			else
 			{
-				client.Dispose();
+				HttpClient client = new HttpClient();
+				client.Timeout = System.Threading.Timeout.InfiniteTimeSpan;
+				client.BaseAddress = new Uri(ThsssJs.PageBase());
+				try
+				{
+					using (Stream stream = await client.GetStreamAsync(ArchiveName))
+					{
+						await UnpackAsync(stream);
+					}
+				}
+				finally
+				{
+					client.Dispose();
+				}
 			}
 			EnsureDir("Sound");
 			EnsureDir("BPic");

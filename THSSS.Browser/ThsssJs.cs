@@ -13,6 +13,9 @@ namespace Thsss.Browser
 		[JSImport("readSaves", "thsss.js")]
 		public static partial string ReadSaves();
 
+		[JSImport("takeArchive", "thsss.js")]
+		public static partial byte[] TakeArchive();
+
 		[JSImport("writeSave", "thsss.js")]
 		public static partial void WriteSave(string path, string data);
 
