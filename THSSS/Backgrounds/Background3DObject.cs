@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using SlimDX;
 using SlimDX.Direct3D9;
 

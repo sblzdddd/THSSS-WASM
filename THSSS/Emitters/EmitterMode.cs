@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Shooting
+﻿namespace Shooting
 {
 	public enum EmitterMode
 	{

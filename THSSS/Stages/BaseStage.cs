@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Windows.Forms;
-using Shooting.Properties;
 using SlimDX.Direct3D9;
 
 namespace Shooting

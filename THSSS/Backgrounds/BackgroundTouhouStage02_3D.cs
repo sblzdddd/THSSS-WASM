@@ -1,5 +1,4 @@
-﻿using System;
-using SlimDX;
+﻿using SlimDX;
 using SlimDX.Direct3D9;
 
 namespace Shooting

@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using SlimDX.Multimedia;
 using SlimDX.XAudio2;
 

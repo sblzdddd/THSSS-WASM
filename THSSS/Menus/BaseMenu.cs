@@ -1,7 +1,4 @@
-﻿using System;
-using System.Windows.Forms;
-
-namespace Shooting
+﻿namespace Shooting
 {
 	internal partial class BaseMenu : BaseGameState, IGameState
 	{

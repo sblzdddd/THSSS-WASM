@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Shooting
+﻿namespace Shooting
 {
 	internal class BaseFSC : BaseSpellCard
 	{

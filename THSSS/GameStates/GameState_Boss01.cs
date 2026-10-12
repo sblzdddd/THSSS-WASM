@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Shooting
+﻿namespace Shooting
 {
 	internal class GameState_Boss01 : GameState_SSS01, IGameState
 	{

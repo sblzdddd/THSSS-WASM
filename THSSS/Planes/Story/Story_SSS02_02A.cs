@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Shooting.Planes.Story
+﻿namespace Shooting.Planes.Story
 {
 	internal class Story_SSS02_02A : BaseStory_SSS
 	{

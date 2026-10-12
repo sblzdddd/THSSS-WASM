@@ -1,5 +1,3 @@
-using System;
-
 namespace System.Windows.Forms
 {
 	public static class Application

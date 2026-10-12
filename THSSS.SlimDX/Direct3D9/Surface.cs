@@ -1,6 +1,4 @@
-using System;
 using System.IO;
-using SlimDX.Gl;
 
 namespace SlimDX.Direct3D9
 {

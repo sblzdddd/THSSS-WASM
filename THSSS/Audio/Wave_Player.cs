@@ -1,5 +1,4 @@
-﻿using System;
-using SlimDX.XAudio2;
+﻿using SlimDX.XAudio2;
 
 namespace Shooting
 {

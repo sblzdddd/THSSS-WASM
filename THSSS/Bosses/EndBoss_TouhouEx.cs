@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using Shooting.Planes.Story;
 
 namespace Shooting

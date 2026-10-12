@@ -1,5 +1,3 @@
-using System;
-
 namespace System.Drawing
 {
 	public static class GlyphRaster
