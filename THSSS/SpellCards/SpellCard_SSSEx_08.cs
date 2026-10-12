@@ -15,7 +15,7 @@ namespace Shooting
 			new BulletTitle(StageData, SC_Name);
 			new SpellCardAttack(StageData);
 			new BackgroundBossEx(StageData);
-			string name = MyPlane.Name;
+			var name = MyPlane.Name;
 			if (name != null)
 			{
 				if (name == "Reimu")
@@ -47,8 +47,8 @@ namespace Shooting
 			Boss.Armon = Boss.ArmonArray[15];
 			if (Time == 100)
 			{
-				string text = ".\\CS\\StEx\\关底Boss\\8符.mbg";
-				CS_Data cs_Data = StageData.LoadCS(text);
+				var text = ".\\CS\\StEx\\关底Boss\\8符.mbg";
+				var cs_Data = StageData.LoadCS(text);
 				new CSEmitterController(StageData, cs_Data);
 			}
 		}

@@ -50,11 +50,11 @@ namespace Shooting
 			PlayerName = "";
 			MusicState = new bool[15];
 			S_History = new List<ScoreHistory>();
-			for (int i = 0; i < 6; i++)
+			for (var i = 0; i < 6; i++)
 			{
-				for (int j = 0; j < 10; j++)
+				for (var j = 0; j < 10; j++)
 				{
-					for (int k = 0; k < 5; k++)
+					for (var k = 0; k < 5; k++)
 					{
 						string text;
 						switch (k)
@@ -78,7 +78,7 @@ namespace Shooting
 							text = "AyaA";
 							break;
 						}
-						ScoreHistory scoreHistory = new ScoreHistory
+						var scoreHistory = new ScoreHistory
 						{
 							MyPlaneFullName = text,
 							Rank = (DifficultLevel)i,
@@ -94,9 +94,9 @@ namespace Shooting
 				}
 			}
 			C_History = new List<ClearHistory>();
-			for (int i = 0; i < 6; i++)
+			for (var i = 0; i < 6; i++)
 			{
-				for (int k = 0; k < 5; k++)
+				for (var k = 0; k < 5; k++)
 				{
 					string text;
 					switch (k)
@@ -120,7 +120,7 @@ namespace Shooting
 						text = "AyaA";
 						break;
 					}
-					ClearHistory clearHistory = new ClearHistory
+					var clearHistory = new ClearHistory
 					{
 						MyPlaneFullName = text,
 						Rank = (DifficultLevel)i,
@@ -134,9 +134,9 @@ namespace Shooting
 				}
 			}
 			SC_History = new List<SpellCardHistory>();
-			for (int k = 0; k < 5; k++)
+			for (var k = 0; k < 5; k++)
 			{
-				int num = 1;
+				var num = 1;
 				string text;
 				switch (k)
 				{
@@ -159,13 +159,13 @@ namespace Shooting
 					text = "AyaA";
 					break;
 				}
-				for (int i = 0; i < 6; i++)
+				for (var i = 0; i < 6; i++)
 				{
 					if (i < 2)
 					{
-						for (int j = 0; j < SCNameEN.Length; j++)
+						for (var j = 0; j < SCNameEN.Length; j++)
 						{
-							SpellCardHistory spellCardHistory = new SpellCardHistory
+							var spellCardHistory = new SpellCardHistory
 							{
 								MyPlaneFullName = text,
 								Rank = (DifficultLevel)i,
@@ -179,9 +179,9 @@ namespace Shooting
 					}
 					else if (i < 5)
 					{
-						for (int j = 0; j < SCNameHL.Length; j++)
+						for (var j = 0; j < SCNameHL.Length; j++)
 						{
-							SpellCardHistory spellCardHistory = new SpellCardHistory
+							var spellCardHistory = new SpellCardHistory
 							{
 								MyPlaneFullName = text,
 								Rank = (DifficultLevel)i,
@@ -195,9 +195,9 @@ namespace Shooting
 					}
 					else
 					{
-						for (int j = 0; j < SCNameEx.Length; j++)
+						for (var j = 0; j < SCNameEx.Length; j++)
 						{
-							SpellCardHistory spellCardHistory = new SpellCardHistory
+							var spellCardHistory = new SpellCardHistory
 							{
 								MyPlaneFullName = text,
 								Rank = (DifficultLevel)i,
@@ -216,7 +216,7 @@ namespace Shooting
 		public void SaveData()
 		{
 			ScoreFile = new FileStream("Score.dat", FileMode.Create);
-			StringBuilder score = new StringBuilder();
+			var score = new StringBuilder();
 			score.Append(PlayerName);
 			score.Append("\r\n");
 			SC_History.ForEach(delegate(SpellCardHistory x)
@@ -231,19 +231,19 @@ namespace Shooting
 			{
 				score.Append(x.Data2String());
 			});
-			string tmp = Encryption.Encrypt(score.ToString());
-			StreamWriter streamWriter = new StreamWriter(ScoreFile);
+			var tmp = Encryption.Encrypt(score.ToString());
+			var streamWriter = new StreamWriter(ScoreFile);
 			streamWriter.Write(tmp);
 			streamWriter.Close();
 		}
 
 		public void LoadData()
 		{
-			string[] array = File.ReadAllLines("Score.dat", Encoding.Default);
+			var array = File.ReadAllLines("Score.dat", Encoding.Default);
 			array[0] = Encryption.Decrypt(array[0]);
 			array[0] = array[0].Replace("\r\n", "\n");
-			string[] stringList = array[0].Split(new char[] { '\n' });
-			int i = 0;
+			var stringList = array[0].Split(new char[] { '\n' });
+			var i = 0;
 			PlayerName = stringList[i++];
 			SC_History.ForEach(delegate(SpellCardHistory x)
 			{

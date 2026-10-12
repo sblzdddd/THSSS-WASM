@@ -36,7 +36,7 @@ namespace SlimDX
 
 		public static Vector2 Normalize(Vector2 v)
 		{
-			float num = v.Length();
+			var num = v.Length();
 			if (num < 1E-08f)
 			{
 				return Zero;
@@ -66,7 +66,7 @@ namespace SlimDX
 
 		public void Normalize()
 		{
-			float num = this.Length();
+			var num = this.Length();
 			if (num < 1E-08f)
 			{
 				this.X = 0f;

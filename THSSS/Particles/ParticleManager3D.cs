@@ -40,9 +40,9 @@ namespace Shooting
 
 		public void Ctrl()
 		{
-			for (int i = ParticleList.Count - 1; i >= 0; i--)
+			for (var i = ParticleList.Count - 1; i >= 0; i--)
 			{
-				BaseParticle3D particle = ParticleList[i];
+				var particle = ParticleList[i];
 				if (particle.OutBoundary())
 				{
 					particle.Dispose();
@@ -76,7 +76,7 @@ namespace Shooting
 		public void Show()
 		{
 			StageData.ScreenTexMan.Begin();
-			Viewport viewport = StageData.DeviceMain.Viewport;
+			var viewport = StageData.DeviceMain.Viewport;
 			DeviceMain.Viewport = new Viewport
 			{
 				X = StageData.BoundRect.Left - 10,
@@ -86,9 +86,9 @@ namespace Shooting
 			};
 			SetParticleRenderPara();
 			string ModelName = null;
-			for (int i = 0; i < ParticleList.Count; i++)
+			for (var i = 0; i < ParticleList.Count; i++)
 			{
-				BaseParticle3D x = ParticleList[i];
+				var x = ParticleList[i];
 				if (x.model != null)
 				{
 					if (ModelName != x.model.Name)

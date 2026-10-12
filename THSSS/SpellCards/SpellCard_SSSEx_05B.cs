@@ -23,8 +23,8 @@ namespace Shooting
 			Boss.Armon = Boss.ArmonArray[9];
 			if (Time == 100)
 			{
-				string text = ".\\CS\\StEx\\关底Boss\\5符1.mbg";
-				CS_Data cs_Data = StageData.LoadCS(text);
+				var text = ".\\CS\\StEx\\关底Boss\\5符1.mbg";
+				var cs_Data = StageData.LoadCS(text);
 				new CSEmitterController(StageData, cs_Data);
 			}
 		}

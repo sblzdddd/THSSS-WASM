@@ -15,7 +15,7 @@ namespace Shooting
 		public Boss_Freya07(StageDataPackage StageData)
 			: base(StageData)
 		{
-			TextureObject[,] array = new TextureObject[3, 4];
+			var array = new TextureObject[3, 4];
 			array[0, 0] = TextureObjectDictionary["BossFreya-00"];
 			array[0, 1] = TextureObjectDictionary["BossFreya-01"];
 			array[0, 2] = TextureObjectDictionary["BossFreya-02"];
@@ -126,7 +126,7 @@ namespace Shooting
 
 		public override void TextureCtrl()
 		{
-			int num = (Mirrored ? IndexY : (-IndexY));
+			var num = (Mirrored ? IndexY : (-IndexY));
 			if (OnAction > 0)
 			{
 				IndexY = 2;
@@ -251,8 +251,8 @@ namespace Shooting
 						text = ".\\CS\\St02\\关底Boss\\1非L.mbg";
 						break;
 					}
-					CS_Data cs_Data = StageData.LoadCS(text);
-					CSEmitterController csemitterController = new CSEmitterController(StageData, cs_Data);
+					var cs_Data = StageData.LoadCS(text);
+					var csemitterController = new CSEmitterController(StageData, cs_Data);
 					csemitterController.BossBinding = true;
 				}
 			}
@@ -273,7 +273,7 @@ namespace Shooting
 					StageData.SoundPlay("se_boon01.wav");
 					new EmitterGiveOutEnegy3D(StageData, Boss.OriginalPosition, Color.SkyBlue);
 					new BackgroundWing(StageData, "Wing", Boss.OriginalPosition, 0f, 0.0, 0);
-					BackgroundWing backgroundWing = new BackgroundWing(StageData, "Wing", Boss.OriginalPosition, 0f, 3.141592653589793, 0);
+					var backgroundWing = new BackgroundWing(StageData, "Wing", Boss.OriginalPosition, 0f, 3.141592653589793, 0);
 					backgroundWing.Mirrored = true;
 					StageData.VibrateStart(50);
 				}
@@ -308,8 +308,8 @@ namespace Shooting
 						text = ".\\CS\\St02\\关底Boss\\2非L.mbg";
 						break;
 					}
-					CS_Data cs_Data = StageData.LoadCS(text);
-					CSEmitterController csemitterController = new CSEmitterController(StageData, cs_Data);
+					var cs_Data = StageData.LoadCS(text);
+					var csemitterController = new CSEmitterController(StageData, cs_Data);
 					csemitterController.BossBinding = true;
 				}
 			}
@@ -348,14 +348,14 @@ namespace Shooting
 
 		public override void GiveItems()
 		{
-			for (int i = 0; i < 15; i++)
+			for (var i = 0; i < 15; i++)
 			{
-				PointF pointF = new PointF(OriginalPosition.X + (float)Ran.Next(-49, 50), OriginalPosition.Y + (float)Ran.Next(-49, 50));
+				var pointF = new PointF(OriginalPosition.X + (float)Ran.Next(-49, 50), OriginalPosition.Y + (float)Ran.Next(-49, 50));
 				new PowerItem_Touhou(StageData, pointF);
 			}
-			for (int i = 0; i < 20; i++)
+			for (var i = 0; i < 20; i++)
 			{
-				PointF pointF = new PointF(OriginalPosition.X + (float)Ran.Next(-49, 50), OriginalPosition.Y + (float)Ran.Next(-49, 50));
+				var pointF = new PointF(OriginalPosition.X + (float)Ran.Next(-49, 50), OriginalPosition.Y + (float)Ran.Next(-49, 50));
 				new ScoreItem_Touhou(StageData, pointF);
 			}
 		}

@@ -46,7 +46,7 @@ namespace Shooting.Planes.Story
 
 		public override void Show()
 		{
-			SizeF sizeF = new SizeF((float)BoundRect.Width, (float)(TxtureObject.Height * BoundRect.Width / TxtureObject.Width));
+			var sizeF = new SizeF((float)BoundRect.Width, (float)(TxtureObject.Height * BoundRect.Width / TxtureObject.Width));
 			SpriteMain.Draw2D(TxtureObject.TXTure, TxtureObject.PosRect, sizeF, new PointF(0f, 0f), 0f, Position, Color.FromArgb(TransparentValue, Color.White));
 			if (Text != null)
 			{

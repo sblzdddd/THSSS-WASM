@@ -35,7 +35,7 @@ namespace Shooting
 
 		public override double NextDouble()
 		{
-			double num = base.NextDouble();
+			var num = base.NextDouble();
 			ranValue = (int)(num * 100.0);
 			return num;
 		}

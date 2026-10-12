@@ -44,7 +44,7 @@ namespace Shooting
 			base.Ctrl();
 			if (Direction > 3.141592653589793)
 			{
-				double num = 1.5707963267948966 + Direction;
+				var num = 1.5707963267948966 + Direction;
 				if (num > 3.141592653589793)
 				{
 					num -= 6.283185307179586;
@@ -55,7 +55,7 @@ namespace Shooting
 
 		public override void Show()
 		{
-			SizeF sizeF = new SizeF((float)TxtureObject.Width * Scale, (float)TxtureObject.Height * Scale);
+			var sizeF = new SizeF((float)TxtureObject.Width * Scale, (float)TxtureObject.Height * Scale);
 			SpriteMain.Draw2D(TxtureObject.TXTure, TxtureObject.PosRect, sizeF, TxtureObject.RotatingCenter, 0f, Position, Color.FromArgb(TransparentValue, color));
 		}
 

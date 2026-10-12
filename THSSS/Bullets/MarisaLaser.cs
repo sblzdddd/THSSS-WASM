@@ -22,8 +22,8 @@ namespace Shooting
 		{
 			base.Ctrl();
 			Velocity = 192f;
-			bool flag = false;
-			for (int i = EnemyPlaneList.Count - 1; i >= 0; i--)
+			var flag = false;
+			for (var i = EnemyPlaneList.Count - 1; i >= 0; i--)
 			{
 				if (HitCheck(EnemyPlaneList[i]))
 				{
@@ -81,19 +81,19 @@ namespace Shooting
 
 		public override bool HitCheck(BaseObject Target)
 		{
-			double distance = GetDistance(Target);
-			double direction = GetDirection(Target);
-			double num = distance * Math.Cos((double)((float)(Direction - direction)));
-			double num2 = distance * Math.Sin((double)((float)(Direction - direction)));
-			double num3 = (double)((float)TxtureObject.Width * ScaleWidth * 0.5f);
-			double num4 = (double)((float)TxtureObject.Height * ScaleLength * 0.5f);
+			var distance = GetDistance(Target);
+			var direction = GetDirection(Target);
+			var num = distance * Math.Cos((double)((float)(Direction - direction)));
+			var num2 = distance * Math.Sin((double)((float)(Direction - direction)));
+			var num3 = (double)((float)TxtureObject.Width * ScaleWidth * 0.5f);
+			var num4 = (double)((float)TxtureObject.Height * ScaleLength * 0.5f);
 			return num2 * num2 / num4 / num4 + (num - 256.0 + 64.0 - (double)((float)TxtureObject.Height * ScaleLength / 2f)) * (num - 256.0 + 64.0 - (double)((float)TxtureObject.Height * ScaleLength / 2f)) / num3 / num3 < 1.0;
 		}
 
 		public override void Show()
 		{
-			int num = TimeMain % 8 * 8;
-			SizeF sizeF = new SizeF((float)(TxtureObject.Width - 64) * ScaleWidth, (float)TxtureObject.Height * ScaleLength);
+			var num = TimeMain % 8 * 8;
+			var sizeF = new SizeF((float)(TxtureObject.Width - 64) * ScaleWidth, (float)TxtureObject.Height * ScaleLength);
 			SpriteMain.Draw2D(TxtureObject.TXTure, new Rectangle(TxtureObject.PosRect.X + 64 - num, TxtureObject.PosRect.Y, TxtureObject.PosRect.Width - 64, TxtureObject.PosRect.Height), sizeF, new PointF((float)((TxtureObject.Width - 64) / 2), (float)(TxtureObject.Height / 2)), (float)(Direction - 1.5707963267948966 + Angle), Position, Color.FromArgb(TransparentValue, ColorValue));
 		}
 

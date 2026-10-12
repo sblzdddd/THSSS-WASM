@@ -18,26 +18,26 @@ namespace Shooting
 
 		public override void Show()
 		{
-			SizeF sizeF = new SizeF(size, size);
-			for (int i = 0; i < 8; i++)
+			var sizeF = new SizeF(size, size);
+			for (var i = 0; i < 8; i++)
 			{
-				TextureObject textureObject = TextureObjectDictionary["Bomb0d"];
-				PointF pointF = new PointF(OriginalPosition.X + (float)i * size, OriginalPosition.Y);
+				var textureObject = TextureObjectDictionary["Bomb0d"];
+				var pointF = new PointF(OriginalPosition.X + (float)i * size, OriginalPosition.Y);
 				SpriteMain.Draw2D(textureObject.TXTure, textureObject.PosRect, sizeF, new PointF(0f, 0f), 0f, pointF, Color.FromArgb(TransparentValue, Color.White));
 			}
-			for (int i = 0; i < Life; i++)
+			for (var i = 0; i < Life; i++)
 			{
-				TextureObject textureObject = TextureObjectDictionary["Bomb"];
-				PointF pointF = new PointF(OriginalPosition.X + (float)i * size, OriginalPosition.Y);
+				var textureObject = TextureObjectDictionary["Bomb"];
+				var pointF = new PointF(OriginalPosition.X + (float)i * size, OriginalPosition.Y);
 				SpriteMain.Draw2D(textureObject.TXTure, textureObject.PosRect, sizeF, new PointF(0f, 0f), 0f, pointF, Color.FromArgb(TransparentValue, Color.White));
 			}
 			if (Life < 8)
 			{
-				int num = MyPlane.SpellChip * 4 / MyPlane.nextSpellChip;
+				var num = MyPlane.SpellChip * 4 / MyPlane.nextSpellChip;
 				if (num > 0)
 				{
-					TextureObject textureObject = TextureObjectDictionary["Bomb" + (num - 1).ToString("D2")];
-					PointF pointF = new PointF(OriginalPosition.X + (float)Life * size, OriginalPosition.Y);
+					var textureObject = TextureObjectDictionary["Bomb" + (num - 1).ToString("D2")];
+					var pointF = new PointF(OriginalPosition.X + (float)Life * size, OriginalPosition.Y);
 					SpriteMain.Draw2D(textureObject.TXTure, textureObject.PosRect, sizeF, new PointF(0f, 0f), 0f, pointF, Color.FromArgb(TransparentValue, Color.White));
 				}
 			}

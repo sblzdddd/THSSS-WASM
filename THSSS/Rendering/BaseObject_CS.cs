@@ -113,7 +113,7 @@ namespace Shooting
 
 		public override void Ctrl()
 		{
-			double num = AccDirection / 180.0 * 3.141592653589793;
+			var num = AccDirection / 180.0 * 3.141592653589793;
 			Ax = AccelerateCS * (float)Math.Cos(num);
 			Ay = AccelerateCS * (float)Math.Sin(num);
 			EventCtrl();
@@ -140,7 +140,7 @@ namespace Shooting
 
 		public override object Clone()
 		{
-			BaseObject_CS b = (BaseObject_CS)base.Clone();
+			var b = (BaseObject_CS)base.Clone();
 			b.EventsExecutionList = new List<Execution>();
 			b.EventGroupList = new List<EventGroup>();
 			EventGroupList.ForEach(delegate(EventGroup x)

@@ -43,7 +43,7 @@ namespace Shooting
 
 		public override void Move()
 		{
-			float num = (float)GetDistance(DestPoint);
+			var num = (float)GetDistance(DestPoint);
 			if (num > 0f)
 			{
 				Velocity = (float)Math.Sqrt((double)num) / 1f;
@@ -61,7 +61,7 @@ namespace Shooting
 			base.Ctrl();
 			if (Selected)
 			{
-				double num = 1.0 + Math.Sin((double)((float)Time / 5f));
+				var num = 1.0 + Math.Sin((double)((float)Time / 5f));
 				if (!Twinkleable)
 				{
 					num = 2.0;
@@ -125,7 +125,7 @@ namespace Shooting
 
 		public override void Show()
 		{
-			SizeF sizeF = new SizeF((float)TxtureObject.Width * Scale, (float)TxtureObject.Height * Scale);
+			var sizeF = new SizeF((float)TxtureObject.Width * Scale, (float)TxtureObject.Height * Scale);
 			SpriteMain.Draw2D(TxtureObject.TXTure, TxtureObject.PosRect, sizeF, new PointF(0f, 0f), (float)Angle, new PointF(Position.X - OffsetX, Position.Y - OffsetY), Color.FromArgb(TransparentValue, ColorValue));
 		}
 	}

@@ -17,13 +17,13 @@ namespace Shooting
 
 		public override void Shoot()
 		{
-			BaseMyBullet_Touhou baseMyBullet_Touhou = new BaseMyBullet_Touhou(StageData, "ReimuAyaBullet01", OriginalPosition, 8f, ShootDirection);
+			var baseMyBullet_Touhou = new BaseMyBullet_Touhou(StageData, "ReimuAyaBullet01", OriginalPosition, 8f, ShootDirection);
 			baseMyBullet_Touhou.TransparentValueF = 150f;
 			baseMyBullet_Touhou.Angle = 1.5707963705062866;
 			baseMyBullet_Touhou.Damage = 6;
 			if (shootFlag++ % 2 == 0)
 			{
-				BaseMyBullet_Touhou baseMyBullet_Touhou2 = new BaseMyBullet_Touhou(StageData, "ReimuAyaBullet01", OriginalPosition, 8f, ShootDirection + (double)((float)Ran.Next(-3, 4) / 20f));
+				var baseMyBullet_Touhou2 = new BaseMyBullet_Touhou(StageData, "ReimuAyaBullet01", OriginalPosition, 8f, ShootDirection + (double)((float)Ran.Next(-3, 4) / 20f));
 				baseMyBullet_Touhou2.TransparentValueF = 150f;
 				baseMyBullet_Touhou2.Angle = 1.5707963705062866;
 				baseMyBullet_Touhou2.Damage = 6;

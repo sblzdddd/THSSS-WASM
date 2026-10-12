@@ -29,7 +29,7 @@ namespace Shooting
 				TransparentValueF += TransparentVelocity;
 				if (Selected)
 				{
-					double num = 1.0 + Math.Sin((double)((float)Time / 6f));
+					var num = 1.0 + Math.Sin((double)((float)Time / 6f));
 					ColorValue = Color.Yellow;
 					TransparentVelocity = 25f;
 				}
@@ -67,11 +67,11 @@ namespace Shooting
 		{
 			text = text.Replace("\t", "    ");
 			text = text.Replace("\r\n", string.Empty);
-			int num = 0;
-			char[] array = text.ToCharArray();
-			for (int i = 0; i < array.Length; i++)
+			var num = 0;
+			var array = text.ToCharArray();
+			for (var i = 0; i < array.Length; i++)
 			{
-				PointF pointF = new PointF(Pos.X + 5f + (float)num, Pos.Y + 9f);
+				var pointF = new PointF(Pos.X + 5f + (float)num, Pos.Y + 9f);
 				if (TextureObjectDictionary.ContainsKey(array[i].ToString()))
 				{
 					SpriteMain.Draw2D(TextureObjectDictionary[array[i].ToString()], 1f, 0f, pointF, Color.FromArgb(TransparentValue, ColorValue));

@@ -130,7 +130,7 @@ namespace Shooting
 		{
 			get
 			{
-				float num = 60f * (float)RealTimeTotal / (float)Stopwatch.Frequency;
+				var num = 60f * (float)RealTimeTotal / (float)Stopwatch.Frequency;
 				num = (num - (float)TimeTotal) * 100f / num;
 				return ((num < 0f) ? 0f : num).ToString("F1") + "%";
 			}
@@ -175,8 +175,8 @@ namespace Shooting
 				{
 					num = 10;
 				}
-				int num2 = Ran.Next(num) - num / 2;
-				int num3 = Ran.Next(num) - num / 2;
+				var num2 = Ran.Next(num) - num / 2;
+				var num3 = Ran.Next(num) - num / 2;
 				BoundRect = new Rectangle(VibrateRectSave.X + num2, VibrateRectSave.Y + num3, VibrateRectSave.Width, VibrateRectSave.Height);
 			}
 			else if (VibrateTime == TimeMain)
@@ -205,12 +205,12 @@ namespace Shooting
 
 		public void RemoveBullets()
 		{
-			foreach (BaseBullet_Touhou baseBullet_Touhou in BulletList)
+			foreach (var baseBullet_Touhou in BulletList)
 			{
 				baseBullet_Touhou.GiveEndEffect();
 			}
 			BulletList.Clear();
-			foreach (BaseEnemyPlane baseEnemyPlane in EnemyPlaneList)
+			foreach (var baseEnemyPlane in EnemyPlaneList)
 			{
 				baseEnemyPlane.GiveEndEffect();
 				if (baseEnemyPlane.TxtureObject != null)
@@ -219,9 +219,9 @@ namespace Shooting
 				}
 			}
 			EnemyPlaneList.Clear();
-			foreach (BaseObject baseObject in MyBulletList)
+			foreach (var baseObject in MyBulletList)
 			{
-				ParticleSmaller particleSmaller = new ParticleSmaller(this, "光点", baseObject.Position, baseObject.Velocity, baseObject.Direction);
+				var particleSmaller = new ParticleSmaller(this, "光点", baseObject.Position, baseObject.Velocity, baseObject.Direction);
 				particleSmaller.LifeTime = 30;
 				particleSmaller.Scale = 0.5f;
 			}
@@ -254,7 +254,7 @@ namespace Shooting
 
 		public void ChangeBGM(string MusicName, int PlayBegin, int PlayLength, int LoopCount, int LoopBegin, int LoopEnd)
 		{
-			int bgmvolume = GlobalData.BGMVolume;
+			var bgmvolume = GlobalData.BGMVolume;
 			BGM_Player.FileName = MusicName;
 			BGM_Player.Volume = bgmvolume;
 			BGM_Player.PlayRepeat(PlayBegin, PlayLength, LoopCount, LoopBegin, LoopEnd);
@@ -328,16 +328,16 @@ namespace Shooting
 
 		public void PreLoadCS(string Path)
 		{
-			string[] files = Directory.GetFiles(Path, "*.mbg");
-			foreach (string text in files)
+			var files = Directory.GetFiles(Path, "*.mbg");
+			foreach (var text in files)
 			{
-				FileInfo fileInfo = new FileInfo(text);
-				CS_Data cs_Data = new CS_Data(text);
+				var fileInfo = new FileInfo(text);
+				var cs_Data = new CS_Data(text);
 				cs_Data.String2Data(this);
 				CS_Cathe.Add(text, cs_Data);
 			}
-			string[] directories = Directory.GetDirectories(Path);
-			foreach (string text in directories)
+			var directories = Directory.GetDirectories(Path);
+			foreach (var text in directories)
 			{
 				PreLoadCS(text);
 			}
@@ -357,7 +357,7 @@ namespace Shooting
 			}
 			else
 			{
-				CS_Data cs_Data2 = new CS_Data(FileName);
+				var cs_Data2 = new CS_Data(FileName);
 				cs_Data2.String2Data(this);
 				cs_Data = cs_Data2;
 			}

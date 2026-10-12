@@ -19,7 +19,7 @@ namespace Shooting
 			: this(StageData, null, OriginalPosition, Velocity, Direction, Length)
 		{
 			this.ColorType = ColorType;
-			ParticleBeginBullet particleBeginBullet = new ParticleBeginBullet(StageData, Position, ColorType);
+			var particleBeginBullet = new ParticleBeginBullet(StageData, Position, ColorType);
 			particleBeginBullet.Scale = 0.5f;
 			particleBeginBullet.Active = true;
 			PL = new Particle3D_BendLaser(StageData, GhostingCount, Width, (int)ColorType)
@@ -119,10 +119,10 @@ namespace Shooting
 
 		public override bool HitCheck(BaseObject Target, float Radius)
 		{
-			for (int i = 3; i < LastPoints.Length - 3; i++)
+			for (var i = 3; i < LastPoints.Length - 3; i++)
 			{
-				PointF pointF = LastPoints[i];
-				double num = Math.Sqrt((double)((pointF.X - Target.OriginalPosition.X) * (pointF.X - Target.OriginalPosition.X) + (pointF.Y - Target.OriginalPosition.Y) * (pointF.Y - Target.OriginalPosition.Y)));
+				var pointF = LastPoints[i];
+				var num = Math.Sqrt((double)((pointF.X - Target.OriginalPosition.X) * (pointF.X - Target.OriginalPosition.X) + (pointF.Y - Target.OriginalPosition.Y) * (pointF.Y - Target.OriginalPosition.Y)));
 				if (num - (double)Target.Region < (double)Radius)
 				{
 					return true;
@@ -133,7 +133,7 @@ namespace Shooting
 
 		public override void GiveEndEffect()
 		{
-			for (int i = 0; i < LastPoints.Length; i += 8)
+			for (var i = 0; i < LastPoints.Length; i += 8)
 			{
 				new ParticleEndBullet(StageData, LastPoints[i], ColorType, SizeValue);
 			}
@@ -142,16 +142,16 @@ namespace Shooting
 
 		public override void GiveItems()
 		{
-			int num = 5;
-			int num2 = Region / num;
-			for (int i = 0; i < LastPoints.Length; i += 8)
+			var num = 5;
+			var num2 = Region / num;
+			for (var i = 0; i < LastPoints.Length; i += 8)
 			{
-				for (int j = 0; j <= num2; j++)
+				for (var j = 0; j <= num2; j++)
 				{
-					double num3 = Direction;
-					for (int k = 0; k < j * 5 + 1; k++)
+					var num3 = Direction;
+					for (var k = 0; k < j * 5 + 1; k++)
 					{
-						PointF pointF = new PointF((float)((double)LastPoints[i].X + (double)j * Math.Cos(num3)), (float)((double)LastPoints[i].Y + (double)j * Math.Sin(num3)));
+						var pointF = new PointF((float)((double)LastPoints[i].X + (double)j * Math.Cos(num3)), (float)((double)LastPoints[i].Y + (double)j * Math.Sin(num3)));
 						new StarItem_Touhou(StageData, pointF);
 						num3 += 6.283185307179586 / (double)(j * 6);
 					}
@@ -165,8 +165,8 @@ namespace Shooting
 
 		public override void ShowRegion()
 		{
-			PointF originalPosition = OriginalPosition;
-			for (int i = 3; i < LastPoints.Length - 3; i++)
+			var originalPosition = OriginalPosition;
+			for (var i = 3; i < LastPoints.Length - 3; i++)
 			{
 				OriginalPosition = LastPoints[i];
 				base.ShowRegion();

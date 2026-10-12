@@ -80,7 +80,7 @@ namespace Shooting
 		{
 			this.OriginalPosition = OriginalPosition;
 			Direction = (double)((float)Ran.Next(360) / 180f) * 3.141592653589793;
-			TextureObject first = TextureObjectDictionary["EndBullet00"];
+			var first = TextureObjectDictionary["EndBullet00"];
 			if (sharedFrames == null || sharedFrames[0] != first)
 			{
 				sharedFrames = new TextureObject[]

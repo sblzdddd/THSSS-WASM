@@ -112,7 +112,7 @@ namespace Shooting
 			}
 			if (TimeMain > 8200 && TimeMain < 8250)
 			{
-				BaseParticle3D baseParticle3D = new BaseParticle3D(StageData, "云（亮层）", new PointF((float)(BoundRect.Width / 2 + Ran.Next(-20, 20)), (float)(240 + Ran.Next(-20, 20))), 0f, 0.0)
+				var baseParticle3D = new BaseParticle3D(StageData, "云（亮层）", new PointF((float)(BoundRect.Width / 2 + Ran.Next(-20, 20)), (float)(240 + Ran.Next(-20, 20))), 0f, 0.0)
 				{
 					TransparentValueF = 0f,
 					TransparentVelocity = 0.2f,
@@ -128,7 +128,7 @@ namespace Shooting
 			if (TimeMain == 8601)
 			{
 				Background3D.BackgroundList.Clear();
-				Background3DObject background3DObject = new Background3DObject(StageData, "祭坛", new PointF(0f, 0f), false);
+				var background3DObject = new Background3DObject(StageData, "祭坛", new PointF(0f, 0f), false);
 				background3DObject.Scale = 10f;
 				Velocity = 0f;
 				CameraPosition = new Vector3(0f, -480f, 480f);

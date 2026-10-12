@@ -6,7 +6,7 @@ namespace SlimDX.Direct3D9
 
 		public Direct3D()
 		{
-			DisplayMode displayMode = default(DisplayMode);
+			var displayMode = default(DisplayMode);
 			displayMode.Width = 640;
 			displayMode.Height = 480;
 			displayMode.Format = Format.X8R8G8B8;

@@ -97,9 +97,9 @@ namespace Shooting
 		{
 			if (loadSuccess)
 			{
-				float num = VoicePos * 0.4f + 0.3f;
-				int inputChannels = sourceVoice.VoiceDetails.InputChannels;
-				float[] array = new float[]
+				var num = VoicePos * 0.4f + 0.3f;
+				var inputChannels = sourceVoice.VoiceDetails.InputChannels;
+				var array = new float[]
 				{
 					1f - num,
 					num
@@ -121,7 +121,7 @@ namespace Shooting
 
 		public void Play(int Volume)
 		{
-			int volume = this.Volume;
+			var volume = this.Volume;
 			this.Volume = Volume;
 			Play();
 			this.Volume = volume;

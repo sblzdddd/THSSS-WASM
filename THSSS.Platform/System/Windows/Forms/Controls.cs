@@ -49,7 +49,7 @@ namespace System.Windows.Forms
 
 		public override bool Equals(object obj)
 		{
-			Keys keys = obj as Keys;
+			var keys = obj as Keys;
 			return keys != null && keys.name == this.name;
 		}
 

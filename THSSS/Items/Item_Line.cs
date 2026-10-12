@@ -44,22 +44,22 @@ namespace Shooting
 
 		public virtual void DrawText(Point Pos, float Scale, Color color)
 		{
-			int num = 0;
-			char[] array = Text.ToCharArray();
-			for (int i = 0; i < array.Length; i++)
+			var num = 0;
+			var array = Text.ToCharArray();
+			for (var i = 0; i < array.Length; i++)
 			{
 				if (array[i] == '.' || array[i] == ',')
 				{
 					num += (int)(8f * Scale);
 				}
 			}
-			for (int i = 0; i < array.Length; i++)
+			for (var i = 0; i < array.Length; i++)
 			{
 				if (array[i] == '.' || array[i] == ',')
 				{
 					num -= (int)(5f * Scale);
 				}
-				PointF pointF = new PointF((float)(Pos.X + 5 + num), (float)(Pos.Y + 6));
+				var pointF = new PointF((float)(Pos.X + 5 + num), (float)(Pos.Y + 6));
 				if (array[i].ToString() != " ")
 				{
 					SpriteMain.Draw2D(TextureObjectDictionary[FontType + array[i].ToString()], Scale, 0f, pointF, Color.FromArgb(TransparentValue, color));
@@ -76,15 +76,15 @@ namespace Shooting
 		{
 			if (MaxValue != 0)
 			{
-				int num = TxtureObject.Width * Value / MaxValue;
+				var num = TxtureObject.Width * Value / MaxValue;
 				if (num > 0)
 				{
-					Size size = new Size(num, TxtureObject.Height);
-					Rectangle rectangle = new Rectangle(new Point(0, 0), size);
+					var size = new Size(num, TxtureObject.Height);
+					var rectangle = new Rectangle(new Point(0, 0), size);
 					SpriteMain.Draw2D(TxtureObject.TXTure, TxtureObject.PosRect, size, TxtureObject.LeftTop, 0f, OriginalPosition, Color.FromArgb(TransparentValue * 7 / 10, ColorValue));
 				}
 			}
-			Point point = new Point((int)OriginalPosition.X, (int)OriginalPosition.Y + 3);
+			var point = new Point((int)OriginalPosition.X, (int)OriginalPosition.Y + 3);
 			DrawText(point, 1f, ColorValue);
 		}
 

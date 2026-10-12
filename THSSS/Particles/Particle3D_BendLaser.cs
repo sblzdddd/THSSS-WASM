@@ -28,9 +28,9 @@ namespace Shooting
 		private void SetupVertex()
 		{
 			Length = GhostingCount;
-			for (int i = GhostingCount - 1; i > 0; i--)
+			for (var i = GhostingCount - 1; i > 0; i--)
 			{
-				double num = Math.Sqrt((double)((LastPoints[i].X - LastPoints[i - 1].X) * (LastPoints[i].X - LastPoints[i - 1].X) + (LastPoints[i].Y - LastPoints[i - 1].Y) * (LastPoints[i].Y - LastPoints[i - 1].Y)));
+				var num = Math.Sqrt((double)((LastPoints[i].X - LastPoints[i - 1].X) * (LastPoints[i].X - LastPoints[i - 1].X) + (LastPoints[i].Y - LastPoints[i - 1].Y) * (LastPoints[i].Y - LastPoints[i - 1].Y)));
 				if (num >= 1.0)
 				{
 					break;
@@ -41,11 +41,11 @@ namespace Shooting
 			{
 				Length = 2;
 			}
-			TexturedVertex[] array = new TexturedVertex[2 * Length];
-			double num2 = Math.Atan2((double)(LastPoints[0].Y - LastPoints[1].Y), (double)(LastPoints[0].X - LastPoints[1].X));
+			var array = new TexturedVertex[2 * Length];
+			var num2 = Math.Atan2((double)(LastPoints[0].Y - LastPoints[1].Y), (double)(LastPoints[0].X - LastPoints[1].X));
 			array[0] = new TexturedVertex(new Vector3(LastPoints[0].X - (float)(Width / 2) * (float)Math.Sin(num2), LastPoints[0].Y + (float)(Width / 2) * (float)Math.Cos(num2), 0f), new Vector2(0f, (float)ColorType / 16f));
 			array[1] = new TexturedVertex(new Vector3(LastPoints[0].X + (float)(Width / 2) * (float)Math.Sin(num2), LastPoints[0].Y - (float)(Width / 2) * (float)Math.Cos(num2), 0f), new Vector2(0f, (float)(ColorType + 1) / 16f));
-			for (int i = 1; i < Length; i++)
+			for (var i = 1; i < Length; i++)
 			{
 				array[2 * i] = new TexturedVertex(new Vector3(LastPoints[i].X - (float)(Width / 2) * (float)Math.Sin(num2), LastPoints[i].Y + (float)(Width / 2) * (float)Math.Cos(num2), 0f), new Vector2((float)i / ((float)Length - 1f), (float)ColorType / 16f));
 				array[2 * i + 1] = new TexturedVertex(new Vector3(LastPoints[i].X + (float)(Width / 2) * (float)Math.Sin(num2), LastPoints[i].Y - (float)(Width / 2) * (float)Math.Cos(num2), 0f), new Vector2((float)i / ((float)Length - 1f), (float)(ColorType + 1) / 16f));
@@ -54,7 +54,7 @@ namespace Shooting
 					num2 = Math.Atan2((double)(LastPoints[i - 1].Y - LastPoints[i].Y), (double)(LastPoints[i - 1].X - LastPoints[i].X));
 				}
 			}
-			DataStream dataStream = vertexBuffer.Lock(0, 0, LockFlags.Discard);
+			var dataStream = vertexBuffer.Lock(0, 0, LockFlags.Discard);
 			dataStream.WriteRange<TexturedVertex>(array);
 			vertexBuffer.Unlock();
 		}
@@ -66,7 +66,7 @@ namespace Shooting
 
 		public override void SetupMatrices()
 		{
-			Matrix matrix = Matrix.Identity;
+			var matrix = Matrix.Identity;
 			matrix *= Matrix.Translation((float)(-(float)StageData.BoundRect.Width / 2), (float)(-(float)StageData.BoundRect.Height / 2), 0f);
 			DeviceMain.SetTransform(TransformState.World, matrix);
 		}

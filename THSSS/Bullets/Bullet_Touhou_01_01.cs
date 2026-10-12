@@ -40,7 +40,7 @@ namespace Shooting
 			}
 			else
 			{
-				int num = 5;
+				var num = 5;
 				if (OriginalPosition.X < (float)num || OriginalPosition.X >= (float)(BoundRect.Width - num))
 				{
 					Reflect -= 1;

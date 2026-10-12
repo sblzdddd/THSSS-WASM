@@ -31,7 +31,7 @@ namespace Shooting
 
 		private bool ContainName(string[] EnemyType, string EnemyName)
 		{
-			foreach (string text in EnemyType)
+			foreach (var text in EnemyType)
 			{
 				if (text == EnemyName)
 				{
@@ -48,7 +48,7 @@ namespace Shooting
 			{
 			case 0:
 			{
-				string text = EnemyName;
+				var text = EnemyName;
 				text = text.Replace("EnemyA", "");
 				text = text.Replace("EnemyB", "");
 				text = text.Replace("EnemyC", "");

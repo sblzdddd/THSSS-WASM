@@ -60,22 +60,22 @@ namespace Shooting
 
 		public void DrawText(string Text, Point Pos, float Scale)
 		{
-			int num = 0;
-			char[] array = Text.ToCharArray();
-			for (int i = 0; i < array.Length; i++)
+			var num = 0;
+			var array = Text.ToCharArray();
+			for (var i = 0; i < array.Length; i++)
 			{
 				if (array[i] == '.' || array[i] == ',')
 				{
 					num += (int)(8f * Scale);
 				}
 			}
-			for (int i = 0; i < array.Length; i++)
+			for (var i = 0; i < array.Length; i++)
 			{
 				if (array[i] == '.' || array[i] == ',')
 				{
 					num -= (int)(5f * Scale);
 				}
-				PointF pointF = new PointF((float)(Pos.X + 5 + num), (float)(Pos.Y + 9));
+				var pointF = new PointF((float)(Pos.X + 5 + num), (float)(Pos.Y + 9));
 				SpriteMain.Draw2D(TextureObjectDictionary[array[i].ToString() ?? ""], Scale, 0f, pointF, Color.FromArgb(TransparentValue, Color.White));
 				num += (int)(14f * Scale);
 				if (array[i] == '.' || array[i] == ',')
@@ -87,7 +87,7 @@ namespace Shooting
 
 		public override void Show()
 		{
-			TextureObject textureObject = StageData.TextureObjectDictionary["tiaotiao2"];
+			var textureObject = StageData.TextureObjectDictionary["tiaotiao2"];
 			SpriteMain.Draw2D(textureObject.TXTure, textureObject.PosRect, new SizeF((float)textureObject.Width * Scale, (float)textureObject.Height * Scale), textureObject.RightTop, 0f, new PointF(Position.X, Position.Y - 16f), Color.FromArgb(TransparentValue, Color.White));
 			base.Show();
 			if (StageData.SCBstring != null)

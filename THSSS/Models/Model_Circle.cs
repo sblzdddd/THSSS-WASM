@@ -22,19 +22,19 @@ namespace Shooting
 
 		public override void SetupVertex()
 		{
-			float num = (float)TxtureObject.PosRect.X / (float)TxtureObject.SrcWidth;
-			float num2 = (float)(TxtureObject.PosRect.X + TxtureObject.Width) / (float)TxtureObject.SrcWidth;
-			TexturedVertex[] array = new TexturedVertex[2 * (Length + 1)];
-			for (int i = 0; i <= Length; i++)
+			var num = (float)TxtureObject.PosRect.X / (float)TxtureObject.SrcWidth;
+			var num2 = (float)(TxtureObject.PosRect.X + TxtureObject.Width) / (float)TxtureObject.SrcWidth;
+			var array = new TexturedVertex[2 * (Length + 1)];
+			for (var i = 0; i <= Length; i++)
 			{
-				double num3 = (double)(i * 2) * 3.141592653589793 / (double)Length;
-				int num4 = Radius - Width / 2;
-				float num5 = (float)(i % (Length / 3)) / (float)(Length / 3);
+				var num3 = (double)(i * 2) * 3.141592653589793 / (double)Length;
+				var num4 = Radius - Width / 2;
+				var num5 = (float)(i % (Length / 3)) / (float)(Length / 3);
 				array[2 * i] = new TexturedVertex(new Vector3((float)num4 * (float)Math.Cos(num3), (float)num4 * (float)Math.Sin(num3), 0f), new Vector2(num, num5));
 				num4 = Radius + Width / 2;
 				array[2 * i + 1] = new TexturedVertex(new Vector3((float)num4 * (float)Math.Cos(num3), (float)num4 * (float)Math.Sin(num3), 0f), new Vector2(num2, num5));
 			}
-			DataStream dataStream = vertexBuffer.Lock(0, 0, LockFlags.Discard);
+			var dataStream = vertexBuffer.Lock(0, 0, LockFlags.Discard);
 			dataStream.WriteRange<TexturedVertex>(array);
 			vertexBuffer.Unlock();
 		}

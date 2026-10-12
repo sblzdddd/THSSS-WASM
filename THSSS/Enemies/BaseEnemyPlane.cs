@@ -34,7 +34,7 @@ namespace Shooting
 
 		public override void HitCheckAll()
 		{
-			for (int i = MyBulletList.Count - 1; i >= 0; i--)
+			for (var i = MyBulletList.Count - 1; i >= 0; i--)
 			{
 				if (HitCheck(MyBulletList[i]))
 				{

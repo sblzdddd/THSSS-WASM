@@ -15,11 +15,11 @@ namespace Shooting
 
 		public override void Shoot()
 		{
-			int i = 0;
+			var i = 0;
 			while (i < 1)
 			{
-				string text = ((MyPlane.Name == "Aya") ? "MyParticle" : "MyParticle01");
-				string name = MyPlane.Name;
+				var text = ((MyPlane.Name == "Aya") ? "MyParticle" : "MyParticle01");
+				var name = MyPlane.Name;
 				if (name == null)
 				{
 					goto IL_00A7;
@@ -59,7 +59,7 @@ namespace Shooting
 					text2 = "MyParticle";
 				}
 				IL_00AF:
-				ParticleSmaller particleSmaller = new ParticleSmaller(StageData, text2, Position, (float)(Ran.Next(100, 300) / 10), (double)((float)Ran.Next(0, 180) / 180f) * 3.141592653589793);
+				var particleSmaller = new ParticleSmaller(StageData, text2, Position, (float)(Ran.Next(100, 300) / 10), (double)((float)Ran.Next(0, 180) / 180f) * 3.141592653589793);
 				particleSmaller.LifeTime = 10;
 				particleSmaller.Scale = (float)Ran.Next(60) / 100f;
 				particleSmaller.TransparentValueF = 200f;

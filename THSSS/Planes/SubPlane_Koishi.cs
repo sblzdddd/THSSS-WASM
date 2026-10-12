@@ -29,14 +29,14 @@ namespace Shooting
 		{
 			if (KClass.Key_Shift)
 			{
-				int num = 5;
-				double num2 = 24.0;
-				double num3 = num2 * 3.141592653589793 / 180.0 / (double)(num - 1);
-				double num4 = ShootDirection - (double)(num - 1) * num3 / 2.0;
-				double num5 = num4;
-				for (int i = 0; i < num; i++)
+				var num = 5;
+				var num2 = 24.0;
+				var num3 = num2 * 3.141592653589793 / 180.0 / (double)(num - 1);
+				var num4 = ShootDirection - (double)(num - 1) * num3 / 2.0;
+				var num5 = num4;
+				for (var i = 0; i < num; i++)
 				{
-					BaseMyBullet_Touhou baseMyBullet_Touhou = new BaseMyBullet_Touhou(StageData, "KoishiSubBullet00", OriginalPosition, 15f, num5);
+					var baseMyBullet_Touhou = new BaseMyBullet_Touhou(StageData, "KoishiSubBullet00", OriginalPosition, 15f, num5);
 					baseMyBullet_Touhou.Angle = 1.5707963705062866;
 					baseMyBullet_Touhou.Damage = 6;
 					num5 += num3;
@@ -44,14 +44,14 @@ namespace Shooting
 			}
 			else
 			{
-				int num = 15;
-				double num2 = 120.0;
-				double num3 = num2 * 3.141592653589793 / 180.0 / (double)(num - 1);
-				double num4 = ShootDirection - (double)(num - 1) * num3 / 2.0;
-				double num5 = num4;
-				for (int i = 0; i < num; i++)
+				var num = 15;
+				var num2 = 120.0;
+				var num3 = num2 * 3.141592653589793 / 180.0 / (double)(num - 1);
+				var num4 = ShootDirection - (double)(num - 1) * num3 / 2.0;
+				var num5 = num4;
+				for (var i = 0; i < num; i++)
 				{
-					BaseMyBullet_Touhou baseMyBullet_Touhou2 = new BaseMyBullet_Touhou(StageData, "KoishiSubBullet01", OriginalPosition, 8f, num5);
+					var baseMyBullet_Touhou2 = new BaseMyBullet_Touhou(StageData, "KoishiSubBullet01", OriginalPosition, 8f, num5);
 					baseMyBullet_Touhou2.Angle = 1.5707963705062866;
 					baseMyBullet_Touhou2.Damage = 15;
 					num5 += num3;
@@ -65,8 +65,8 @@ namespace Shooting
 			{
 				if (MyPlane.Power >= 400)
 				{
-					float scale = Scale;
-					float transparentValueF = TransparentValueF;
+					var scale = Scale;
+					var transparentValueF = TransparentValueF;
 					Scale = 1.3f;
 					TransparentValueF = 150f;
 					base.Show();

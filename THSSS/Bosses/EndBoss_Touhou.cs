@@ -37,9 +37,9 @@ namespace Shooting
 			if (Time == 1)
 			{
 				StageData.SoundPlay("se_enep01.wav", OriginalPosition.X / (float)BoundRect.Width);
-				for (int i = 0; i < 20; i++)
+				for (var i = 0; i < 20; i++)
 				{
-					Particle3D2 particle3D = new Particle3D2(StageData, "Effect-1", OriginalPosition, (float)Ran.Next(10, 80) / 10f, (double)((float)Ran.Next(360) / 180f * 3.1415927f), 30 + StageData.Ran.Next(50));
+					var particle3D = new Particle3D2(StageData, "Effect-1", OriginalPosition, (float)Ran.Next(10, 80) / 10f, (double)((float)Ran.Next(360) / 180f * 3.1415927f), 30 + StageData.Ran.Next(50));
 					particle3D.Direction3D = (double)((float)StageData.Ran.Next(0, 30) * 3.1415927f / 180f);
 					particle3D.Angle = (double)((float)StageData.Ran.Next(0, 360) * 3.1415927f / 180f);
 					particle3D.AngularVelocity3D = (float)StageData.Ran.Next(10, 18) / 100f;
@@ -52,9 +52,9 @@ namespace Shooting
 			else if (Time == 100)
 			{
 				StageData.SoundPlay("se_enep01.wav", OriginalPosition.X / (float)BoundRect.Width);
-				for (int i = 0; i < 80; i++)
+				for (var i = 0; i < 80; i++)
 				{
-					Particle3D2 particle3D2 = new Particle3D2(StageData, "Effect-1", OriginalPosition, (float)Ran.Next(10, 140) / 10f, (double)((float)Ran.Next(360) / 180f * 3.1415927f), 30 + StageData.Ran.Next(50));
+					var particle3D2 = new Particle3D2(StageData, "Effect-1", OriginalPosition, (float)Ran.Next(10, 140) / 10f, (double)((float)Ran.Next(360) / 180f * 3.1415927f), 30 + StageData.Ran.Next(50));
 					particle3D2.Direction3D = (double)((float)StageData.Ran.Next(0, 30) * 3.1415927f / 180f);
 					particle3D2.Angle = (double)((float)StageData.Ran.Next(0, 360) * 3.1415927f / 180f);
 					particle3D2.AngularVelocity3D = (float)StageData.Ran.Next(10, 18) / 100f;

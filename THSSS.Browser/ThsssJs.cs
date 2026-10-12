@@ -7,7 +7,7 @@ namespace Thsss.Browser
 	{
 		public static void SetStatus(string text)
 		{
-			byte* value = WasmText.Alloc(text);
+			var value = WasmText.Alloc(text);
 			try
 			{
 				thsss_set_status(value);
@@ -45,8 +45,8 @@ namespace Thsss.Browser
 
 		public static void WriteSave(string path, string data)
 		{
-			byte* pathBytes = WasmText.Alloc(path);
-			byte* dataBytes = WasmText.Alloc(data);
+			var pathBytes = WasmText.Alloc(path);
+			var dataBytes = WasmText.Alloc(data);
 			try
 			{
 				thsss_write_save(pathBytes, dataBytes);
@@ -65,14 +65,14 @@ namespace Thsss.Browser
 
 		public static int CreateTexture(int width, int height, byte[] pixels)
 		{
-			int id = 0;
+			var id = 0;
 			WithBytes(pixels, (data, length) => id = thsss_create_texture(width, height, data, length));
 			return id;
 		}
 
 		public static int BeginImage(byte[] bytes)
 		{
-			int id = 0;
+			var id = 0;
 			WithBytes(bytes, (data, length) => id = thsss_begin_image(data, length));
 			return id;
 		}
@@ -154,14 +154,14 @@ namespace Thsss.Browser
 
 		public static byte[] RasterText(string text, int width, int height, float sizePx, bool bold, bool italic)
 		{
-			byte[] pixels = Array.Empty<byte>();
+			var pixels = Array.Empty<byte>();
 			WithUtf8(text, (value) => pixels = WasmText.CopyBytes(&thsss_copy_bytes, thsss_raster_text_len(value, width, height, sizePx, bold ? 1 : 0, italic ? 1 : 0)));
 			return pixels;
 		}
 
 		public static byte[] RasterTextBox(string text, int width, int height, float sizePx, bool bold, bool italic, int argb, string family)
 		{
-			byte[] pixels = Array.Empty<byte>();
+			var pixels = Array.Empty<byte>();
 			WithUtf8(text, (value) => WithUtf8(family, (face) => pixels = WasmText.CopyBytes(&thsss_copy_bytes, thsss_raster_text_box_len(value, width, height, sizePx, bold ? 1 : 0, italic ? 1 : 0, argb, face))));
 			return pixels;
 		}
@@ -173,7 +173,7 @@ namespace Thsss.Browser
 
 		public static int AudioPrepare(string path)
 		{
-			int id = 0;
+			var id = 0;
 			WithUtf8(path, (value) => id = thsss_audio_prepare(value));
 			return id;
 		}
@@ -234,7 +234,7 @@ namespace Thsss.Browser
 
 		private static void WithUtf8(string text, Utf8Action action)
 		{
-			byte* value = WasmText.Alloc(text);
+			var value = WasmText.Alloc(text);
 			try
 			{
 				action(value);

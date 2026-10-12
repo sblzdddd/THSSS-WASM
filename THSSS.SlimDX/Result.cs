@@ -55,7 +55,7 @@ namespace SlimDX
 
 		public override bool Equals(object obj)
 		{
-			Result result = obj as Result;
+			var result = obj as Result;
 			return result != null && result.Code == this.Code;
 		}
 

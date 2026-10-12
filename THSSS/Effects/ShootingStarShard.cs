@@ -51,10 +51,10 @@ namespace Shooting
 					MyPlane.SpellChip++;
 				}
 				StageData.SoundPlay("se_item00.wav", OriginalPosition.X / (float)BoundRect.Width);
-				for (int i = 0; i < 50; i++)
+				for (var i = 0; i < 50; i++)
 				{
-					string text = "光点";
-					ParticleSmaller particleSmaller = new ParticleSmaller(StageData, text, Position, (float)(Ran.Next(20, 200) / 10), (double)((float)Ran.Next(360) / 180f) * 3.141592653589793);
+					var text = "光点";
+					var particleSmaller = new ParticleSmaller(StageData, text, Position, (float)(Ran.Next(20, 200) / 10), (double)((float)Ran.Next(360) / 180f) * 3.141592653589793);
 					particleSmaller.LifeTime = 20;
 					particleSmaller.Scale = (float)Ran.Next(100) / 100f;
 					particleSmaller.TransparentValueF = 200f;
@@ -84,7 +84,7 @@ namespace Shooting
 			}
 			if (Time % 4 == 0)
 			{
-				BaseEffect baseEffect = new BaseEffect(StageData, "StarShardW", Position, 0f, 0.0);
+				var baseEffect = new BaseEffect(StageData, "StarShardW", Position, 0f, 0.0);
 				baseEffect.Angle = Angle;
 				baseEffect.ScaleVelocity = -0.0125f;
 				baseEffect.TransparentVelocity = -3f;
@@ -95,7 +95,7 @@ namespace Shooting
 
 		public override void Show()
 		{
-			Color colorValue = ColorValue;
+			var colorValue = ColorValue;
 			ColorValue = Color.White;
 			base.Show();
 			ColorValue = colorValue;

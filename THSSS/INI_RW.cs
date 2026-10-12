@@ -50,17 +50,17 @@ namespace Shooting
 #if BROWSER
 		private static void WriteManaged(string path, string section, string key, string value)
 		{
-			System.Collections.Generic.List<string> list = new System.Collections.Generic.List<string>();
+			var list = new System.Collections.Generic.List<string>();
 			if (File.Exists(path))
 			{
 				list.AddRange(File.ReadAllLines(path));
 			}
-			string text = "[" + section + "]";
-			int num = -1;
-			int num2 = -1;
-			for (int i = 0; i < list.Count; i++)
+			var text = "[" + section + "]";
+			var num = -1;
+			var num2 = -1;
+			for (var i = 0; i < list.Count; i++)
 			{
-				string text2 = list[i].Trim();
+				var text2 = list[i].Trim();
 				if (text2.StartsWith("[") && text2.EndsWith("]"))
 				{
 					if (num >= 0 && num2 < 0)
@@ -75,7 +75,7 @@ namespace Shooting
 					break;
 				}
 			}
-			string text3 = key + "=" + value;
+			var text3 = key + "=" + value;
 			if (num2 >= 0)
 			{
 				list[num2] = text3;
@@ -93,7 +93,7 @@ namespace Shooting
 				list.Add(text);
 				list.Add(text3);
 			}
-			string text4 = Path.GetDirectoryName(path);
+			var text4 = Path.GetDirectoryName(path);
 			if (!string.IsNullOrEmpty(text4))
 			{
 				Directory.CreateDirectory(text4);
@@ -107,19 +107,19 @@ namespace Shooting
 			{
 				return "";
 			}
-			string[] array = File.ReadAllLines(path);
-			string text = "[" + section + "]";
-			bool flag = false;
-			for (int i = 0; i < array.Length; i++)
+			var array = File.ReadAllLines(path);
+			var text = "[" + section + "]";
+			var flag = false;
+			for (var i = 0; i < array.Length; i++)
 			{
-				string text2 = array[i].Trim();
+				var text2 = array[i].Trim();
 				if (text2.StartsWith("[") && text2.EndsWith("]"))
 				{
 					flag = string.Equals(text2, text, StringComparison.OrdinalIgnoreCase);
 				}
 				else if (flag)
 				{
-					int num = text2.IndexOf('=');
+					var num = text2.IndexOf('=');
 					if (num > 0 && string.Equals(text2.Substring(0, num).Trim(), key, StringComparison.OrdinalIgnoreCase))
 					{
 						return text2.Substring(num + 1).Trim();

@@ -43,10 +43,10 @@ namespace SlimDX
 
 		public int ToArgb()
 		{
-			int num = (int)(this.Alpha * 255f) & 255;
-			int num2 = (int)(this.Red * 255f) & 255;
-			int num3 = (int)(this.Green * 255f) & 255;
-			int num4 = (int)(this.Blue * 255f) & 255;
+			var num = (int)(this.Alpha * 255f) & 255;
+			var num2 = (int)(this.Red * 255f) & 255;
+			var num3 = (int)(this.Green * 255f) & 255;
+			var num4 = (int)(this.Blue * 255f) & 255;
 			return num << 24 | num2 << 16 | num3 << 8 | num4;
 		}
 	}

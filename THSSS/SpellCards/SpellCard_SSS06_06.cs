@@ -60,7 +60,7 @@ namespace Shooting
 					text = ".\\CS\\St06\\关底Boss\\6符P1L.mbg";
 					break;
 				}
-				CS_Data cs_Data = StageData.LoadCS(text);
+				var cs_Data = StageData.LoadCS(text);
 				new CSEmitterController(StageData, cs_Data);
 			}
 			if ((Boss.HealthPoint < (float)(Boss.MaxHP * 3) / 4f || Time > 1800) && flag == 1)
@@ -86,7 +86,7 @@ namespace Shooting
 					text = ".\\CS\\St06\\关底Boss\\6符P2L.mbg";
 					break;
 				}
-				CS_Data cs_Data = StageData.LoadCS(text);
+				var cs_Data = StageData.LoadCS(text);
 				new CSEmitterController(StageData, cs_Data);
 			}
 			if ((Boss.HealthPoint < (float)(Boss.MaxHP * 2) / 4f || Time > 3600) && flag == 2)
@@ -112,7 +112,7 @@ namespace Shooting
 					text = ".\\CS\\St06\\关底Boss\\6符P2L.mbg";
 					break;
 				}
-				CS_Data cs_Data = StageData.LoadCS(text);
+				var cs_Data = StageData.LoadCS(text);
 				new CSEmitterController(StageData, cs_Data);
 			}
 			if ((Boss.HealthPoint < (float)Boss.MaxHP / 4f || Time > 5400) && flag == 3)
@@ -138,14 +138,14 @@ namespace Shooting
 					text = ".\\CS\\St06\\关底Boss\\6符P4L.mbg";
 					break;
 				}
-				CS_Data cs_Data = StageData.LoadCS(text);
+				var cs_Data = StageData.LoadCS(text);
 				new CSEmitterController(StageData, cs_Data);
 			}
 		}
 
 		private void ClearEmitter()
 		{
-			for (int i = EnemyPlaneList.Count - 1; i >= 0; i--)
+			for (var i = EnemyPlaneList.Count - 1; i >= 0; i--)
 			{
 				if (!(EnemyPlaneList[i] is BaseSpellCard))
 				{
@@ -153,7 +153,7 @@ namespace Shooting
 					EnemyPlaneList.RemoveAt(i);
 				}
 			}
-			foreach (BaseBullet_Touhou baseBullet_Touhou in BulletList)
+			foreach (var baseBullet_Touhou in BulletList)
 			{
 				baseBullet_Touhou.GiveEndEffect();
 			}

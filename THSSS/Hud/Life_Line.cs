@@ -40,10 +40,10 @@ namespace Shooting
 
 		public override void Show()
 		{
-			SizeF sizeF = new SizeF(size, size);
-			for (int i = 0; i < life; i++)
+			var sizeF = new SizeF(size, size);
+			for (var i = 0; i < life; i++)
 			{
-				PointF pointF = new PointF(OriginalPosition.X + (float)i * size, OriginalPosition.Y);
+				var pointF = new PointF(OriginalPosition.X + (float)i * size, OriginalPosition.Y);
 				SpriteMain.Draw2D(TxtureObject.TXTure, TxtureObject.PosRect, sizeF, new PointF(0f, 0f), 0f, pointF, Color.FromArgb(TransparentValue, Color.White));
 			}
 		}

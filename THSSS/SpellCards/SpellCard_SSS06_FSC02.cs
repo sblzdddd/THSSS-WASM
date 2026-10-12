@@ -39,7 +39,7 @@ namespace Shooting
 					text = ".\\CS\\St06\\关底Boss\\FSC2L.mbg";
 					break;
 				}
-				CS_Data cs_Data = StageData.LoadCS(text);
+				var cs_Data = StageData.LoadCS(text);
 				new CSEmitterController(StageData, cs_Data);
 			}
 		}

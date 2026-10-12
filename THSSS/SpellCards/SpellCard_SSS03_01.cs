@@ -20,11 +20,11 @@ namespace Shooting
 			Boss.DestPoint = new Point(BoundRect.Width / 2, 120);
 			Boss.Velocity = 4f;
 			StageData.SoundPlay("se_cat00.wav");
-			BackgroundRotate backgroundRotate = new BackgroundRotate(StageData, "Card03b");
+			var backgroundRotate = new BackgroundRotate(StageData, "Card03b");
 			backgroundRotate.Scale = 1.3f;
 			backgroundRotate.TransparentValueF = 255f;
 			backgroundRotate.AngularVelocityDegree = -0.5f;
-			BackgroundRotate backgroundRotate2 = new BackgroundRotate(StageData, "Card03a")
+			var backgroundRotate2 = new BackgroundRotate(StageData, "Card03a")
 			{
 				DirectionDegree = 90.0,
 				TransparentValueF = 155f,
@@ -34,23 +34,23 @@ namespace Shooting
 			};
 			backgroundRotate2.EventGroupList = new List<EventGroup>();
 			backgroundRotate2.EventsExecutionList = new List<Execution>();
-			EventGroup eventGroup = new EventGroup();
+			var eventGroup = new EventGroup();
 			eventGroup.index = 0;
 			eventGroup.tag = "0";
 			eventGroup.t = 200;
 			eventGroup.addtime = 200;
-			Event @event = new Event();
+			var @event = new Event();
 			@event.EventString = "当前帧=1：不透明度变化到60，正弦，400";
 			@event.String2BulletEvent();
 			eventGroup.EventList.Add(@event);
 			backgroundRotate2.EventGroupList.Add(eventGroup);
-			BackgroundRotate backgroundRotate3 = new BackgroundRotate(StageData, "Card03c");
+			var backgroundRotate3 = new BackgroundRotate(StageData, "Card03c");
 			backgroundRotate3.Scale = 0.7f;
 			backgroundRotate3.Active = true;
 			backgroundRotate3.AngularVelocityDegree = 0.2f;
 			new BulletTitle(StageData, SC_Name);
 			new SpellCardAttack(StageData);
-			FullPic2 fullPic = new FullPic2(StageData, "FaceKoreirei_ct");
+			var fullPic = new FullPic2(StageData, "FaceKoreirei_ct");
 			fullPic.Scale = 0.8f;
 		}
 
@@ -82,8 +82,8 @@ namespace Shooting
 					text = ".\\CS\\St03\\道中Boss\\1符U.mbg";
 					break;
 				}
-				CS_Data cs_Data = StageData.LoadCS(text);
-				CSEmitterController csemitterController = new CSEmitterController(StageData, cs_Data);
+				var cs_Data = StageData.LoadCS(text);
+				var csemitterController = new CSEmitterController(StageData, cs_Data);
 				csemitterController.BossBinding = true;
 			}
 		}

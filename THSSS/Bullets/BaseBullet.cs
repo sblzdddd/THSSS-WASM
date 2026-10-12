@@ -59,7 +59,7 @@ namespace Shooting
 
 		public override void GiveEndEffect()
 		{
-			ParticleSmaller particleSmaller = new ParticleSmaller(StageData, "光点", Position, Velocity, Direction);
+			var particleSmaller = new ParticleSmaller(StageData, "光点", Position, Velocity, Direction);
 			particleSmaller.LifeTime = 30;
 		}
 
@@ -68,9 +68,9 @@ namespace Shooting
 			base.Show();
 			if (HighLightValue > 0)
 			{
-				int width = TextureObjectDictionary["光点"].Width;
-				int height = TextureObjectDictionary["光点"].Height;
-				SizeF sizeF = new SizeF((float)width * Scale, (float)height * Scale);
+				var width = TextureObjectDictionary["光点"].Width;
+				var height = TextureObjectDictionary["光点"].Height;
+				var sizeF = new SizeF((float)width * Scale, (float)height * Scale);
 				SpriteMain.Draw2D(TextureObjectDictionary["光点"].TXTure, TextureObjectDictionary["光点"].PosRect, sizeF, TextureObjectDictionary["光点"].RotatingCenter, (float)(Direction - 1.5707963267948966), Position, Color.FromArgb(HighLightValue, Color.White));
 			}
 		}

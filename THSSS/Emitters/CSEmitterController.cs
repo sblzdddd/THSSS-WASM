@@ -31,7 +31,7 @@ namespace Shooting
 					{
 						if (em.StartTime == Time)
 						{
-							BaseEmitter_CS baseEmitter_CS = (BaseEmitter_CS)em.Clone();
+							var baseEmitter_CS = (BaseEmitter_CS)em.Clone();
 							if (BossBinding && Boss != null)
 							{
 								baseEmitter_CS.OriginalPosition = new PointF(baseEmitter_CS.OriginalPosition.X + Boss.OriginalPosition.X - BaseOriginalPosition.X, baseEmitter_CS.OriginalPosition.Y + Boss.OriginalPosition.Y - BaseOriginalPosition.Y);

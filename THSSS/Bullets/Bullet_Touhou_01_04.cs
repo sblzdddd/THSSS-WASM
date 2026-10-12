@@ -17,10 +17,10 @@ namespace Shooting
 			base.Ctrl();
 			if (Time == LifeTime)
 			{
-				byte colorType = ColorType;
-				int num = (int)(Difficulty + 4);
-				float num2 = -0.5235988f;
-				float num3 = -2.0943952f;
+				var colorType = ColorType;
+				var num = (int)(Difficulty + 4);
+				var num2 = -0.5235988f;
+				var num3 = -2.0943952f;
 				switch (Difficulty)
 				{
 				case DifficultLevel.Easy:
@@ -39,10 +39,10 @@ namespace Shooting
 					num = 8;
 					break;
 				}
-				float num4 = num3 / ((float)num - 1f);
-				for (int i = 0; i < num; i++)
+				var num4 = num3 / ((float)num - 1f);
+				for (var i = 0; i < num; i++)
 				{
-					BaseBullet_Touhou baseBullet_Touhou = new BaseBullet_Touhou(StageData, SubBulletName + colorType.ToString(), OriginalPosition, 2.5f, (double)num2, colorType);
+					var baseBullet_Touhou = new BaseBullet_Touhou(StageData, SubBulletName + colorType.ToString(), OriginalPosition, 2.5f, (double)num2, colorType);
 					baseBullet_Touhou.Ay = 0.08f;
 					baseBullet_Touhou.MaxVelocity = 2.5f;
 					num2 += num4;

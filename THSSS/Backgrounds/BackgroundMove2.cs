@@ -21,8 +21,8 @@ namespace Shooting
 			Width = (float)TxtureObject.Width * Scale;
 			AngleDegree = -DirectionDegree + 90.0;
 			base.Ctrl();
-			float num = OriginalPosition.X;
-			float num2 = OriginalPosition.Y;
+			var num = OriginalPosition.X;
+			var num2 = OriginalPosition.Y;
 			if (OriginalPosition.X <= -Width / 2f)
 			{
 				num = OriginalPosition.X + Width;
@@ -44,8 +44,8 @@ namespace Shooting
 
 		public override void Show()
 		{
-			float num = OriginalPosition.X;
-			float num2 = OriginalPosition.Y;
+			var num = OriginalPosition.X;
+			var num2 = OriginalPosition.Y;
 			base.Show();
 			num += Width;
 			PlaceAt(num, num2);

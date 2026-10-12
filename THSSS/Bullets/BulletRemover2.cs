@@ -10,7 +10,7 @@ namespace Shooting
 			this.OriginalPosition = OriginalPosition;
 			LifeTime = 30;
 			Region = 2;
-			foreach (BaseEnemyPlane baseEnemyPlane in EnemyPlaneList)
+			foreach (var baseEnemyPlane in EnemyPlaneList)
 			{
 				baseEnemyPlane.GiveEndEffect();
 			}
@@ -21,7 +21,7 @@ namespace Shooting
 		{
 			base.Ctrl();
 			Region += 25;
-			for (int i = BulletList.Count - 1; i >= 0; i--)
+			for (var i = BulletList.Count - 1; i >= 0; i--)
 			{
 				if (HitCheck(BulletList[i], (float)Region))
 				{

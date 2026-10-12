@@ -45,7 +45,7 @@ namespace Shooting
 
 		public override void Show()
 		{
-			SizeF sizeF = new SizeF((float)TxtureObject.Width * Scale, (float)TxtureObject.Height * Scale);
+			var sizeF = new SizeF((float)TxtureObject.Width * Scale, (float)TxtureObject.Height * Scale);
 			if (Active)
 			{
 				SpriteMain.Draw2D(TxtureObject.TXTure, TxtureObject.PosRect, sizeF, TxtureObject.RotatingCenter, 0f, Position, Color.FromArgb(TransparentValue, Color.White));

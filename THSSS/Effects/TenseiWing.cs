@@ -20,11 +20,11 @@ namespace Shooting
 			if (Boss != null)
 			{
 				OriginalPosition = Boss.OriginalPosition;
-				float num = 177f + 4f * (float)Math.Sin((double)((float)Time / 150f) * 3.141592653589793 * 2.0);
+				var num = 177f + 4f * (float)Math.Sin((double)((float)Time / 150f) * 3.141592653589793 * 2.0);
 				num = num / 180f * 3.1415927f;
-				PointF pointF = new PointF(OriginalPosition.X - 4f, OriginalPosition.Y);
-				float num2 = 1f - 0.2f * (float)Math.Sin((double)((float)Time / 150f) * 3.141592653589793 * 2.0);
-				BaseObject baseObject = new BaseObject(StageData, "beike1", PointF.Empty, 1f, (double)num);
+				var pointF = new PointF(OriginalPosition.X - 4f, OriginalPosition.Y);
+				var num2 = 1f - 0.2f * (float)Math.Sin((double)((float)Time / 150f) * 3.141592653589793 * 2.0);
+				var baseObject = new BaseObject(StageData, "beike1", PointF.Empty, 1f, (double)num);
 				baseObject.OriginalPosition = pointF;
 				baseObject.LifeTime = 20;
 				baseObject.TransparentValueF = 30f;

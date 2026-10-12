@@ -7,7 +7,7 @@ namespace Shooting
 		public Boss_Koreirei01(StageDataPackage StageData)
 			: base(StageData)
 		{
-			TextureObject[,] array = new TextureObject[3, 4];
+			var array = new TextureObject[3, 4];
 			array[0, 0] = TextureObjectDictionary["BossKoreirei-00"];
 			array[0, 1] = TextureObjectDictionary["BossKoreirei-01"];
 			array[0, 2] = TextureObjectDictionary["BossKoreirei-02"];

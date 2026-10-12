@@ -36,7 +36,7 @@ namespace Shooting
 		{
 			if (TxtureObject != null)
 			{
-				SizeF sizeF = new SizeF((float)TxtureObject.Width * ScaleWidth, (float)TxtureObject.Height * ScaleLength);
+				var sizeF = new SizeF((float)TxtureObject.Width * ScaleWidth, (float)TxtureObject.Height * ScaleLength);
 				SpriteMain.Draw2D(TxtureObject.TXTure, TxtureObject.PosRect, sizeF, new PointF((float)(TxtureObject.Width / 2), 0f), (float)(Direction - 1.5707963267948966 + Angle), Position, Color.FromArgb(TransparentValue, ColorValue));
 			}
 		}

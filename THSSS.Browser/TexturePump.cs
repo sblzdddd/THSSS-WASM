@@ -19,14 +19,14 @@ namespace Thsss.Browser
 			{
 				return;
 			}
-			for (int i = 0; i < jobs.Count; i++)
+			for (var i = 0; i < jobs.Count; i++)
 			{
-				int state = ThsssJs.ImageState(jobs[i].Id);
+				var state = ThsssJs.ImageState(jobs[i].Id);
 				if (state == 1)
 				{
-					int glId = ThsssJs.FinishImage(jobs[i].Id);
-					int width = ThsssJs.ImageWidth(jobs[i].Id);
-					int height = ThsssJs.ImageHeight(jobs[i].Id);
+					var glId = ThsssJs.FinishImage(jobs[i].Id);
+					var width = ThsssJs.ImageWidth(jobs[i].Id);
+					var height = ThsssJs.ImageHeight(jobs[i].Id);
 					if (glId != 0 && width > 0 && height > 0)
 					{
 						try
@@ -54,15 +54,15 @@ namespace Thsss.Browser
 			{
 				return;
 			}
-			long start = Stopwatch.GetTimestamp();
-			int started = 0;
-			for (int n = 0; n < data.LoadingList.Count && jobs.Count < MaxInFlight && started < 3; n++)
+			var start = Stopwatch.GetTimestamp();
+			var started = 0;
+			for (var n = 0; n < data.LoadingList.Count && jobs.Count < MaxInFlight && started < 3; n++)
 			{
 				if (started > 0 && Stopwatch.GetElapsedTime(start).TotalMilliseconds > 4.0)
 				{
 					break;
 				}
-				string path = data.LoadingList[n];
+				var path = data.LoadingList[n];
 				if (HasJob(path))
 				{
 					continue;
@@ -73,7 +73,7 @@ namespace Thsss.Browser
 					n--;
 					continue;
 				}
-				byte[] bytes = File.ReadAllBytes(path);
+				var bytes = File.ReadAllBytes(path);
 				jobs.Add(new ImageJob
 				{
 					Path = path,
@@ -85,7 +85,7 @@ namespace Thsss.Browser
 
 		private static bool HasJob(string path)
 		{
-			for (int i = 0; i < jobs.Count; i++)
+			for (var i = 0; i < jobs.Count; i++)
 			{
 				if (string.Equals(jobs[i].Path, path, StringComparison.OrdinalIgnoreCase))
 				{

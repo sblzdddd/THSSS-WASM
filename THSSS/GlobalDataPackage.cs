@@ -53,20 +53,20 @@ namespace Shooting
 		public void LoadFolderTextureList(string Path)
 		{
 #if BROWSER
-			string folder = Path.Replace((char)92, '/');
+			var folder = Path.Replace((char)92, '/');
 			if (!folder.EndsWith("/Image/NowLoading"))
 #else
 			if (!(Path == ".\\Image\\NowLoading"))
 #endif
 			{
-				string[] files = Directory.GetFiles(Path, "*.png");
-				foreach (string text in files)
+				var files = Directory.GetFiles(Path, "*.png");
+				foreach (var text in files)
 				{
-					FileInfo fileInfo = new FileInfo(text);
+					var fileInfo = new FileInfo(text);
 					LoadingList.Add(fileInfo.FullName);
 				}
-				string[] directories = Directory.GetDirectories(Path);
-				foreach (string text in directories)
+				var directories = Directory.GetDirectories(Path);
+				foreach (var text in directories)
 				{
 					LoadFolderTextureList(text);
 				}
@@ -141,8 +141,8 @@ namespace Shooting
 
 		private void LoadModel(string Name, int ModelType)
 		{
-			bool flag = false;
-			int num = 0;
+			var flag = false;
+			var num = 0;
 			while (!flag && num < 20)
 			{
 				try
@@ -190,14 +190,14 @@ namespace Shooting
 			try
 			{
 				BulletPicDictionary = new Dictionary<string, bool[,]>();
-				for (int i = 0; i < Directory.GetFiles(".\\BPic", "*.png").Length; i++)
+				for (var i = 0; i < Directory.GetFiles(".\\BPic", "*.png").Length; i++)
 				{
-					FileInfo fileInfo = new FileInfo(Directory.GetFiles(".\\BPic", "*.png")[i]);
-					Bitmap bitmap = (Bitmap)Image.FromFile(fileInfo.FullName);
-					bool[,] array = new bool[bitmap.Width, bitmap.Height];
-					for (int j = 0; j < bitmap.Width; j++)
+					var fileInfo = new FileInfo(Directory.GetFiles(".\\BPic", "*.png")[i]);
+					var bitmap = (Bitmap)Image.FromFile(fileInfo.FullName);
+					var array = new bool[bitmap.Width, bitmap.Height];
+					for (var j = 0; j < bitmap.Width; j++)
 					{
-						for (int k = 0; k < bitmap.Height; k++)
+						for (var k = 0; k < bitmap.Height; k++)
 						{
 							array[j, k] = bitmap.GetPixel(j, k).G < 128;
 						}
@@ -216,10 +216,10 @@ namespace Shooting
 			if (SoundInitSuccess)
 			{
 				SoundDictionary = new Dictionary<string, XAudio2_Player>();
-				string[] files = Directory.GetFiles(".\\Sound", "*.wav");
-				for (int i = 0; i < files.Length; i++)
+				var files = Directory.GetFiles(".\\Sound", "*.wav");
+				for (var i = 0; i < files.Length; i++)
 				{
-					FileInfo fileInfo = new FileInfo(files[i]);
+					var fileInfo = new FileInfo(files[i]);
 					SoundDictionary.Add(fileInfo.Name, new XAudio2_Player(fileInfo.FullName, DeviceXaudio2)
 					{
 						Volume = SEVolume
@@ -241,7 +241,7 @@ namespace Shooting
 		{
 			if (File.Exists(imageFileName))
 			{
-				int num = 0;
+				var num = 0;
 				Texture texture;
 				while (!SetTexture(imageFileName, colorKey, new Rectangle(0, 0, 1, 1), out texture) && num++ < 20)
 				{
@@ -257,17 +257,17 @@ namespace Shooting
 
 		public void RegisterLoadedTexture(string imageFileName, Texture texture)
 		{
-			Rectangle rectangle = new Rectangle(0, 0, texture.Width, texture.Height);
-			FileInfo fileInfo = new FileInfo(imageFileName);
-			string text = fileInfo.FullName.Replace(fileInfo.Extension, ".txt");
+			var rectangle = new Rectangle(0, 0, texture.Width, texture.Height);
+			var fileInfo = new FileInfo(imageFileName);
+			var text = fileInfo.FullName.Replace(fileInfo.Extension, ".txt");
 			if (File.Exists(text))
 			{
-				char[] array = new char[] { '\t' };
-				string[] array2 = File.ReadAllLines(text, Encoding.Default);
-				foreach (string text2 in array2)
+				var array = new char[] { '\t' };
+				var array2 = File.ReadAllLines(text, Encoding.Default);
+				foreach (var text2 in array2)
 				{
-					string[] array4 = text2.Split(array);
-					TextureObject textureObject = new TextureObject();
+					var array4 = text2.Split(array);
+					var textureObject = new TextureObject();
 					textureObject.TXTure = texture;
 					textureObject.PosRect = new Rectangle(Convert.ToInt32(array4[1]), Convert.ToInt32(array4[2]), Convert.ToInt32(array4[3]), Convert.ToInt32(array4[4]));
 					textureObject.OffsetX = Convert.ToInt32(array4[5]);
@@ -279,7 +279,7 @@ namespace Shooting
 			}
 			else
 			{
-				TextureObject textureObject = new TextureObject();
+				var textureObject = new TextureObject();
 				textureObject.TXTure = texture;
 				textureObject.PosRect = new Rectangle(0, 0, rectangle.Width, rectangle.Height);
 				textureObject.SrcWidth = rectangle.Width;
@@ -308,7 +308,7 @@ namespace Shooting
 		{
 			try
 			{
-				int bgmvolume = BGMVolume;
+				var bgmvolume = BGMVolume;
 				BGM_Player.FileName = FileName;
 				BGM_Player.Volume = bgmvolume;
 				BGM_Player.Play();
@@ -348,7 +348,7 @@ namespace Shooting
 			}
 			if (EffectDictionary != null)
 			{
-				foreach (Effect effect in EffectDictionary.Values)
+				foreach (var effect in EffectDictionary.Values)
 				{
 					effect.OnLostDevice();
 				}
@@ -365,7 +365,7 @@ namespace Shooting
 			}
 			if (EffectDictionary != null)
 			{
-				foreach (Effect effect in EffectDictionary.Values)
+				foreach (var effect in EffectDictionary.Values)
 				{
 					effect.OnResetDevice();
 				}
@@ -378,14 +378,14 @@ namespace Shooting
 			SpriteMain.Dispose();
 			if (TextureObjectDictionary != null)
 			{
-				foreach (TextureObject textureObject in TextureObjectDictionary.Values)
+				foreach (var textureObject in TextureObjectDictionary.Values)
 				{
 					textureObject.Dispose();
 				}
 			}
 			if (SoundDictionary != null)
 			{
-				foreach (XAudio2_Player xaudio2_Player in SoundDictionary.Values)
+				foreach (var xaudio2_Player in SoundDictionary.Values)
 				{
 					xaudio2_Player.Dispose();
 				}
@@ -400,16 +400,16 @@ namespace Shooting
 			}
 			if (EffectDictionary != null)
 			{
-				foreach (Effect effect in EffectDictionary.Values)
+				foreach (var effect in EffectDictionary.Values)
 				{
 					effect.Dispose();
 				}
 			}
 			if (ModelDictionary != null)
 			{
-				foreach (IModel model in ModelDictionary.Values)
+				foreach (var model in ModelDictionary.Values)
 				{
-					Model model2 = (Model)model;
+					var model2 = (Model)model;
 					model2.Dispose();
 				}
 			}

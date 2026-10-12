@@ -9,12 +9,12 @@ namespace Shooting
 			: base(StageData)
 		{
 			LifeTime = 2;
-			for (int i = 0; i < 10; i++)
+			for (var i = 0; i < 10; i++)
 			{
-				for (int j = 0; j < 6; j++)
+				for (var j = 0; j < 6; j++)
 				{
-					PointF pointF = new PointF(-50f + (float)(j * 128) * (float)Math.Cos(0.5235987755982988), 200f - (float)(j * 128) * (float)Math.Sin(0.5235987755982988) + (float)(i * 35));
-					BaseObject baseObject = new BaseObject(StageData, "SpellCircle06", new PointF(0f, 0f), 2f, -0.5235987755982988)
+					var pointF = new PointF(-50f + (float)(j * 128) * (float)Math.Cos(0.5235987755982988), 200f - (float)(j * 128) * (float)Math.Sin(0.5235987755982988) + (float)(i * 35));
+					var baseObject = new BaseObject(StageData, "SpellCircle06", new PointF(0f, 0f), 2f, -0.5235987755982988)
 					{
 						OriginalPosition = pointF,
 						Angle = -3.141592653589793,

@@ -31,7 +31,7 @@ namespace Shooting
 
 		public override void SetupVertex()
 		{
-			DataStream dataStream = vertexBuffer.Lock(0, 0, LockFlags.Discard);
+			var dataStream = vertexBuffer.Lock(0, 0, LockFlags.Discard);
 			dataStream.WriteRange<TexturedVertex>(new TexturedVertex[]
 			{
 				new TexturedVertex(new Vector3(-500f, 0f, 0f), new Vector2(0f, 0f)),
@@ -44,7 +44,7 @@ namespace Shooting
 
 		public override void SetupMatrices()
 		{
-			Matrix matrix = Matrix.Identity;
+			var matrix = Matrix.Identity;
 			matrix *= Matrix.Translation(OriginalPosition.X, OriginalPosition.Y, (float)Height);
 			DeviceMain.SetTransform(TransformState.World, matrix);
 		}

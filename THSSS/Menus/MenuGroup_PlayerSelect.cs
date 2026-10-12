@@ -108,12 +108,12 @@ namespace Shooting
 			{
 				OnRemoveMenu = TimeMain + 20;
 				TransparentVelocity = -15f;
-				foreach (BaseMenuItem baseMenuItem in MenuItemList)
+				foreach (var baseMenuItem in MenuItemList)
 				{
 					baseMenuItem.Selected = false;
 					baseMenuItem.OnRemove = true;
 				}
-				foreach (BaseMenuItem baseMenuItem in PlayerDescription)
+				foreach (var baseMenuItem in PlayerDescription)
 				{
 					baseMenuItem.Selected = false;
 					baseMenuItem.OnRemove = true;
@@ -125,7 +125,7 @@ namespace Shooting
 		public override void SelectItemChanged()
 		{
 			base.SelectItemChanged();
-			for (int i = 0; i < PlayerDescription.Count; i++)
+			for (var i = 0; i < PlayerDescription.Count; i++)
 			{
 				if (i == MenuSelectIndex)
 				{
@@ -140,8 +140,8 @@ namespace Shooting
 
 		public override void ProcessZ()
 		{
-			Point point = new Point(192, 398);
-			string name = MenuItemList[MenuSelectIndex].Name;
+			var point = new Point(192, 398);
+			var name = MenuItemList[MenuSelectIndex].Name;
 			switch (name)
 			{
 			case "FaceAya_ct":

@@ -16,9 +16,9 @@ namespace Shooting
 		{
 			if (Time % 1 == 0)
 			{
-				for (int i = 0; i < 2; i++)
+				for (var i = 0; i < 2; i++)
 				{
-					Particle3D3 particle3D = new Particle3D3(StageData, "Petal30", new PointF((float)StageData.Ran.Next((int)OriginalPosition.X - 20, (int)OriginalPosition.X + 20), (float)StageData.Ran.Next((int)OriginalPosition.Y - 20, (int)OriginalPosition.Y + 20)), (float)StageData.Ran.Next(10, 30) / 10f, Direction, 100 + Ran.Next(60));
+					var particle3D = new Particle3D3(StageData, "Petal30", new PointF((float)StageData.Ran.Next((int)OriginalPosition.X - 20, (int)OriginalPosition.X + 20), (float)StageData.Ran.Next((int)OriginalPosition.Y - 20, (int)OriginalPosition.Y + 20)), (float)StageData.Ran.Next(10, 30) / 10f, Direction, 100 + Ran.Next(60));
 					particle3D.Angle = (double)((float)StageData.Ran.Next(0, 360) * 3.1415927f / 180f);
 					particle3D.AngularVelocity3D = (float)StageData.Ran.Next(10) / 100f;
 					particle3D.Scale = (float)StageData.Ran.Next(5, 8) / 10f;

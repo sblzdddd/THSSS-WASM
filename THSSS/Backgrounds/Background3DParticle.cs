@@ -12,7 +12,7 @@ namespace Shooting
 
 		public override void Show()
 		{
-			float transparentValueF = TransparentValueF;
+			var transparentValueF = TransparentValueF;
 			tr = 50.0 * Math.Sin((double)((float)Time / 2f));
 			TransparentValueF += (float)((int)tr);
 			base.Show();

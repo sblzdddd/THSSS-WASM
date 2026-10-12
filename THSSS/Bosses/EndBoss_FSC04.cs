@@ -13,7 +13,7 @@ namespace Shooting
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			PointF pointF = new PointF((float)(BoundRect.Width / 2), 150f);
+			var pointF = new PointF((float)(BoundRect.Width / 2), 150f);
 			if (Time == LifeTime - 60 || Time == LifeTime - 40 || Time == LifeTime - 20)
 			{
 				new EmitterSaveEnegy3D(StageData, pointF, Color.Purple);

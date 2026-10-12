@@ -17,12 +17,12 @@ namespace Shooting
 
 		public override void Shoot()
 		{
-			for (int i = 0; i < 3; i++)
+			for (var i = 0; i < 3; i++)
 			{
-				float num = 0f;
-				double num2 = (double)Ran.Next(360) * 3.141592653589793 / 180.0;
-				PointF pointF = new PointF(OriginalPosition.X + num * (float)Math.Sin(num2), OriginalPosition.Y + num * (float)Math.Cos(num2));
-				ParticleTitleStar particleTitleStar = new ParticleTitleStar(StageData, "Star", pointF, (float)StageData.Ran.Next(1, 200) / 1000f, (double)Ran.Next(360) * 3.141592653589793 / 180.0);
+				var num = 0f;
+				var num2 = (double)Ran.Next(360) * 3.141592653589793 / 180.0;
+				var pointF = new PointF(OriginalPosition.X + num * (float)Math.Sin(num2), OriginalPosition.Y + num * (float)Math.Cos(num2));
+				var particleTitleStar = new ParticleTitleStar(StageData, "Star", pointF, (float)StageData.Ran.Next(1, 200) / 1000f, (double)Ran.Next(360) * 3.141592653589793 / 180.0);
 				particleTitleStar.Active = true;
 				particleTitleStar.Scale = (float)StageData.Ran.Next(40, 200) / 1000f * Scale;
 				particleTitleStar.LifeTime = 80;

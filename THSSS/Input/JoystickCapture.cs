@@ -8,8 +8,8 @@ namespace Shooting
 	{
 		public JoystickCapture(IntPtr handle)
 		{
-			DirectInput directInput = new DirectInput();
-			foreach (DeviceInstance deviceInstance in directInput.GetDevices(DeviceClass.GameController, DeviceEnumerationFlags.AttachedOnly))
+			var directInput = new DirectInput();
+			foreach (var deviceInstance in directInput.GetDevices(DeviceClass.GameController, DeviceEnumerationFlags.AttachedOnly))
 			{
 				try
 				{
@@ -23,7 +23,7 @@ namespace Shooting
 			}
 			if (joystick != null)
 			{
-				foreach (DeviceObjectInstance deviceObjectInstance in joystick.GetObjects())
+				foreach (var deviceObjectInstance in joystick.GetObjects())
 				{
 					if ((deviceObjectInstance.ObjectType & ObjectDeviceType.Axis) != ObjectDeviceType.All)
 					{

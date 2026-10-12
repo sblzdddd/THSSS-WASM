@@ -75,14 +75,14 @@ namespace SlimDX.Direct3D9
 
 		public static Mesh FromFile(Device device, string fileName, MeshFlags flags)
 		{
-			string path = ResolvePath(fileName);
-			byte[] bytes = File.ReadAllBytes(path);
-			string text = Encoding.GetEncoding(936).GetString(bytes);
+			var path = ResolvePath(fileName);
+			var bytes = File.ReadAllBytes(path);
+			var text = Encoding.GetEncoding(936).GetString(bytes);
 			if (text.Length < 8 || text[0] != 'x' || text[1] != 'o' || text[2] != 'f' || text.IndexOf("txt", StringComparison.Ordinal) < 0)
 			{
 				throw new InvalidDataException("Only text .x meshes are supported.");
 			}
-			Mesh mesh = new Mesh();
+			var mesh = new Mesh();
 			mesh.device = device;
 			mesh.modelDir = Path.GetDirectoryName(path) ?? "";
 			mesh.modelFiles = ListFileNames(mesh.modelDir);
@@ -111,8 +111,8 @@ namespace SlimDX.Direct3D9
 					}
 				};
 			}
-			ExtendedMaterial[] array = new ExtendedMaterial[this.subsets.Count];
-			for (int i = 0; i < array.Length; i++)
+			var array = new ExtendedMaterial[this.subsets.Count];
+			for (var i = 0; i < array.Length; i++)
 			{
 				array[i] = this.subsets[i].Material;
 			}
@@ -121,7 +121,7 @@ namespace SlimDX.Direct3D9
 
 		public Mesh Clone(Device device, MeshFlags flags, VertexFormat format)
 		{
-			Mesh mesh = new Mesh();
+			var mesh = new Mesh();
 			mesh.device = device ?? this.device;
 			mesh.VertexFormat = format;
 			mesh.declaration = this.declaration;
@@ -143,13 +143,13 @@ namespace SlimDX.Direct3D9
 			{
 				return;
 			}
-			Subset item = this.subsets[subset];
+			var item = this.subsets[subset];
 			if (item.Buffer == null || item.Count < 3)
 			{
 				return;
 			}
-			VertexDeclaration previousDecl = this.device.VertexDeclaration;
-			VertexFormat previousFormat = this.device.VertexFormat;
+			var previousDecl = this.device.VertexDeclaration;
+			var previousFormat = this.device.VertexFormat;
 			this.device.VertexDeclaration = this.declaration;
 			this.device.VertexFormat = this.VertexFormat;
 			this.device.SetStreamSource(0, item.Buffer, 0, 20);
@@ -160,22 +160,22 @@ namespace SlimDX.Direct3D9
 
 		private void Seal()
 		{
-			int total = 0;
-			for (int s = 0; s < this.subsets.Count; s++)
+			var total = 0;
+			for (var s = 0; s < this.subsets.Count; s++)
 			{
-				Subset subset = this.subsets[s];
-				int count = subset.Verts.Count / 5;
+				var subset = this.subsets[s];
+				var count = subset.Verts.Count / 5;
 				subset.Count = count;
 				total += count;
 				if (count < 3)
 				{
 					continue;
 				}
-				byte[] data = new byte[count * 20];
-				for (int i = 0; i < count; i++)
+				var data = new byte[count * 20];
+				for (var i = 0; i < count; i++)
 				{
-					int src = i * 5;
-					int dst = i * 20;
+					var src = i * 5;
+					var dst = i * 20;
 					WriteFloat(data, dst, subset.Verts[src]);
 					WriteFloat(data, dst + 4, subset.Verts[src + 1]);
 					WriteFloat(data, dst + 8, subset.Verts[src + 2]);
@@ -196,7 +196,7 @@ namespace SlimDX.Direct3D9
 
 		private static void WriteFloat(byte[] dest, int offset, float value)
 		{
-			byte[] bytes = BitConverter.GetBytes(value);
+			var bytes = BitConverter.GetBytes(value);
 			dest[offset] = bytes[0];
 			dest[offset + 1] = bytes[1];
 			dest[offset + 2] = bytes[2];
@@ -205,8 +205,8 @@ namespace SlimDX.Direct3D9
 
 		private void Parse(string text)
 		{
-			List<Tok> toks = Tokenize(text);
-			int index = 0;
+			var toks = Tokenize(text);
+			var index = 0;
 			while (index < toks.Count)
 			{
 				if (!LooksLikeObject(toks, index))
@@ -220,7 +220,7 @@ namespace SlimDX.Direct3D9
 
 		private int ReadObject(List<Tok> toks, int index, Matrix parent)
 		{
-			string kind = toks[index++].Text;
+			var kind = toks[index++].Text;
 			string name = null;
 			if (index < toks.Count && toks[index].Kind == TokKind.Ident)
 			{
@@ -248,7 +248,7 @@ namespace SlimDX.Direct3D9
 
 		private int ReadFrame(List<Tok> toks, int index, Matrix parent)
 		{
-			Matrix local = Matrix.Identity;
+			var local = Matrix.Identity;
 			while (index < toks.Count && toks[index].Kind != TokKind.RBrace)
 			{
 				if (!LooksLikeObject(toks, index))
@@ -256,7 +256,7 @@ namespace SlimDX.Direct3D9
 					index++;
 					continue;
 				}
-				string kind = toks[index].Text;
+				var kind = toks[index].Text;
 				if (kind == "FrameTransformMatrix")
 				{
 					index = SkipName(toks, index + 1);
@@ -289,19 +289,19 @@ namespace SlimDX.Direct3D9
 
 		private int ReadMesh(List<Tok> toks, int index, Matrix world)
 		{
-			int nVerts = ReadInt(toks, ref index);
-			float[] pos = new float[Math.Max(0, nVerts) * 3];
-			for (int i = 0; i < pos.Length; i++)
+			var nVerts = ReadInt(toks, ref index);
+			var pos = new float[Math.Max(0, nVerts) * 3];
+			for (var i = 0; i < pos.Length; i++)
 			{
 				pos[i] = ReadFloat(toks, ref index);
 			}
-			int nFaces = ReadInt(toks, ref index);
-			int[][] faces = new int[Math.Max(0, nFaces)][];
-			for (int i = 0; i < faces.Length; i++)
+			var nFaces = ReadInt(toks, ref index);
+			var faces = new int[Math.Max(0, nFaces)][];
+			for (var i = 0; i < faces.Length; i++)
 			{
-				int n = ReadInt(toks, ref index);
-				int[] idx = new int[Math.Max(0, n)];
-				for (int j = 0; j < idx.Length; j++)
+				var n = ReadInt(toks, ref index);
+				var idx = new int[Math.Max(0, n)];
+				for (var j = 0; j < idx.Length; j++)
 				{
 					idx[j] = ReadInt(toks, ref index);
 				}
@@ -319,24 +319,24 @@ namespace SlimDX.Direct3D9
 					index++;
 					continue;
 				}
-				string kind = toks[index].Text;
-				int body = SkipName(toks, index + 1);
+				var kind = toks[index].Text;
+				var body = SkipName(toks, index + 1);
 				body++;
 				if (kind == "MeshNormals")
 				{
-					int nNorm = ReadInt(toks, ref body);
+					var nNorm = ReadInt(toks, ref body);
 					normals = new float[Math.Max(0, nNorm) * 3];
-					for (int i = 0; i < normals.Length; i++)
+					for (var i = 0; i < normals.Length; i++)
 					{
 						normals[i] = ReadFloat(toks, ref body);
 					}
-					int nNormFaces = ReadInt(toks, ref body);
+					var nNormFaces = ReadInt(toks, ref body);
 					normalFaces = new int[Math.Max(0, nNormFaces)][];
-					for (int i = 0; i < normalFaces.Length; i++)
+					for (var i = 0; i < normalFaces.Length; i++)
 					{
-						int n = ReadInt(toks, ref body);
-						int[] idx = new int[Math.Max(0, n)];
-						for (int j = 0; j < idx.Length; j++)
+						var n = ReadInt(toks, ref body);
+						var idx = new int[Math.Max(0, n)];
+						for (var j = 0; j < idx.Length; j++)
 						{
 							idx[j] = ReadInt(toks, ref body);
 						}
@@ -346,9 +346,9 @@ namespace SlimDX.Direct3D9
 				}
 				else if (kind == "MeshTextureCoords")
 				{
-					int nUv = ReadInt(toks, ref body);
+					var nUv = ReadInt(toks, ref body);
 					uvs = new float[Math.Max(0, nUv) * 2];
-					for (int i = 0; i < uvs.Length; i++)
+					for (var i = 0; i < uvs.Length; i++)
 					{
 						uvs[i] = ReadFloat(toks, ref body);
 					}
@@ -356,15 +356,15 @@ namespace SlimDX.Direct3D9
 				}
 				else if (kind == "MeshMaterialList")
 				{
-					int nMat = ReadInt(toks, ref body);
-					int nIdx = ReadInt(toks, ref body);
+					var nMat = ReadInt(toks, ref body);
+					var nIdx = ReadInt(toks, ref body);
 					faceMats = new int[Math.Max(0, nIdx)];
-					for (int i = 0; i < faceMats.Length; i++)
+					for (var i = 0; i < faceMats.Length; i++)
 					{
 						faceMats[i] = ReadInt(toks, ref body);
 					}
 					matNames = new string[Math.Max(0, nMat)];
-					for (int i = 0; i < matNames.Length; i++)
+					for (var i = 0; i < matNames.Length; i++)
 					{
 						while (body < toks.Count && toks[body].Kind != TokKind.LBrace && toks[body].Kind != TokKind.RBrace)
 						{
@@ -412,23 +412,23 @@ namespace SlimDX.Direct3D9
 			{
 				return;
 			}
-			int vertCount = pos.Length / 3;
-			for (int f = 0; f < faces.Length; f++)
+			var vertCount = pos.Length / 3;
+			for (var f = 0; f < faces.Length; f++)
 			{
-				int[] face = faces[f];
+				var face = faces[f];
 				if (face == null || face.Length < 3)
 				{
 					continue;
 				}
-				int matIndex = faceMats != null && f < faceMats.Length ? faceMats[f] : 0;
-				string matName = matNames != null && matNames.Length > 0 ? matNames[Math.Clamp(matIndex, 0, matNames.Length - 1)] : "";
-				Subset subset = this.SubsetFor(matName);
-				int[] norms = normalFaces != null && f < normalFaces.Length ? normalFaces[f] : null;
-				for (int corner = 1; corner < face.Length - 1; corner++)
+				var matIndex = faceMats != null && f < faceMats.Length ? faceMats[f] : 0;
+				var matName = matNames != null && matNames.Length > 0 ? matNames[Math.Clamp(matIndex, 0, matNames.Length - 1)] : "";
+				var subset = this.SubsetFor(matName);
+				var norms = normalFaces != null && f < normalFaces.Length ? normalFaces[f] : null;
+				for (var corner = 1; corner < face.Length - 1; corner++)
 				{
-					int i0 = face[0];
-					int i1 = face[corner];
-					int i2 = face[corner + 1];
+					var i0 = face[0];
+					var i1 = face[corner];
+					var i2 = face[corner + 1];
 					if (i0 < 0 || i1 < 0 || i2 < 0 || i0 >= vertCount || i1 >= vertCount || i2 >= vertCount)
 					{
 						continue;
@@ -446,14 +446,14 @@ namespace SlimDX.Direct3D9
 			{
 				return;
 			}
-			float x = pos[vertex * 3];
-			float y = pos[vertex * 3 + 1];
-			float z = pos[vertex * 3 + 2];
-			float ox = x * world.M11 + y * world.M21 + z * world.M31 + world.M41;
-			float oy = x * world.M12 + y * world.M22 + z * world.M32 + world.M42;
-			float oz = x * world.M13 + y * world.M23 + z * world.M33 + world.M43;
-			float u = 0f;
-			float v = 0f;
+			var x = pos[vertex * 3];
+			var y = pos[vertex * 3 + 1];
+			var z = pos[vertex * 3 + 2];
+			var ox = x * world.M11 + y * world.M21 + z * world.M31 + world.M41;
+			var oy = x * world.M12 + y * world.M22 + z * world.M32 + world.M42;
+			var oz = x * world.M13 + y * world.M23 + z * world.M33 + world.M43;
+			var u = 0f;
+			var v = 0f;
 			if (uvs != null && vertex * 2 + 1 < uvs.Length)
 			{
 				u = uvs[vertex * 2];
@@ -467,16 +467,16 @@ namespace SlimDX.Direct3D9
 			this.Include(ox, oy, oz);
 			if (normals != null && normFace != null && corner < normFace.Length)
 			{
-				int n = normFace[corner];
+				var n = normFace[corner];
 				if (n >= 0 && n * 3 + 2 < normals.Length)
 				{
-					float nx = normals[n * 3];
-					float ny = normals[n * 3 + 1];
-					float nz = normals[n * 3 + 2];
-					float nnx = nx * world.M11 + ny * world.M21 + nz * world.M31;
-					float nny = nx * world.M12 + ny * world.M22 + nz * world.M32;
-					float nnz = nx * world.M13 + ny * world.M23 + nz * world.M33;
-					float len = (float)Math.Sqrt(nnx * nnx + nny * nny + nnz * nnz);
+					var nx = normals[n * 3];
+					var ny = normals[n * 3 + 1];
+					var nz = normals[n * 3 + 2];
+					var nnx = nx * world.M11 + ny * world.M21 + nz * world.M31;
+					var nny = nx * world.M12 + ny * world.M22 + nz * world.M32;
+					var nnz = nx * world.M13 + ny * world.M23 + nz * world.M33;
+					var len = (float)Math.Sqrt(nnx * nnx + nny * nny + nnz * nnz);
 					if (len > 1E-08f)
 					{
 						nnx /= len;
@@ -496,8 +496,8 @@ namespace SlimDX.Direct3D9
 				this.hasBound = true;
 				return;
 			}
-			Vector3 min = this.BoundMin;
-			Vector3 max = this.BoundMax;
+			var min = this.BoundMin;
+			var max = this.BoundMax;
 			if (x < min.X) min.X = x;
 			if (y < min.Y) min.Y = y;
 			if (z < min.Z) min.Z = z;
@@ -510,15 +510,15 @@ namespace SlimDX.Direct3D9
 
 		private Subset SubsetFor(string name)
 		{
-			MatRec rec = this.MaterialRec(name);
-			for (int i = 0; i < this.subsets.Count; i++)
+			var rec = this.MaterialRec(name);
+			for (var i = 0; i < this.subsets.Count; i++)
 			{
 				if (object.ReferenceEquals(this.subsets[i].Material, rec.Material))
 				{
 					return this.subsets[i];
 				}
 			}
-			Subset subset = new Subset();
+			var subset = new Subset();
 			subset.Material = rec.Material;
 			this.subsets.Add(subset);
 			return subset;
@@ -534,7 +534,7 @@ namespace SlimDX.Direct3D9
 			if (!this.materials.TryGetValue(name, out rec))
 			{
 				rec = new MatRec();
-				Material material = default(Material);
+				var material = default(Material);
 				material.Diffuse = new Color4(1f, 1f, 1f, 1f);
 				material.Ambient = new Color4(1f, 1f, 1f, 1f);
 				rec.Material.MaterialD3D = material;
@@ -545,19 +545,19 @@ namespace SlimDX.Direct3D9
 
 		private int ReadMaterial(List<Tok> toks, int index, string name)
 		{
-			MatRec rec = this.MaterialRec(name ?? "");
-			float red = ReadFloat(toks, ref index);
-			float green = ReadFloat(toks, ref index);
-			float blue = ReadFloat(toks, ref index);
-			float alpha = ReadFloat(toks, ref index);
-			float power = ReadFloat(toks, ref index);
-			float sr = ReadFloat(toks, ref index);
-			float sg = ReadFloat(toks, ref index);
-			float sb = ReadFloat(toks, ref index);
-			float er = ReadFloat(toks, ref index);
-			float eg = ReadFloat(toks, ref index);
-			float eb = ReadFloat(toks, ref index);
-			Material material = default(Material);
+			var rec = this.MaterialRec(name ?? "");
+			var red = ReadFloat(toks, ref index);
+			var green = ReadFloat(toks, ref index);
+			var blue = ReadFloat(toks, ref index);
+			var alpha = ReadFloat(toks, ref index);
+			var power = ReadFloat(toks, ref index);
+			var sr = ReadFloat(toks, ref index);
+			var sg = ReadFloat(toks, ref index);
+			var sb = ReadFloat(toks, ref index);
+			var er = ReadFloat(toks, ref index);
+			var eg = ReadFloat(toks, ref index);
+			var eb = ReadFloat(toks, ref index);
+			var material = default(Material);
 			material.Diffuse = new Color4(alpha, red, green, blue);
 			material.Ambient = material.Diffuse;
 			material.Specular = new Color4(1f, sr, sg, sb);
@@ -595,9 +595,9 @@ namespace SlimDX.Direct3D9
 			{
 				return "";
 			}
-			string flat = raw.Replace("/", "").Replace("\\", "");
-			string file = Path.GetFileName(raw.Replace('\\', '/'));
-			string match = this.MatchFile(flat);
+			var flat = raw.Replace("/", "").Replace("\\", "");
+			var file = Path.GetFileName(raw.Replace('\\', '/'));
+			var match = this.MatchFile(flat);
 			if (match == null)
 			{
 				match = this.MatchFile(file);
@@ -615,7 +615,7 @@ namespace SlimDX.Direct3D9
 			{
 				return null;
 			}
-			for (int i = 0; i < this.modelFiles.Length; i++)
+			for (var i = 0; i < this.modelFiles.Length; i++)
 			{
 				if (string.Equals(this.modelFiles[i], name, StringComparison.OrdinalIgnoreCase))
 				{
@@ -627,7 +627,7 @@ namespace SlimDX.Direct3D9
 
 		private static Matrix ReadMatrix(List<Tok> toks, ref int index)
 		{
-			Matrix matrix = default(Matrix);
+			var matrix = default(Matrix);
 			matrix.M11 = ReadFloat(toks, ref index);
 			matrix.M12 = ReadFloat(toks, ref index);
 			matrix.M13 = ReadFloat(toks, ref index);
@@ -700,7 +700,7 @@ namespace SlimDX.Direct3D9
 
 		private static int SkipBlock(List<Tok> toks, int index)
 		{
-			int depth = 1;
+			var depth = 1;
 			while (index < toks.Count && depth > 0)
 			{
 				if (toks[index].Kind == TokKind.LBrace)
@@ -732,11 +732,11 @@ namespace SlimDX.Direct3D9
 
 		private static List<Tok> Tokenize(string text)
 		{
-			List<Tok> toks = new List<Tok>();
-			int i = 0;
+			var toks = new List<Tok>();
+			var i = 0;
 			while (i < text.Length)
 			{
-				char c = text[i];
+				var c = text[i];
 				if (c == ' ' || c == '\t' || c == '\r' || c == '\n' || c == ';' || c == ',' || c == '<' || c == '>')
 				{
 					i++;
@@ -766,7 +766,7 @@ namespace SlimDX.Direct3D9
 				if (c == '"')
 				{
 					i++;
-					StringBuilder builder = new StringBuilder();
+					var builder = new StringBuilder();
 					while (i < text.Length && text[i] != '"')
 					{
 						if (text[i] == '\\' && i + 1 < text.Length && (text[i + 1] == '\\' || text[i + 1] == '"'))
@@ -789,12 +789,12 @@ namespace SlimDX.Direct3D9
 				}
 				if (c == '-' || c == '+' || c == '.' || (c >= '0' && c <= '9'))
 				{
-					int start = i;
+					var start = i;
 					if (c == '-' || c == '+')
 					{
 						i++;
 					}
-					bool digit = false;
+					var digit = false;
 					while (i < text.Length && text[i] >= '0' && text[i] <= '9')
 					{
 						digit = true;
@@ -811,13 +811,13 @@ namespace SlimDX.Direct3D9
 					}
 					if (i < text.Length && (text[i] == 'e' || text[i] == 'E'))
 					{
-						int exp = i;
+						var exp = i;
 						i++;
 						if (i < text.Length && (text[i] == '+' || text[i] == '-'))
 						{
 							i++;
 						}
-						int expDigits = i;
+						var expDigits = i;
 						while (i < text.Length && text[i] >= '0' && text[i] <= '9')
 						{
 							i++;
@@ -832,7 +832,7 @@ namespace SlimDX.Direct3D9
 						i = start + 1;
 						continue;
 					}
-					string slice = text.Substring(start, i - start);
+					var slice = text.Substring(start, i - start);
 					double number;
 					if (!double.TryParse(slice, NumberStyles.Float, CultureInfo.InvariantCulture, out number))
 					{
@@ -843,11 +843,11 @@ namespace SlimDX.Direct3D9
 				}
 				if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '_')
 				{
-					int start = i;
+					var start = i;
 					i++;
 					while (i < text.Length)
 					{
-						char n = text[i];
+						var n = text[i];
 						if ((n >= 'A' && n <= 'Z') || (n >= 'a' && n <= 'z') || (n >= '0' && n <= '9') || n == '_')
 						{
 							i++;
@@ -865,17 +865,17 @@ namespace SlimDX.Direct3D9
 
 		private static string ResolvePath(string fileName)
 		{
-			string path = (fileName ?? "").Replace('\\', '/');
+			var path = (fileName ?? "").Replace('\\', '/');
 			if (File.Exists(path))
 			{
 				return path;
 			}
-			string dir = Path.GetDirectoryName(path);
-			string name = Path.GetFileName(path);
+			var dir = Path.GetDirectoryName(path);
+			var name = Path.GetFileName(path);
 			if (!string.IsNullOrEmpty(dir) && Directory.Exists(dir))
 			{
-				string[] files = Directory.GetFiles(dir);
-				for (int i = 0; i < files.Length; i++)
+				var files = Directory.GetFiles(dir);
+				for (var i = 0; i < files.Length; i++)
 				{
 					if (string.Equals(Path.GetFileName(files[i]), name, StringComparison.OrdinalIgnoreCase))
 					{
@@ -892,9 +892,9 @@ namespace SlimDX.Direct3D9
 			{
 				return new string[0];
 			}
-			string[] files = Directory.GetFiles(dir);
-			string[] names = new string[files.Length];
-			for (int i = 0; i < files.Length; i++)
+			var files = Directory.GetFiles(dir);
+			var names = new string[files.Length];
+			for (var i = 0; i < files.Length; i++)
 			{
 				names[i] = Path.GetFileName(files[i]);
 			}

@@ -27,7 +27,7 @@ namespace Shooting
 			{
 				Scale -= maxScale * 4f / (float)LifeTime;
 			}
-			float num = 8f / Vy;
+			var num = 8f / Vy;
 			Vx = 10f * (float)Math.Sin((double)((float)Time / num));
 			Depth += 10f * (float)Math.Cos((double)((float)Time / num));
 		}

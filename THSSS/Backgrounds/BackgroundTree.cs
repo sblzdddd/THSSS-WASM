@@ -47,7 +47,7 @@ namespace Shooting
 		private void SetupMatrices()
 		{
 			CameraAngle = -1.5707964f + StageData.Background3D.Envi.CameraAngle;
-			Matrix matrix = Matrix.Identity;
+			var matrix = Matrix.Identity;
 			matrix *= Matrix.RotationZ((float)Angle);
 			matrix *= Matrix.Scaling(new Vector3(Scale, Scale, Scale));
 			if (Mirrored)

@@ -18,9 +18,9 @@ namespace Shooting
 			Boss.DestPoint = new Point(BoundRect.Width / 2, 120);
 			Boss.Velocity = 4f;
 			StageData.SoundPlay("se_cat00.wav");
-			BackgroundMove2 backgroundMove = new BackgroundMove2(StageData, "Card01b");
+			var backgroundMove = new BackgroundMove2(StageData, "Card01b");
 			backgroundMove.DirectionDegree = 270.0;
-			BackgroundMove2 backgroundMove2 = new BackgroundMove2(StageData, "Card01a");
+			var backgroundMove2 = new BackgroundMove2(StageData, "Card01a");
 			backgroundMove2.DirectionDegree = -80.0;
 			backgroundMove2.Length = 1024;
 			backgroundMove2.TransparentValueF = 80f;
@@ -52,7 +52,7 @@ namespace Shooting
 					text = ".\\CS\\St01\\关底Boss\\FSC符L.mbg";
 					break;
 				}
-				CS_Data cs_Data = StageData.LoadCS(text);
+				var cs_Data = StageData.LoadCS(text);
 				new CSEmitterController(StageData, cs_Data);
 			}
 		}

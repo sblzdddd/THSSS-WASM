@@ -24,7 +24,7 @@ namespace Shooting
 			base.Ctrl();
 			if (Time == 1)
 			{
-				BaseEffect baseEffect = new BaseEffect(StageData, "球", Position, 0f, 0.0)
+				var baseEffect = new BaseEffect(StageData, "球", Position, 0f, 0.0)
 				{
 					ScaleWidth = 0.05f,
 					ScaleLength = 0.05f
@@ -46,10 +46,10 @@ namespace Shooting
 			else if (120 < Time && Time <= 170)
 			{
 				AngularVelocityDegree = 2.5f;
-				BaseEffect baseEffect2 = new BaseEffect(StageData, "bullet50_5", Position, 7f, -1.5707963267948966 + Angle);
+				var baseEffect2 = new BaseEffect(StageData, "bullet50_5", Position, 7f, -1.5707963267948966 + Angle);
 				baseEffect2.ScaleLength = 15f;
 				baseEffect2.ScaleWidth = 0.3f;
-				BaseEffect baseEffect3 = new BaseEffect(StageData, "bullet50_5", Position, 7f, -1.5707963267948966 - Angle);
+				var baseEffect3 = new BaseEffect(StageData, "bullet50_5", Position, 7f, -1.5707963267948966 - Angle);
 				baseEffect3.ScaleLength = 15f;
 				baseEffect3.ScaleWidth = 0.3f;
 			}

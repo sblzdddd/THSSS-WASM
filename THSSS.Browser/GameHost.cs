@@ -164,7 +164,7 @@ namespace Thsss.Browser
 			{
 				return;
 			}
-			bool pressed = down != 0;
+			var pressed = down != 0;
 			if (pressed)
 			{
 				game.Form_Main.RaiseKeyDown(Keys.Parse(name));
@@ -221,7 +221,7 @@ namespace Thsss.Browser
 			Remember("Log.txt");
 			if (Directory.Exists("Replay"))
 			{
-				foreach (string file in Directory.GetFiles("Replay"))
+				foreach (var file in Directory.GetFiles("Replay"))
 				{
 					Remember(file);
 				}
@@ -234,9 +234,9 @@ namespace Thsss.Browser
 			{
 				return;
 			}
-			byte[] bytes = File.ReadAllBytes(path);
+			var bytes = File.ReadAllBytes(path);
 			string hash;
-			using (SHA256 sha = SHA256.Create())
+			using (var sha = SHA256.Create())
 			{
 				hash = Convert.ToBase64String(sha.ComputeHash(bytes));
 			}

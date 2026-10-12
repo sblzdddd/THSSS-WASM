@@ -78,13 +78,13 @@ namespace Shooting
 				}
 				else
 				{
-					double num = (AngleWithDirection ? (Direction + Angle) : Angle);
-					double distance = GetDistance(Target);
-					double direction = GetDirection(Target);
-					double num2 = distance * Math.Cos((double)((float)(num - direction)));
-					double num3 = distance * Math.Sin((double)((float)(num - direction)));
-					double num4 = (double)((float)Region * ScaleWidth);
-					double num5 = (double)((float)Region * ScaleLength);
+					var num = (AngleWithDirection ? (Direction + Angle) : Angle);
+					var distance = GetDistance(Target);
+					var direction = GetDirection(Target);
+					var num2 = distance * Math.Cos((double)((float)(num - direction)));
+					var num3 = distance * Math.Sin((double)((float)(num - direction)));
+					var num4 = (double)((float)Region * ScaleWidth);
+					var num5 = (double)((float)Region * ScaleLength);
 					if (num3 * num3 / num4 / num4 + num2 * num2 / num5 / num5 < 1.0)
 					{
 						return true;

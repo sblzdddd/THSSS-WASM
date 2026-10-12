@@ -17,21 +17,21 @@ namespace SlimDX.Direct3D9
 		{
 			width = Texture.ClampEdge(width);
 			height = Texture.ClampEdge(height);
-			string body = text ?? "";
-			SolidBrush solidBrush = brush as SolidBrush;
-			int argb = solidBrush != null ? solidBrush.Color.ToArgb() : -1;
-			float size = font != null && font.Size > 0f ? font.Size : 16f;
-			bool bold = font != null && font.Bold;
-			bool italic = font != null && font.Italic;
-			string family = font != null && !string.IsNullOrEmpty(font.Name) ? font.Name : "sans-serif";
-			string style = family + "|" + size.ToString(CultureInfo.InvariantCulture) + "|" + (bold ? "1" : "0") + "|" + (italic ? "1" : "0") + "|" + argb.ToString(CultureInfo.InvariantCulture) + "|" + width.ToString(CultureInfo.InvariantCulture) + "|" + height.ToString(CultureInfo.InvariantCulture);
-			string key = body + "\n" + style;
+			var body = text ?? "";
+			var solidBrush = brush as SolidBrush;
+			var argb = solidBrush != null ? solidBrush.Color.ToArgb() : -1;
+			var size = font != null && font.Size > 0f ? font.Size : 16f;
+			var bold = font != null && font.Bold;
+			var italic = font != null && font.Italic;
+			var family = font != null && !string.IsNullOrEmpty(font.Name) ? font.Name : "sans-serif";
+			var style = family + "|" + size.ToString(CultureInfo.InvariantCulture) + "|" + (bold ? "1" : "0") + "|" + (italic ? "1" : "0") + "|" + argb.ToString(CultureInfo.InvariantCulture) + "|" + width.ToString(CultureInfo.InvariantCulture) + "|" + height.ToString(CultureInfo.InvariantCulture);
+			var key = body + "\n" + style;
 			Slot exact = null;
 			Slot grown = null;
 			Slot oldest = null;
-			for (int i = 0; i < slots.Count; i++)
+			for (var i = 0; i < slots.Count; i++)
 			{
-				Slot slot = slots[i];
+				var slot = slots[i];
 				if (slot.Key == key)
 				{
 					exact = slot;
@@ -51,7 +51,7 @@ namespace SlimDX.Direct3D9
 				exact.Tick = ++clock;
 				return Texture.Wrap(exact.Texture.GlId, exact.Texture.Width, exact.Texture.Height);
 			}
-			Slot target = grown;
+			var target = grown;
 			if (target == null && slots.Count < Limit)
 			{
 				target = new Slot();

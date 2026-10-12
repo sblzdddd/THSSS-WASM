@@ -60,8 +60,8 @@ namespace Shooting
 			}
 			if (Time % 30 == 0)
 			{
-				PointF pointF = new PointF((float)Ran.Next(-200, 200), CameraPos.Y + (float)Ran.Next(100, 500));
-				Background3DObject background3DObject = new Background3DObject(StageData, "591-1", pointF, false);
+				var pointF = new PointF((float)Ran.Next(-200, 200), CameraPos.Y + (float)Ran.Next(100, 500));
+				var background3DObject = new Background3DObject(StageData, "591-1", pointF, false);
 				background3DObject.Scale = (float)Ran.Next(40, 60) / 100f;
 				background3DObject.ScaleVelocity = -0.004f;
 				background3DObject.Velocity = (float)Ran.Next(-10, 10) / 20f;

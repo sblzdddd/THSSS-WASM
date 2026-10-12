@@ -40,9 +40,9 @@ namespace Shooting
 		{
 			if (textureName != null)
 			{
-				char[] array = new char[] { '_' };
-				string[] array2 = textureName.Split(array);
-				string text = array2[0];
+				var array = new char[] { '_' };
+				var array2 = textureName.Split(array);
+				var text = array2[0];
 				switch (text)
 				{
 				case "bullet0":
@@ -153,7 +153,7 @@ namespace Shooting
 			base.Ctrl();
 			if (Time == 1 && BeginningEffect)
 			{
-				ParticleBeginBullet particleBeginBullet = new ParticleBeginBullet(StageData, Position, ColorType);
+				var particleBeginBullet = new ParticleBeginBullet(StageData, Position, ColorType);
 				particleBeginBullet.Active = Active;
 			}
 			if (Time == LifeTime && EndingEffect)
@@ -227,7 +227,7 @@ namespace Shooting
 						MyPlane.HighItemScore += 10;
 					}
 					StageData.SoundPlay("se_graze.wav");
-					BaseEffect baseEffect = new BaseEffect(StageData, "GrazeG", MyPlane.Position, 5f, Ran.NextDouble() * 3.141592653589793 * 2.0);
+					var baseEffect = new BaseEffect(StageData, "GrazeG", MyPlane.Position, 5f, Ran.NextDouble() * 3.141592653589793 * 2.0);
 					baseEffect.Scale = 1f;
 					baseEffect.TransparentVelocity = -20f;
 					baseEffect.ScaleVelocity = -0.05f;

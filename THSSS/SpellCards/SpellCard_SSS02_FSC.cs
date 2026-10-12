@@ -19,11 +19,11 @@ namespace Shooting
 			Boss.DestPoint = new Point(BoundRect.Width / 2, 120);
 			Boss.Velocity = 4f;
 			StageData.SoundPlay("se_cat00.wav");
-			BackgroundRotate backgroundRotate = new BackgroundRotate(StageData, "Card02b");
+			var backgroundRotate = new BackgroundRotate(StageData, "Card02b");
 			backgroundRotate.Scale = 1.3f;
 			backgroundRotate.TransparentValueF = 255f;
 			backgroundRotate.AngularVelocityDegree = -0.5f;
-			BackgroundMove2 backgroundMove = new BackgroundMove2(StageData, "Card02a")
+			var backgroundMove = new BackgroundMove2(StageData, "Card02a")
 			{
 				DirectionDegree = -80.0,
 				TransparentValueF = 155f,
@@ -32,17 +32,17 @@ namespace Shooting
 			};
 			backgroundMove.EventGroupList = new List<EventGroup>();
 			backgroundMove.EventsExecutionList = new List<Execution>();
-			EventGroup eventGroup = new EventGroup();
+			var eventGroup = new EventGroup();
 			eventGroup.index = 0;
 			eventGroup.tag = "0";
 			eventGroup.t = 200;
 			eventGroup.addtime = 200;
-			Event @event = new Event();
+			var @event = new Event();
 			@event.EventString = "当前帧=1：不透明度变化到60，正弦，400";
 			@event.String2BulletEvent();
 			eventGroup.EventList.Add(@event);
 			backgroundMove.EventGroupList.Add(eventGroup);
-			BackgroundRotate backgroundRotate2 = new BackgroundRotate(StageData, "Card02c");
+			var backgroundRotate2 = new BackgroundRotate(StageData, "Card02c");
 			backgroundRotate2.Scale = 0.7f;
 			backgroundRotate2.Active = true;
 			backgroundRotate2.AngularVelocityDegree = 0.2f;
@@ -73,7 +73,7 @@ namespace Shooting
 					text = ".\\CS\\St02\\关底Boss\\FSC符L.mbg";
 					break;
 				}
-				CS_Data cs_Data = StageData.LoadCS(text);
+				var cs_Data = StageData.LoadCS(text);
 				new CSEmitterController(StageData, cs_Data);
 			}
 		}

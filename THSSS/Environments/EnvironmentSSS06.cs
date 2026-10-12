@@ -69,10 +69,10 @@ namespace Shooting
 			CameraTarget.X = 40f * (float)Math.Sin((double)((float)(Time - 60) / 360f));
 			if (TimeMain == 3)
 			{
-				BaseParticle3D baseParticle3D = new BaseParticle3D(StageData, "BG01a", new PointF((float)(BoundRect.Width / 2), (float)(BoundRect.Height / 2)), 0f, 1.5707963267948966);
+				var baseParticle3D = new BaseParticle3D(StageData, "BG01a", new PointF((float)(BoundRect.Width / 2), (float)(BoundRect.Height / 2)), 0f, 1.5707963267948966);
 				baseParticle3D.TransparentVelocityDictionary.Add(500, -2f);
 				Background3D.BackgroundParticleList.Add(baseParticle3D);
-				Background3DObject background3DObject = new Background3DObject(StageData, "祭坛", new PointF(0f, 0f), false);
+				var background3DObject = new Background3DObject(StageData, "祭坛", new PointF(0f, 0f), false);
 				background3DObject.Scale = 10f;
 				Velocity = 0f;
 				CameraPosition = new Vector3(0f, -550f, 280f);
@@ -90,7 +90,7 @@ namespace Shooting
 				Background3D.BackgroundList.Clear();
 				while ((float)PosY2 < CameraPosition.Y + 6132f)
 				{
-					Background3DObject background3DObject2 = new Background3DObject(StageData, "云（亮层）", new PointF(0f, (float)PosY2), true);
+					var background3DObject2 = new Background3DObject(StageData, "云（亮层）", new PointF(0f, (float)PosY2), true);
 					background3DObject2.Scale = 3f;
 					background3DObject2.Mirrored = false;
 					background3DObject2.OriginalPositionZ = CameraPosition.Z - 200f;
@@ -99,7 +99,7 @@ namespace Shooting
 					background3DObject2.MaxTransparent = 250;
 					background3DObject2.TransparentVelocity = 2.5f;
 					background3DObject2.Velocity = 0f;
-					Background3DObject bo = new Background3DObject(StageData, "Cloud01", new PointF(0f, (float)(PosY2 + 250)), false)
+					var bo = new Background3DObject(StageData, "Cloud01", new PointF(0f, (float)(PosY2 + 250)), false)
 					{
 						Scale = 3f,
 						Mirrored = true,
@@ -131,8 +131,8 @@ namespace Shooting
 				{
 					if (Time % 10 == 0)
 					{
-						PointF pointF = new PointF((float)Ran.Next(-400, 400), CameraPos.Y + (float)Ran.Next(100, 500));
-						Background3DObject background3DObject3 = new Background3DObject(StageData, "591-1", pointF, false);
+						var pointF = new PointF((float)Ran.Next(-400, 400), CameraPos.Y + (float)Ran.Next(100, 500));
+						var background3DObject3 = new Background3DObject(StageData, "591-1", pointF, false);
 						background3DObject3.Scale = (float)Ran.Next(80, 100) / 100f;
 						background3DObject3.ScaleVelocity = -0.004f;
 						background3DObject3.Velocity = (float)Ran.Next(-10, 10) / 20f;
@@ -153,7 +153,7 @@ namespace Shooting
 			}
 			if (TimeMain == 8200)
 			{
-				BaseParticle3D baseParticle3D = new BaseParticle3D(StageData, "夜空（暗）", new PointF((float)(BoundRect.Width / 2), (float)(BoundRect.Height / 2)), 0f, 1.5707963267948966);
+				var baseParticle3D = new BaseParticle3D(StageData, "夜空（暗）", new PointF((float)(BoundRect.Width / 2), (float)(BoundRect.Height / 2)), 0f, 1.5707963267948966);
 				baseParticle3D.TransparentValueF = 0f;
 				baseParticle3D.TransparentVelocity = 3f;
 				Background3D.BackgroundParticleList.Add(baseParticle3D);
@@ -162,11 +162,11 @@ namespace Shooting
 			{
 				if (Background3D.BackgroundParticleList.Count == 0)
 				{
-					BaseParticle3D baseParticle3D = new BaseParticle3D(StageData, "夜空（暗）", new PointF((float)(BoundRect.Width / 2), (float)(BoundRect.Height / 2)), 0f, 1.5707963267948966);
+					var baseParticle3D = new BaseParticle3D(StageData, "夜空（暗）", new PointF((float)(BoundRect.Width / 2), (float)(BoundRect.Height / 2)), 0f, 1.5707963267948966);
 					Background3D.BackgroundParticleList.Add(baseParticle3D);
 				}
 			}
-			for (int i = Background3D.BackgroundList.Count - 1; i >= 0; i--)
+			for (var i = Background3D.BackgroundList.Count - 1; i >= 0; i--)
 			{
 				if (Background3D.BackgroundList[i].OriginalPosition.Y < CameraPosition.Y - 1000f)
 				{

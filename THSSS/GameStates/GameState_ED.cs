@@ -12,7 +12,7 @@ namespace Shooting
 			: base(GlobalData)
 		{
 			StageName = "All";
-			System.Drawing.Font font = new System.Drawing.Font("Arial", 14f * GlobalDataPackage.FontScale, FontStyle.Bold | FontStyle.Italic);
+			var font = new System.Drawing.Font("Arial", 14f * GlobalDataPackage.FontScale, FontStyle.Bold | FontStyle.Italic);
 			DXFont = new SlimDX.Direct3D9.Font(DeviceMain, font);
 		}
 
@@ -24,7 +24,7 @@ namespace Shooting
 			{
 				if (StageData.OnReplay)
 				{
-					int num = StageData.Rep.ReadKey();
+					var num = StageData.Rep.ReadKey();
 					if (num == 57358)
 					{
 						num = StageData.Rep.ReadKey();
@@ -55,20 +55,20 @@ namespace Shooting
 			{
 				Story.Ctrl();
 			}
-			for (int i = EnemyPlaneList.Count - 1; i >= 0; i--)
+			for (var i = EnemyPlaneList.Count - 1; i >= 0; i--)
 			{
 				EnemyPlaneList[i].Ctrl();
 			}
-			for (int i = BulletList.Count - 1; i >= 0; i--)
+			for (var i = BulletList.Count - 1; i >= 0; i--)
 			{
 				BulletList[i].Ctrl();
 			}
-			for (int i = EffectList.Count - 1; i >= 0; i--)
+			for (var i = EffectList.Count - 1; i >= 0; i--)
 			{
 				EffectList[i].Ctrl();
 			}
 			Particle3D.Ctrl();
-			for (int i = InterfaceList.Count - 1; i >= 0; i--)
+			for (var i = InterfaceList.Count - 1; i >= 0; i--)
 			{
 				InterfaceList[i].Ctrl();
 			}
@@ -98,7 +98,7 @@ namespace Shooting
 					StageData.C_History.PracticeLevel = 7;
 				}
 				StageFlag = false;
-				BackgroundTransitionIn backgroundTransitionIn = new BackgroundTransitionIn(StageData);
+				var backgroundTransitionIn = new BackgroundTransitionIn(StageData);
 				backgroundTransitionIn.Delay = 0;
 				backgroundTransitionIn.LifeTime = 280;
 				BoundRect = new Rectangle(128, 0, 384, 480);
@@ -130,11 +130,11 @@ namespace Shooting
 				if (TimeMain == 5)
 				{
 					StageData.ChangeBGM(".\\BGM\\Staff.ogg", 0, 0, 0, 0, 0);
-					string[] files = Directory.GetFiles(".\\CS\\Staff\\", "*.mbg");
-					foreach (string text in files)
+					var files = Directory.GetFiles(".\\CS\\Staff\\", "*.mbg");
+					foreach (var text in files)
 					{
-						CS_Data cs_Data = StageData.LoadCS(text);
-						CSEmitterController csemitterController = new CSEmitterController(StageData, cs_Data);
+						var cs_Data = StageData.LoadCS(text);
+						var csemitterController = new CSEmitterController(StageData, cs_Data);
 						csemitterController.OnRoad = true;
 						csemitterController.Time = TimeMain - 60;
 					}
@@ -144,7 +144,7 @@ namespace Shooting
 				{
 					if (StageData.ContinueTimes == 0)
 					{
-						EndStage ed = new EndStage(StageData, "FinalReplaySaveMenu", true);
+						var ed = new EndStage(StageData, "FinalReplaySaveMenu", true);
 						ed.CtrlCall = delegate(string x)
 						{
 							if (ed.Time == ed.LifeTime)

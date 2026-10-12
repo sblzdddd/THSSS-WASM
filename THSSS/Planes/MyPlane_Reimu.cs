@@ -25,16 +25,16 @@ namespace Shooting
 			if (Time % 3 == 0)
 			{
 				StageData.SoundPlay("se_plst00.wav", OriginalPosition.X / (float)BoundRect.Width);
-				float x = OriginalPosition.X;
-				float y = OriginalPosition.Y;
-				BaseMyBullet_Touhou baseMyBullet_Touhou = new BaseMyBullet_Touhou(StageData, "ReimuBullet", new PointF(x - 7f, y), 30f, -1.5707963267948966);
+				var x = OriginalPosition.X;
+				var y = OriginalPosition.Y;
+				var baseMyBullet_Touhou = new BaseMyBullet_Touhou(StageData, "ReimuBullet", new PointF(x - 7f, y), 30f, -1.5707963267948966);
 				baseMyBullet_Touhou.Damage = 14;
-				BaseMyBullet_Touhou baseMyBullet_Touhou2 = new BaseMyBullet_Touhou(StageData, "ReimuBullet", new PointF(x + 7f, y), 30f, -1.5707963267948966);
+				var baseMyBullet_Touhou2 = new BaseMyBullet_Touhou(StageData, "ReimuBullet", new PointF(x + 7f, y), 30f, -1.5707963267948966);
 				baseMyBullet_Touhou2.Damage = 14;
 			}
 			if (Time % 4 == 0)
 			{
-				for (int i = 0; i < PowerLevel; i++)
+				for (var i = 0; i < PowerLevel; i++)
 				{
 					SubPlaneList[i].Shoot();
 				}
@@ -123,13 +123,13 @@ namespace Shooting
 					break;
 				}
 			}
-			for (int i = 0; i < PowerLevel; i++)
+			for (var i = 0; i < PowerLevel; i++)
 			{
 				SubPlaneList[i].Enabled = true;
 				SubPlaneList[i].DestPoint = SubPlanePoint[i];
 				SubPlaneList[i].Ctrl();
 			}
-			for (int i = PowerLevel; i < SubPlaneList.Count; i++)
+			for (var i = PowerLevel; i < SubPlaneList.Count; i++)
 			{
 				SubPlaneList[i].Enabled = false;
 				SubPlaneList[i].Position = Position;

@@ -14,14 +14,14 @@ namespace SlimDX.DirectInput
 
 		public Result Acquire()
 		{
-			Result result = Result.Success;
+			var result = Result.Success;
 			Result.Last = result;
 			return result;
 		}
 
 		public Result Poll()
 		{
-			Result result = Result.Success;
+			var result = Result.Success;
 			Result.Last = result;
 			return result;
 		}

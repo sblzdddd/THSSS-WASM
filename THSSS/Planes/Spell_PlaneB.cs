@@ -13,11 +13,11 @@ namespace Shooting
 			LifeTime = 390;
 			Direction = 1.5707963267948966;
 			SpellList.Add(this);
-			BackgroundBlack backgroundBlack = new BackgroundBlack(StageData, Position);
+			var backgroundBlack = new BackgroundBlack(StageData, Position);
 			backgroundBlack.LifeTime = 410;
 			MyPlane.HighSpeed = 1.6f;
 			MyPlane.LowSpeed = 0.8f;
-			EmitterSaveEnegy3 emitterSaveEnegy = new EmitterSaveEnegy3(StageData, Position);
+			var emitterSaveEnegy = new EmitterSaveEnegy3(StageData, Position);
 			emitterSaveEnegy.SetBinding(this);
 			StageData.SoundPlay("boss_change.wav");
 		}
@@ -37,8 +37,8 @@ namespace Shooting
 					StageData.SoundPlay("se_nep00.wav");
 					StageData.SoundPlay("se_spell.wav");
 					StageData.VibrateStart(300);
-					PointF pointF = new PointF(OriginalPosition.X, OriginalPosition.Y + 70f);
-					PlaneSpark planeSpark = new PlaneSpark(StageData, "Master Spark", pointF, 0f, -1.5707963267948966)
+					var pointF = new PointF(OriginalPosition.X, OriginalPosition.Y + 70f);
+					var planeSpark = new PlaneSpark(StageData, "Master Spark", pointF, 0f, -1.5707963267948966)
 					{
 						MaxScaleW = 1f,
 						MaxScaleL = 3f
@@ -70,7 +70,7 @@ namespace Shooting
 
 		public override bool OutBoundary()
 		{
-			bool flag = base.OutBoundary();
+			var flag = base.OutBoundary();
 			if (flag)
 			{
 				MyPlane.HighSpeed = 5f;

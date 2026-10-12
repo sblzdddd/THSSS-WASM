@@ -104,7 +104,7 @@ namespace SlimDX.Direct3D9
 
 		public void Draw(Texture texture, Vector3? center, Vector3? position, Color4 color)
 		{
-			Rectangle rectangle = new Rectangle(0, 0, texture != null ? texture.Width : 1, texture != null ? texture.Height : 1);
+			var rectangle = new Rectangle(0, 0, texture != null ? texture.Width : 1, texture != null ? texture.Height : 1);
 			this.Draw(texture, rectangle, center, position, color);
 		}
 
@@ -135,22 +135,22 @@ namespace SlimDX.Direct3D9
 				this.cachedCos = cos;
 				this.cachedSin = sin;
 			}
-			float bx = posX * (1f - scaleX);
-			float by = posY * (1f - scaleY);
-			float m11 = cos * scaleX;
-			float m21 = -sin * scaleY;
-			float m12 = sin * scaleX;
-			float m22 = cos * scaleY;
-			float m41 = cos * (bx - posX) - sin * (by - posY) + posX;
-			float m42 = sin * (bx - posX) + cos * (by - posY) + posY;
-			float left = posX - centerX;
-			float top = posY - centerY;
-			float right = left + source.Width;
-			float bottom = top + source.Height;
-			float u0 = source.X / (float)texture.Width;
-			float v0 = source.Y / (float)texture.Height;
-			float u1 = (source.X + source.Width) / (float)texture.Width;
-			float v1 = (source.Y + source.Height) / (float)texture.Height;
+			var bx = posX * (1f - scaleX);
+			var by = posY * (1f - scaleY);
+			var m11 = cos * scaleX;
+			var m21 = -sin * scaleY;
+			var m12 = sin * scaleX;
+			var m22 = cos * scaleY;
+			var m41 = cos * (bx - posX) - sin * (by - posY) + posX;
+			var m42 = sin * (bx - posX) + cos * (by - posY) + posY;
+			var left = posX - centerX;
+			var top = posY - centerY;
+			var right = left + source.Width;
+			var bottom = top + source.Height;
+			var u0 = source.X / (float)texture.Width;
+			var v0 = source.Y / (float)texture.Height;
+			var u1 = (source.X + source.Width) / (float)texture.Width;
+			var v1 = (source.Y + source.Height) / (float)texture.Height;
 			this.Append(m11 * left + m21 * top + m41, m12 * left + m22 * top + m42, u0, v0, red, green, blue, alpha);
 			this.Append(m11 * right + m21 * top + m41, m12 * right + m22 * top + m42, u1, v0, red, green, blue, alpha);
 			this.Append(m11 * left + m21 * bottom + m41, m12 * left + m22 * bottom + m42, u0, v1, red, green, blue, alpha);
@@ -165,18 +165,18 @@ namespace SlimDX.Direct3D9
 			{
 				return;
 			}
-			Rectangle rectangle = sourceRect ?? new Rectangle(0, 0, texture.Width, texture.Height);
-			Vector3 vector = center ?? new Vector3(0f, 0f, 0f);
-			Vector3 vector2 = position ?? new Vector3(0f, 0f, 0f);
+			var rectangle = sourceRect ?? new Rectangle(0, 0, texture.Width, texture.Height);
+			var vector = center ?? new Vector3(0f, 0f, 0f);
+			var vector2 = position ?? new Vector3(0f, 0f, 0f);
 			this.EnsureBatch(texture);
-			float num = vector2.X - vector.X;
-			float num2 = vector2.Y - vector.Y;
-			float num3 = num + (float)rectangle.Width;
-			float num4 = num2 + (float)rectangle.Height;
-			float num5 = (float)rectangle.X / (float)texture.Width;
-			float num6 = (float)rectangle.Y / (float)texture.Height;
-			float num7 = (float)(rectangle.X + rectangle.Width) / (float)texture.Width;
-			float num8 = (float)(rectangle.Y + rectangle.Height) / (float)texture.Height;
+			var num = vector2.X - vector.X;
+			var num2 = vector2.Y - vector.Y;
+			var num3 = num + (float)rectangle.Width;
+			var num4 = num2 + (float)rectangle.Height;
+			var num5 = (float)rectangle.X / (float)texture.Width;
+			var num6 = (float)rectangle.Y / (float)texture.Height;
+			var num7 = (float)(rectangle.X + rectangle.Width) / (float)texture.Width;
+			var num8 = (float)(rectangle.Y + rectangle.Height) / (float)texture.Height;
 			this.Push(num, num2, num5, num6, color);
 			this.Push(num3, num2, num7, num6, color);
 			this.Push(num, num4, num5, num8, color);
@@ -195,15 +195,15 @@ namespace SlimDX.Direct3D9
 
 		private void EnsureBatch(Texture texture)
 		{
-			Device device = Device.Active;
+			var device = Device.Active;
 			if (device != null)
 			{
 				device.FlushWorldBatch();
 			}
-			int num = device.BlendSrc;
-			int num2 = device.BlendDst;
-			int num3 = device.BlendEquation;
-			bool flag = texture.IsRenderTarget;
+			var num = device.BlendSrc;
+			var num2 = device.BlendDst;
+			var num3 = device.BlendEquation;
+			var flag = texture.IsRenderTarget;
 			if (this.unordered)
 			{
 				if (this.runBlendSet && (this.runSrc != num || this.runDst != num2 || this.runEq != num3))
@@ -218,7 +218,7 @@ namespace SlimDX.Direct3D9
 				{
 					return;
 				}
-				long key = ((long)texture.GlId << 1) | (flag ? 1L : 0L);
+				var key = ((long)texture.GlId << 1) | (flag ? 1L : 0L);
 				Bucket bucket;
 				if (!this.buckets.TryGetValue(key, out bucket))
 				{
@@ -251,8 +251,8 @@ namespace SlimDX.Direct3D9
 
 		private void Push(float x, float y, float u, float v, Color4 color)
 		{
-			float num = this.Transform.M11 * x + this.Transform.M21 * y + this.Transform.M41;
-			float num2 = this.Transform.M12 * x + this.Transform.M22 * y + this.Transform.M42;
+			var num = this.Transform.M11 * x + this.Transform.M21 * y + this.Transform.M41;
+			var num2 = this.Transform.M12 * x + this.Transform.M22 * y + this.Transform.M42;
 			this.Append(num, num2, u, v, color.Red, color.Green, color.Blue, color.Alpha);
 		}
 
@@ -262,7 +262,7 @@ namespace SlimDX.Direct3D9
 			int count;
 			if (this.unordered)
 			{
-				Bucket bucket = this.currentBucket;
+				var bucket = this.currentBucket;
 				if (bucket.Count + 8 > bucket.Data.Length)
 				{
 					Array.Resize(ref bucket.Data, bucket.Data.Length * 2);
@@ -311,9 +311,9 @@ namespace SlimDX.Direct3D9
 
 		private void EmitBuckets()
 		{
-			for (int i = 0; i < this.bucketOrder.Count; i++)
+			for (var i = 0; i < this.bucketOrder.Count; i++)
 			{
-				Bucket bucket = this.bucketOrder[i];
+				var bucket = this.bucketOrder[i];
 				if (bucket.Count > 0)
 				{
 					this.Emit(bucket.Data, bucket.Count, bucket.Texture, bucket.Src, bucket.Dst, bucket.Eq, bucket.Flip);
@@ -332,12 +332,12 @@ namespace SlimDX.Direct3D9
 			{
 				return;
 			}
-			Device device = Device.Active;
-			Viewport viewport = device.Viewport;
+			var device = Device.Active;
+			var viewport = device.Viewport;
 			GlHost.Need().SetViewport(viewport.X, viewport.Y, viewport.Width, viewport.Height, device.BackBufferWidth, device.BackBufferHeight);
 			GlHost.Need().SetBlend(device.AlphaBlendEnable, src, dst, equation);
 			GlHost.Need().SetDepth(false, false);
-			Effect effect = Effect.Active;
+			var effect = Effect.Active;
 			if (effect != null)
 			{
 				GlHost.Need().DrawEffect(effect.Name, texture.GlId, flip ? 1f : 0f, data.AsSpan(0, count), effect.Float("BlurLevel"), effect.Float("X"), effect.Float("Y"), effect.Float("Time"), effect.Float("Radius"), effect.Int("ColorKey"));
@@ -350,7 +350,7 @@ namespace SlimDX.Direct3D9
 
 		private void RestoreDepth()
 		{
-			Device device = Device.Active;
+			var device = Device.Active;
 			if (device == null)
 			{
 				return;

@@ -10,7 +10,7 @@ namespace Shooting
 			: base(GlobalData)
 		{
 			InitializeComponent();
-			System.Drawing.Font font = new System.Drawing.Font("Arial", 12f * GlobalDataPackage.FontScale, FontStyle.Bold | FontStyle.Italic);
+			var font = new System.Drawing.Font("Arial", 12f * GlobalDataPackage.FontScale, FontStyle.Bold | FontStyle.Italic);
 			DXFont = new SlimDX.Direct3D9.Font(DeviceMain, font);
 		}
 
@@ -26,7 +26,7 @@ namespace Shooting
 		{
 			if (TimeMain == 50)
 			{
-				BaseEffect baseEffect = new BaseEffect(StageData, "woshixingtu", new PointF(385f, 240f), 4f, 0.0);
+				var baseEffect = new BaseEffect(StageData, "woshixingtu", new PointF(385f, 240f), 4f, 0.0);
 				baseEffect.AngleDegree = 90.0;
 				baseEffect.Active = false;
 				baseEffect.DestPoint = new PointF(320f, 240f);
@@ -37,7 +37,7 @@ namespace Shooting
 			}
 			else if (TimeMain == 100)
 			{
-				BaseEffect baseEffect2 = new BaseEffect(StageData, "woshibiaotihebaisi", new PointF(385f, 240f), 4f, 0.0);
+				var baseEffect2 = new BaseEffect(StageData, "woshibiaotihebaisi", new PointF(385f, 240f), 4f, 0.0);
 				baseEffect2.AngleDegree = 90.0;
 				baseEffect2.Active = false;
 				baseEffect2.DestPoint = new PointF(320f, 240f);
@@ -58,10 +58,10 @@ namespace Shooting
 			}
 			if (StageData.MenuGroupList.Count > 0)
 			{
-				BaseMenuItem baseMenuItem = StageData.MenuGroupList[StageData.MenuGroupList.Count - 1].MenuItemList[StageData.MenuGroupList[StageData.MenuGroupList.Count - 1].MenuSelectIndex];
+				var baseMenuItem = StageData.MenuGroupList[StageData.MenuGroupList.Count - 1].MenuItemList[StageData.MenuGroupList[StageData.MenuGroupList.Count - 1].MenuSelectIndex];
 				if (StageData.MenuGroupList.Count == 1 || StageData.MenuGroupList[StageData.MenuGroupList.Count - 1] is MenuOption)
 				{
-					Particle particle = new Particle(StageData, "Star", new PointF((float)Ran.Next((int)baseMenuItem.OriginalPosition.X - 10, (int)baseMenuItem.OriginalPosition.X + baseMenuItem.TxtureObject.PosRect.Width + 10), baseMenuItem.OriginalPosition.Y + 20f), (float)(StageData.Ran.Next(10, 20) / 10), -1.5707963267948966 - (double)((float)StageData.Ran.Next(1, 5) / 10f));
+					var particle = new Particle(StageData, "Star", new PointF((float)Ran.Next((int)baseMenuItem.OriginalPosition.X - 10, (int)baseMenuItem.OriginalPosition.X + baseMenuItem.TxtureObject.PosRect.Width + 10), baseMenuItem.OriginalPosition.Y + 20f), (float)(StageData.Ran.Next(10, 20) / 10), -1.5707963267948966 - (double)((float)StageData.Ran.Next(1, 5) / 10f));
 					particle.Active = true;
 					particle.Scale = (float)StageData.Ran.Next(15, 40) / 100f;
 					particle.LifeTime = 20;

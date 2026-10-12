@@ -195,7 +195,7 @@ namespace System.Windows.Forms
 
 		public void RaiseKeyDown(Keys key)
 		{
-			KeyEventHandler keyEventHandler = this.KeyDown;
+			var keyEventHandler = this.KeyDown;
 			if (keyEventHandler != null)
 			{
 				keyEventHandler(this, new KeyEventArgs(key));
@@ -204,7 +204,7 @@ namespace System.Windows.Forms
 
 		public void RaiseKeyUp(Keys key)
 		{
-			KeyEventHandler keyEventHandler = this.KeyUp;
+			var keyEventHandler = this.KeyUp;
 			if (keyEventHandler != null)
 			{
 				keyEventHandler(this, new KeyEventArgs(key));

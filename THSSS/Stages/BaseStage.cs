@@ -15,14 +15,14 @@ namespace Shooting
 			: base(GlobalData)
 		{
 			InitializeComponent();
-			System.Drawing.Font font = new System.Drawing.Font("Arial", 14f * GlobalDataPackage.FontScale, FontStyle.Bold);
+			var font = new System.Drawing.Font("Arial", 14f * GlobalDataPackage.FontScale, FontStyle.Bold);
 			DXFont = new SlimDX.Direct3D9.Font(DeviceMain, font);
 		}
 
 		public override void Init()
 		{
 			BoundRect = new Rectangle(GameRegion_Main.Location, GameRegion_Main.Size);
-			Point point = new Point(BoundRect.Width / 2, BoundRect.Bottom - 50);
+			var point = new Point(BoundRect.Width / 2, BoundRect.Bottom - 50);
 			if (MyPlane == null)
 			{
 				MyPlane = new MyPlane_Aya(StageData, point);
@@ -204,7 +204,7 @@ namespace Shooting
 			{
 				if (StageData.OnReplay)
 				{
-					int num = StageData.Rep.ReadKey();
+					var num = StageData.Rep.ReadKey();
 					if (num == 57358)
 					{
 						num = StageData.Rep.ReadKey();
@@ -239,20 +239,20 @@ namespace Shooting
 			{
 				Story.Ctrl();
 			}
-			for (int i = MyBulletList.Count - 1; i >= 0; i--)
+			for (var i = MyBulletList.Count - 1; i >= 0; i--)
 			{
 				MyBulletList[i].Ctrl();
 			}
 			MyPlane.Ctrl();
-			for (int i = SpellList.Count - 1; i >= 0; i--)
+			for (var i = SpellList.Count - 1; i >= 0; i--)
 			{
 				SpellList[i].Ctrl();
 			}
-			for (int i = EnemyPlaneList.Count - 1; i >= 0; i--)
+			for (var i = EnemyPlaneList.Count - 1; i >= 0; i--)
 			{
 				EnemyPlaneList[i].Ctrl();
 			}
-			for (int i = BulletList.Count - 1; i >= 0; i--)
+			for (var i = BulletList.Count - 1; i >= 0; i--)
 			{
 				BulletList[i].Ctrl();
 			}
@@ -260,18 +260,18 @@ namespace Shooting
 			{
 				Boss.Ctrl();
 			}
-			for (int i = EffectList.Count - 1; i >= 0; i--)
+			for (var i = EffectList.Count - 1; i >= 0; i--)
 			{
 				EffectList[i].Ctrl();
 			}
 			Particle3D.Ctrl();
-			for (int i = ItemList.Count - 1; i >= 0; i--)
+			for (var i = ItemList.Count - 1; i >= 0; i--)
 			{
 				ItemList[i].Ctrl();
 			}
 			StageData.Vibrate();
 			HitCheckAllinOne();
-			for (int i = InterfaceList.Count - 1; i >= 0; i--)
+			for (var i = InterfaceList.Count - 1; i >= 0; i--)
 			{
 				InterfaceList[i].Ctrl();
 			}
@@ -310,7 +310,7 @@ namespace Shooting
 				{
 					x.HitCheckAll();
 				});
-				for (int i = 0; i < BulletList.Count; i++)
+				for (var i = 0; i < BulletList.Count; i++)
 				{
 					BulletList[i].HitCheckAll();
 				}
@@ -332,9 +332,9 @@ namespace Shooting
 				MyPlane.ShowCenter();
 			}
 			SpriteMain.Draw2D(TextureObjectDictionary["TotalBackground"], 1f, 0f, new PointF(320f, 240f), 255);
-			string fps = FPS.ToString("F1");
-			int fpsWidth = 0;
-			for (int i = 0; i < fps.Length; i++)
+			var fps = FPS.ToString("F1");
+			var fpsWidth = 0;
+			for (var i = 0; i < fps.Length; i++)
 			{
 				fpsWidth += fps[i] == '.' ? 10 : 16;
 			}
@@ -377,7 +377,7 @@ namespace Shooting
 			Background2.Show(true);
 			SpriteMain.End();
 			SpriteMain.Begin(SpriteFlags.AlphaBlend);
-			TextureObject textureObject = TextureObjectDictionary["White"];
+			var textureObject = TextureObjectDictionary["White"];
 			switch (MyPlane.EnchantmentState)
 			{
 			case EnchantmentType.Red:
@@ -415,17 +415,17 @@ namespace Shooting
 			SpriteMain.Begin(SpriteFlags.AlphaBlend | SpriteFlags.SortTexture);
 			DeviceMain.SetRenderState(RenderState.SourceBlend, 5);
 			DeviceMain.SetRenderState(RenderState.DestinationBlend, 2);
-			for (int i = 0; i < BulletList.Count; i++)
+			for (var i = 0; i < BulletList.Count; i++)
 			{
-				BaseBullet_Touhou bullet = BulletList[i];
+				var bullet = BulletList[i];
 				if (bullet.Active)
 				{
 					bullet.Show();
 				}
 			}
-			for (int i = 0; i < EffectList.Count; i++)
+			for (var i = 0; i < EffectList.Count; i++)
 			{
-				BaseEffect effect = EffectList[i];
+				var effect = EffectList[i];
 				if (effect.Active)
 				{
 					effect.Show();
@@ -444,49 +444,49 @@ namespace Shooting
 			});
 			SpriteMain.End();
 			SpriteMain.Begin(SpriteFlags.AlphaBlend);
-			for (int i = 0; i < BulletList.Count; i++)
+			for (var i = 0; i < BulletList.Count; i++)
 			{
-				BaseBullet_Touhou bullet = BulletList[i];
+				var bullet = BulletList[i];
 				if (!bullet.Active && bullet.Layer < 0)
 				{
 					bullet.Show();
 				}
 			}
-			for (int i = 0; i < BulletList.Count; i++)
+			for (var i = 0; i < BulletList.Count; i++)
 			{
-				BaseBullet_Touhou bullet = BulletList[i];
+				var bullet = BulletList[i];
 				if (!bullet.Active && bullet.Layer == 0)
 				{
 					bullet.Show();
 				}
 			}
-			for (int i = 0; i < BulletList.Count; i++)
+			for (var i = 0; i < BulletList.Count; i++)
 			{
-				BaseBullet_Touhou bullet = BulletList[i];
+				var bullet = BulletList[i];
 				if (!bullet.Active && bullet.Layer > 0)
 				{
 					bullet.Show();
 				}
 			}
-			for (int i = 0; i < EffectList.Count; i++)
+			for (var i = 0; i < EffectList.Count; i++)
 			{
-				BaseEffect effect = EffectList[i];
+				var effect = EffectList[i];
 				if (!effect.Active && effect.Layer < 0)
 				{
 					effect.Show();
 				}
 			}
-			for (int i = 0; i < EffectList.Count; i++)
+			for (var i = 0; i < EffectList.Count; i++)
 			{
-				BaseEffect effect = EffectList[i];
+				var effect = EffectList[i];
 				if (!effect.Active && effect.Layer == 0)
 				{
 					effect.Show();
 				}
 			}
-			for (int i = 0; i < EffectList.Count; i++)
+			for (var i = 0; i < EffectList.Count; i++)
 			{
-				BaseEffect effect = EffectList[i];
+				var effect = EffectList[i];
 				if (!effect.Active && effect.Layer > 0)
 				{
 					effect.Show();
@@ -504,9 +504,9 @@ namespace Shooting
 			{
 				x.Show();
 			});
-			for (int i = 0; i < Background.BackgroundList.Count; i++)
+			for (var i = 0; i < Background.BackgroundList.Count; i++)
 			{
-				BackgroundTransitionIn cover = Background.BackgroundList[i] as BackgroundTransitionIn;
+				var cover = Background.BackgroundList[i] as BackgroundTransitionIn;
 				if (cover != null)
 				{
 					cover.ShowLoading();

@@ -18,12 +18,12 @@ namespace Shooting
 		{
 			if (Time % 3 == 0)
 			{
-				for (int i = 0; i < 5; i++)
+				for (var i = 0; i < 5; i++)
 				{
-					double num = (double)((float)Ran.Next(360) / 180f) * 3.141592653589793;
-					int num2 = Ran.Next(150, 200);
-					PointF pointF = new PointF((float)((double)Position.X + (double)num2 * Math.Cos(num)), (float)((double)Position.Y + (double)num2 * Math.Sin(num)));
-					ParticleBack particleBack = new ParticleBack(StageData, "snow", pointF, 0f, num + 3.141592653589793)
+					var num = (double)((float)Ran.Next(360) / 180f) * 3.141592653589793;
+					var num2 = Ran.Next(150, 200);
+					var pointF = new PointF((float)((double)Position.X + (double)num2 * Math.Cos(num)), (float)((double)Position.Y + (double)num2 * Math.Sin(num)));
+					var particleBack = new ParticleBack(StageData, "snow", pointF, 0f, num + 3.141592653589793)
 					{
 						AngularVelocity = (float)Ran.Next(10) / 100f,
 						TransparentValueF = 200f,

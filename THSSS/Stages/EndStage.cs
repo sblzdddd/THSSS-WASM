@@ -28,7 +28,7 @@
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			int num = LifeTime - 100;
+			var num = LifeTime - 100;
 			BGM_Player.Volume = (int)((float)tempVolumn * (1f - (float)Time / (float)num));
 			if (Time == num)
 			{
@@ -75,7 +75,7 @@
 				Background3D.Clear();
 				Background.Clear();
 				Background2.Clear();
-				BackgroundTransitionOut backgroundTransitionOut = new BackgroundTransitionOut(StageData, 2);
+				var backgroundTransitionOut = new BackgroundTransitionOut(StageData, 2);
 				backgroundTransitionOut.TransparentValueF = 255f;
 				backgroundTransitionOut.TransparentVelocity = 0f;
 				backgroundTransitionOut.LifeTime = 1;

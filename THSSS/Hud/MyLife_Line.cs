@@ -24,26 +24,26 @@ namespace Shooting
 
 		public override void Show()
 		{
-			SizeF sizeF = new SizeF(size, size);
-			for (int i = 0; i < 8; i++)
+			var sizeF = new SizeF(size, size);
+			for (var i = 0; i < 8; i++)
 			{
-				TextureObject textureObject = TextureObjectDictionary["Life0d"];
-				PointF pointF = new PointF(OriginalPosition.X + (float)i * size, OriginalPosition.Y);
+				var textureObject = TextureObjectDictionary["Life0d"];
+				var pointF = new PointF(OriginalPosition.X + (float)i * size, OriginalPosition.Y);
 				SpriteMain.Draw2D(textureObject.TXTure, textureObject.PosRect, sizeF, new PointF(0f, 0f), 0f, pointF, Color.FromArgb(TransparentValue, Color.White));
 			}
-			for (int i = 0; i < Life; i++)
+			for (var i = 0; i < Life; i++)
 			{
-				TextureObject textureObject = TextureObjectDictionary["Life"];
-				PointF pointF = new PointF(OriginalPosition.X + (float)i * size, OriginalPosition.Y);
+				var textureObject = TextureObjectDictionary["Life"];
+				var pointF = new PointF(OriginalPosition.X + (float)i * size, OriginalPosition.Y);
 				SpriteMain.Draw2D(textureObject.TXTure, textureObject.PosRect, sizeF, new PointF(0f, 0f), 0f, pointF, Color.FromArgb(TransparentValue, Color.White));
 			}
 			if (Life < 8)
 			{
-				int num = MyPlane.LifeChip * 5 / MyPlane.nextLifeChip[MyPlane.LifeUpCount];
+				var num = MyPlane.LifeChip * 5 / MyPlane.nextLifeChip[MyPlane.LifeUpCount];
 				if (num > 0)
 				{
-					TextureObject textureObject = TextureObjectDictionary["Life" + (num - 1).ToString("D2")];
-					PointF pointF = new PointF(OriginalPosition.X + (float)Life * size, OriginalPosition.Y);
+					var textureObject = TextureObjectDictionary["Life" + (num - 1).ToString("D2")];
+					var pointF = new PointF(OriginalPosition.X + (float)Life * size, OriginalPosition.Y);
 					SpriteMain.Draw2D(textureObject.TXTure, textureObject.PosRect, sizeF, new PointF(0f, 0f), 0f, pointF, Color.FromArgb(TransparentValue, Color.White));
 				}
 			}

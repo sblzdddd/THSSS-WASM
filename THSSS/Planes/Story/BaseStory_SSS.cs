@@ -134,13 +134,13 @@ namespace Shooting.Planes.Story
 		{
 			if (File.Exists(fileName))
 			{
-				char[] array = new char[] { ',' };
-				string[] array2 = File.ReadAllLines(fileName, Encoding.Default);
+				var array = new char[] { ',' };
+				var array2 = File.ReadAllLines(fileName, Encoding.Default);
 				Conv.Clear();
-				int num = 0;
-				foreach (string text in array2)
+				var num = 0;
+				foreach (var text in array2)
 				{
-					string[] array4 = text.Split(array);
+					var array4 = text.Split(array);
 					if (num == 0)
 					{
 						num++;
@@ -149,7 +149,7 @@ namespace Shooting.Planes.Story
 					}
 					else
 					{
-						Conversation conversation = new Conversation(array4[0], bool.Parse(array4[1]), bool.Parse(array4[2]), array4[3], array4[4]);
+						var conversation = new Conversation(array4[0], bool.Parse(array4[1]), bool.Parse(array4[2]), array4[3], array4[4]);
 						Conv.Add(conversation);
 					}
 				}
@@ -160,13 +160,13 @@ namespace Shooting.Planes.Story
 		{
 			if (File.Exists(fileName))
 			{
-				char[] array = new char[] { ',' };
-				string[] array2 = File.ReadAllLines(fileName, Encoding.Default);
+				var array = new char[] { ',' };
+				var array2 = File.ReadAllLines(fileName, Encoding.Default);
 				Conv.Clear();
-				int num = 0;
-				foreach (string text in array2)
+				var num = 0;
+				foreach (var text in array2)
 				{
-					string[] array4 = text.Split(array);
+					var array4 = text.Split(array);
 					if (num == 0)
 					{
 						num++;
@@ -175,7 +175,7 @@ namespace Shooting.Planes.Story
 					}
 					else
 					{
-						Conversation conversation = new Conversation(array4[0], bool.Parse(array4[1]), array4[2], bool.Parse(array4[3]), array4[4], bool.Parse(array4[5]), array4[6]);
+						var conversation = new Conversation(array4[0], bool.Parse(array4[1]), array4[2], bool.Parse(array4[3]), array4[4], bool.Parse(array4[5]), array4[6]);
 						Conv.Add(conversation);
 					}
 				}

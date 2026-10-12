@@ -22,7 +22,7 @@ namespace Shooting
 					num = (long)((float)MyPlane.HighItemScore * MyPlane.Rate);
 					num /= 10L;
 					num *= 10L;
-					ParticleScoreValue particleScoreValue = new ParticleScoreValue(StageData, OriginalPosition, num);
+					var particleScoreValue = new ParticleScoreValue(StageData, OriginalPosition, num);
 					particleScoreValue.ColorValue = Color.FromArgb(254, 222, 63);
 				}
 				else
@@ -30,7 +30,7 @@ namespace Shooting
 					num = (long)(10 + (MyPlane.HighItemScore - 10) * (448 - (int)OriginalPosition.Y) / 320);
 					num /= 10L;
 					num *= 10L;
-					ParticleScoreValue particleScoreValue = new ParticleScoreValue(StageData, OriginalPosition, num);
+					var particleScoreValue = new ParticleScoreValue(StageData, OriginalPosition, num);
 				}
 				MyPlane.Score += num;
 				MyPlane.StarPoint += 20;

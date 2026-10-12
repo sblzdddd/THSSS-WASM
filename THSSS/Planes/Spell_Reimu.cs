@@ -56,12 +56,12 @@ namespace Shooting
 			}
 			if (Time % 12 == 0)
 			{
-				int num = 60;
-				double num2 = (double)(360f / (float)num);
-				float num3 = ((Time < 150) ? (2f + (float)Time * 4f / 150f) : 6f);
-				for (int i = 0; i < num; i++)
+				var num = 60;
+				var num2 = (double)(360f / (float)num);
+				var num3 = ((Time < 150) ? (2f + (float)Time * 4f / 150f) : 6f);
+				for (var i = 0; i < num; i++)
 				{
-					BaseEffect baseEffect = new BaseEffect(StageData, "yuan_9", Position, num3, 0.0)
+					var baseEffect = new BaseEffect(StageData, "yuan_9", Position, num3, 0.0)
 					{
 						DirectionDegree = num2 * (double)i,
 						ScaleWidth = 0.4f,

@@ -19,7 +19,7 @@ namespace SlimDX.Multimedia
 				this.data = new byte[0];
 				return;
 			}
-			using (MemoryStream memoryStream = new MemoryStream())
+			using (var memoryStream = new MemoryStream())
 			{
 				stream.CopyTo(memoryStream);
 				this.data = memoryStream.ToArray();
@@ -81,7 +81,7 @@ namespace SlimDX.Multimedia
 
 		public override int Read(byte[] buffer, int offset, int count)
 		{
-			int num = Math.Min(count, this.data.Length - this.position);
+			var num = Math.Min(count, this.data.Length - this.position);
 			if (num <= 0)
 			{
 				return 0;

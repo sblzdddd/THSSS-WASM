@@ -93,9 +93,9 @@ namespace Shooting
 		{
 			TemStr = "";
 			TemStr = TemStr.PadLeft(128, Convert.ToChar(" "));
-			string text = t1.ToString();
-			string text2 = t2.ToString();
-			string text3 = string.Concat(new string[] { "play media from ", text, " to ", text2, " repeat" });
+			var text = t1.ToString();
+			var text2 = t2.ToString();
+			var text3 = string.Concat(new string[] { "play media from ", text, " to ", text2, " repeat" });
 			APIClass.mciSendString(text3, TemStr, TemStr.Length, 0);
 		}
 

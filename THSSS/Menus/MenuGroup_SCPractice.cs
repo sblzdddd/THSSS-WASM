@@ -12,8 +12,8 @@ namespace Shooting
 		{
 			MenuSelectIndex = 0;
 			MenuItemList = new List<BaseMenuItem>();
-			List<SpellCardHistory> list = StageData.PData.SC_History.FindAll((SpellCardHistory a) => a.MyPlaneFullName == "ReimuA");
-			for (int i = 0; i < list.Count; i++)
+			var list = StageData.PData.SC_History.FindAll((SpellCardHistory a) => a.MyPlaneFullName == "ReimuA");
+			for (var i = 0; i < list.Count; i++)
 			{
 				MenuItemList.Add(new SCMenuItem(StageData, list[i].Index.ToString().PadRight(3))
 				{
@@ -22,9 +22,9 @@ namespace Shooting
 					DefaultColor = ((list[i].Recorded > 0) ? Color.SkyBlue : Color.White)
 				});
 			}
-			int num = 100;
-			int num2 = 100;
-			foreach (BaseMenuItem baseMenuItem in MenuItemList)
+			var num = 100;
+			var num2 = 100;
+			foreach (var baseMenuItem in MenuItemList)
 			{
 				baseMenuItem.TransparentValueF = 0f;
 				baseMenuItem.Position = new PointF((float)num, 90f);
@@ -56,14 +56,14 @@ namespace Shooting
 		public override void SelectItemChanged()
 		{
 			base.SelectItemChanged();
-			int num = 100;
-			int num2 = 100;
-			int num3 = (MenuSelectIndex - 8) * deltaY;
+			var num = 100;
+			var num2 = 100;
+			var num3 = (MenuSelectIndex - 8) * deltaY;
 			if (num3 < 0)
 			{
 				num3 = 0;
 			}
-			foreach (BaseMenuItem baseMenuItem in MenuItemList)
+			foreach (var baseMenuItem in MenuItemList)
 			{
 				baseMenuItem.DestPoint = new PointF((float)num, (float)(num2 - num3));
 				num2 += deltaY;
@@ -74,7 +74,7 @@ namespace Shooting
 		{
 			base.Ctrl();
 			DescriptionBox.Ctrl();
-			foreach (BaseMenuItem baseMenuItem in MenuItemList)
+			foreach (var baseMenuItem in MenuItemList)
 			{
 				baseMenuItem.TransparentValueF = 400f - Math.Abs(260f - baseMenuItem.Position.Y) * 2f;
 			}
@@ -91,7 +91,7 @@ namespace Shooting
 				OnRemoveMenu = TimeMain + 20;
 				TransparentVelocity = -15f;
 				DescriptionBox.TransparentVelocity = -15f;
-				foreach (BaseMenuItem baseMenuItem in MenuItemList)
+				foreach (var baseMenuItem in MenuItemList)
 				{
 					baseMenuItem.DestPoint = new PointF(100f, 60f);
 					baseMenuItem.OnRemove = true;

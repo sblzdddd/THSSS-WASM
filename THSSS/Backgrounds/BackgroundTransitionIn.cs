@@ -47,13 +47,13 @@ namespace Shooting
 				{
 					loadingLight = 255;
 				}
-				Particle particle = new Particle(StageData, "Star", new PointF((float)StageData.Ran.Next(400, 640), (float)StageData.Ran.Next(440, 580)), (float)(StageData.Ran.Next(10, 20) / 10), -1.5707963267948966 - (double)((float)StageData.Ran.Next(1, 5) / 10f));
+				var particle = new Particle(StageData, "Star", new PointF((float)StageData.Ran.Next(400, 640), (float)StageData.Ran.Next(440, 580)), (float)(StageData.Ran.Next(10, 20) / 10), -1.5707963267948966 - (double)((float)StageData.Ran.Next(1, 5) / 10f));
 				particle.Active = true;
 				particle.Scale = (float)StageData.Ran.Next(25, 70) / 100f;
 				particle.LifeTime = 70;
 				EffectList.Remove(particle);
 				stars.Add(particle);
-				for (int i = stars.Count - 1; i >= 0; i--)
+				for (var i = stars.Count - 1; i >= 0; i--)
 				{
 					stars[i].Ctrl();
 					if (stars[i].Time > stars[i].LifeTime)
@@ -78,7 +78,7 @@ namespace Shooting
 			{
 				return;
 			}
-			for (int i = 0; i < stars.Count; i++)
+			for (var i = 0; i < stars.Count; i++)
 			{
 				stars[i].Show();
 			}

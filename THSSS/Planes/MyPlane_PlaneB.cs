@@ -27,14 +27,14 @@ namespace Shooting
 				if (Time % 3 == 0)
 				{
 					StageData.SoundPlay("se_plst00.wav", OriginalPosition.X / (float)BoundRect.Width);
-					float x = Position.X;
-					float y = Position.Y;
+					var x = Position.X;
+					var y = Position.Y;
 					new BaseMyBullet(StageData, "自机子弹", new PointF(x - 7f, y), 30f, -1.5707963267948966);
 					new BaseMyBullet(StageData, "自机子弹", new PointF(x + 7f, y), 30f, -1.5707963267948966);
 				}
 				if (Time % 5 == 0)
 				{
-					for (int i = 0; i < PowerLevel; i++)
+					for (var i = 0; i < PowerLevel; i++)
 					{
 						SubPlaneList[i].Shoot();
 					}
@@ -97,13 +97,13 @@ namespace Shooting
 					break;
 				}
 			}
-			for (int i = 0; i < PowerLevel; i++)
+			for (var i = 0; i < PowerLevel; i++)
 			{
 				SubPlaneList[i].Enabled = true;
 				SubPlaneList[i].DestPoint = SubPlanePoint[i];
 				SubPlaneList[i].Ctrl();
 			}
-			for (int i = PowerLevel; i < SubPlaneList.Count; i++)
+			for (var i = PowerLevel; i < SubPlaneList.Count; i++)
 			{
 				SubPlaneList[i].Enabled = false;
 				SubPlaneList[i].Position = Position;

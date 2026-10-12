@@ -15,10 +15,10 @@ namespace Shooting
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			float v = V1;
-			float num = 0.2f * (float)Math.Sin((double)(Time + 30) * 3.141592653589793 * 2.0 / 200.0);
-			float num2 = OriginalPosition.X + v;
-			float num3 = OriginalPosition.Y + num;
+			var v = V1;
+			var num = 0.2f * (float)Math.Sin((double)(Time + 30) * 3.141592653589793 * 2.0 / 200.0);
+			var num2 = OriginalPosition.X + v;
+			var num3 = OriginalPosition.Y + num;
 			if (num2 < -500f)
 			{
 				num2 += 1000f;

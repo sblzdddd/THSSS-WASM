@@ -13,7 +13,7 @@ namespace Shooting
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			for (int i = lastAngle.Length - 1; i > 0; i--)
+			for (var i = lastAngle.Length - 1; i > 0; i--)
 			{
 				lastAngle[i] = lastAngle[i - 1];
 			}
@@ -38,9 +38,9 @@ namespace Shooting
 		{
 			if (StageData.SlowMode > 0)
 			{
-				double angle = Angle;
-				int transparentValue = TransparentValue;
-				for (int i = lastAngle.Length - 1; i >= 0; i -= 2)
+				var angle = Angle;
+				var transparentValue = TransparentValue;
+				for (var i = lastAngle.Length - 1; i >= 0; i -= 2)
 				{
 					Angle = lastAngle[i];
 					TransparentValueF = (float)(transparentValue * (lastAngle.Length - i + 15) / (lastAngle.Length + 1 + 15));

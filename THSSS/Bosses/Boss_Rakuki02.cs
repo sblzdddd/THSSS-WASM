@@ -7,7 +7,7 @@ namespace Shooting
 		public Boss_Rakuki02(StageDataPackage StageData)
 			: base(StageData)
 		{
-			TextureObject[,] array = new TextureObject[3, 4];
+			var array = new TextureObject[3, 4];
 			array[0, 0] = TextureObjectDictionary["BossRakuki-00"];
 			array[0, 1] = TextureObjectDictionary["BossRakuki-01"];
 			array[0, 2] = TextureObjectDictionary["BossRakuki-02"];
@@ -158,8 +158,8 @@ namespace Shooting
 						text = ".\\CS\\St02\\关底Boss\\1非L.mbg";
 						break;
 					}
-					CS_Data cs_Data = StageData.LoadCS(text);
-					CSEmitterController csemitterController = new CSEmitterController(StageData, cs_Data);
+					var cs_Data = StageData.LoadCS(text);
+					var csemitterController = new CSEmitterController(StageData, cs_Data);
 					csemitterController.BossBinding = true;
 				}
 			}
@@ -205,8 +205,8 @@ namespace Shooting
 						text = ".\\CS\\St02\\关底Boss\\2非L.mbg";
 						break;
 					}
-					CS_Data cs_Data = StageData.LoadCS(text);
-					CSEmitterController csemitterController = new CSEmitterController(StageData, cs_Data);
+					var cs_Data = StageData.LoadCS(text);
+					var csemitterController = new CSEmitterController(StageData, cs_Data);
 					csemitterController.BossBinding = true;
 				}
 			}

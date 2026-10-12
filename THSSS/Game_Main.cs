@@ -40,7 +40,7 @@ namespace Shooting
 		{
 			try
 			{
-				INI_RW ini_RW = new INI_RW(".\\Setting.INI");
+				var ini_RW = new INI_RW(".\\Setting.INI");
 				if (ini_RW.ExistINIFile())
 				{
 					fullWindow = ini_RW.IniReadValue("DirectX", "FullWindow") == "1";
@@ -131,9 +131,9 @@ namespace Shooting
 			bool flag;
 			try
 			{
-				Direct3D direct3D = new Direct3D();
-				AdapterInformation defaultAdapter = direct3D.Adapters.DefaultAdapter;
-				SlimDX.Direct3D9.Capabilities deviceCaps = direct3D.GetDeviceCaps(defaultAdapter.Adapter, SlimDX.Direct3D9.DeviceType.Hardware);
+				var direct3D = new Direct3D();
+				var defaultAdapter = direct3D.Adapters.DefaultAdapter;
+				var deviceCaps = direct3D.GetDeviceCaps(defaultAdapter.Adapter, SlimDX.Direct3D9.DeviceType.Hardware);
 				CreateFlags createFlags;
 				if ((deviceCaps.DeviceCaps & DeviceCaps.HWTransformAndLight) == DeviceCaps.HWTransformAndLight)
 				{
@@ -143,7 +143,7 @@ namespace Shooting
 				{
 					createFlags = CreateFlags.SoftwareVertexProcessing;
 				}
-				IntPtr deviceWindow = useUnrealFullScreen ? Form_Main.panel1.Handle : Form_Main.Handle;
+				var deviceWindow = useUnrealFullScreen ? Form_Main.panel1.Handle : Form_Main.Handle;
 				GlobalData.presentParams = new PresentParameters
 				{
 					BackBufferWidth = 640,
@@ -205,7 +205,7 @@ namespace Shooting
 
 		public void AddState()
 		{
-			Watch watch = new Watch();
+			var watch = new Watch();
 			watch.Start();
 			GlobalData.BGMVolume = bgmVolume;
 			GlobalData.SEVolume = seVolume;
@@ -398,7 +398,7 @@ namespace Shooting
 			}
 			else
 			{
-				for (int i = 0; i < presentInterval; i++)
+				for (var i = 0; i < presentInterval; i++)
 				{
 					fpsTimer.IncreaseOneFrame();
 				}
@@ -420,7 +420,7 @@ namespace Shooting
 			}
 			if (PresentState.StateSwitchData != null)
 			{
-				StateSwitchDataPackage stateSwitchData = PresentState.StateSwitchData;
+				var stateSwitchData = PresentState.StateSwitchData;
 				if (stateSwitchData.NextState == "GameExit")
 				{
 					Form_Main.Close();
@@ -455,8 +455,8 @@ namespace Shooting
 			}
 			if (useDirectInput)
 			{
-				KeyClass keyClass = new KeyClass();
-				KeyClass keyClass2 = new KeyClass();
+				var keyClass = new KeyClass();
+				var keyClass2 = new KeyClass();
 				try
 				{
 					KCapture.UpdateInput(ref keyClass);
@@ -494,7 +494,7 @@ namespace Shooting
 #if !BROWSER
 				Thread.Sleep(15);
 #endif
-				Result result = DeviceMain.TestCooperativeLevel();
+				var result = DeviceMain.TestCooperativeLevel();
 				if (result == SlimDX.Direct3D9.ResultCode.DeviceNotReset)
 				{
 					GlobalData.OnResetDevice();
@@ -518,7 +518,7 @@ namespace Shooting
 					}
 				}
 				PresentState.UpdateData();
-				for (int i = 1; i < presentInterval; i++)
+				for (var i = 1; i < presentInterval; i++)
 				{
 					if (PresentState.StateSwitchData != null)
 					{
@@ -563,7 +563,7 @@ namespace Shooting
 		{
 			if (!verticalSync || (presentInterval != 1 && !fullWindow))
 			{
-				float num = 16f * (float)presentInterval - fpsTimer.GetDuration();
+				var num = 16f * (float)presentInterval - fpsTimer.GetDuration();
 #if !BROWSER
 				if (num > 0f)
 				{
@@ -577,7 +577,7 @@ namespace Shooting
 				{
 					if (num < -16.66667f * (float)delayTolerance)
 					{
-						int i = 0;
+						var i = 0;
 						while ((float)i < -num / 16.66667f - (float)delayTolerance)
 						{
 							fpsTimer.IncreaseOneFrame();
@@ -609,19 +609,19 @@ namespace Shooting
 			{
 				return;
 			}
-			BaseGameState state = PresentState as BaseGameState;
+			var state = PresentState as BaseGameState;
 			if (state == null)
 			{
 				return;
 			}
 			refreshCount++;
-			long now = System.Diagnostics.Stopwatch.GetTimestamp();
+			var now = System.Diagnostics.Stopwatch.GetTimestamp();
 			if (refreshStamp == 0L)
 			{
 				refreshStamp = now;
 				return;
 			}
-			long elapsed = now - refreshStamp;
+			var elapsed = now - refreshStamp;
 			if (elapsed < System.Diagnostics.Stopwatch.Frequency / 2L)
 			{
 				return;
@@ -712,7 +712,7 @@ namespace Shooting
 			fullWindow = !fullWindow;
 			if (fullWindow)
 			{
-				Screen screen = Screen.FromPoint(Form_Main.Location);
+				var screen = Screen.FromPoint(Form_Main.Location);
 				Form_Main.FormBorderStyle = FormBorderStyle.None;
 				Form_Main.ClientSize = screen.Bounds.Size;
 				Form_Main.Location = screen.Bounds.Location;
@@ -758,14 +758,14 @@ namespace Shooting
 			}
 			if (GameStatesDictionary != null)
 			{
-				foreach (IGameState gameState in GameStatesDictionary.Values)
+				foreach (var gameState in GameStatesDictionary.Values)
 				{
 					gameState.Dispose();
 				}
 			}
 			try
 			{
-				INI_RW ini_RW = new INI_RW(".\\Setting.INI");
+				var ini_RW = new INI_RW(".\\Setting.INI");
 				if (ini_RW.ExistINIFile())
 				{
 					ini_RW.IniWriteValue("Volume", "BGMVolume", GlobalData.BGMVolume.ToString());
@@ -789,7 +789,7 @@ namespace Shooting
 			GlobalData.KClass.Key_Shift = e.KeyCode.ToString() == mapkey.Slow || GlobalData.KClass.Key_Shift;
 			GlobalData.KClass.Key_Z = e.KeyCode.ToString() == mapkey.Shoot || GlobalData.KClass.Key_Z;
 			GlobalData.KClass.Key_X = e.KeyCode.ToString() == mapkey.Bomb || GlobalData.KClass.Key_X;
-			string text = e.KeyCode.ToString();
+			var text = e.KeyCode.ToString();
 			switch (text)
 			{
 			case "R":
@@ -832,7 +832,7 @@ namespace Shooting
 			GlobalData.KClass.Key_Shift = !(e.KeyCode.ToString() == mapkey.Slow) && GlobalData.KClass.Key_Shift;
 			GlobalData.KClass.Key_Z = !(e.KeyCode.ToString() == mapkey.Shoot) && GlobalData.KClass.Key_Z;
 			GlobalData.KClass.Key_X = !(e.KeyCode.ToString() == mapkey.Bomb) && GlobalData.KClass.Key_X;
-			string text = e.KeyCode.ToString();
+			var text = e.KeyCode.ToString();
 			switch (text)
 			{
 			case "R":
@@ -862,8 +862,8 @@ namespace Shooting
 
 		private void ScreenShot()
 		{
-			Surface backBuffer = DeviceMain.GetBackBuffer(0, 0);
-			int num = 0;
+			var backBuffer = DeviceMain.GetBackBuffer(0, 0);
+			var num = 0;
 			while (File.Exists(string.Format(".\\ScreenShot\\screen{0:0000}.jpg", num)))
 			{
 				num++;

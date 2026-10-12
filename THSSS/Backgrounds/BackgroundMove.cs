@@ -19,8 +19,8 @@ namespace Shooting
 		{
 			AngleDegree = -DirectionDegree + 90.0;
 			base.Ctrl();
-			float num = OriginalPosition.X;
-			float num2 = OriginalPosition.Y;
+			var num = OriginalPosition.X;
+			var num2 = OriginalPosition.Y;
 			if (OriginalPosition.X <= (float)(-(float)BoundRect.Height / 2))
 			{
 				num = OriginalPosition.X + (float)BoundRect.Height;
@@ -42,8 +42,8 @@ namespace Shooting
 
 		public override void Show()
 		{
-			float num = OriginalPosition.X;
-			float num2 = OriginalPosition.Y;
+			var num = OriginalPosition.X;
+			var num2 = OriginalPosition.Y;
 			base.Show();
 			num += (float)BoundRect.Height;
 			PlaceAt(num, num2);

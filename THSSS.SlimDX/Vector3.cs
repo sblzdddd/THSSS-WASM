@@ -44,7 +44,7 @@ namespace SlimDX
 
 		public static Vector3 Normalize(Vector3 v)
 		{
-			float num = v.Length();
+			var num = v.Length();
 			if (num < 1E-08f)
 			{
 				return Zero;

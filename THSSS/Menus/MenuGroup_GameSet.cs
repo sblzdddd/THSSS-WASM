@@ -23,10 +23,10 @@ namespace Shooting
 			}
 			MenuItemList.Add(new BaseMenuItem(StageData, "Menu_从头开始"));
 			MenuItemList.Add(new BaseMenuItem(StageData, "Menu_返回主菜单"));
-			int num = 62;
-			int num2 = 300;
-			int num3 = -200;
-			foreach (BaseMenuItem baseMenuItem in MenuItemList)
+			var num = 62;
+			var num2 = 300;
+			var num3 = -200;
+			foreach (var baseMenuItem in MenuItemList)
 			{
 				baseMenuItem.DestPoint = new PointF((float)num, (float)num2);
 				baseMenuItem.Position = new PointF((float)(num + num3), 150f);

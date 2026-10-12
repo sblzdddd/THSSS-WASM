@@ -15,7 +15,7 @@ namespace Shooting
 			base.Ctrl();
 			if (Time == LifeTime)
 			{
-				string name = MyPlane.Name;
+				var name = MyPlane.Name;
 				if (name != null)
 				{
 					if (name == "Aya")

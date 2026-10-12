@@ -16,18 +16,18 @@ namespace Shooting
 			if (HitCheck(MyPlane))
 			{
 				ItemList.Remove(this);
-				float num = (float)MyPlane.Power;
+				var num = (float)MyPlane.Power;
 				MyPlane.Power += 100;
 				StageData.SoundPlay("se_item00.wav", OriginalPosition.X / (float)BoundRect.Width);
 				if (num != (float)MyPlane.Power)
 				{
 					StageData.SoundPlay("se_powerup.wav");
 				}
-				int num2 = 5000 + MyPlane.GreenPoint / 2;
+				var num2 = 5000 + MyPlane.GreenPoint / 2;
 				num2 /= 10;
 				num2 *= 10;
 				MyPlane.Score += (long)num2;
-				ParticleScoreValue particleScoreValue = new ParticleScoreValue(StageData, OriginalPosition, (long)num2);
+				var particleScoreValue = new ParticleScoreValue(StageData, OriginalPosition, (long)num2);
 				if (Doubled)
 				{
 					particleScoreValue.ColorValue = Color.FromArgb(254, 222, 63);

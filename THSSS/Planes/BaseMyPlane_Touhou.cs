@@ -18,7 +18,7 @@ namespace Shooting
 			Time = UnmatchedTime;
 			DeadTime = -1;
 			SubPlanePoint = new PointF[4];
-			string text = Name + IndexY.ToString() + ((int)IndexX).ToString();
+			var text = Name + IndexY.ToString() + ((int)IndexX).ToString();
 			TxtureObject = TextureObjectDictionary[text];
 			SpellEnabled = true;
 			HighItemScore = 10000;
@@ -26,7 +26,7 @@ namespace Shooting
 
 		public override void TextureCtrl()
 		{
-			int indexY = IndexY;
+			var indexY = IndexY;
 			if (Vx > 0.5f)
 			{
 				IndexY = 2;
@@ -64,7 +64,7 @@ namespace Shooting
 			{
 				IndexX = 7f;
 			}
-			string text = Name + IndexY.ToString() + ((int)IndexX).ToString();
+			var text = Name + IndexY.ToString() + ((int)IndexX).ToString();
 			TxtureObject = TextureObjectDictionary[text];
 		}
 
@@ -80,11 +80,11 @@ namespace Shooting
 
 		public override void Miss()
 		{
-			double num = -2.2707963148739676;
-			for (int i = 0; i < 8; i++)
+			var num = -2.2707963148739676;
+			for (var i = 0; i < 8; i++)
 			{
-				PointF pointF = new PointF((float)((double)OriginalPosition.X + 40.0 * Math.Cos(num)), (float)((double)OriginalPosition.Y + 40.0 * Math.Sin(num)));
-				PowerItem_Touhou powerItem_Touhou = new PowerItem_Touhou(StageData, pointF);
+				var pointF = new PointF((float)((double)OriginalPosition.X + 40.0 * Math.Cos(num)), (float)((double)OriginalPosition.Y + 40.0 * Math.Sin(num)));
+				var powerItem_Touhou = new PowerItem_Touhou(StageData, pointF);
 				powerItem_Touhou.Direction = num;
 				powerItem_Touhou.Velocity = 5f;
 				num += 0.1999999965940203;

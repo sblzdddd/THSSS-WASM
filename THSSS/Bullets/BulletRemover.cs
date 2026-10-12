@@ -16,7 +16,7 @@ namespace Shooting
 		{
 			base.Ctrl();
 			Region += 20;
-			for (int i = BulletList.Count - 1; i >= 0; i--)
+			for (var i = BulletList.Count - 1; i >= 0; i--)
 			{
 				if (HitCheck(BulletList[i], (float)Region))
 				{
@@ -27,7 +27,7 @@ namespace Shooting
 					}
 				}
 			}
-			for (int i = EnemyPlaneList.Count - 1; i >= 0; i--)
+			for (var i = EnemyPlaneList.Count - 1; i >= 0; i--)
 			{
 				if (HitCheck(EnemyPlaneList[i], (float)Region))
 				{

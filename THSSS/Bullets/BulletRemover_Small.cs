@@ -14,7 +14,7 @@ namespace Shooting
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			for (int i = BulletList.Count - 1; i >= 0; i--)
+			for (var i = BulletList.Count - 1; i >= 0; i--)
 			{
 				if (HitCheck(BulletList[i], (float)Region))
 				{

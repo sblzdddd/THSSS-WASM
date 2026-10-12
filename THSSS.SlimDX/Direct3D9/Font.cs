@@ -25,16 +25,16 @@ namespace SlimDX.Direct3D9
 			{
 				return 0;
 			}
-			float num = this.font.Size > 0f ? this.font.Size : 12f;
-			int num2 = Math.Max(8, (int)(text.Length * num) + 8);
-			int num3 = Math.Max(8, (int)num + 12);
-			int argb = color.ToArgb();
+			var num = this.font.Size > 0f ? this.font.Size : 12f;
+			var num2 = Math.Max(8, (int)(text.Length * num) + 8);
+			var num3 = Math.Max(8, (int)num + 12);
+			var argb = color.ToArgb();
 			if (this.texture != null && this.cachedText == text && this.cachedArgb == argb && this.texture.Width == num2 && this.texture.Height == num3)
 			{
 				sprite.Draw(this.texture, new Vector3?(new Vector3(0f, 0f, 0f)), new Vector3?(new Vector3((float)x, (float)y, 0f)), new Color4(color));
 				return num3;
 			}
-			byte[] array = GlHost.Need().RasterText(text, num2, num3, num, this.font.Bold, this.font.Italic);
+			var array = GlHost.Need().RasterText(text, num2, num3, num, this.font.Bold, this.font.Italic);
 			if (array == null || array.Length < num2 * num3 * 4)
 			{
 				return num3;
@@ -60,16 +60,16 @@ namespace SlimDX.Direct3D9
 			{
 				return new System.Drawing.Rectangle(0, 0, 0, 0);
 			}
-			float num = this.font.Size > 0f ? this.font.Size : 16f;
-			string[] array = text.Replace("\r\n", "\n").Split('\n');
-			int num2 = 0;
-			for (int i = 0; i < array.Length; i++)
+			var num = this.font.Size > 0f ? this.font.Size : 16f;
+			var array = text.Replace("\r\n", "\n").Split('\n');
+			var num2 = 0;
+			for (var i = 0; i < array.Length; i++)
 			{
-				float num3 = 0f;
-				string text2 = array[i];
-				for (int j = 0; j < text2.Length; j++)
+				var num3 = 0f;
+				var text2 = array[i];
+				for (var j = 0; j < text2.Length; j++)
 				{
-					char c = text2[j];
+					var c = text2[j];
 					if (c == '\r')
 					{
 						continue;

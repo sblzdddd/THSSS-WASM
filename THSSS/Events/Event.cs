@@ -7,16 +7,16 @@ namespace Shooting
 	{
 		public void String2EmitterEvent()
 		{
-			string eventString = EventString;
-			string text = eventString.Split(new char[] { '：' })[0];
-			string text2 = "";
-			string text3 = "";
-			string text4 = "";
-			string text5 = "";
-			string text6 = "";
-			string text7 = eventString.Split(new char[] { '：' })[1];
-			float num = 0f;
-			int num2 = 0;
+			var eventString = EventString;
+			var text = eventString.Split(new char[] { '：' })[0];
+			var text2 = "";
+			var text3 = "";
+			var text4 = "";
+			var text5 = "";
+			var text6 = "";
+			var text7 = eventString.Split(new char[] { '：' })[1];
+			var num = 0f;
+			var num2 = 0;
 			if (eventString.Contains("且"))
 			{
 				text6 = "且";
@@ -49,28 +49,28 @@ namespace Shooting
 			}
 			if (text2.Contains(">"))
 			{
-				string text8 = text2.Split(new char[] { '>' })[0];
+				var text8 = text2.Split(new char[] { '>' })[0];
 				text5 = ">";
 				text2 = text2.Split(new char[] { '>' })[1];
 			}
 			else if (text2.Contains("="))
 			{
-				string text9 = text2.Split(new char[] { '=' })[0];
+				var text9 = text2.Split(new char[] { '=' })[0];
 				text5 = "=";
 				text2 = text2.Split(new char[] { '=' })[1];
 			}
 			else if (text2.Contains("<"))
 			{
-				string text10 = text2.Split(new char[] { '<' })[0];
+				var text10 = text2.Split(new char[] { '<' })[0];
 				text5 = "<";
 				text2 = text2.Split(new char[] { '<' })[1];
 			}
 			if (eventString.Contains("变化到"))
 			{
-				int num3 = 0;
-				string[] array = text7.Split("变".ToCharArray())[1].Split("，".ToCharArray());
-				int num4 = (int)Hash.results[text7.Split("变".ToCharArray())[0]];
-				string text11 = text7.Split("变".ToCharArray())[0];
+				var num3 = 0;
+				var array = text7.Split("变".ToCharArray())[1].Split("，".ToCharArray());
+				var num4 = (int)Hash.results[text7.Split("变".ToCharArray())[0]];
+				var text11 = text7.Split("变".ToCharArray())[0];
 				if (array[0].Replace("化到", "").Contains("+"))
 				{
 					if (array[0].Replace("化到", "").Split(new char[] { '+' })[0] == "自身")
@@ -98,8 +98,8 @@ namespace Shooting
 				{
 					num = float.Parse(array[0].Replace("化到", ""));
 				}
-				string text12 = array[1];
-				int num5 = int.Parse(array[2].Split("帧".ToCharArray())[0]);
+				var text12 = array[1];
+				var num5 = int.Parse(array[2].Split("帧".ToCharArray())[0]);
 				condition = text;
 				result = text7;
 				condition2 = text2;
@@ -126,11 +126,11 @@ namespace Shooting
 			}
 			else if (eventString.Contains("增加"))
 			{
-				int num3 = 1;
-				string[] array2 = text7.Split("增".ToCharArray())[1].Split("，".ToCharArray());
+				var num3 = 1;
+				var array2 = text7.Split("增".ToCharArray())[1].Split("，".ToCharArray());
 				array2[0] = array2[0].Replace("加", "");
-				int num4 = (int)Hash.results[text7.Split("增".ToCharArray())[0]];
-				string text11 = text7.Split("增".ToCharArray())[0];
+				var num4 = (int)Hash.results[text7.Split("增".ToCharArray())[0]];
+				var text11 = text7.Split("增".ToCharArray())[0];
 				if (array2[0].Contains("+"))
 				{
 					if (array2[0].Split(new char[] { '+' })[0] == "自身")
@@ -158,8 +158,8 @@ namespace Shooting
 				{
 					num = float.Parse(array2[0]);
 				}
-				string text12 = array2[1];
-				int num5 = int.Parse(array2[2].Split("帧".ToCharArray())[0]);
+				var text12 = array2[1];
+				var num5 = int.Parse(array2[2].Split("帧".ToCharArray())[0]);
 				condition = text;
 				result = text7;
 				condition2 = text2;
@@ -186,10 +186,10 @@ namespace Shooting
 			}
 			else if (eventString.Contains("减少"))
 			{
-				int num3 = 2;
-				string[] array3 = text7.Split("减少".ToCharArray())[2].Split("，".ToCharArray());
-				int num4 = (int)Hash.results[text7.Split("减少".ToCharArray())[0]];
-				string text11 = text7.Split("减少".ToCharArray())[0];
+				var num3 = 2;
+				var array3 = text7.Split("减少".ToCharArray())[2].Split("，".ToCharArray());
+				var num4 = (int)Hash.results[text7.Split("减少".ToCharArray())[0]];
+				var text11 = text7.Split("减少".ToCharArray())[0];
 				if (array3[0].Contains("+"))
 				{
 					if (array3[0].Split(new char[] { '+' })[0] == "自身")
@@ -217,8 +217,8 @@ namespace Shooting
 				{
 					num = float.Parse(array3[0]);
 				}
-				string text12 = array3[1];
-				int num5 = int.Parse(array3[2].Split("帧".ToCharArray())[0]);
+				var text12 = array3[1];
+				var num5 = int.Parse(array3[2].Split("帧".ToCharArray())[0]);
 				condition = text;
 				result = text7;
 				condition2 = text2;
@@ -269,16 +269,16 @@ namespace Shooting
 
 		public void String2BulletEvent()
 		{
-			string eventString = EventString;
-			string text = eventString.Split(new char[] { '：' })[0];
-			string text2 = "";
-			string text3 = "";
-			string text4 = "";
-			string text5 = "";
-			string text6 = "";
-			string text7 = eventString.Split(new char[] { '：' })[1];
-			float num = 0f;
-			int num2 = 0;
+			var eventString = EventString;
+			var text = eventString.Split(new char[] { '：' })[0];
+			var text2 = "";
+			var text3 = "";
+			var text4 = "";
+			var text5 = "";
+			var text6 = "";
+			var text7 = eventString.Split(new char[] { '：' })[1];
+			var num = 0f;
+			var num2 = 0;
 			if (eventString.Contains("且"))
 			{
 				text6 = "且";
@@ -311,28 +311,28 @@ namespace Shooting
 			}
 			if (text2.Contains(">"))
 			{
-				string text8 = text2.Split(new char[] { '>' })[0];
+				var text8 = text2.Split(new char[] { '>' })[0];
 				text5 = ">";
 				text2 = text2.Split(new char[] { '>' })[1];
 			}
 			else if (text2.Contains("="))
 			{
-				string text9 = text2.Split(new char[] { '=' })[0];
+				var text9 = text2.Split(new char[] { '=' })[0];
 				text5 = "=";
 				text2 = text2.Split(new char[] { '=' })[1];
 			}
 			else if (text2.Contains("<"))
 			{
-				string text10 = text2.Split(new char[] { '<' })[0];
+				var text10 = text2.Split(new char[] { '<' })[0];
 				text5 = "<";
 				text2 = text2.Split(new char[] { '<' })[1];
 			}
 			if (eventString.Contains("变化到"))
 			{
-				int num3 = 0;
-				string[] array = text7.Split("变".ToCharArray())[1].Split("，".ToCharArray());
-				int num4 = (int)Hash.results2[text7.Split("变".ToCharArray())[0]];
-				string text11 = text7.Split("变".ToCharArray())[0];
+				var num3 = 0;
+				var array = text7.Split("变".ToCharArray())[1].Split("，".ToCharArray());
+				var num4 = (int)Hash.results2[text7.Split("变".ToCharArray())[0]];
+				var text11 = text7.Split("变".ToCharArray())[0];
 				if (array[0].Replace("化到", "").Contains("+"))
 				{
 					if (array[0].Replace("化到", "").Split(new char[] { '+' })[0] == "自身")
@@ -360,8 +360,8 @@ namespace Shooting
 				{
 					num = float.Parse(array[0].Replace("化到", ""));
 				}
-				string text12 = array[1];
-				int num5 = int.Parse(array[2].Split("帧".ToCharArray())[0]);
+				var text12 = array[1];
+				var num5 = int.Parse(array[2].Split("帧".ToCharArray())[0]);
 				condition = text;
 				result = text7;
 				condition2 = text2;
@@ -388,11 +388,11 @@ namespace Shooting
 			}
 			else if (eventString.Contains("增加"))
 			{
-				int num3 = 1;
-				string[] array2 = text7.Split("增".ToCharArray())[1].Split("，".ToCharArray());
+				var num3 = 1;
+				var array2 = text7.Split("增".ToCharArray())[1].Split("，".ToCharArray());
 				array2[0] = array2[0].Replace("加", "");
-				int num4 = (int)Hash.results2[text7.Split("增".ToCharArray())[0]];
-				string text11 = text7.Split("增".ToCharArray())[0];
+				var num4 = (int)Hash.results2[text7.Split("增".ToCharArray())[0]];
+				var text11 = text7.Split("增".ToCharArray())[0];
 				if (array2[0].Contains("+"))
 				{
 					if (array2[0].Split(new char[] { '+' })[0] == "自身")
@@ -420,8 +420,8 @@ namespace Shooting
 				{
 					num = float.Parse(array2[0]);
 				}
-				string text12 = array2[1];
-				int num5 = int.Parse(array2[2].Split("帧".ToCharArray())[0]);
+				var text12 = array2[1];
+				var num5 = int.Parse(array2[2].Split("帧".ToCharArray())[0]);
 				condition = text;
 				result = text7;
 				condition2 = text2;
@@ -448,10 +448,10 @@ namespace Shooting
 			}
 			else if (eventString.Contains("减少"))
 			{
-				int num3 = 2;
-				string[] array3 = text7.Split("减少".ToCharArray())[2].Split("，".ToCharArray());
-				int num4 = (int)Hash.results2[text7.Split("减少".ToCharArray())[0]];
-				string text11 = text7.Split("减少".ToCharArray())[0];
+				var num3 = 2;
+				var array3 = text7.Split("减少".ToCharArray())[2].Split("，".ToCharArray());
+				var num4 = (int)Hash.results2[text7.Split("减少".ToCharArray())[0]];
+				var text11 = text7.Split("减少".ToCharArray())[0];
 				if (array3[0].Contains("+"))
 				{
 					if (array3[0].Split(new char[] { '+' })[0] == "自身")
@@ -479,8 +479,8 @@ namespace Shooting
 				{
 					num = float.Parse(array3[0]);
 				}
-				string text12 = array3[1];
-				int num5 = int.Parse(array3[2].Split("帧".ToCharArray())[0]);
+				var text12 = array3[1];
+				var num5 = int.Parse(array3[2].Split("帧".ToCharArray())[0]);
 				condition = text;
 				result = text7;
 				condition2 = text2;

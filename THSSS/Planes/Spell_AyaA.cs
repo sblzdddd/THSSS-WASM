@@ -14,13 +14,13 @@ namespace Shooting
 			Direction = 1.5707963267948966;
 			SpellList.Add(this);
 			new BackgroundBlack(StageData, Position);
-			BackgroundMySC backgroundMySC = new BackgroundMySC(StageData, "76-4");
+			var backgroundMySC = new BackgroundMySC(StageData, "76-4");
 			backgroundMySC.LifeTime = 350;
 			backgroundMySC.MaxTransparent = 180;
 			backgroundMySC.TransparentValueF = 0f;
 			backgroundMySC.TransparentVelocity = 4f;
 			backgroundMySC.ColorValue = Color.Green;
-			BackgroundMySC backgroundMySC2 = new BackgroundMySC(StageData, "76-4");
+			var backgroundMySC2 = new BackgroundMySC(StageData, "76-4");
 			backgroundMySC2.LifeTime = 350;
 			backgroundMySC2.MaxTransparent = 150;
 			backgroundMySC2.TransparentValueF = 0f;
@@ -67,7 +67,7 @@ namespace Shooting
 
 		public override bool OutBoundary()
 		{
-			bool flag = base.OutBoundary();
+			var flag = base.OutBoundary();
 			if (flag)
 			{
 				MyPlane.HighSpeed = 5f;
@@ -83,7 +83,7 @@ namespace Shooting
 
 		public override void HitCheckAll()
 		{
-			for (int i = BulletList.Count - 1; i >= 0; i--)
+			for (var i = BulletList.Count - 1; i >= 0; i--)
 			{
 				if (HitCheck(BulletList[i]))
 				{
@@ -95,11 +95,11 @@ namespace Shooting
 					}
 				}
 			}
-			for (int i = EnemyPlaneList.Count - 1; i >= 0; i--)
+			for (var i = EnemyPlaneList.Count - 1; i >= 0; i--)
 			{
 				if (HitCheck(EnemyPlaneList[i]))
 				{
-					int num = Damage + (int)((400.0 - EnemyPlaneList[i].GetDistance(MyPlane)) / 50.0);
+					var num = Damage + (int)((400.0 - EnemyPlaneList[i].GetDistance(MyPlane)) / 50.0);
 					if (num < Damage)
 					{
 						num = Damage;
@@ -123,7 +123,7 @@ namespace Shooting
 			{
 				if (Boss.Time > Boss.UnmatchedTime && HitCheck(Boss))
 				{
-					int num = Damage + (int)((400.0 - Boss.GetDistance(MyPlane)) / 40.0);
+					var num = Damage + (int)((400.0 - Boss.GetDistance(MyPlane)) / 40.0);
 					if (num < Damage)
 					{
 						num = Damage;

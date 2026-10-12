@@ -20,7 +20,7 @@ namespace Shooting
 				}
 				else
 				{
-					int num = 100;
+					var num = 100;
 					fileName[(int)AudioIndex] = value;
 					if (x2p[(int)AudioIndex] != null)
 					{
@@ -132,7 +132,7 @@ namespace Shooting
 
 		public void Dispose()
 		{
-			for (int i = 0; i < x2p.Length; i++)
+			for (var i = 0; i < x2p.Length; i++)
 			{
 				if (x2p[(int)AudioIndex] != null)
 				{

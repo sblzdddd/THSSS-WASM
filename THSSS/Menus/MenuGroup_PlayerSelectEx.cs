@@ -10,7 +10,7 @@ namespace Shooting
 		{
 			MenuItemList = new List<BaseMenuItem>();
 			PlayerDescription = new List<BaseMenuItem>();
-			List<ClearHistory> list = StageData.PData.C_History.FindAll((ClearHistory x) => x.NoContinueClearTimes > 0 && x.MyPlaneFullName == "ReimuA");
+			var list = StageData.PData.C_History.FindAll((ClearHistory x) => x.NoContinueClearTimes > 0 && x.MyPlaneFullName == "ReimuA");
 			if (list.Count > 0)
 			{
 				MenuItemList.Add(new CharacterMenuItem(StageData, "FaceReimu_me")
@@ -83,8 +83,8 @@ namespace Shooting
 
 		public override void ProcessZ()
 		{
-			Point point = new Point(192, 398);
-			string name = MenuItemList[MenuSelectIndex].Name;
+			var point = new Point(192, 398);
+			var name = MenuItemList[MenuSelectIndex].Name;
 			if (name != null)
 			{
 				if (name == "Plane")

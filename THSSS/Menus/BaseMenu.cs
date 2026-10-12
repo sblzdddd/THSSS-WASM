@@ -27,7 +27,7 @@
 		public override void UpdateData()
 		{
 			base.UpdateData();
-			int count = StageData.MenuGroupList.Count;
+			var count = StageData.MenuGroupList.Count;
 			if (count > 0)
 			{
 				StageData.MenuGroupList[count - 1].MenuSelect();
@@ -39,7 +39,7 @@
 			Background3D.Ctrl();
 			Background.Ctrl();
 			Background2.Ctrl();
-			for (int i = EffectList.Count - 1; i >= 0; i--)
+			for (var i = EffectList.Count - 1; i >= 0; i--)
 			{
 				EffectList[i].Ctrl();
 			}

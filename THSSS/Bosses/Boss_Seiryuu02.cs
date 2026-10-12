@@ -7,7 +7,7 @@ namespace Shooting
 		public Boss_Seiryuu02(StageDataPackage StageData)
 			: base(StageData)
 		{
-			TextureObject[,] array = new TextureObject[3, 4];
+			var array = new TextureObject[3, 4];
 			array[0, 0] = TextureObjectDictionary["BossSeiryuu-00"];
 			array[0, 1] = TextureObjectDictionary["BossSeiryuu-01"];
 			array[0, 2] = TextureObjectDictionary["BossSeiryuu-02"];
@@ -110,7 +110,7 @@ namespace Shooting
 
 		public override void TextureCtrl()
 		{
-			int num = (Mirrored ? IndexY : (-IndexY));
+			var num = (Mirrored ? IndexY : (-IndexY));
 			if (OnAction > 0)
 			{
 				IndexY = 2;

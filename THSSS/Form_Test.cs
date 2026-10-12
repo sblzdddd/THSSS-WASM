@@ -84,9 +84,9 @@ namespace Shooting
 
 		public void SendString(string s)
 		{
-			RichTextBox richTextBox = richTextBox1;
+			var richTextBox = richTextBox1;
 			richTextBox.Text += s;
-			RichTextBox richTextBox2 = richTextBox1;
+			var richTextBox2 = richTextBox1;
 			richTextBox2.Text += '\n';
 		}
 
@@ -95,10 +95,10 @@ namespace Shooting
 			if (DialogResult.OK == folderBrowserDialog1.ShowDialog())
 			{
 				listBox1.Items.Clear();
-				string[] files = Directory.GetFiles(folderBrowserDialog1.SelectedPath, "*.mbg");
-				foreach (string text in files)
+				var files = Directory.GetFiles(folderBrowserDialog1.SelectedPath, "*.mbg");
+				foreach (var text in files)
 				{
-					FileInfo fileInfo = new FileInfo(text);
+					var fileInfo = new FileInfo(text);
 					listBox1.Items.Add(fileInfo.Name);
 				}
 				if (listBox1.Items.Count > 0)

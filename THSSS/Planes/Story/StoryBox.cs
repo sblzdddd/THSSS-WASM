@@ -168,7 +168,7 @@ namespace Shooting
 
 		public override void Show()
 		{
-			SizeF sizeF = new SizeF((float)TxtureObject.Width, 116f);
+			var sizeF = new SizeF((float)TxtureObject.Width, 116f);
 			SpriteMain.Draw2D(TxtureObject.TXTure, TxtureObject.PosRect, sizeF, TxtureObject.LeftTop, 0f, Position, Color.FromArgb(TransparentValue, Color.White));
 			if (Text != null)
 			{

@@ -11,7 +11,7 @@ namespace Shooting
 			{
 				return;
 			}
-			for (int i = 0; i < list.Count; i++)
+			for (var i = 0; i < list.Count; i++)
 			{
 				action(list[i]);
 			}

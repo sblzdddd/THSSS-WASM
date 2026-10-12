@@ -19,7 +19,7 @@ namespace Shooting
 		public ScreenTexManager(Device DeviceMain)
 		{
 			ScreenTex = new ScreenTexture[5];
-			for (int i = 0; i < ScreenTex.Length; i++)
+			for (var i = 0; i < ScreenTex.Length; i++)
 			{
 				ScreenTex[i] = new ScreenTexture(DeviceMain, 640, 480);
 			}
@@ -37,7 +37,7 @@ namespace Shooting
 
 		public void Reset()
 		{
-			for (int i = 0; i < ScreenTex.Length; i++)
+			for (var i = 0; i < ScreenTex.Length; i++)
 			{
 				if (ScreenTex[i] != null)
 				{
@@ -48,7 +48,7 @@ namespace Shooting
 
 		public void Dispose()
 		{
-			for (int i = 0; i < ScreenTex.Length; i++)
+			for (var i = 0; i < ScreenTex.Length; i++)
 			{
 				if (ScreenTex[i] != null)
 				{

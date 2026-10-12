@@ -17,8 +17,8 @@ namespace Shooting
 			base.Ctrl();
 			if (Time == LifeTime)
 			{
-				byte colorType = ColorType;
-				BaseObject baseObject = new BaseObject(StageData, SubBulletName + colorType.ToString(), new PointF(0f, 0f), 2.5f, 0.0);
+				var colorType = ColorType;
+				var baseObject = new BaseObject(StageData, SubBulletName + colorType.ToString(), new PointF(0f, 0f), 2.5f, 0.0);
 				new BulletGroupCircle(StageData, baseObject, OriginalPosition, Direction, (int)Difficulty * (int)DifficultLevel.Hard + 3, 0, colorType);
 				GiveEndEffect();
 			}

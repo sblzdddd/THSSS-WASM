@@ -12,13 +12,13 @@ namespace Shooting
 			this.OriginalPosition = OriginalPosition;
 			MenuSelectIndex = 0;
 			MenuItemList = new List<BaseMenuItem>();
-			for (int i = 0; i < 25; i++)
+			for (var i = 0; i < 25; i++)
 			{
 				MenuItemList.Add(new DescriptionMenuItem(StageData, string.Format("{0:00}", i + 1)));
 			}
-			float num = OriginalPosition.X + 12f;
-			float num2 = OriginalPosition.Y + 12f;
-			foreach (BaseMenuItem baseMenuItem in MenuItemList)
+			var num = OriginalPosition.X + 12f;
+			var num2 = OriginalPosition.Y + 12f;
+			foreach (var baseMenuItem in MenuItemList)
 			{
 				baseMenuItem.Position = new PointF(num, (float)(BoundRect.Top + 10));
 				baseMenuItem.DestPoint = new PointF(num, num2);
@@ -30,12 +30,12 @@ namespace Shooting
 
 		public virtual string SetDescroption(string fileName)
 		{
-			string text = "------- -------- ------ -- --- ";
+			var text = "------- -------- ------ -- --- ";
 			if (File.Exists(fileName))
 			{
 				try
 				{
-					ReplayInfo replayInfo = Replay.ReadTitle(fileName);
+					var replayInfo = Replay.ReadTitle(fileName);
 					if (replayInfo.Version != "ver 1.00")
 					{
 						return text;
@@ -97,7 +97,7 @@ namespace Shooting
 				StageData.SoundPlay("se_cancel00.wav");
 				if (StageData.Rep.CanRead)
 				{
-					ReplayInfo repInfo = StageData.GlobalData.LastState.StageData.RepInfo;
+					var repInfo = StageData.GlobalData.LastState.StageData.RepInfo;
 					repInfo.PlayerName = "autosave";
 					StageData.Rep.SaveRpy(".\\Replay\\AutoSave.rpy", repInfo);
 				}

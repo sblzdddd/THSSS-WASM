@@ -11,16 +11,16 @@ namespace Shooting
 		{
 			this.OriginalPosition = OriginalPosition;
 			ScoreHistorys = new List<BaseMenuItem>();
-			for (int i = 0; i < 10; i++)
+			for (var i = 0; i < 10; i++)
 			{
 				ScoreHistorys.Add(new DescriptionMenuItem(StageData, string.Format("{0:00}", i + 1)));
 			}
-			StageDataPackage stageData = StageData.GlobalData.LastState.StageData;
-			for (int i = 0; i < stageData.S_History.Count; i++)
+			var stageData = StageData.GlobalData.LastState.StageData;
+			for (var i = 0; i < stageData.S_History.Count; i++)
 			{
 				if (stageData.MyPlane.Score > stageData.S_History[i].Score)
 				{
-					ScoreHistory scoreHistory = new ScoreHistory
+					var scoreHistory = new ScoreHistory
 					{
 						MyPlaneFullName = stageData.MyPlane.FullName,
 						Rank = stageData.Difficulty,
@@ -31,7 +31,7 @@ namespace Shooting
 						Stage = stageData.CurrentStageName,
 						SlowRate = stageData.SlowRate
 					};
-					for (int j = stageData.S_History.Count - 1; j > i; j--)
+					for (var j = stageData.S_History.Count - 1; j > i; j--)
 					{
 						stageData.S_History[j].Copy(stageData.S_History[j - 1]);
 					}
@@ -40,10 +40,10 @@ namespace Shooting
 					break;
 				}
 			}
-			float num = OriginalPosition.X + 12f;
-			float num2 = OriginalPosition.Y + 30f;
-			int num3 = 0;
-			foreach (BaseMenuItem baseMenuItem in ScoreHistorys)
+			var num = OriginalPosition.X + 12f;
+			var num2 = OriginalPosition.Y + 30f;
+			var num3 = 0;
+			foreach (var baseMenuItem in ScoreHistorys)
 			{
 				baseMenuItem.Position = new PointF(num, (float)(BoundRect.Top + 40));
 				baseMenuItem.DestPoint = new PointF(num, num2);
@@ -61,7 +61,7 @@ namespace Shooting
 			{
 				ScoreHistorys[HistorySelectIndex].Selected = true;
 			}
-			string[,] array = new string[7, 13];
+			var array = new string[7, 13];
 			array[0, 0] = "A";
 			array[0, 1] = "B";
 			array[0, 2] = "C";
@@ -153,11 +153,11 @@ namespace Shooting
 			array[6, 10] = " ";
 			array[6, 11] = "BS";
 			array[6, 12] = "OK";
-			string[,] array2 = array;
+			var array2 = array;
 			MenuItemList = new List<BaseMenuItem>();
-			for (int k = 0; k < 7; k++)
+			for (var k = 0; k < 7; k++)
 			{
-				for (int l = 0; l < 13; l++)
+				for (var l = 0; l < 13; l++)
 				{
 					BaseMenuItem baseMenuItem2 = new DescriptionMenuItem(StageData, array2[k, l]);
 					baseMenuItem2.OriginalPosition = new PointF((float)(stageData.BoundRect.Left + stageData.BoundRect.Width / 2 - 138), 300f);
@@ -170,7 +170,7 @@ namespace Shooting
 			{
 				MenuItemList[MenuSelectIndex].Selected = true;
 			}
-			char[] array3 = stageData.PData.PlayerName.ToCharArray();
+			var array3 = stageData.PData.PlayerName.ToCharArray();
 			while (NameIndex < array3.Length)
 			{
 				PlayerName[NameIndex] = array3[NameIndex].ToString();
@@ -240,7 +240,7 @@ namespace Shooting
 			{
 				OnRemoveMenu = TimeMain + 20;
 				TransparentVelocity = -15f;
-				foreach (BaseMenuItem baseMenuItem in ScoreHistorys)
+				foreach (var baseMenuItem in ScoreHistorys)
 				{
 					baseMenuItem.DestPoint = new PointF(OriginalPosition.X + 12f, OriginalPosition.Y + 30f);
 					baseMenuItem.OnRemove = true;
@@ -271,11 +271,11 @@ namespace Shooting
 		private void ShowPlayerName()
 		{
 			string text = null;
-			for (int i = 0; i < 7; i++)
+			for (var i = 0; i < 7; i++)
 			{
 				text += PlayerName[i];
 			}
-			StageDataPackage stageData = StageData.GlobalData.LastState.StageData;
+			var stageData = StageData.GlobalData.LastState.StageData;
 			if (HistorySelectIndex >= 0)
 			{
 				stageData.S_History[HistorySelectIndex].PlayerName = text;

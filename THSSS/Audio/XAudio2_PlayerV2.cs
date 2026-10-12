@@ -66,7 +66,7 @@ namespace Shooting
 				{
 					return false;
 				}
-				FileInfo fileInfo = new FileInfo(fileName);
+				var fileInfo = new FileInfo(fileName);
 				xwmaMode = string.Equals(fileInfo.Extension, ".xwma", StringComparison.OrdinalIgnoreCase);
 				buffer = new AudioBuffer();
 				buffer.Flags = BufferFlags.EndOfStream;
@@ -117,7 +117,7 @@ namespace Shooting
 
 		public void Play(int Volume)
 		{
-			int volume = this.Volume;
+			var volume = this.Volume;
 			this.Volume = Volume;
 			Play();
 			this.Volume = volume;
@@ -193,7 +193,7 @@ namespace Shooting
 				return;
 			}
 #endif
-			FilterParameters filterParameters = default(FilterParameters);
+			var filterParameters = default(FilterParameters);
 			filterParameters.Type = FilterType.HighPassFilter;
 			filterParameters.Frequency = 0.5f;
 			filterParameters.OneOverQ = 2f;
@@ -209,7 +209,7 @@ namespace Shooting
 				return;
 			}
 #endif
-			FilterParameters filterParameters = default(FilterParameters);
+			var filterParameters = default(FilterParameters);
 			filterParameters.Type = FilterType.HighPassFilter;
 			filterParameters.Frequency = 0f;
 			filterParameters.OneOverQ = 2f;

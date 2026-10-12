@@ -17,9 +17,9 @@ namespace Shooting
 			{
 				KC = new KeyClass();
 				KC.Key_Z = true;
-				Vector2 vector = GenerateMove();
-				double num = (double)(-(double)vector.X);
-				double num2 = (double)(-(double)vector.Y);
+				var vector = GenerateMove();
+				var num = (double)(-(double)vector.X);
+				var num2 = (double)(-(double)vector.Y);
 				if (vector.Length() < 80f)
 				{
 					KC.Key_Shift = true;
@@ -54,17 +54,17 @@ namespace Shooting
 
 		private double GenerateDanger(PointF OriginalPos)
 		{
-			double tmp = 0.0;
+			var tmp = 0.0;
 			double d;
 			BulletList.ForEach(delegate(BaseBullet_Touhou x)
 			{
-				Vector2 vector = new Vector2(OriginalPos.X, OriginalPos.Y);
-				Vector2 vector2 = new Vector2(x.OriginalPosition.X, x.OriginalPosition.Y);
+				var vector = new Vector2(OriginalPos.X, OriginalPos.Y);
+				var vector2 = new Vector2(x.OriginalPosition.X, x.OriginalPosition.Y);
 				d = (double)((vector - vector2).Length() - (float)Region - (float)x.Region);
 				if (d < 200.0)
 				{
 					tmp += 7000.0 / d / d;
-					Vector2 vector3 = x.Velocity * new Vector2((float)Math.Cos(x.Direction), (float)Math.Sin(x.Direction));
+					var vector3 = x.Velocity * new Vector2((float)Math.Cos(x.Direction), (float)Math.Sin(x.Direction));
 					vector2 += (float)GetDistance(OriginalPos) / 5f * vector3;
 					d = (double)((vector - vector2).Length() - (float)Region - (float)x.Region);
 					tmp += 3000.0 / d / d;
@@ -74,8 +74,8 @@ namespace Shooting
 			{
 				if (x.OriginalPosition.X > 0f && x.OriginalPosition.X < (float)BoundRect.Width && x.OriginalPosition.Y > 0f && x.OriginalPosition.Y < (float)BoundRect.Height)
 				{
-					Vector2 vector4 = new Vector2(OriginalPos.X, OriginalPos.Y);
-					Vector2 vector5 = new Vector2(x.OriginalPosition.X, x.OriginalPosition.Y);
+					var vector4 = new Vector2(OriginalPos.X, OriginalPos.Y);
+					var vector5 = new Vector2(x.OriginalPosition.X, x.OriginalPosition.Y);
 					d = (double)((vector4 - vector5).Length() - (float)Region - (float)x.Region);
 					tmp += 10000.0 / d / d;
 				}
@@ -90,9 +90,9 @@ namespace Shooting
 
 		private Vector2 GenerateDestPoint(int div, int count, float x, float y)
 		{
-			Vector2 zero = Vector2.Zero;
-			double num = 1000000000.0;
-			double num2 = 0.0;
+			var zero = Vector2.Zero;
+			var num = 1000000000.0;
+			var num2 = 0.0;
 			x -= (float)(div * (count - 1) / 2);
 			y -= (float)(div * (count - 1) / 2);
 			if (x < 0f)
@@ -111,11 +111,11 @@ namespace Shooting
 			{
 				y = (float)(BoundRect.Height - div * (count - 1));
 			}
-			for (int i = 0; i < count; i++)
+			for (var i = 0; i < count; i++)
 			{
-				for (int j = 0; j < count; j++)
+				for (var j = 0; j < count; j++)
 				{
-					double num3 = GenerateDanger(new PointF(x, y));
+					var num3 = GenerateDanger(new PointF(x, y));
 					if (num3 < num)
 					{
 						num = num3;
@@ -144,20 +144,20 @@ namespace Shooting
 
 		private Vector2 GenerateMove()
 		{
-			Vector2 forceSum = Vector2.Zero;
+			var forceSum = Vector2.Zero;
 			float d;
 			BulletList.ForEach(delegate(BaseBullet_Touhou x)
 			{
-				Vector2 vector8 = new Vector2(OriginalPosition.X, OriginalPosition.Y);
-				Vector2 vector9 = new Vector2(x.OriginalPosition.X, x.OriginalPosition.Y);
-				Vector2 vector10 = vector8 - vector9;
+				var vector8 = new Vector2(OriginalPosition.X, OriginalPosition.Y);
+				var vector9 = new Vector2(x.OriginalPosition.X, x.OriginalPosition.Y);
+				var vector10 = vector8 - vector9;
 				d = vector10.Length() - (float)Region - (float)x.Region;
 				if (d < 200f)
 				{
 					vector10.Normalize();
 					vector10 *= 5000f / d / d;
 					forceSum += vector10;
-					Vector2 vector11 = x.Velocity * new Vector2((float)Math.Cos(x.Direction), (float)Math.Sin(x.Direction));
+					var vector11 = x.Velocity * new Vector2((float)Math.Cos(x.Direction), (float)Math.Sin(x.Direction));
 					vector9 += 3f * vector11;
 					vector10 = vector8 - vector9;
 					d = vector10.Length() - (float)Region - (float)x.Region;
@@ -176,14 +176,14 @@ namespace Shooting
 			{
 				if (x.OriginalPosition.X > 0f && x.OriginalPosition.X < (float)BoundRect.Width && x.OriginalPosition.Y > 0f && x.OriginalPosition.Y < (float)BoundRect.Height)
 				{
-					Vector2 vector12 = new Vector2(OriginalPosition.X, OriginalPosition.Y);
-					Vector2 vector13 = new Vector2(x.OriginalPosition.X, x.OriginalPosition.Y);
-					Vector2 vector14 = vector12 - vector13;
+					var vector12 = new Vector2(OriginalPosition.X, OriginalPosition.Y);
+					var vector13 = new Vector2(x.OriginalPosition.X, x.OriginalPosition.Y);
+					var vector14 = vector12 - vector13;
 					d = vector14.Length() - (float)Region - (float)x.Region;
 					vector14.Normalize();
 					vector14 *= 5000f / d / d;
 					forceSum += vector14;
-					Vector2 vector15 = x.Velocity * new Vector2((float)Math.Cos(x.Direction), (float)Math.Sin(x.Direction));
+					var vector15 = x.Velocity * new Vector2((float)Math.Cos(x.Direction), (float)Math.Sin(x.Direction));
 					vector13 += 5f * vector15;
 					vector14 = vector12 - vector13;
 					d = vector14.Length() - (float)Region - (float)x.Region;
@@ -194,24 +194,24 @@ namespace Shooting
 			});
 			if (Boss != null)
 			{
-				Vector2 vector = new Vector2(OriginalPosition.X, OriginalPosition.Y);
-				Vector2 vector2 = new Vector2(Boss.OriginalPosition.X, Boss.OriginalPosition.Y);
-				Vector2 vector3 = vector - vector2;
+				var vector = new Vector2(OriginalPosition.X, OriginalPosition.Y);
+				var vector2 = new Vector2(Boss.OriginalPosition.X, Boss.OriginalPosition.Y);
+				var vector3 = vector - vector2;
 				d = vector3.Length() - (float)Region - (float)Boss.Region;
 				vector3.Normalize();
 				vector3 *= 10000f / d / d;
 				forceSum += vector3;
 			}
-			Vector2 vector4 = GenerateDestPoint(40, 4, OriginalPosition.X, OriginalPosition.Y);
+			var vector4 = GenerateDestPoint(40, 4, OriginalPosition.X, OriginalPosition.Y);
 			vector4 = GenerateDestPoint(10, 4, vector4.X, vector4.Y);
 			vector4 = GenerateDestPoint(2, 5, vector4.X, vector4.Y);
-			Vector2 vector5 = new Vector2(DestPoint.X, DestPoint.Y);
+			var vector5 = new Vector2(DestPoint.X, DestPoint.Y);
 			if (Time > 300)
 			{
 				vector4 = Vector2.Lerp(vector4, vector5, 0.5f);
 			}
-			Vector2 vector6 = new Vector2(OriginalPosition.X, OriginalPosition.Y);
-			Vector2 vector7 = vector4 - vector6;
+			var vector6 = new Vector2(OriginalPosition.X, OriginalPosition.Y);
+			var vector7 = vector4 - vector6;
 			forceSum += 1f * vector7;
 			DestPoint = new PointF(vector4.X, vector4.Y);
 			if (Boss != null)
@@ -229,8 +229,8 @@ namespace Shooting
 
 		private Vector2 GenerateEnemyBeat()
 		{
-			Vector2 zero = Vector2.Zero;
-			float tmp = 1000f;
+			var zero = Vector2.Zero;
+			var tmp = 1000f;
 			EnemyPlaneList.ForEach(delegate(BaseEnemyPlane x)
 			{
 				if (x.OriginalPosition.Y > 0f && x.OriginalPosition.Y < 300f && x.HealthPoint < 20000f)
@@ -261,7 +261,7 @@ namespace Shooting
 			}
 			else
 			{
-				int itemCount = 0;
+				var itemCount = 0;
 				ItemList.ForEach(delegate(BaseItem x)
 				{
 					if (!x.Obtain)

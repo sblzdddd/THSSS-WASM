@@ -73,16 +73,16 @@ namespace Shooting
 
 		public override void Show()
 		{
-			int num = TxtureObject.Width * HP / MaxHP;
+			var num = TxtureObject.Width * HP / MaxHP;
 			num = ((num > 1) ? num : 1);
-			Size size = new Size(num, TxtureObject.Height);
-			Rectangle rectangle = new Rectangle(new Point(0, 0), size);
+			var size = new Size(num, TxtureObject.Height);
+			var rectangle = new Rectangle(new Point(0, 0), size);
 			SpriteMain.Draw2D(TxtureObject.TXTure, rectangle, size, TxtureObject.RotatingCenter, 0f, OriginalPosition, Color.FromArgb(TransparentValue * 10 / 10, Color.White));
 			if (Boss != null)
 			{
 				if (!Boss.OnSpell && Boss.SpellcardHP != 0)
 				{
-					Point point = new Point((int)OriginalPosition.X - TxtureObject.Width / 2 + TxtureObject.Width * Boss.SpellcardHP / MaxHP, (int)OriginalPosition.Y);
+					var point = new Point((int)OriginalPosition.X - TxtureObject.Width / 2 + TxtureObject.Width * Boss.SpellcardHP / MaxHP, (int)OriginalPosition.Y);
 					SpriteMain.Draw2D(TextureObjectDictionary["HP_Flag"], 1f, 0f, point, Color.FromArgb(TransparentValue, Color.White));
 				}
 			}

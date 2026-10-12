@@ -6,15 +6,15 @@ namespace Shooting
 	{
 		public static void GetDpi()
 		{
-			using (ManagementClass managementClass = new ManagementClass("Win32_DesktopMonitor"))
+			using (var managementClass = new ManagementClass("Win32_DesktopMonitor"))
 			{
-				using (ManagementObjectCollection instances = managementClass.GetInstances())
+				using (var instances = managementClass.GetInstances())
 				{
 					PixelsPerXLogicalInch = 0;
 					PixelsPerYLogicalInch = 0;
-					foreach (ManagementBaseObject managementBaseObject in instances)
+					foreach (var managementBaseObject in instances)
 					{
-						ManagementObject managementObject = (ManagementObject)managementBaseObject;
+						var managementObject = (ManagementObject)managementBaseObject;
 						PixelsPerXLogicalInch = int.Parse(managementObject.Properties["PixelsPerXLogicalInch"].Value.ToString());
 						PixelsPerYLogicalInch = int.Parse(managementObject.Properties["PixelsPerYLogicalInch"].Value.ToString());
 					}

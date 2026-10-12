@@ -146,7 +146,7 @@ namespace Thsss.Browser
 
 		public void DrawFixed(int textureId, Span<float> vertices, Span<float> world, Span<float> view, Span<float> proj, float mr, float mg, float mb, float ma, float lighting, float fog, float fogStart, float fogEnd, float fr, float fg, float fb)
 		{
-			byte[] verts = this.Pack(vertices);
+			var verts = this.Pack(vertices);
 			this.CopyExact(world, this.worldBytes);
 			this.CopyExact(view, this.viewBytes);
 			this.CopyExact(proj, this.projBytes);
@@ -155,7 +155,7 @@ namespace Thsss.Browser
 
 		private byte[] Pack(Span<float> source)
 		{
-			int bytes = source.Length * 4;
+			var bytes = source.Length * 4;
 			byte[] buffer;
 			if (!this.packed.TryGetValue(bytes, out buffer))
 			{

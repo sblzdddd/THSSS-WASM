@@ -18,9 +18,9 @@ namespace Shooting
 				new BaseMenuItem(StageData, "Menu_Manual05"),
 				new BaseMenuItem(StageData, "Menu_Manual06")
 			};
-			int num = 20;
-			int num2 = 85;
-			foreach (BaseMenuItem baseMenuItem in MenuItemList)
+			var num = 20;
+			var num2 = 85;
+			foreach (var baseMenuItem in MenuItemList)
 			{
 				baseMenuItem.Position = new PointF((float)num, 90f);
 				baseMenuItem.DestPoint = new PointF((float)num, (float)num2);
@@ -36,7 +36,7 @@ namespace Shooting
 				new BaseMenuItem(StageData, "Manual05"),
 				new BaseMenuItem(StageData, "Manual06")
 			};
-			foreach (BaseMenuItem baseMenuItem in MenuItemListManual)
+			foreach (var baseMenuItem in MenuItemListManual)
 			{
 				baseMenuItem.Position = new PointF(0f, 0f);
 				baseMenuItem.DestPoint = new PointF(0f, 0f);
@@ -84,11 +84,11 @@ namespace Shooting
 			{
 				OnRemoveMenu = TimeMain + 20;
 				TransparentVelocity = -15f;
-				foreach (BaseMenuItem baseMenuItem in MenuItemList)
+				foreach (var baseMenuItem in MenuItemList)
 				{
 					baseMenuItem.OnRemove = true;
 				}
-				foreach (BaseMenuItem baseMenuItem in MenuItemListManual)
+				foreach (var baseMenuItem in MenuItemListManual)
 				{
 					baseMenuItem.OnRemove = true;
 				}

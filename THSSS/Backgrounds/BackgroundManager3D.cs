@@ -58,29 +58,29 @@ namespace Shooting
 			{
 				Envi.Ctrl();
 			}
-			for (int i = BackgroundList.Count - 1; i >= 0; i--)
+			for (var i = BackgroundList.Count - 1; i >= 0; i--)
 			{
-				BaseObject x = BackgroundList[i];
+				var x = BackgroundList[i];
 				if (x.OutBoundary())
 				{
 					x.Dispose();
 					BackgroundList.RemoveAt(i);
 				}
 			}
-			for (int i = 0; i < BackgroundList.Count; i++)
+			for (var i = 0; i < BackgroundList.Count; i++)
 			{
 				BackgroundList[i].Ctrl();
 			}
-			for (int i = BackgroundParticleList.Count - 1; i >= 0; i--)
+			for (var i = BackgroundParticleList.Count - 1; i >= 0; i--)
 			{
-				BaseParticle3D x = BackgroundParticleList[i];
+				var x = BackgroundParticleList[i];
 				if (x.OutBoundary())
 				{
 					x.Dispose();
 					BackgroundParticleList.RemoveAt(i);
 				}
 			}
-			for (int i = 0; i < BackgroundParticleList.Count; i++)
+			for (var i = 0; i < BackgroundParticleList.Count; i++)
 			{
 				BackgroundParticleList[i].Ctrl();
 			}
@@ -120,7 +120,7 @@ namespace Shooting
 		public void Show()
 		{
 			StageData.ScreenTexMan.Begin();
-			Viewport viewport = StageData.DeviceMain.Viewport;
+			var viewport = StageData.DeviceMain.Viewport;
 			if (!StageData.BoundRect.Equals(new Rectangle(0, 0, 640, 480)))
 			{
 				DeviceMain.Viewport = new Viewport
@@ -139,16 +139,16 @@ namespace Shooting
 			}
 			if (Enabled3D)
 			{
-				for (int i = 0; i < BackgroundList.Count; i++)
+				for (var i = 0; i < BackgroundList.Count; i++)
 				{
 					BackgroundList[i].Show();
 				}
 			}
 			SetParticleRenderPara();
 			string ModelName = null;
-			for (int i = 0; i < BackgroundParticleList.Count; i++)
+			for (var i = 0; i < BackgroundParticleList.Count; i++)
 			{
-				BaseParticle3D x = BackgroundParticleList[i];
+				var x = BackgroundParticleList[i];
 				if (x.model != null)
 				{
 					if (ModelName != x.model.Name)

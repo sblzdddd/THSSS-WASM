@@ -7,7 +7,7 @@ namespace Shooting.Planes.Story
 		public Story_SSS05_01(StageDataPackage StageData)
 			: base(StageData)
 		{
-			string name = MyPlane.Name;
+			var name = MyPlane.Name;
 			if (name != null)
 			{
 				if (!(name == "Reimu"))
@@ -60,7 +60,7 @@ namespace Shooting.Planes.Story
 				SBox.Dispose();
 				Story = null;
 				new EmitterBossFire(StageData, Boss.OriginalPosition, Color.FromArgb(144, 255, 120));
-				MagicCircle magicCircle = new MagicCircle(StageData, "MagicCircleSix");
+				var magicCircle = new MagicCircle(StageData, "MagicCircleSix");
 				magicCircle.Scale = 1.5f;
 				Background3D.WarpColorKey = 2;
 				Background3D.WarpEnabled = true;

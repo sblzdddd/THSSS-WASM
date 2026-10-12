@@ -12,8 +12,8 @@ namespace Thsss.Browser
 			{
 				text = "";
 			}
-			int count = Encoding.UTF8.GetByteCount(text);
-			byte* buffer = (byte*)NativeMemory.Alloc((nuint)(count + 1));
+			var count = Encoding.UTF8.GetByteCount(text);
+			var buffer = (byte*)NativeMemory.Alloc((nuint)(count + 1));
 			fixed (char* chars = text)
 			{
 				Encoding.UTF8.GetBytes(chars, text.Length, buffer, count);
@@ -38,12 +38,12 @@ namespace Thsss.Browser
 
 		public static string CopyFromJs(delegate*<byte*, int, void> copy, delegate*<int> length)
 		{
-			int size = length();
+			var size = length();
 			if (size <= 1)
 			{
 				return "";
 			}
-			byte* buffer = (byte*)NativeMemory.Alloc((nuint)size);
+			var buffer = (byte*)NativeMemory.Alloc((nuint)size);
 			try
 			{
 				copy(buffer, size);
@@ -61,7 +61,7 @@ namespace Thsss.Browser
 			{
 				return Array.Empty<byte>();
 			}
-			byte[] bytes = new byte[length];
+			var bytes = new byte[length];
 			fixed (byte* buffer = bytes)
 			{
 				copy(buffer, length);

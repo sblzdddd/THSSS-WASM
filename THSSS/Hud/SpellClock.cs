@@ -90,12 +90,12 @@ namespace Shooting
 				if (Boss.Life > 0)
 				{
 					SpriteMain.Draw2D(TextureObjectDictionary["球球"], 1f, 0f, OriginalPosition, Color.FromArgb(TransparentValue, Color.White));
-					string text = "tsnum";
-					int num = 3;
-					int num2 = 9;
-					int num3 = 0;
-					char[] array = ((float)TimeRemaining / 60f).ToString("F1").ToCharArray();
-					for (int i = array.Length - 1; i >= 0; i--)
+					var text = "tsnum";
+					var num = 3;
+					var num2 = 9;
+					var num3 = 0;
+					var array = ((float)TimeRemaining / 60f).ToString("F1").ToCharArray();
+					for (var i = array.Length - 1; i >= 0; i--)
 					{
 						if (array[i] == '.')
 						{
@@ -103,7 +103,7 @@ namespace Shooting
 							text = "tnum";
 							num3 = 4;
 						}
-						PointF pointF = new PointF(OriginalPosition.X + 18f - (float)((22 - num2) * (array.Length - 1 - i)) + (float)num3, OriginalPosition.Y + (float)num);
+						var pointF = new PointF(OriginalPosition.X + 18f - (float)((22 - num2) * (array.Length - 1 - i)) + (float)num3, OriginalPosition.Y + (float)num);
 						SpriteMain.Draw2D(TextureObjectDictionary[text + array[i].ToString()], Scale, 0f, pointF, Color.FromArgb(TransparentValue, ColorValue));
 						if (array[i] == '.')
 						{

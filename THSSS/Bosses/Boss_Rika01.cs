@@ -7,7 +7,7 @@ namespace Shooting
 		public Boss_Rika01(StageDataPackage StageData)
 			: base(StageData)
 		{
-			TextureObject[,] array = new TextureObject[3, 4];
+			var array = new TextureObject[3, 4];
 			array[0, 0] = TextureObjectDictionary["BossRika-00"];
 			array[0, 1] = TextureObjectDictionary["BossRika-01"];
 			array[0, 2] = TextureObjectDictionary["BossRika-02"];
@@ -160,16 +160,16 @@ namespace Shooting
 				}
 				if (Time == 60)
 				{
-					string text = ".\\CS\\StEx\\关底Boss\\1非.mbg";
-					CS_Data cs_Data = StageData.LoadCS(text);
-					CSEmitterController csemitterController = new CSEmitterController(StageData, cs_Data);
+					var text = ".\\CS\\StEx\\关底Boss\\1非.mbg";
+					var cs_Data = StageData.LoadCS(text);
+					var csemitterController = new CSEmitterController(StageData, cs_Data);
 					csemitterController.BossBinding = true;
 				}
 			}
 			else if (Time == 1)
 			{
 				new BulletRemover2(StageData, OriginalPosition);
-				string name = MyPlane.Name;
+				var name = MyPlane.Name;
 				if (name != null)
 				{
 					if (name == "Reimu")
@@ -214,16 +214,16 @@ namespace Shooting
 				}
 				if (Time == 60)
 				{
-					string text = ".\\CS\\StEx\\关底Boss\\2非.mbg";
-					CS_Data cs_Data = StageData.LoadCS(text);
-					CSEmitterController csemitterController = new CSEmitterController(StageData, cs_Data);
+					var text = ".\\CS\\StEx\\关底Boss\\2非.mbg";
+					var cs_Data = StageData.LoadCS(text);
+					var csemitterController = new CSEmitterController(StageData, cs_Data);
 					csemitterController.BossBinding = true;
 				}
 			}
 			else if (Time == 1)
 			{
 				new BulletRemover2(StageData, OriginalPosition);
-				string name = MyPlane.Name;
+				var name = MyPlane.Name;
 				if (name != null)
 				{
 					if (name == "Reimu")
@@ -267,16 +267,16 @@ namespace Shooting
 				}
 				if (Time == 160)
 				{
-					string text = ".\\CS\\StEx\\关底Boss\\3非.mbg";
-					CS_Data cs_Data = StageData.LoadCS(text);
-					CSEmitterController csemitterController = new CSEmitterController(StageData, cs_Data);
+					var text = ".\\CS\\StEx\\关底Boss\\3非.mbg";
+					var cs_Data = StageData.LoadCS(text);
+					var csemitterController = new CSEmitterController(StageData, cs_Data);
 					csemitterController.BossBinding = true;
 				}
 			}
 			else if (Time == 1)
 			{
 				new BulletRemover2(StageData, OriginalPosition);
-				string name = MyPlane.Name;
+				var name = MyPlane.Name;
 				if (name != null)
 				{
 					if (name == "Reimu")
@@ -321,16 +321,16 @@ namespace Shooting
 				}
 				if (Time == 60)
 				{
-					string text = ".\\CS\\StEx\\关底Boss\\4非.mbg";
-					CS_Data cs_Data = StageData.LoadCS(text);
-					CSEmitterController csemitterController = new CSEmitterController(StageData, cs_Data);
+					var text = ".\\CS\\StEx\\关底Boss\\4非.mbg";
+					var cs_Data = StageData.LoadCS(text);
+					var csemitterController = new CSEmitterController(StageData, cs_Data);
 					csemitterController.BossBinding = true;
 				}
 			}
 			else if (Time == 1)
 			{
 				new BulletRemover2(StageData, OriginalPosition);
-				string name = MyPlane.Name;
+				var name = MyPlane.Name;
 				if (name != null)
 				{
 					if (name == "Reimu")
@@ -375,16 +375,16 @@ namespace Shooting
 				}
 				if (Time == 60)
 				{
-					string text = ".\\CS\\StEx\\关底Boss\\5非.mbg";
-					CS_Data cs_Data = StageData.LoadCS(text);
-					CSEmitterController csemitterController = new CSEmitterController(StageData, cs_Data);
+					var text = ".\\CS\\StEx\\关底Boss\\5非.mbg";
+					var cs_Data = StageData.LoadCS(text);
+					var csemitterController = new CSEmitterController(StageData, cs_Data);
 					csemitterController.BossBinding = true;
 				}
 			}
 			else if (Time == 1)
 			{
 				new BulletRemover2(StageData, OriginalPosition);
-				string name = MyPlane.Name;
+				var name = MyPlane.Name;
 				if (name != null)
 				{
 					if (name == "Reimu")
@@ -429,16 +429,16 @@ namespace Shooting
 				}
 				if (Time == 60)
 				{
-					string text = ".\\CS\\StEx\\关底Boss\\6非.mbg";
-					CS_Data cs_Data = StageData.LoadCS(text);
-					CSEmitterController csemitterController = new CSEmitterController(StageData, cs_Data);
+					var text = ".\\CS\\StEx\\关底Boss\\6非.mbg";
+					var cs_Data = StageData.LoadCS(text);
+					var csemitterController = new CSEmitterController(StageData, cs_Data);
 					csemitterController.BossBinding = true;
 				}
 			}
 			else if (Time == 1)
 			{
 				new BulletRemover2(StageData, OriginalPosition);
-				string name = MyPlane.Name;
+				var name = MyPlane.Name;
 				if (name != null)
 				{
 					if (name == "Reimu")
@@ -483,16 +483,16 @@ namespace Shooting
 				}
 				if (Time == 160)
 				{
-					string text = ".\\CS\\StEx\\关底Boss\\7非.mbg";
-					CS_Data cs_Data = StageData.LoadCS(text);
-					CSEmitterController csemitterController = new CSEmitterController(StageData, cs_Data);
+					var text = ".\\CS\\StEx\\关底Boss\\7非.mbg";
+					var cs_Data = StageData.LoadCS(text);
+					var csemitterController = new CSEmitterController(StageData, cs_Data);
 					csemitterController.BossBinding = true;
 				}
 			}
 			else if (Time == 1)
 			{
 				new BulletRemover2(StageData, OriginalPosition);
-				string name = MyPlane.Name;
+				var name = MyPlane.Name;
 				if (name != null)
 				{
 					if (name == "Reimu")
@@ -537,9 +537,9 @@ namespace Shooting
 				}
 				if (Time == 60)
 				{
-					string text = ".\\CS\\StEx\\关底Boss\\8非.mbg";
-					CS_Data cs_Data = StageData.LoadCS(text);
-					CSEmitterController csemitterController = new CSEmitterController(StageData, cs_Data);
+					var text = ".\\CS\\StEx\\关底Boss\\8非.mbg";
+					var cs_Data = StageData.LoadCS(text);
+					var csemitterController = new CSEmitterController(StageData, cs_Data);
 					csemitterController.BossBinding = true;
 				}
 			}

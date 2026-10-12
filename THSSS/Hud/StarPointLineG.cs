@@ -45,10 +45,10 @@ namespace Shooting
 			if (TxtureObject != null)
 			{
 				SpriteMain.Draw2D(TextureObjectDictionary["border" + type + "1"], 1f, 0f, OriginalPosition, Color.FromArgb(TransparentValue, Color.White));
-				int num = TxtureObject.Height * MyPlane.StarPoint / MyPlane.maxStarPoint;
+				var num = TxtureObject.Height * MyPlane.StarPoint / MyPlane.maxStarPoint;
 				num = ((num > 1) ? num : 1);
-				Size size = new Size(TxtureObject.Width, num);
-				Rectangle rectangle = new Rectangle(new Point(TxtureObject.PosRect.X, TxtureObject.PosRect.Y + TxtureObject.Height - num), size);
+				var size = new Size(TxtureObject.Width, num);
+				var rectangle = new Rectangle(new Point(TxtureObject.PosRect.X, TxtureObject.PosRect.Y + TxtureObject.Height - num), size);
 				SpriteMain.Draw2D(TxtureObject.TXTure, rectangle, size, TxtureObject.RotatingCenter, 0f, new PointF(OriginalPosition.X, OriginalPosition.Y + (float)TxtureObject.Height - (float)num), Color.FromArgb(TransparentValue * 8 / 10, Color.White));
 				SpriteMain.Draw2D(TextureObjectDictionary["border" + type + "0"], 1f, 0f, OriginalPosition, Color.FromArgb(TransparentValue, Color.White));
 			}

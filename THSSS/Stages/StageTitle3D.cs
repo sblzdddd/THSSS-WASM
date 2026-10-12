@@ -27,19 +27,19 @@ namespace Shooting
 
 		public virtual void SetupVertex()
 		{
-			DataStream dataStream = vertexBuffer.Lock(0, 0, LockFlags.Discard);
-			float num = -TxtureObject.RotatingCenter.X;
-			float num2 = (float)TxtureObject.Width - TxtureObject.RotatingCenter.X;
-			float num3 = -TxtureObject.RotatingCenter.Y;
-			float num4 = (float)TxtureObject.Height - TxtureObject.RotatingCenter.Y;
-			float num5 = (float)TxtureObject.PosRect.X / (float)TxtureObject.SrcWidth;
-			float num6 = (float)(TxtureObject.PosRect.X + TxtureObject.Width) / (float)TxtureObject.SrcWidth;
-			float num7 = (float)TxtureObject.PosRect.Y / (float)TxtureObject.SrcHeight;
-			float num8 = (float)(TxtureObject.PosRect.Y + TxtureObject.Height) / (float)TxtureObject.SrcHeight;
-			TexturedColoredVertex[] array = new TexturedColoredVertex[2 * Length];
-			for (int i = 0; i < Length; i++)
+			var dataStream = vertexBuffer.Lock(0, 0, LockFlags.Discard);
+			var num = -TxtureObject.RotatingCenter.X;
+			var num2 = (float)TxtureObject.Width - TxtureObject.RotatingCenter.X;
+			var num3 = -TxtureObject.RotatingCenter.Y;
+			var num4 = (float)TxtureObject.Height - TxtureObject.RotatingCenter.Y;
+			var num5 = (float)TxtureObject.PosRect.X / (float)TxtureObject.SrcWidth;
+			var num6 = (float)(TxtureObject.PosRect.X + TxtureObject.Width) / (float)TxtureObject.SrcWidth;
+			var num7 = (float)TxtureObject.PosRect.Y / (float)TxtureObject.SrcHeight;
+			var num8 = (float)(TxtureObject.PosRect.Y + TxtureObject.Height) / (float)TxtureObject.SrcHeight;
+			var array = new TexturedColoredVertex[2 * Length];
+			for (var i = 0; i < Length; i++)
 			{
-				int num9 = -10 * i + Time * 3;
+				var num9 = -10 * i + Time * 3;
 				if (num9 < 0)
 				{
 					num9 = 0;

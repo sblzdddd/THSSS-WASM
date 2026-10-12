@@ -15,7 +15,7 @@ namespace Shooting
 		public override void Drama()
 		{
 			base.Drama();
-			int[] array = new int[] { 3360, 3800, 7300 };
+			var array = new int[] { 3360, 3800, 7300 };
 			if (TimeMain == 1)
 			{
 				switch (StageData.Difficulty)
@@ -35,11 +35,11 @@ namespace Shooting
 					StageData.C_History.PracticeLevel = 3;
 				}
 				StageData.ChangeBGM(".\\BGM\\Stage03.ogg", (testStartTime + 60) * 44100 / 60, 0, 255, 88200, 5606874);
-				MusicTitle musicTitle = new MusicTitle(StageData, "木灵们的夏夜祭", new Point(BoundRect.Width, BoundRect.Height - 16));
+				var musicTitle = new MusicTitle(StageData, "木灵们的夏夜祭", new Point(BoundRect.Width, BoundRect.Height - 16));
 				musicTitle.OriginalPosition = new PointF((float)BoundRect.Width, (float)(BoundRect.Height + 100));
 				musicTitle.Scale = 0.5f;
 				Background3D.Envi = new EnvironmentSSS03(StageData);
-				BackgroundTransitionIn backgroundTransitionIn = new BackgroundTransitionIn(StageData);
+				var backgroundTransitionIn = new BackgroundTransitionIn(StageData);
 				backgroundTransitionIn.Delay = 200;
 				backgroundTransitionIn.LifeTime = 320;
 				if (testStartTime > TimeMain)
@@ -67,10 +67,10 @@ namespace Shooting
 						array2 = Directory.GetFiles(".\\CS\\St03\\A\\L\\", "*.mbg");
 						break;
 					}
-					foreach (string text in array2)
+					foreach (var text in array2)
 					{
-						CS_Data cs_Data = StageData.LoadCS(text);
-						CSEmitterController csemitterController = new CSEmitterController(StageData, cs_Data);
+						var cs_Data = StageData.LoadCS(text);
+						var csemitterController = new CSEmitterController(StageData, cs_Data);
 						csemitterController.OnRoad = true;
 						csemitterController.Time = TimeMain - 60;
 					}
@@ -81,7 +81,7 @@ namespace Shooting
 				StageData.RemoveBullets();
 				new Boss_Koreirei01(StageData);
 				new EmitterBossFire(StageData, Boss.OriginalPosition, Color.OrangeRed);
-				MagicCircle magicCircle = new MagicCircle(StageData, "MagicCircleSix");
+				var magicCircle = new MagicCircle(StageData, "MagicCircleSix");
 				magicCircle.Scale = 1.5f;
 				Background3D.WarpEnabled = true;
 				Background3D.WarpColorKey = 2;
@@ -108,24 +108,24 @@ namespace Shooting
 					array2 = Directory.GetFiles(".\\CS\\St03\\B\\L\\", "*.mbg");
 					break;
 				}
-				foreach (string text in array2)
+				foreach (var text in array2)
 				{
-					CS_Data cs_Data = StageData.LoadCS(text);
-					CSEmitterController csemitterController2 = new CSEmitterController(StageData, cs_Data);
+					var cs_Data = StageData.LoadCS(text);
+					var csemitterController2 = new CSEmitterController(StageData, cs_Data);
 					csemitterController2.OnRoad = true;
 					csemitterController2.Time = TimeMain - 60;
 				}
 			}
 			else if (array[2] - 130 == TimeMain)
 			{
-				BossStar bossStar = new BossStar(StageData, new PointF((float)(BoundRect.Width / 2), 150f));
+				var bossStar = new BossStar(StageData, new PointF((float)(BoundRect.Width / 2), 150f));
 				bossStar.ColorType = 5;
 			}
 			else if (array[2] == TimeMain)
 			{
 				StageData.RemoveBullets();
 				new Boss_Seiryuu01(StageData);
-				string name = MyPlane.Name;
+				var name = MyPlane.Name;
 				if (name != null)
 				{
 					if (name == "Aya")

@@ -30,7 +30,7 @@ namespace Shooting
 			{
 				if (Boss.Time > Boss.UnmatchedTime && Time > 50 && Boss.HitEnabled)
 				{
-					for (int i = MyBulletList.Count - 1; i >= 0; i--)
+					for (var i = MyBulletList.Count - 1; i >= 0; i--)
 					{
 						if (MyBulletList[i].OriginalPosition.Y < OriginalPosition.Y)
 						{

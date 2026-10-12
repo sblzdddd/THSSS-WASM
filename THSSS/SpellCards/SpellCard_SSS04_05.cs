@@ -55,7 +55,7 @@ namespace Shooting
 					text = ".\\CS\\St04\\关底Boss\\5符U.mbg";
 					break;
 				}
-				CS_Data cs_Data = StageData.LoadCS(text);
+				var cs_Data = StageData.LoadCS(text);
 				new CSEmitterController(StageData, cs_Data);
 			}
 		}

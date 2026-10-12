@@ -25,16 +25,16 @@ namespace Shooting
 			if (Time % 3 == 0)
 			{
 				StageData.SoundPlay("se_plst00.wav", OriginalPosition.X / (float)BoundRect.Width);
-				float x = OriginalPosition.X;
-				float y = OriginalPosition.Y;
-				BaseMyBullet_Touhou baseMyBullet_Touhou = new BaseMyBullet_Touhou(StageData, "KoishiBullet", new PointF(x + 7f, y), 30f, -1.5707963267948966);
+				var x = OriginalPosition.X;
+				var y = OriginalPosition.Y;
+				var baseMyBullet_Touhou = new BaseMyBullet_Touhou(StageData, "KoishiBullet", new PointF(x + 7f, y), 30f, -1.5707963267948966);
 				baseMyBullet_Touhou.Damage = 13;
-				BaseMyBullet_Touhou baseMyBullet_Touhou2 = new BaseMyBullet_Touhou(StageData, "KoishiBullet", new PointF(x - 7f, y), 30f, -1.5707963267948966);
+				var baseMyBullet_Touhou2 = new BaseMyBullet_Touhou(StageData, "KoishiBullet", new PointF(x - 7f, y), 30f, -1.5707963267948966);
 				baseMyBullet_Touhou2.Damage = 13;
 			}
 			if (Time % 10 == 0)
 			{
-				for (int i = 0; i < PowerLevel; i++)
+				for (var i = 0; i < PowerLevel; i++)
 				{
 					SubPlaneList[i].Shoot();
 				}
@@ -128,13 +128,13 @@ namespace Shooting
 					break;
 				}
 			}
-			for (int i = 0; i < PowerLevel; i++)
+			for (var i = 0; i < PowerLevel; i++)
 			{
 				SubPlaneList[i].Enabled = true;
 				SubPlaneList[i].DestPoint = SubPlanePoint[i];
 				SubPlaneList[i].Ctrl();
 			}
-			for (int i = PowerLevel; i < SubPlaneList.Count; i++)
+			for (var i = PowerLevel; i < SubPlaneList.Count; i++)
 			{
 				SubPlaneList[i].Enabled = false;
 				SubPlaneList[i].Position = Position;
@@ -153,7 +153,7 @@ namespace Shooting
 						{
 							if (EnchantmentState == EnchantmentType.Green)
 							{
-								BulletRemover_Small bulletRemover_Small = new BulletRemover_Small(StageData, OriginalPosition);
+								var bulletRemover_Small = new BulletRemover_Small(StageData, OriginalPosition);
 								bulletRemover_Small.Region = 500;
 								ChangeEnchantment(EnchantmentType.None);
 								EnemyPlaneList.ForEach(delegate(BaseEnemyPlane x)
@@ -168,7 +168,7 @@ namespace Shooting
 							{
 								GodMode = false;
 								StageData.SoundPlay("ice005.wav");
-								BulletRemover_Small bulletRemover_Small2 = new BulletRemover_Small(StageData, MyPlane.OriginalPosition);
+								var bulletRemover_Small2 = new BulletRemover_Small(StageData, MyPlane.OriginalPosition);
 								bulletRemover_Small2.Region = 150;
 								Time = UnmatchedTime - 60;
 								new ItemGetter(StageData);
@@ -220,7 +220,7 @@ namespace Shooting
 					{
 						SpriteMain.Draw2D(TextureObjectDictionary["jiejie"], 1f, -(float)Direction * 4f, Position, Color.FromArgb(255 - TransparentValue, Color.White));
 					}
-					for (int i = 0; i < PowerLevel; i++)
+					for (var i = 0; i < PowerLevel; i++)
 					{
 						SubPlaneList[i].Show();
 					}

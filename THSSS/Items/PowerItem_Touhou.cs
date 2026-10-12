@@ -16,7 +16,7 @@ namespace Shooting
 			if (HitCheck(MyPlane))
 			{
 				ItemList.Remove(this);
-				float num = (float)MyPlane.Power;
+				var num = (float)MyPlane.Power;
 				MyPlane.Power += 2;
 				if (num != (float)MyPlane.Power)
 				{
@@ -25,12 +25,12 @@ namespace Shooting
 						StageData.SoundPlay("se_powerup.wav");
 					}
 				}
-				int num2 = ((MyPlane.Power == 400) ? 51200 : 10);
+				var num2 = ((MyPlane.Power == 400) ? 51200 : 10);
 				MyPlane.Score += (long)num2;
 				MyPlane.StarPoint += 20;
 				if (MyPlane.Power == 400)
 				{
-					ParticleScoreValue particleScoreValue = new ParticleScoreValue(StageData, OriginalPosition, (long)num2);
+					var particleScoreValue = new ParticleScoreValue(StageData, OriginalPosition, (long)num2);
 				}
 				StageData.SoundPlay("se_item00.wav", OriginalPosition.X / (float)BoundRect.Width);
 			}

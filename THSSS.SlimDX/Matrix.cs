@@ -25,7 +25,7 @@ namespace SlimDX
 		{
 			get
 			{
-				Matrix matrix = default(Matrix);
+				var matrix = default(Matrix);
 				matrix.M11 = 1f;
 				matrix.M22 = 1f;
 				matrix.M33 = 1f;
@@ -47,7 +47,7 @@ namespace SlimDX
 
 		public static Matrix operator *(Matrix a, Matrix b)
 		{
-			Matrix matrix = default(Matrix);
+			var matrix = default(Matrix);
 			matrix.M11 = a.M11 * b.M11 + a.M12 * b.M21 + a.M13 * b.M31 + a.M14 * b.M41;
 			matrix.M12 = a.M11 * b.M12 + a.M12 * b.M22 + a.M13 * b.M32 + a.M14 * b.M42;
 			matrix.M13 = a.M11 * b.M13 + a.M12 * b.M23 + a.M13 * b.M33 + a.M14 * b.M43;
@@ -69,7 +69,7 @@ namespace SlimDX
 
 		public static Matrix Translation(float x, float y, float z)
 		{
-			Matrix matrix = Identity;
+			var matrix = Identity;
 			matrix.M41 = x;
 			matrix.M42 = y;
 			matrix.M43 = z;
@@ -78,7 +78,7 @@ namespace SlimDX
 
 		public static Matrix Scaling(float x, float y, float z)
 		{
-			Matrix matrix = Identity;
+			var matrix = Identity;
 			matrix.M11 = x;
 			matrix.M22 = y;
 			matrix.M33 = z;
@@ -92,9 +92,9 @@ namespace SlimDX
 
 		public static Matrix RotationX(float angle)
 		{
-			float num = (float)Math.Cos((double)angle);
-			float num2 = (float)Math.Sin((double)angle);
-			Matrix matrix = Identity;
+			var num = (float)Math.Cos((double)angle);
+			var num2 = (float)Math.Sin((double)angle);
+			var matrix = Identity;
 			matrix.M22 = num;
 			matrix.M23 = num2;
 			matrix.M32 = -num2;
@@ -104,9 +104,9 @@ namespace SlimDX
 
 		public static Matrix RotationY(float angle)
 		{
-			float num = (float)Math.Cos((double)angle);
-			float num2 = (float)Math.Sin((double)angle);
-			Matrix matrix = Identity;
+			var num = (float)Math.Cos((double)angle);
+			var num2 = (float)Math.Sin((double)angle);
+			var matrix = Identity;
 			matrix.M11 = num;
 			matrix.M13 = -num2;
 			matrix.M31 = num2;
@@ -116,9 +116,9 @@ namespace SlimDX
 
 		public static Matrix RotationZ(float angle)
 		{
-			float num = (float)Math.Cos((double)angle);
-			float num2 = (float)Math.Sin((double)angle);
-			Matrix matrix = Identity;
+			var num = (float)Math.Cos((double)angle);
+			var num2 = (float)Math.Sin((double)angle);
+			var matrix = Identity;
 			matrix.M11 = num;
 			matrix.M12 = num2;
 			matrix.M21 = -num2;
@@ -128,11 +128,11 @@ namespace SlimDX
 
 		public static Matrix RotationAxis(Vector3 axis, float angle)
 		{
-			Vector3 vector = Vector3.Normalize(axis);
-			float num = (float)Math.Cos((double)angle);
-			float num2 = (float)Math.Sin((double)angle);
-			float num3 = 1f - num;
-			Matrix matrix = default(Matrix);
+			var vector = Vector3.Normalize(axis);
+			var num = (float)Math.Cos((double)angle);
+			var num2 = (float)Math.Sin((double)angle);
+			var num3 = 1f - num;
+			var matrix = default(Matrix);
 			matrix.M11 = num3 * vector.X * vector.X + num;
 			matrix.M12 = num3 * vector.X * vector.Y + num2 * vector.Z;
 			matrix.M13 = num3 * vector.X * vector.Z - num2 * vector.Y;
@@ -148,10 +148,10 @@ namespace SlimDX
 
 		public static Matrix LookAtLH(Vector3 eye, Vector3 at, Vector3 up)
 		{
-			Vector3 vector = Vector3.Normalize(at - eye);
-			Vector3 vector2 = Vector3.Normalize(Vector3.Cross(up, vector));
-			Vector3 vector3 = Vector3.Cross(vector, vector2);
-			Matrix matrix = Identity;
+			var vector = Vector3.Normalize(at - eye);
+			var vector2 = Vector3.Normalize(Vector3.Cross(up, vector));
+			var vector3 = Vector3.Cross(vector, vector2);
+			var matrix = Identity;
 			matrix.M11 = vector2.X;
 			matrix.M21 = vector2.Y;
 			matrix.M31 = vector2.Z;
@@ -169,8 +169,8 @@ namespace SlimDX
 
 		public static Matrix PerspectiveFovLH(float fov, float aspect, float zn, float zf)
 		{
-			float num = (float)(1.0 / Math.Tan((double)(fov * 0.5f)));
-			Matrix matrix = default(Matrix);
+			var num = (float)(1.0 / Math.Tan((double)(fov * 0.5f)));
+			var matrix = default(Matrix);
 			matrix.M11 = num / aspect;
 			matrix.M22 = num;
 			matrix.M33 = zf / (zf - zn);
@@ -183,11 +183,11 @@ namespace SlimDX
 		{
 			if (scalingRotation == 0f && translation.X == 0f && translation.Y == 0f)
 			{
-				float cos = rotation == 0f ? 1f : (float)Math.Cos((double)rotation);
-				float sin = rotation == 0f ? 0f : (float)Math.Sin((double)rotation);
-				float bx = scalingCenter.X * (1f - scaling.X);
-				float by = scalingCenter.Y * (1f - scaling.Y);
-				Matrix fast = default(Matrix);
+				var cos = rotation == 0f ? 1f : (float)Math.Cos((double)rotation);
+				var sin = rotation == 0f ? 0f : (float)Math.Sin((double)rotation);
+				var bx = scalingCenter.X * (1f - scaling.X);
+				var by = scalingCenter.Y * (1f - scaling.Y);
+				var fast = default(Matrix);
 				fast.M11 = cos * scaling.X;
 				fast.M21 = -sin * scaling.Y;
 				fast.M12 = sin * scaling.X;
@@ -198,15 +198,15 @@ namespace SlimDX
 				fast.M42 = sin * (bx - rotationCenter.X) + cos * (by - rotationCenter.Y) + rotationCenter.Y;
 				return fast;
 			}
-			Matrix matrix = Translation(-scalingCenter.X, -scalingCenter.Y, 0f);
-			Matrix matrix2 = RotationZ(-scalingRotation);
-			Matrix matrix3 = Scaling(scaling.X, scaling.Y, 1f);
-			Matrix matrix4 = RotationZ(scalingRotation);
-			Matrix matrix5 = Translation(scalingCenter.X, scalingCenter.Y, 0f);
-			Matrix matrix6 = Translation(-rotationCenter.X, -rotationCenter.Y, 0f);
-			Matrix matrix7 = RotationZ(rotation);
-			Matrix matrix8 = Translation(rotationCenter.X, rotationCenter.Y, 0f);
-			Matrix matrix9 = Translation(translation.X, translation.Y, 0f);
+			var matrix = Translation(-scalingCenter.X, -scalingCenter.Y, 0f);
+			var matrix2 = RotationZ(-scalingRotation);
+			var matrix3 = Scaling(scaling.X, scaling.Y, 1f);
+			var matrix4 = RotationZ(scalingRotation);
+			var matrix5 = Translation(scalingCenter.X, scalingCenter.Y, 0f);
+			var matrix6 = Translation(-rotationCenter.X, -rotationCenter.Y, 0f);
+			var matrix7 = RotationZ(rotation);
+			var matrix8 = Translation(rotationCenter.X, rotationCenter.Y, 0f);
+			var matrix9 = Translation(translation.X, translation.Y, 0f);
 			return matrix * matrix2 * matrix3 * matrix4 * matrix5 * matrix6 * matrix7 * matrix8 * matrix9;
 		}
 	}

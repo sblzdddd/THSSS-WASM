@@ -63,8 +63,8 @@ namespace Shooting
 
 		public void String2Data(string Data)
 		{
-			char[] array = new char[] { '\t' };
-			string[] array2 = Data.Split(array);
+			var array = new char[] { '\t' };
+			var array2 = Data.Split(array);
 			MyPlaneFullName = array2[0];
 			Rank = (DifficultLevel)Convert.ToInt32(array2[1]);
 			PlayerName = array2[2];

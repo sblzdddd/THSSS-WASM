@@ -13,12 +13,12 @@ namespace Shooting
 			Boss.DestPoint = new Point(BoundRect.Width / 2, 120);
 			Boss.Velocity = 4f;
 			StageData.SoundPlay("se_cat00.wav");
-			BackgroundRotate backgroundRotate = new BackgroundRotate(StageData, "Card03f");
+			var backgroundRotate = new BackgroundRotate(StageData, "Card03f");
 			backgroundRotate.Scale = 1f;
 			backgroundRotate.AngularVelocityDegree = 0f;
 			backgroundRotate.AngleDegree = 90.0;
 			backgroundRotate.AngleWithDirection = false;
-			BackgroundMove2 backgroundMove = new BackgroundMove2(StageData, "Card03d")
+			var backgroundMove = new BackgroundMove2(StageData, "Card03d")
 			{
 				Velocity = 1f,
 				DirectionDegree = 0.0,
@@ -29,12 +29,12 @@ namespace Shooting
 			};
 			backgroundMove.EventGroupList = new List<EventGroup>();
 			backgroundMove.EventsExecutionList = new List<Execution>();
-			EventGroup eventGroup = new EventGroup();
+			var eventGroup = new EventGroup();
 			eventGroup.index = 0;
 			eventGroup.tag = "0";
 			eventGroup.t = 200;
 			eventGroup.addtime = 200;
-			Event @event = new Event();
+			var @event = new Event();
 			@event.EventString = "当前帧=1：不透明度变化到60，正弦，400";
 			@event.String2BulletEvent();
 			eventGroup.EventList.Add(@event);
@@ -70,9 +70,9 @@ namespace Shooting
 			Boss.Armon = Boss.ArmonArray[0];
 			if (Time == 100)
 			{
-				string text = ".\\CS\\StEx\\道中Boss\\1符.mbg";
-				CS_Data cs_Data = StageData.LoadCS(text);
-				CSEmitterController csemitterController = new CSEmitterController(StageData, cs_Data);
+				var text = ".\\CS\\StEx\\道中Boss\\1符.mbg";
+				var cs_Data = StageData.LoadCS(text);
+				var csemitterController = new CSEmitterController(StageData, cs_Data);
 				csemitterController.BossBinding = true;
 			}
 		}

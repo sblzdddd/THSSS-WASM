@@ -21,9 +21,9 @@ namespace Shooting
 		{
 			if (Time % 5 == 0)
 			{
-				for (int i = 0; i < 3; i++)
+				for (var i = 0; i < 3; i++)
 				{
-					BackgroundParticle3D1 backgroundParticle3D = new BackgroundParticle3D1(StageData, "Petal3" + Ran.Next(4).ToString(), new PointF((float)StageData.Ran.Next(280, BoundRect.Width + 160), (float)StageData.Ran.Next(-20, 0)), (float)StageData.Ran.Next(15, 25) / 10f, 1.5707963267948966 + (double)((float)StageData.Ran.Next(1, 8) / 10f), 200);
+					var backgroundParticle3D = new BackgroundParticle3D1(StageData, "Petal3" + Ran.Next(4).ToString(), new PointF((float)StageData.Ran.Next(280, BoundRect.Width + 160), (float)StageData.Ran.Next(-20, 0)), (float)StageData.Ran.Next(15, 25) / 10f, 1.5707963267948966 + (double)((float)StageData.Ran.Next(1, 8) / 10f), 200);
 					backgroundParticle3D.Angle = (double)((float)StageData.Ran.Next(0, 360) * 3.1415927f / 180f);
 					backgroundParticle3D.AngularVelocity3D = (float)StageData.Ran.Next(10) / 100f;
 					backgroundParticle3D.Scale = (float)StageData.Ran.Next(35, 50) / 100f;

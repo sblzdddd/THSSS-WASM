@@ -27,13 +27,13 @@ namespace Thsss.Browser
 			{
 				return false;
 			}
-			string norm = path.Replace('\\', '/');
-			int image = norm.IndexOf("Image/", StringComparison.OrdinalIgnoreCase);
+			var norm = path.Replace('\\', '/');
+			var image = norm.IndexOf("Image/", StringComparison.OrdinalIgnoreCase);
 			if (image < 0)
 			{
 				return true;
 			}
-			string rel = norm.Substring(image);
+			var rel = norm.Substring(image);
 			lock (readyLock)
 			{
 				return readyFiles.Contains(rel);
@@ -42,7 +42,7 @@ namespace Thsss.Browser
 
 		public static async Task LoadAsync()
 		{
-			string root = "/content";
+			var root = "/content";
 			try
 			{
 				Directory.CreateDirectory(root);
@@ -53,7 +53,7 @@ namespace Thsss.Browser
 				Console.WriteLine("Using default directory: " + ex.Message);
 			}
 			ThsssJs.SetStatus("Fetching content…");
-			byte[] hosted = Array.Empty<byte>();
+			var hosted = Array.Empty<byte>();
 			try
 			{
 				hosted = ThsssJs.TakeArchive() ?? Array.Empty<byte>();
@@ -66,7 +66,7 @@ namespace Thsss.Browser
 			{
 				throw new InvalidDataException("Content archive was not provided.");
 			}
-			using (MemoryStream stream = new MemoryStream(hosted, false))
+			using (var stream = new MemoryStream(hosted, false))
 			{
 				await UnpackAsync(stream);
 			}
@@ -89,30 +89,30 @@ namespace Thsss.Browser
 
 		private static async Task UnpackAsync(Stream input)
 		{
-			byte[] magic = new byte[4];
+			var magic = new byte[4];
 			await ReadExactAsync(input, magic, 4);
 			if (magic[0] != (byte)'T' || magic[1] != (byte)'H' || magic[2] != (byte)'D' || magic[3] != (byte)'A')
 			{
 				throw new InvalidDataException("Content archive is not a THDAT file.");
 			}
-			int version = await ReadU16Async(input);
+			var version = await ReadU16Async(input);
 			await ReadU16Async(input);
 			if (version != 1)
 			{
 				throw new InvalidDataException("Unsupported content archive version.");
 			}
-			int count = await ReadU32Async(input);
-			List<ArchiveEntry> entries = new List<ArchiveEntry>(count);
-			int position = 12;
-			for (int i = 0; i < count; i++)
+			var count = await ReadU32Async(input);
+			var entries = new List<ArchiveEntry>(count);
+			var position = 12;
+			for (var i = 0; i < count; i++)
 			{
-				int offset = await ReadU32Async(input);
-				int size = await ReadU32Async(input);
-				int nameLen = await ReadU16Async(input);
-				byte[] nameBytes = new byte[nameLen];
+				var offset = await ReadU32Async(input);
+				var size = await ReadU32Async(input);
+				var nameLen = await ReadU16Async(input);
+				var nameBytes = new byte[nameLen];
 				await ReadExactAsync(input, nameBytes, nameLen);
 				position += 10 + nameLen;
-				string name = Encoding.UTF8.GetString(nameBytes).Replace('\\', '/');
+				var name = Encoding.UTF8.GetString(nameBytes).Replace('\\', '/');
 				if (!IsSafePath(name))
 				{
 					throw new InvalidDataException("Content archive path is not allowed.");
@@ -125,7 +125,7 @@ namespace Thsss.Browser
 				});
 			}
 			ThsssJs.SetStatus("Unpacking content…");
-			foreach (ArchiveEntry entry in entries)
+			foreach (var entry in entries)
 			{
 				if (entry.Offset != position)
 				{
@@ -142,22 +142,22 @@ namespace Thsss.Browser
 
 		private static async Task WriteEntryAsync(Stream input, ArchiveEntry entry)
 		{
-			string path = entry.Name.Replace('/', Path.DirectorySeparatorChar);
-			string dir = Path.GetDirectoryName(path);
+			var path = entry.Name.Replace('/', Path.DirectorySeparatorChar);
+			var dir = Path.GetDirectoryName(path);
 			if (!string.IsNullOrEmpty(dir))
 			{
 				Directory.CreateDirectory(dir);
 			}
-			byte[] audio = IsRuntimeAudio(entry.Name) && entry.Size > 0 ? new byte[entry.Size] : null;
-			int audioAt = 0;
-			using (FileStream output = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None))
+			var audio = IsRuntimeAudio(entry.Name) && entry.Size > 0 ? new byte[entry.Size] : null;
+			var audioAt = 0;
+			using (var output = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None))
 			{
-				byte[] buffer = new byte[81920];
-				int left = entry.Size;
+				var buffer = new byte[81920];
+				var left = entry.Size;
 				while (left > 0)
 				{
-					int want = left < buffer.Length ? left : buffer.Length;
-					int read = await input.ReadAsync(buffer, 0, want);
+					var want = left < buffer.Length ? left : buffer.Length;
+					var read = await input.ReadAsync(buffer, 0, want);
 					if (read <= 0)
 					{
 						throw new EndOfStreamException("Truncated content archive.");
@@ -179,10 +179,10 @@ namespace Thsss.Browser
 
 		private static async Task ReadExactAsync(Stream input, byte[] buffer, int count)
 		{
-			int offset = 0;
+			var offset = 0;
 			while (offset < count)
 			{
-				int read = await input.ReadAsync(buffer, offset, count - offset);
+				var read = await input.ReadAsync(buffer, offset, count - offset);
 				if (read <= 0)
 				{
 					throw new EndOfStreamException("Truncated content archive.");
@@ -193,14 +193,14 @@ namespace Thsss.Browser
 
 		private static async Task<int> ReadU16Async(Stream input)
 		{
-			byte[] buffer = new byte[2];
+			var buffer = new byte[2];
 			await ReadExactAsync(input, buffer, 2);
 			return buffer[0] | (buffer[1] << 8);
 		}
 
 		private static async Task<int> ReadU32Async(Stream input)
 		{
-			byte[] buffer = new byte[4];
+			var buffer = new byte[4];
 			await ReadExactAsync(input, buffer, 4);
 			return buffer[0] | (buffer[1] << 8) | (buffer[2] << 16) | (buffer[3] << 24);
 		}
@@ -211,8 +211,8 @@ namespace Thsss.Browser
 			{
 				return false;
 			}
-			string[] parts = rel.Split('/');
-			foreach (string part in parts)
+			var parts = rel.Split('/');
+			foreach (var part in parts)
 			{
 				if (part.Length == 0 || part == "." || part == "..")
 				{
@@ -251,25 +251,25 @@ namespace Thsss.Browser
 
 		private static void OverlaySaves()
 		{
-			string json = ThsssJs.ReadSaves();
+			var json = ThsssJs.ReadSaves();
 			if (string.IsNullOrWhiteSpace(json) || json == "{}")
 			{
 				return;
 			}
-			Dictionary<string, string> map = JsonSerializer.Deserialize(json, SaveJsonContext.Default.DictionaryStringString);
+			var map = JsonSerializer.Deserialize(json, SaveJsonContext.Default.DictionaryStringString);
 			if (map == null)
 			{
 				return;
 			}
-			foreach (KeyValuePair<string, string> pair in map)
+			foreach (var pair in map)
 			{
 				if (string.IsNullOrEmpty(pair.Value))
 				{
 					continue;
 				}
-				byte[] bytes = Convert.FromBase64String(pair.Value);
-				string path = pair.Key.Replace('/', Path.DirectorySeparatorChar);
-				string dir = Path.GetDirectoryName(path);
+				var bytes = Convert.FromBase64String(pair.Value);
+				var path = pair.Key.Replace('/', Path.DirectorySeparatorChar);
+				var dir = Path.GetDirectoryName(path);
 				if (!string.IsNullOrEmpty(dir))
 				{
 					Directory.CreateDirectory(dir);

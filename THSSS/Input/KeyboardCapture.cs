@@ -9,8 +9,8 @@ namespace Shooting
 	{
 		public KeyboardCapture(IntPtr handle)
 		{
-			DirectInput directInput = new DirectInput();
-			CooperativeLevel cooperativeLevel = CooperativeLevel.NoWinKey | CooperativeLevel.Foreground | CooperativeLevel.Exclusive;
+			var directInput = new DirectInput();
+			var cooperativeLevel = CooperativeLevel.NoWinKey | CooperativeLevel.Foreground | CooperativeLevel.Exclusive;
 			try
 			{
 				keyboard = new Keyboard(directInput);

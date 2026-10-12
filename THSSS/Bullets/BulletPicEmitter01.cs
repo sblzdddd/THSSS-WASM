@@ -30,12 +30,12 @@ namespace Shooting
 			{
 				if (indexY < length)
 				{
-					for (int i = 0; i < length; i++)
+					for (var i = 0; i < length; i++)
 					{
 						if (BulletPic[i, indexY])
 						{
-							PointF pointF = new PointF(OriginalPosition.X + (float)(i - length / 2) * 5f, OriginalPosition.Y + (float)(indexY - length / 2) * 5f);
-							BaseBullet_Touhou baseBullet_Touhou = new BaseBullet_Touhou(StageData, null, pointF, 0f, 0.0);
+							var pointF = new PointF(OriginalPosition.X + (float)(i - length / 2) * 5f, OriginalPosition.Y + (float)(indexY - length / 2) * 5f);
+							var baseBullet_Touhou = new BaseBullet_Touhou(StageData, null, pointF, 0f, 0.0);
 							baseBullet_Touhou.Copy(Bullet);
 							baseBullet_Touhou.OriginalPosition = pointF;
 							baseBullet_Touhou.Velocity = (float)baseBullet_Touhou.GetDistance(OriginalPosition) * 3f / (float)length;

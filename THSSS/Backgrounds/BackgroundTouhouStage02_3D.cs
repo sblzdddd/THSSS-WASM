@@ -13,7 +13,7 @@ namespace Shooting
 
 		public override void SetupVertex()
 		{
-			DataStream dataStream = vertexBuffer.Lock(0, 0, LockFlags.Discard);
+			var dataStream = vertexBuffer.Lock(0, 0, LockFlags.Discard);
 			dataStream.WriteRange<TexturedVertex>(new TexturedVertex[]
 			{
 				new TexturedVertex(new Vector3(-500f, 6000f, 0f), new Vector2(0f, 0f)),

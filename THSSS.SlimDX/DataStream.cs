@@ -28,10 +28,10 @@ namespace SlimDX
 			{
 				return;
 			}
-			int num = Marshal.SizeOf<T>();
-			int num2 = num * data.Length;
+			var num = Marshal.SizeOf<T>();
+			var num2 = num * data.Length;
 			this.Ensure(this.position + num2);
-			GCHandle gchandle = GCHandle.Alloc(data, GCHandleType.Pinned);
+			var gchandle = GCHandle.Alloc(data, GCHandleType.Pinned);
 			try
 			{
 				Marshal.Copy(gchandle.AddrOfPinnedObject(), this.buffer, this.position, num2);
@@ -45,7 +45,7 @@ namespace SlimDX
 
 		public void WriteRange(IntPtr source, long count)
 		{
-			int num = (int)count;
+			var num = (int)count;
 			this.Ensure(this.position + num);
 			Marshal.Copy(source, this.buffer, this.position, num);
 			this.position += num;
@@ -55,7 +55,7 @@ namespace SlimDX
 		{
 			if (this.buffer.Length < size)
 			{
-				byte[] array = new byte[size];
+				var array = new byte[size];
 				System.Buffer.BlockCopy(this.buffer, 0, array, 0, this.buffer.Length);
 				this.buffer = array;
 			}

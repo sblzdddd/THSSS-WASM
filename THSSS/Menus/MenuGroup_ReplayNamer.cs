@@ -11,8 +11,8 @@ namespace Shooting
 		{
 			this.RepMenuItem = RepMenuItem;
 			MenuItemList = new List<BaseMenuItem>();
-			StageDataPackage stageData = StageData.GlobalData.LastState.StageData;
-			string[,] array = new string[7, 13];
+			var stageData = StageData.GlobalData.LastState.StageData;
+			var array = new string[7, 13];
 			array[0, 0] = "A";
 			array[0, 1] = "B";
 			array[0, 2] = "C";
@@ -104,10 +104,10 @@ namespace Shooting
 			array[6, 10] = " ";
 			array[6, 11] = "BS";
 			array[6, 12] = "OK";
-			string[,] array2 = array;
-			for (int i = 0; i < 7; i++)
+			var array2 = array;
+			for (var i = 0; i < 7; i++)
 			{
-				for (int j = 0; j < 13; j++)
+				for (var j = 0; j < 13; j++)
 				{
 					BaseMenuItem baseMenuItem = new DescriptionMenuItem(StageData, array2[i, j]);
 					baseMenuItem.OriginalPosition = new PointF((float)(stageData.BoundRect.Left + stageData.BoundRect.Width / 2 - 138), 300f);
@@ -116,7 +116,7 @@ namespace Shooting
 				}
 			}
 			MenuSelectIndex = MenuItemList.Count - 1;
-			ReplayInfo repInfo = StageData.GlobalData.LastState.StageData.RepInfo;
+			var repInfo = StageData.GlobalData.LastState.StageData.RepInfo;
 			RepDescription += DateTime.Now.Date.ToString("yy'/'MM'/'dd").PadRight(9);
 			RepDescription += repInfo.MyPlaneName.PadRight(7);
 			switch (repInfo.Rank)
@@ -150,7 +150,7 @@ namespace Shooting
 			};
 			MenuTitlePos1 = new PointF(OriginalPosition.X, OriginalPosition.Y);
 			MenuTitlePos2 = RepMenuItem.OriginalPosition;
-			char[] array3 = stageData.PData.PlayerName.ToCharArray();
+			var array3 = stageData.PData.PlayerName.ToCharArray();
 			while (NameIndex < array3.Length)
 			{
 				PlayerName[NameIndex] = array3[NameIndex].ToString();
@@ -212,7 +212,7 @@ namespace Shooting
 			{
 				OnRemoveMenu = TimeMain + 20;
 				TransparentVelocity = -15f;
-				foreach (BaseMenuItem baseMenuItem in MenuItemList)
+				foreach (var baseMenuItem in MenuItemList)
 				{
 					baseMenuItem.DestPoint = new PointF(MenuItemList[0].OriginalPosition.X, MenuItemList[0].OriginalPosition.Y);
 					baseMenuItem.OnRemove = true;
@@ -225,18 +225,18 @@ namespace Shooting
 		{
 			if (MenuSelectIndex == MenuItemList.Count - 1)
 			{
-				ReplayInfo repInfo = StageData.GlobalData.LastState.StageData.RepInfo;
+				var repInfo = StageData.GlobalData.LastState.StageData.RepInfo;
 				repInfo.PlayerName = null;
-				for (int i = 0; i < 7; i++)
+				for (var i = 0; i < 7; i++)
 				{
-					ReplayInfo replayInfo = repInfo;
+					var replayInfo = repInfo;
 					replayInfo.PlayerName += PlayerName[i];
 				}
 				StageData.Rep.SaveRpy(".\\Replay\\thSSS_" + RepMenuItem.Name + ".rpy", repInfo);
 				RepMenuItem.Description = ((DescriptionMenuItem)MenuTilte).Description;
 				OnRemoveMenu = TimeMain + 20;
 				TransparentVelocity = -15f;
-				foreach (BaseMenuItem baseMenuItem in MenuItemList)
+				foreach (var baseMenuItem in MenuItemList)
 				{
 					baseMenuItem.DestPoint = new PointF(MenuItemList[0].OriginalPosition.X, MenuItemList[0].OriginalPosition.Y);
 					baseMenuItem.OnRemove = true;
@@ -267,12 +267,12 @@ namespace Shooting
 		private void ShowPlayerName()
 		{
 			string text = null;
-			for (int i = 0; i < 7; i++)
+			for (var i = 0; i < 7; i++)
 			{
 				text += PlayerName[i];
 			}
 			((DescriptionMenuItem)MenuTilte).Description = text.PadRight(8) + RepDescription;
-			StageDataPackage stageData = StageData.GlobalData.LastState.StageData;
+			var stageData = StageData.GlobalData.LastState.StageData;
 			stageData.PData.PlayerName = text;
 		}
 

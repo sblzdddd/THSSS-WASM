@@ -29,7 +29,7 @@ namespace Shooting
 			else
 			{
 				Angle = 1.5707963267948966;
-				int indexY = IndexY;
+				var indexY = IndexY;
 				if (Vx > 0.5f)
 				{
 					IndexY = 2;
@@ -67,7 +67,7 @@ namespace Shooting
 				{
 					IndexX = 7f;
 				}
-				string text = "Maru" + IndexY.ToString() + ((int)IndexX).ToString();
+				var text = "Maru" + IndexY.ToString() + ((int)IndexX).ToString();
 				TxtureObject = TextureObjectDictionary[text];
 			}
 		}
@@ -76,16 +76,16 @@ namespace Shooting
 		{
 			if (KClass.Key_Shift)
 			{
-				BaseMyBullet_Touhou baseMyBullet_Touhou = new BaseMyBullet_Touhou(StageData, "MaruBullet", OriginalPosition, 18f, ShootDirection + 0.05235987755982988);
+				var baseMyBullet_Touhou = new BaseMyBullet_Touhou(StageData, "MaruBullet", OriginalPosition, 18f, ShootDirection + 0.05235987755982988);
 				baseMyBullet_Touhou.Angle = 1.5707963705062866;
 				baseMyBullet_Touhou.Damage = 5;
-				BaseMyBullet_Touhou baseMyBullet_Touhou2 = new BaseMyBullet_Touhou(StageData, "MaruBullet", OriginalPosition, 18f, ShootDirection - 0.05235987755982988);
+				var baseMyBullet_Touhou2 = new BaseMyBullet_Touhou(StageData, "MaruBullet", OriginalPosition, 18f, ShootDirection - 0.05235987755982988);
 				baseMyBullet_Touhou2.Angle = 1.5707963705062866;
 				baseMyBullet_Touhou2.Damage = 5;
 			}
 			else
 			{
-				BulletGuidance bulletGuidance = new BulletGuidance(StageData, "ReimuSubBullet", Position, 8f, ShootDirection);
+				var bulletGuidance = new BulletGuidance(StageData, "ReimuSubBullet", Position, 8f, ShootDirection);
 				bulletGuidance.TransparentValueF = 180f;
 				bulletGuidance.Angle = 1.5707963705062866;
 				bulletGuidance.Damage = 9;
@@ -100,7 +100,7 @@ namespace Shooting
 				{
 					if (!KClass.Key_Shift)
 					{
-						double num = (double)(-(double)Time * 5 % 360) * 3.141592653589793 / 180.0;
+						var num = (double)(-(double)Time * 5 % 360) * 3.141592653589793 / 180.0;
 						if (MyPlane.Power >= 400)
 						{
 							SpriteMain.Draw2D(TxtureObject, 1.3f, 1.3f, -(float)num, Position, Color.FromArgb(TransparentValue * 6 / 10, ColorValue), Mirrored);

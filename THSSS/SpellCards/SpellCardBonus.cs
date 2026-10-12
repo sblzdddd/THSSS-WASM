@@ -18,8 +18,8 @@ namespace Shooting
 			OriginalPosition = new PointF((float)(BoundRect.Width / 2), 120f);
 			AngleDegree = 90.0;
 			BonusCharArray = Bonus.ToString().ToCharArray();
-			int num = 0;
-			for (int i = 0; i < BonusCharArray.Length; i++)
+			var num = 0;
+			for (var i = 0; i < BonusCharArray.Length; i++)
 			{
 				num += TextureObjectDictionary["Num" + BonusCharArray[i].ToString()].Width;
 			}
@@ -40,7 +40,7 @@ namespace Shooting
 					if (Index < BonusCharArray.Length)
 					{
 						ValuePoint = new PointF(ValuePoint.X + (float)(TextureObjectDictionary["Num" + BonusCharArray[Index].ToString()].Width / 2), ValuePoint.Y);
-						ParticleBonusNum particleBonusNum = new ParticleBonusNum(StageData, "Num" + BonusCharArray[Index].ToString(), ValuePoint);
+						var particleBonusNum = new ParticleBonusNum(StageData, "Num" + BonusCharArray[Index].ToString(), ValuePoint);
 						particleBonusNum.ColorValue = Color.FromArgb(255 - Index * 10, 255 - Index * 5, 255 - Index * 10);
 						ValuePoint = new PointF(ValuePoint.X + (float)(TextureObjectDictionary["Num" + BonusCharArray[Index].ToString()].Width / 2), ValuePoint.Y);
 						Index++;

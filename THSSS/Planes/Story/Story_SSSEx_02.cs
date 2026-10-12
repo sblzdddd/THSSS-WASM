@@ -7,7 +7,7 @@ namespace Shooting.Planes.Story
 		public Story_SSSEx_02(StageDataPackage StageData)
 			: base(StageData)
 		{
-			string name = MyPlane.Name;
+			var name = MyPlane.Name;
 			if (name != null)
 			{
 				if (!(name == "Reimu"))

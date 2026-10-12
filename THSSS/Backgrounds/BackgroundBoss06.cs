@@ -8,7 +8,7 @@ namespace Shooting
 			: base(StageData, null, new PointF(0f, 0f), 0f, 0.0)
 		{
 			new BackgroundSC(StageData, "底色");
-			BackgroundSC bsc1 = new BackgroundSC(StageData, "绿光");
+			var bsc1 = new BackgroundSC(StageData, "绿光");
 			bsc1.CtrlCall = delegate(string x)
 			{
 				if (bsc1.Time % 300 == 0)
@@ -20,7 +20,7 @@ namespace Shooting
 					bsc1.TransparentVelocity = 2.55f;
 				}
 			};
-			BackgroundSC bsc2 = new BackgroundSC(StageData, "蓝光");
+			var bsc2 = new BackgroundSC(StageData, "蓝光");
 			bsc2.CtrlCall = delegate(string x)
 			{
 				if (bsc2.Time % 300 == 100)
@@ -32,7 +32,7 @@ namespace Shooting
 					bsc2.TransparentVelocity = 2.55f;
 				}
 			};
-			BackgroundSC bsc = new BackgroundSC(StageData, "红光");
+			var bsc = new BackgroundSC(StageData, "红光");
 			bsc.CtrlCall = delegate(string x)
 			{
 				if (bsc.Time % 300 == 200)

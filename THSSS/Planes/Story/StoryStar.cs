@@ -18,7 +18,7 @@ namespace Shooting.Planes.Story
 			{
 				TransparentValueF -= 5f;
 			}
-			double num = 80.0 * Math.Sin((double)((float)Time * 33f / 180f) * 3.141592653589793);
+			var num = 80.0 * Math.Sin((double)((float)Time * 33f / 180f) * 3.141592653589793);
 			Tran = TransparentValue + (int)num;
 			if (Tran < 0)
 			{
@@ -32,7 +32,7 @@ namespace Shooting.Planes.Story
 
 		public override void Show()
 		{
-			SizeF sizeF = new SizeF((float)TxtureObject.Width * Scale, (float)TxtureObject.Height * Scale);
+			var sizeF = new SizeF((float)TxtureObject.Width * Scale, (float)TxtureObject.Height * Scale);
 			SpriteMain.Draw2D(TxtureObject.TXTure, TxtureObject.PosRect, sizeF, TxtureObject.RotatingCenter, 0f, Position, Color.FromArgb(Tran, Color.White));
 		}
 

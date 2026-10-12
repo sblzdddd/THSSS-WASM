@@ -44,7 +44,7 @@ namespace Shooting
 
 		private void SetupVertex()
 		{
-			DataStream dataStream = vertexBuffer.Lock(0, 0, LockFlags.None);
+			var dataStream = vertexBuffer.Lock(0, 0, LockFlags.None);
 			dataStream.WriteRange<TexturedVertex>(new TexturedVertex[]
 			{
 				new TexturedVertex(new Vector3(-1000f, -4000f, 0f), new Vector2(0f, 4f)),

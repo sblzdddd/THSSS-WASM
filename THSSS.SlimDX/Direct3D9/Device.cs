@@ -157,7 +157,7 @@ namespace SlimDX.Direct3D9
 				GlTextureId = 0
 			};
 			this.currentColor = this.backBuffer;
-			Material material = default(Material);
+			var material = default(Material);
 			material.Diffuse = new Color4(1f, 1f, 1f, 1f);
 			material.Ambient = new Color4(1f, 1f, 1f, 1f);
 			this.Material = material;
@@ -195,7 +195,7 @@ namespace SlimDX.Direct3D9
 
 		public Result TestCooperativeLevel()
 		{
-			Result result = Result.Success;
+			var result = Result.Success;
 			Result.Last = result;
 			return result;
 		}
@@ -309,7 +309,7 @@ namespace SlimDX.Direct3D9
 			{
 				return;
 			}
-			int srcCount = primitiveType == PrimitiveType.TriangleList ? primitiveCount * 3 : primitiveCount + 2;
+			var srcCount = primitiveType == PrimitiveType.TriangleList ? primitiveCount * 3 : primitiveCount + 2;
 			if (startVertex < 0 || srcCount <= 0)
 			{
 				return;
@@ -323,7 +323,7 @@ namespace SlimDX.Direct3D9
 			{
 				Sprite.Current.FlushPending();
 			}
-			int tex = this.boundTexture != null && !this.boundTexture.Disposed ? this.boundTexture.GlId : 0;
+			var tex = this.boundTexture != null && !this.boundTexture.Disposed ? this.boundTexture.GlId : 0;
 			if (this.worldBatchOpen && !this.BatchSame(tex))
 			{
 				this.FlushWorldBatch();
@@ -332,15 +332,15 @@ namespace SlimDX.Direct3D9
 			{
 				this.OpenBatch(tex);
 			}
-			int outVerts = primitiveType == PrimitiveType.TriangleList ? srcCount : primitiveCount * 3;
+			var outVerts = primitiveType == PrimitiveType.TriangleList ? srcCount : primitiveCount * 3;
 			this.EnsureBatchRoom(outVerts * 9);
-			float mr = 1f;
-			float mg = 1f;
-			float mb = 1f;
-			float ma = 1f;
+			var mr = 1f;
+			var mg = 1f;
+			var mb = 1f;
+			var ma = 1f;
 			if (this.Lighting)
 			{
-				Color4 color = this.Material.Diffuse;
+				var color = this.Material.Diffuse;
 				mr = color.Red;
 				mg = color.Green;
 				mb = color.Blue;
@@ -348,7 +348,7 @@ namespace SlimDX.Direct3D9
 			}
 			if (primitiveType == PrimitiveType.TriangleStrip)
 			{
-				for (int j = 0; j < primitiveCount; j++)
+				for (var j = 0; j < primitiveCount; j++)
 				{
 					this.BakeVertex(startVertex + j, mr, mg, mb, ma);
 					this.BakeVertex(startVertex + j + 1, mr, mg, mb, ma);
@@ -357,7 +357,7 @@ namespace SlimDX.Direct3D9
 			}
 			else if (primitiveType == PrimitiveType.TriangleFan)
 			{
-				for (int k = 0; k < primitiveCount; k++)
+				for (var k = 0; k < primitiveCount; k++)
 				{
 					this.BakeVertex(startVertex, mr, mg, mb, ma);
 					this.BakeVertex(startVertex + k + 1, mr, mg, mb, ma);
@@ -366,7 +366,7 @@ namespace SlimDX.Direct3D9
 			}
 			else
 			{
-				for (int i = 0; i < srcCount; i++)
+				for (var i = 0; i < srcCount; i++)
 				{
 					this.BakeVertex(startVertex + i, mr, mg, mb, ma);
 				}
@@ -380,18 +380,18 @@ namespace SlimDX.Direct3D9
 				return;
 			}
 			this.worldBatchOpen = false;
-			int count = this.worldBatchCount;
+			var count = this.worldBatchCount;
 			this.worldBatchCount = 0;
 			if (count < 9)
 			{
 				return;
 			}
-			float fr = (float)((this.worldBatchFogColor >> 16) & 255) / 255f;
-			float fg = (float)((this.worldBatchFogColor >> 8) & 255) / 255f;
-			float fb = (float)(this.worldBatchFogColor & 255) / 255f;
+			var fr = (float)((this.worldBatchFogColor >> 16) & 255) / 255f;
+			var fg = (float)((this.worldBatchFogColor >> 8) & 255) / 255f;
+			var fb = (float)(this.worldBatchFogColor & 255) / 255f;
 			Store(this.view, this.viewBuf);
 			Store(this.projection, this.projBuf);
-			IGlApi api = GlHost.Need();
+			var api = GlHost.Need();
 			api.BindTarget(this.worldBatchTarget);
 			api.SetViewport(this.batchVx, this.batchVy, this.batchVw, this.batchVh, this.batchCw, this.batchCh);
 			api.SetBlend(this.worldBatchAlpha, this.worldBatchSrc, this.worldBatchDst, this.worldBatchEq);
@@ -426,7 +426,7 @@ namespace SlimDX.Direct3D9
 			{
 				return;
 			}
-			int num = buffer.Length;
+			var num = buffer.Length;
 			while (num < floats)
 			{
 				num *= 2;
@@ -436,9 +436,9 @@ namespace SlimDX.Direct3D9
 
 		private static void Copy9(float[] src, int srcVert, float[] dst, int dstVert)
 		{
-			int num = srcVert * 9;
-			int num2 = dstVert * 9;
-			for (int i = 0; i < 9; i++)
+			var num = srcVert * 9;
+			var num2 = dstVert * 9;
+			for (var i = 0; i < 9; i++)
 			{
 				dst[num2 + i] = num + i < src.Length ? src[num + i] : 0f;
 			}
@@ -446,18 +446,18 @@ namespace SlimDX.Direct3D9
 
 		private void WriteVertex(float[] dest, int vertexIndex, int index)
 		{
-			byte[] data = this.stream.Data;
-			int num = index * this.streamStride;
-			float num2 = 0f;
-			float num3 = 0f;
-			float num4 = 0f;
-			float num5 = 0f;
-			float num6 = 0f;
-			float num7 = 1f;
-			float num8 = 1f;
-			float num9 = 1f;
-			float num10 = 1f;
-			VertexElement[] array = this.VertexDeclaration != null ? this.VertexDeclaration.Elements : null;
+			var data = this.stream.Data;
+			var num = index * this.streamStride;
+			var num2 = 0f;
+			var num3 = 0f;
+			var num4 = 0f;
+			var num5 = 0f;
+			var num6 = 0f;
+			var num7 = 1f;
+			var num8 = 1f;
+			var num9 = 1f;
+			var num10 = 1f;
+			var array = this.VertexDeclaration != null ? this.VertexDeclaration.Elements : null;
 			if (array == null || array.Length == 0)
 			{
 				num2 = ReadSingle(data, num);
@@ -468,14 +468,14 @@ namespace SlimDX.Direct3D9
 			}
 			else
 			{
-				for (int i = 0; i < array.Length; i++)
+				for (var i = 0; i < array.Length; i++)
 				{
-					VertexElement vertexElement = array[i];
+					var vertexElement = array[i];
 					if (vertexElement.Stream == 255)
 					{
 						break;
 					}
-					int num11 = num + vertexElement.Offset;
+					var num11 = num + vertexElement.Offset;
 					if (vertexElement.Usage == DeclarationUsage.Position)
 					{
 						num2 = ReadSingle(data, num11);
@@ -489,7 +489,7 @@ namespace SlimDX.Direct3D9
 					}
 					else if (vertexElement.Usage == DeclarationUsage.Color)
 					{
-						int num12 = ReadInt(data, num11);
+						var num12 = ReadInt(data, num11);
 						num10 = (float)((num12 >> 24) & 255) / 255f;
 						num7 = (float)((num12 >> 16) & 255) / 255f;
 						num8 = (float)((num12 >> 8) & 255) / 255f;
@@ -497,7 +497,7 @@ namespace SlimDX.Direct3D9
 					}
 				}
 			}
-			int num13 = vertexIndex * 9;
+			var num13 = vertexIndex * 9;
 			dest[num13] = num2;
 			dest[num13 + 1] = num3;
 			dest[num13 + 2] = num4;
@@ -529,13 +529,13 @@ namespace SlimDX.Direct3D9
 
 		private void EnsureDecoded()
 		{
-			VertexBuffer buffer = this.stream;
-			int stride = this.streamStride;
+			var buffer = this.stream;
+			var stride = this.streamStride;
 			if (buffer.Data == null || stride <= 0)
 			{
 				return;
 			}
-			int count = buffer.Data.Length / stride;
+			var count = buffer.Data.Length / stride;
 			if (!buffer.DecodeDirty && buffer.DecodedDecl == this.VertexDeclaration && buffer.Decoded != null && buffer.DecodedCount == count)
 			{
 				return;
@@ -544,7 +544,7 @@ namespace SlimDX.Direct3D9
 			{
 				buffer.Decoded = new float[count * 9 > 0 ? count * 9 : 9];
 			}
-			for (int i = 0; i < count; i++)
+			for (var i = 0; i < count; i++)
 			{
 				this.WriteVertex(buffer.Decoded, i, i);
 			}
@@ -555,16 +555,16 @@ namespace SlimDX.Direct3D9
 
 		private bool BatchSame(int tex)
 		{
-			Viewport viewport = this.Viewport;
-			int width = viewport.Width > 0 ? viewport.Width : this.BackBufferWidth;
-			int height = viewport.Height > 0 ? viewport.Height : this.BackBufferHeight;
-			int target = this.currentColor != null ? this.currentColor.GlTextureId : 0;
+			var viewport = this.Viewport;
+			var width = viewport.Width > 0 ? viewport.Width : this.BackBufferWidth;
+			var height = viewport.Height > 0 ? viewport.Height : this.BackBufferHeight;
+			var target = this.currentColor != null ? this.currentColor.GlTextureId : 0;
 			return this.worldBatchTex == tex && this.worldBatchTarget == target && this.worldBatchAlpha == this.AlphaBlendEnable && this.worldBatchSrc == this.BlendSrc && this.worldBatchDst == this.BlendDst && this.worldBatchEq == this.BlendEquation && this.worldBatchDepth == this.DepthEnable && this.worldBatchWrite == this.DepthWrite && this.worldBatchCull == this.CullMode && this.worldBatchFog == this.FogEnable && this.worldBatchFogStart == this.FogStart && this.worldBatchFogEnd == this.FogEnd && this.worldBatchFogColor == this.FogColor && this.batchVx == viewport.X && this.batchVy == viewport.Y && this.batchVw == width && this.batchVh == height && this.batchCw == this.BackBufferWidth && this.batchCh == this.BackBufferHeight;
 		}
 
 		private void OpenBatch(int tex)
 		{
-			Viewport viewport = this.Viewport;
+			var viewport = this.Viewport;
 			this.worldBatchOpen = true;
 			this.worldBatchCount = 0;
 			this.worldBatchTex = tex;
@@ -592,18 +592,18 @@ namespace SlimDX.Direct3D9
 		{
 			if (this.worldBatchCount > 0 && this.worldBatchCount + floats > 65536)
 			{
-				int tex = this.worldBatchTex;
+				var tex = this.worldBatchTex;
 				this.FlushWorldBatch();
 				this.OpenBatch(tex);
 			}
 			if (this.worldBatchCount + floats > this.worldBatch.Length)
 			{
-				int num = this.worldBatch.Length;
+				var num = this.worldBatch.Length;
 				while (num < this.worldBatchCount + floats)
 				{
 					num *= 2;
 				}
-				float[] next = new float[num];
+				var next = new float[num];
 				if (this.worldBatchCount > 0)
 				{
 					Array.Copy(this.worldBatch, next, this.worldBatchCount);
@@ -614,14 +614,14 @@ namespace SlimDX.Direct3D9
 
 		private void BakeVertex(int srcIndex, float mr, float mg, float mb, float ma)
 		{
-			float[] src = this.stream.Decoded;
-			int num = srcIndex * 9;
-			float x = src[num];
-			float y = src[num + 1];
-			float z = src[num + 2];
-			Matrix matrix = this.world;
-			int dest = this.worldBatchCount;
-			float[] data = this.worldBatch;
+			var src = this.stream.Decoded;
+			var num = srcIndex * 9;
+			var x = src[num];
+			var y = src[num + 1];
+			var z = src[num + 2];
+			var matrix = this.world;
+			var dest = this.worldBatchCount;
+			var data = this.worldBatch;
 			data[dest] = matrix.M11 * x + matrix.M21 * y + matrix.M31 * z + matrix.M41;
 			data[dest + 1] = matrix.M12 * x + matrix.M22 * y + matrix.M32 * z + matrix.M42;
 			data[dest + 2] = matrix.M13 * x + matrix.M23 * y + matrix.M33 * z + matrix.M43;
@@ -680,15 +680,15 @@ namespace SlimDX.Direct3D9
 
 		private void ApplyTarget()
 		{
-			int num = this.currentColor != null ? this.currentColor.GlTextureId : 0;
+			var num = this.currentColor != null ? this.currentColor.GlTextureId : 0;
 			GlHost.Need().BindTarget(num);
 		}
 
 		private void ApplyViewport()
 		{
-			Viewport viewport = this.Viewport;
-			int num = viewport.Width > 0 ? viewport.Width : this.BackBufferWidth;
-			int num2 = viewport.Height > 0 ? viewport.Height : this.BackBufferHeight;
+			var viewport = this.Viewport;
+			var num = viewport.Width > 0 ? viewport.Width : this.BackBufferWidth;
+			var num2 = viewport.Height > 0 ? viewport.Height : this.BackBufferHeight;
 			GlHost.Need().SetViewport(viewport.X, viewport.Y, num, num2, this.BackBufferWidth, this.BackBufferHeight);
 		}
 	}

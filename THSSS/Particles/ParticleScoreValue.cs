@@ -27,16 +27,16 @@ namespace Shooting
 
 		public override void Show()
 		{
-			int num = TextureObjectDictionary["Score_+"].Width;
-			for (int i = 0; i < ScoreCharArray.Length; i++)
+			var num = TextureObjectDictionary["Score_+"].Width;
+			for (var i = 0; i < ScoreCharArray.Length; i++)
 			{
 				num += TextureObjectDictionary[ScoreCharArray[i].ToString()].Width;
 			}
-			float num2 = 0.6f;
-			PointF pointF = new PointF(OriginalPosition.X - (float)num * num2 / 2f, OriginalPosition.Y);
+			var num2 = 0.6f;
+			var pointF = new PointF(OriginalPosition.X - (float)num * num2 / 2f, OriginalPosition.Y);
 			SpriteMain.Draw2D(TextureObjectDictionary["Score_+"], num2, 0f, pointF, Color.FromArgb(TransparentValue, ColorValue));
 			pointF = new PointF(pointF.X + (float)TextureObjectDictionary["Score_+"].Width * num2 / 2f, pointF.Y);
-			for (int i = 0; i < ScoreCharArray.Length; i++)
+			for (var i = 0; i < ScoreCharArray.Length; i++)
 			{
 				pointF = new PointF(pointF.X + (float)TextureObjectDictionary["Score_" + ScoreCharArray[i].ToString()].Width * num2 / 2f, pointF.Y);
 				SpriteMain.Draw2D(TextureObjectDictionary["Score_" + ScoreCharArray[i].ToString()], num2, 0f, pointF, Color.FromArgb(TransparentValue, ColorValue));

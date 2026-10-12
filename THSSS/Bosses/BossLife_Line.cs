@@ -37,17 +37,17 @@ namespace Shooting
 			if (Boss != null)
 			{
 				size = 16f;
-				SizeF sizeF = new SizeF(size, size);
-				for (int i = 0; i < Life - 1; i++)
+				var sizeF = new SizeF(size, size);
+				for (var i = 0; i < Life - 1; i++)
 				{
 					if (i < 5)
 					{
-						PointF pointF = new PointF(OriginalPosition.X + (float)i * size, OriginalPosition.Y);
+						var pointF = new PointF(OriginalPosition.X + (float)i * size, OriginalPosition.Y);
 						SpriteMain.Draw2D(TxtureObject.TXTure, TxtureObject.PosRect, sizeF, new PointF(0f, 0f), 0f, pointF, Color.FromArgb(TransparentValue, Color.White));
 					}
 					else
 					{
-						PointF pointF = new PointF(OriginalPosition.X + (float)(i - 5) * size, OriginalPosition.Y + 16f);
+						var pointF = new PointF(OriginalPosition.X + (float)(i - 5) * size, OriginalPosition.Y + 16f);
 						SpriteMain.Draw2D(TxtureObject.TXTure, TxtureObject.PosRect, sizeF, new PointF(0f, 0f), 0f, pointF, Color.FromArgb(TransparentValue, Color.White));
 					}
 				}

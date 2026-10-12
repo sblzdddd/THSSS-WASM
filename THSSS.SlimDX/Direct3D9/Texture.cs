@@ -36,7 +36,7 @@ namespace SlimDX.Direct3D9
 				return;
 			}
 			this.Rgba = new byte[this.Width * this.Height * 4];
-			for (int i = 3; i < this.Rgba.Length; i += 4)
+			for (var i = 3; i < this.Rgba.Length; i += 4)
 			{
 				this.Rgba[i] = byte.MaxValue;
 			}
@@ -60,9 +60,9 @@ namespace SlimDX.Direct3D9
 
 		internal static Texture AllocateEmpty(int width, int height)
 		{
-			int num = ClampEdge(width);
-			int num2 = ClampEdge(height);
-			int num3 = GlHost.Need().CreateTexture(num, num2, Array.Empty<byte>());
+			var num = ClampEdge(width);
+			var num2 = ClampEdge(height);
+			var num3 = GlHost.Need().CreateTexture(num, num2, Array.Empty<byte>());
 			return new Texture(num3, num, num2, true);
 		}
 
@@ -93,13 +93,13 @@ namespace SlimDX.Direct3D9
 		{
 			int num;
 			int num2;
-			byte[] array = ImageFiles.DecodeRgba(fileName, out num, out num2);
+			var array = ImageFiles.DecodeRgba(fileName, out num, out num2);
 			if (colorKey != 0)
 			{
-				byte b = (byte)((colorKey >> 16) & 255);
-				byte b2 = (byte)((colorKey >> 8) & 255);
-				byte b3 = (byte)(colorKey & 255);
-				for (int i = 0; i < array.Length; i += 4)
+				var b = (byte)((colorKey >> 16) & 255);
+				var b2 = (byte)((colorKey >> 8) & 255);
+				var b3 = (byte)(colorKey & 255);
+				for (var i = 0; i < array.Length; i += 4)
 				{
 					if (array[i] == b && array[i + 1] == b2 && array[i + 2] == b3)
 					{
@@ -107,7 +107,7 @@ namespace SlimDX.Direct3D9
 					}
 				}
 			}
-			Texture texture = new Texture(device, num, num2, 1, Usage.None, Format.A8R8G8B8, Pool.Managed);
+			var texture = new Texture(device, num, num2, 1, Usage.None, Format.A8R8G8B8, Pool.Managed);
 			texture.Rgba = array;
 			GlHost.Need().UpdateTexture(texture.GlId, num, num2, array);
 			return texture;
@@ -125,7 +125,7 @@ namespace SlimDX.Direct3D9
 
 		public SurfaceDescription GetLevelDescription(int level)
 		{
-			SurfaceDescription surfaceDescription = default(SurfaceDescription);
+			var surfaceDescription = default(SurfaceDescription);
 			surfaceDescription.Width = this.Width;
 			surfaceDescription.Height = this.Height;
 			surfaceDescription.Format = Format.A8R8G8B8;
@@ -134,14 +134,14 @@ namespace SlimDX.Direct3D9
 
 		public DataRectangle LockRectangle(int level, Rectangle rect, LockFlags flags)
 		{
-			int num = rect.Width;
-			int num2 = rect.Height;
+			var num = rect.Width;
+			var num2 = rect.Height;
 			if (num < 1 || num2 < 1 || (long)num * num2 > (long)this.Width * this.Height)
 			{
 				num = this.Width;
 				num2 = this.Height;
 			}
-			int num3 = num * num2 * 4;
+			var num3 = num * num2 * 4;
 			if (this.lockBgra == null || this.lockBgra.Length != num3)
 			{
 				this.lockBgra = new byte[num3];
@@ -158,8 +158,8 @@ namespace SlimDX.Direct3D9
 			{
 				return;
 			}
-			int num = Math.Min(this.Rgba.Length / 4, this.lockBgra.Length / 4);
-			for (int i = 0; i < num; i++)
+			var num = Math.Min(this.Rgba.Length / 4, this.lockBgra.Length / 4);
+			for (var i = 0; i < num; i++)
 			{
 				this.Rgba[i * 4] = this.lockBgra[i * 4 + 2];
 				this.Rgba[i * 4 + 1] = this.lockBgra[i * 4 + 1];
@@ -212,9 +212,9 @@ namespace SlimDX.Direct3D9
 
 		public static bool Take(int width, int height, out int glId, out byte[] rgba)
 		{
-			for (int i = entries.Count - 1; i >= 0; i--)
+			for (var i = entries.Count - 1; i >= 0; i--)
 			{
-				Entry entry = entries[i];
+				var entry = entries[i];
 				if (entry.Width == width && entry.Height == height && entry.Rgba != null && entry.Rgba.Length == width * height * 4)
 				{
 					entries.RemoveAt(i);
@@ -234,7 +234,7 @@ namespace SlimDX.Direct3D9
 			{
 				return false;
 			}
-			Entry entry = default(Entry);
+			var entry = default(Entry);
 			entry.GlId = glId;
 			entry.Width = width;
 			entry.Height = height;

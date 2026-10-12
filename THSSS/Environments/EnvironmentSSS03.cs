@@ -52,37 +52,37 @@ namespace Shooting
 			}
 			while ((float)PosY3 < CameraPosition.Y + 4200f)
 			{
-				Background3DObject background3DObject = new Background3DObject(StageData, "柳树", new PointF(300f, (float)PosY3), true);
+				var background3DObject = new Background3DObject(StageData, "柳树", new PointF(300f, (float)PosY3), true);
 				background3DObject.Angle3DX = -1.5707964f;
 				background3DObject.Height = 400f;
-				Background3DObject background3DObject2 = new Background3DObject(StageData, "柳树", new PointF(-300f, (float)PosY3), true);
+				var background3DObject2 = new Background3DObject(StageData, "柳树", new PointF(-300f, (float)PosY3), true);
 				background3DObject2.Angle3DX = -1.5707964f;
 				background3DObject2.Height = 400f;
 				background3DObject2.Mirrored = true;
-				Background3DObject background3DObject3 = new Background3DObject(StageData, "柳树", new PointF(300f, (float)(PosY3 + 200)), true);
+				var background3DObject3 = new Background3DObject(StageData, "柳树", new PointF(300f, (float)(PosY3 + 200)), true);
 				background3DObject3.Angle3DX = -1.5707964f;
 				background3DObject3.Height = 400f;
 				background3DObject3.Mirrored = true;
-				Background3DObject background3DObject4 = new Background3DObject(StageData, "柳树", new PointF(-300f, (float)(PosY3 + 200)), true);
+				var background3DObject4 = new Background3DObject(StageData, "柳树", new PointF(-300f, (float)(PosY3 + 200)), true);
 				background3DObject4.Angle3DX = -1.5707964f;
 				background3DObject4.Height = 400f;
 				PosY3 += 400;
 			}
 			while ((float)PosY < CameraPosition.Y + 3072f)
 			{
-				Background3DObject background3DObject5 = new Background3DObject(StageData, "地砖", new PointF(0f, (float)PosY), true);
+				var background3DObject5 = new Background3DObject(StageData, "地砖", new PointF(0f, (float)PosY), true);
 				background3DObject5.Angle3DX = -3.1415927f;
 				background3DObject5.Scale = 1f;
 				PosY += 256;
 			}
 			while ((float)PosY2 < CameraPosition.Y + 1950f)
 			{
-				Background3DObject background3DObject6 = new Background3DObject(StageData, "草地", new PointF(0f, (float)PosY2), true);
+				var background3DObject6 = new Background3DObject(StageData, "草地", new PointF(0f, (float)PosY2), true);
 				background3DObject6.Angle3DX = -3.1415927f;
 				background3DObject6.Scale = 5f;
 				PosY2 += 1625;
 			}
-			for (int i = Background3D.BackgroundList.Count - 1; i >= 0; i--)
+			for (var i = Background3D.BackgroundList.Count - 1; i >= 0; i--)
 			{
 				if (Background3D.BackgroundList[i].OriginalPosition.Y < CameraPosition.Y - 1000f)
 				{

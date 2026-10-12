@@ -29,11 +29,11 @@ namespace Shooting
 			base.Ctrl();
 			if (1 < Time && Time < 60)
 			{
-				int num = 7;
-				double num2 = (double)(360f / (float)num);
-				for (int i = 0; i < num; i++)
+				var num = 7;
+				var num2 = (double)(360f / (float)num);
+				for (var i = 0; i < num; i++)
 				{
-					BaseEffect baseEffect = new BaseEffect(StageData, "bullet23_0", Position, 1.5f, 0.0)
+					var baseEffect = new BaseEffect(StageData, "bullet23_0", Position, 1.5f, 0.0)
 					{
 						DirectionDegree = (double)(Time * 18) + num2 * (double)i,
 						ScaleWidth = 0.3f,
@@ -75,21 +75,21 @@ namespace Shooting
 			}
 			if (130 < Time && Time < 220)
 			{
-				for (int i = 0; i < 3; i++)
+				for (var i = 0; i < 3; i++)
 				{
-					BaseEffect_CS baseEffect_CS = new BaseEffect_CS(StageData);
+					var baseEffect_CS = new BaseEffect_CS(StageData);
 					baseEffect_CS.TxtureObject = TextureObjectDictionary["bullet50_0"];
 					baseEffect_CS.OriginalPosition = new PointF((float)(BoundRect.Width / 2) + 200f * (float)Ran.NextPMDouble(), (float)(BoundRect.Height / 2) + 280f * (float)Ran.NextPMDouble());
 					baseEffect_CS.Velocity = (float)Ran.NextPMDouble();
 					baseEffect_CS.Direction = 1.5707963267948966 * Ran.NextPMDouble();
 					baseEffect_CS.Scale = 0.05f;
 					baseEffect_CS.LifeTime = 40;
-					EventGroup eventGroup = new EventGroup();
+					var eventGroup = new EventGroup();
 					eventGroup.index = 0;
 					eventGroup.tag = "0";
 					eventGroup.t = 15;
 					eventGroup.addtime = 15;
-					Event @event = new Event();
+					var @event = new Event();
 					@event.EventString = "当前帧=1：高比变化到0，正弦，14";
 					@event.String2BulletEvent();
 					eventGroup.EventList.Add(@event);

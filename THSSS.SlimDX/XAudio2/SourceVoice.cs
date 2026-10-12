@@ -39,7 +39,7 @@ namespace SlimDX.XAudio2
 		{
 			get
 			{
-				VoiceState voiceState = default(VoiceState);
+				var voiceState = default(VoiceState);
 				if (this.id != 0 && AudioHost.Api != null)
 				{
 					voiceState.SamplesPlayed = AudioHost.Api.SamplesPlayed(this.id);
@@ -54,7 +54,7 @@ namespace SlimDX.XAudio2
 			{
 				if (this.bufferId != 0 && AudioHost.Api != null)
 				{
-					int num = AudioHost.Api.Channels(this.bufferId);
+					var num = AudioHost.Api.Channels(this.bufferId);
 					if (num > 0)
 					{
 						this.channels = num;
@@ -145,8 +145,8 @@ namespace SlimDX.XAudio2
 
 		public void SetOutputMatrix(int inputChannels, int outputChannels, float[] matrix)
 		{
-			float num = 1f;
-			float num2 = 1f;
+			var num = 1f;
+			var num2 = 1f;
 			if (matrix != null && matrix.Length >= 4)
 			{
 				num = matrix[0] + matrix[2];
@@ -201,9 +201,9 @@ namespace SlimDX.XAudio2
 				{
 					return;
 				}
-				using (FileStream fileStream = File.OpenRead(path))
+				using (var fileStream = File.OpenRead(path))
 				{
-					byte[] array = new byte[44];
+					var array = new byte[44];
 					if (fileStream.Read(array, 0, array.Length) < 44)
 					{
 						return;

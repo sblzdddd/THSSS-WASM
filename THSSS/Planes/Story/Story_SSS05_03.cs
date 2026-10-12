@@ -5,7 +5,7 @@
 		public Story_SSS05_03(StageDataPackage StageData)
 			: base(StageData)
 		{
-			string name = MyPlane.Name;
+			var name = MyPlane.Name;
 			if (name != null)
 			{
 				if (!(name == "Reimu"))

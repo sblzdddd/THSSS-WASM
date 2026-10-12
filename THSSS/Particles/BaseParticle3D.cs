@@ -46,7 +46,7 @@ namespace Shooting
 			bool flag;
 			if (DestPoint != new PointF(0f, 0f))
 			{
-				PointF destPoint = DestPoint;
+				var destPoint = DestPoint;
 				flag = 1 == 0;
 			}
 			else
@@ -57,7 +57,7 @@ namespace Shooting
 			{
 				MovePoint();
 			}
-			float num = Velocity * (float)Math.Cos(Direction3D);
+			var num = Velocity * (float)Math.Cos(Direction3D);
 			Position = new PointF((float)((double)Position.X + (double)num * Math.Cos(Direction)), (float)((double)Position.Y + (double)num * Math.Sin(Direction)));
 			Depth += Velocity * (float)Math.Sin(Direction3D);
 			if (Depth > MaxDepth)
@@ -78,7 +78,7 @@ namespace Shooting
 
 		public virtual void SetupMatrices()
 		{
-			Matrix matrix = Matrix.Identity;
+			var matrix = Matrix.Identity;
 			if (Mirrored)
 			{
 				matrix *= Matrix.RotationY(3.1415927f);

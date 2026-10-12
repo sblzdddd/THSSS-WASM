@@ -26,7 +26,7 @@ namespace Shooting
 		{
 			if (BackFire)
 			{
-				TextureObject textureObject = TextureObjectDictionary["GhostFire_" + Time % 32 / 4];
+				var textureObject = TextureObjectDictionary["GhostFire_" + Time % 32 / 4];
 				SpriteMain.Draw2D(textureObject, ScaleWidth, ScaleLength, 0f, Position, Color.FromArgb(192, BackFireColor), Mirrored);
 			}
 			base.Show();

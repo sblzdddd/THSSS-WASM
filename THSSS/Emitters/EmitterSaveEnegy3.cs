@@ -18,12 +18,12 @@ namespace Shooting
 		{
 			if (Time % 5 == 0)
 			{
-				for (int i = 0; i < 5; i++)
+				for (var i = 0; i < 5; i++)
 				{
-					double num = (double)((float)Ran.Next(360) / 180f) * 3.141592653589793;
-					int num2 = Ran.Next(10, 100);
-					PointF pointF = new PointF((float)((double)Position.X + (double)num2 * Math.Cos(num)), (float)((double)Position.Y + (double)num2 * Math.Sin(num)));
-					ParticleLongerByV particleLongerByV = new ParticleLongerByV(StageData, "590-1", pointF, 0f, num + 3.141592653589793)
+					var num = (double)((float)Ran.Next(360) / 180f) * 3.141592653589793;
+					var num2 = Ran.Next(10, 100);
+					var pointF = new PointF((float)((double)Position.X + (double)num2 * Math.Cos(num)), (float)((double)Position.Y + (double)num2 * Math.Sin(num)));
+					var particleLongerByV = new ParticleLongerByV(StageData, "590-1", pointF, 0f, num + 3.141592653589793)
 					{
 						TransparentValueF = 200f,
 						LifeTime = 20,

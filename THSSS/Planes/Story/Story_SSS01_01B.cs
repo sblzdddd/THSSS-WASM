@@ -48,14 +48,14 @@ namespace Shooting.Planes.Story
 			}
 			if (Time == Conv.Count)
 			{
-				MusicTitle musicTitle = new MusicTitle(StageData, "喧闹吧！在这不眠之夜", new Point(BoundRect.Width, BoundRect.Height - 16));
+				var musicTitle = new MusicTitle(StageData, "喧闹吧！在这不眠之夜", new Point(BoundRect.Width, BoundRect.Height - 16));
 				musicTitle.OriginalPosition = new PointF((float)BoundRect.Width, (float)(BoundRect.Height + 100));
 				musicTitle.Scale = 0.5f;
 				Boss.Enabled = true;
 				SBox.Dispose();
 				Story = null;
 				new EmitterBossFire(StageData, Boss.OriginalPosition, Color.FromArgb(40, 255, 20));
-				MagicCircle magicCircle = new MagicCircle(StageData, "MagicCircleSix");
+				var magicCircle = new MagicCircle(StageData, "MagicCircleSix");
 				magicCircle.Scale = 1.5f;
 				Background3D.WarpEnabled = true;
 			}

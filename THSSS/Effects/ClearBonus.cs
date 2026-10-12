@@ -18,8 +18,8 @@ namespace Shooting
 			OriginalPosition = new PointF((float)(BoundRect.Width / 2), 150f);
 			AngleDegree = 90.0;
 			BonusCharArray = Bonus.ToString().ToCharArray();
-			int num = 0;
-			for (int i = 0; i < BonusCharArray.Length; i++)
+			var num = 0;
+			for (var i = 0; i < BonusCharArray.Length; i++)
 			{
 				num += TextureObjectDictionary["Num" + BonusCharArray[i].ToString()].Width;
 			}
@@ -38,7 +38,7 @@ namespace Shooting
 				while (Index < BonusCharArray.Length)
 				{
 					ValuePoint = new PointF(ValuePoint.X + (float)(TextureObjectDictionary["Num" + BonusCharArray[Index].ToString()].Width / 2), ValuePoint.Y);
-					BaseEffect baseEffect = new BaseEffect(StageData, "Num" + BonusCharArray[Index].ToString(), new PointF(0f, 0f), 0f, 1.5707963267948966)
+					var baseEffect = new BaseEffect(StageData, "Num" + BonusCharArray[Index].ToString(), new PointF(0f, 0f), 0f, 1.5707963267948966)
 					{
 						Active = false,
 						OriginalPosition = ValuePoint,

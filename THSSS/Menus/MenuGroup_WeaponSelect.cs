@@ -79,7 +79,7 @@ namespace Shooting
 			{
 				OnRemoveMenu = TimeMain + 20;
 				TransparentVelocity = -15f;
-				foreach (BaseMenuItem baseMenuItem in MenuItemList)
+				foreach (var baseMenuItem in MenuItemList)
 				{
 					baseMenuItem.Selected = false;
 					baseMenuItem.OnRemove = true;
@@ -90,8 +90,8 @@ namespace Shooting
 
 		public override void ProcessZ()
 		{
-			Point point = new Point(192, 398);
-			string name = MenuItemList[MenuSelectIndex].Name;
+			var point = new Point(192, 398);
+			var name = MenuItemList[MenuSelectIndex].Name;
 			if (name != null)
 			{
 				if (name == "Weapon_AyaA")

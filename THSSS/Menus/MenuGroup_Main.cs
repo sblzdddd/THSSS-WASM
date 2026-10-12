@@ -20,7 +20,7 @@ namespace Shooting
 				new BaseMenuItem(StageData, "Menu_Manual"),
 				new BaseMenuItem(StageData, "Menu_Exit")
 			};
-			List<ClearHistory> list = StageData.PData.C_History.FindAll((ClearHistory a) => a.NoContinueClearTimes > 0);
+			var list = StageData.PData.C_History.FindAll((ClearHistory a) => a.NoContinueClearTimes > 0);
 			if (list.Count > 0)
 			{
 				MenuItemList.Insert(1, new BaseMenuItem(StageData, "Menu_ExtraStart"));
@@ -29,10 +29,10 @@ namespace Shooting
 			{
 				MenuItemList.Insert(1, new BaseMenuItem(StageData, "DMenu_ExtraStart"));
 			}
-			int num = 50;
-			int num2 = 190;
-			int num3 = -200;
-			foreach (BaseMenuItem baseMenuItem in MenuItemList)
+			var num = 50;
+			var num2 = 190;
+			var num3 = -200;
+			foreach (var baseMenuItem in MenuItemList)
 			{
 				baseMenuItem.Position = new PointF((float)(num + num3), 140f);
 				baseMenuItem.DestPoint = new PointF((float)num, (float)num2);
@@ -63,7 +63,7 @@ namespace Shooting
 
 		public override void ProcessZ()
 		{
-			string name = MenuItemList[MenuSelectIndex].Name;
+			var name = MenuItemList[MenuSelectIndex].Name;
 			switch (name)
 			{
 			case "Menu_Start":

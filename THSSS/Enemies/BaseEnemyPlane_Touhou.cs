@@ -49,7 +49,7 @@ namespace Shooting
 			this.OriginalPosition = OriginalPosition;
 			if (EnemyName != null)
 			{
-				TextureObject[,] array = new TextureObject[2, 8];
+				var array = new TextureObject[2, 8];
 				array[0, 0] = TextureObjectDictionary[EnemyName + "_0"];
 				array[0, 1] = TextureObjectDictionary[EnemyName + "_1"];
 				array[0, 2] = TextureObjectDictionary[EnemyName + "_2"];
@@ -82,7 +82,7 @@ namespace Shooting
 		{
 			AngleWithDirection = false;
 			Angle = 1.5707963267948966;
-			int num = (Mirrored ? IndexY : (-IndexY));
+			var num = (Mirrored ? IndexY : (-IndexY));
 			if (Vx < -0.5f)
 			{
 				Mirrored = true;
@@ -138,44 +138,44 @@ namespace Shooting
 			case 0:
 			{
 				color = Color.Red;
-				EndEnemy endEnemy = new EndEnemy(StageData, "EndEnemy0", Position, 0f, 0.0);
+				var endEnemy = new EndEnemy(StageData, "EndEnemy0", Position, 0f, 0.0);
 				endEnemy.Scale = 0.2f;
 				break;
 			}
 			case 1:
 			{
 				color = Color.CornflowerBlue;
-				EndEnemy endEnemy2 = new EndEnemy(StageData, "EndEnemy1", Position, 0f, 0.0);
+				var endEnemy2 = new EndEnemy(StageData, "EndEnemy1", Position, 0f, 0.0);
 				endEnemy2.Scale = 0.2f;
 				break;
 			}
 			case 2:
 			{
 				color = Color.Green;
-				EndEnemy endEnemy3 = new EndEnemy(StageData, "EndEnemy2", Position, 0f, 0.0);
+				var endEnemy3 = new EndEnemy(StageData, "EndEnemy2", Position, 0f, 0.0);
 				endEnemy3.Scale = 0.2f;
 				break;
 			}
 			case 3:
 			{
 				color = Color.Yellow;
-				EndEnemy endEnemy4 = new EndEnemy(StageData, "EndEnemy3", Position, 0f, 0.0);
+				var endEnemy4 = new EndEnemy(StageData, "EndEnemy3", Position, 0f, 0.0);
 				endEnemy4.Scale = 0.2f;
 				break;
 			}
 			default:
 			{
 				color = Color.White;
-				EndEnemy endEnemy5 = new EndEnemy(StageData, "EndEnemy2", Position, 0f, 0.0);
+				var endEnemy5 = new EndEnemy(StageData, "EndEnemy2", Position, 0f, 0.0);
 				endEnemy5.Scale = 0.2f;
-				EndEnemy endEnemy6 = new EndEnemy(StageData, "EndEnemy3", Position, 0f, 0.0);
+				var endEnemy6 = new EndEnemy(StageData, "EndEnemy3", Position, 0f, 0.0);
 				endEnemy6.Scale = 0.2f;
 				break;
 			}
 			}
-			for (int i = 0; i < 10; i++)
+			for (var i = 0; i < 10; i++)
 			{
-				Particle3D3 particle3D = new Particle3D3(StageData, "Effect-0", OriginalPosition, (float)Ran.Next(40) / 10f, (double)((float)Ran.Next(360) / 180f * 3.1415927f), 40);
+				var particle3D = new Particle3D3(StageData, "Effect-0", OriginalPosition, (float)Ran.Next(40) / 10f, (double)((float)Ran.Next(360) / 180f * 3.1415927f), 40);
 				particle3D.Angle = (double)((float)StageData.Ran.Next(0, 360) * 3.1415927f / 180f);
 				particle3D.AngularVelocity3D = (float)StageData.Ran.Next(10, 30) / 100f;
 				particle3D.Scale = (float)StageData.Ran.Next(12, 18) / 10f;
@@ -187,30 +187,30 @@ namespace Shooting
 
 		public override void GiveItems()
 		{
-			for (int i = 0; i < RedCount; i++)
+			for (var i = 0; i < RedCount; i++)
 			{
-				PointF pointF = new PointF(OriginalPosition.X + (float)Ran.Next(-RedCount * 5, RedCount * 5), OriginalPosition.Y + (float)Ran.Next(-RedCount * 5, RedCount * 5));
+				var pointF = new PointF(OriginalPosition.X + (float)Ran.Next(-RedCount * 5, RedCount * 5), OriginalPosition.Y + (float)Ran.Next(-RedCount * 5, RedCount * 5));
 				new PowerItem_Touhou(StageData, pointF);
 			}
-			for (int i = 0; i < BlueCount; i++)
+			for (var i = 0; i < BlueCount; i++)
 			{
-				PointF pointF = new PointF(OriginalPosition.X + (float)Ran.Next(-BlueCount * 5, BlueCount * 5), OriginalPosition.Y + (float)Ran.Next(-BlueCount * 5, BlueCount * 5));
+				var pointF = new PointF(OriginalPosition.X + (float)Ran.Next(-BlueCount * 5, BlueCount * 5), OriginalPosition.Y + (float)Ran.Next(-BlueCount * 5, BlueCount * 5));
 				new ScoreItem_Touhou(StageData, pointF);
 			}
-			for (int i = 0; i < GreenCount; i++)
+			for (var i = 0; i < GreenCount; i++)
 			{
-				PointF pointF = new PointF(OriginalPosition.X + (float)Ran.Next(-GreenCount * 5, GreenCount * 5), OriginalPosition.Y + (float)Ran.Next(-GreenCount * 5, GreenCount * 5));
+				var pointF = new PointF(OriginalPosition.X + (float)Ran.Next(-GreenCount * 5, GreenCount * 5), OriginalPosition.Y + (float)Ran.Next(-GreenCount * 5, GreenCount * 5));
 				new BeliefItem_Touhou(StageData, pointF);
 			}
 			if (ClearRadius != 0)
 			{
-				BulletRemover_Small bulletRemover_Small = new BulletRemover_Small(StageData, OriginalPosition);
+				var bulletRemover_Small = new BulletRemover_Small(StageData, OriginalPosition);
 				bulletRemover_Small.Region = ClearRadius;
 				bulletRemover_Small.LifeTime = 60;
 			}
 			if (StarFall)
 			{
-				BaseEffect baseEffect = new BaseEffect(StageData, "StarShardBS", Position, 8f, -1.5707963267948966);
+				var baseEffect = new BaseEffect(StageData, "StarShardBS", Position, 8f, -1.5707963267948966);
 				baseEffect.GhostingCount = 40;
 				baseEffect.AngularVelocityDegree = 5f;
 				new ShootingStarShard(StageData, new PointF(OriginalPosition.X, 0f));

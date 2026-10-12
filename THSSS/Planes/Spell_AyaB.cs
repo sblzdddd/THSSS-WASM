@@ -12,18 +12,18 @@ namespace Shooting
 			tmpPoint = MyPlane.OriginalPosition;
 			LifeTime = 270;
 			SpellList.Add(this);
-			BaseEffect baseEffect = new BaseEffect(StageData, null, Position, 0f, 1.5707963267948966);
+			var baseEffect = new BaseEffect(StageData, null, Position, 0f, 1.5707963267948966);
 			baseEffect.TxtureObject = MyPlane.TxtureObject;
 			baseEffect.TransparentVelocity = -20f;
 			baseEffect.ScaleVelocity = 0.1f;
 			new BackgroundBlack(StageData, Position);
-			BackgroundMySC backgroundMySC = new BackgroundMySC(StageData, "76-4");
+			var backgroundMySC = new BackgroundMySC(StageData, "76-4");
 			backgroundMySC.LifeTime = 350;
 			backgroundMySC.MaxTransparent = 180;
 			backgroundMySC.TransparentValueF = 0f;
 			backgroundMySC.TransparentVelocity = 4f;
 			backgroundMySC.ColorValue = Color.Green;
-			BackgroundMySC backgroundMySC2 = new BackgroundMySC(StageData, "76-4");
+			var backgroundMySC2 = new BackgroundMySC(StageData, "76-4");
 			backgroundMySC2.LifeTime = 350;
 			backgroundMySC2.MaxTransparent = 150;
 			backgroundMySC2.TransparentValueF = 0f;
@@ -48,10 +48,10 @@ namespace Shooting
 			}
 			if (Time % Circle == 0)
 			{
-				Spell_AyaB_Laser spell_AyaB_Laser = new Spell_AyaB_Laser(StageData, OriginalPosition, Left);
+				var spell_AyaB_Laser = new Spell_AyaB_Laser(StageData, OriginalPosition, Left);
 				if (Time <= 96)
 				{
-					BaseEffect baseEffect = new BaseEffect(StageData, "Ayaya", new PointF(spell_AyaB_Laser.Position.X + 360f * (float)Math.Cos(spell_AyaB_Laser.Direction), spell_AyaB_Laser.Position.Y + 360f * (float)Math.Sin(spell_AyaB_Laser.Direction)), spell_AyaB_Laser.Velocity, spell_AyaB_Laser.Direction);
+					var baseEffect = new BaseEffect(StageData, "Ayaya", new PointF(spell_AyaB_Laser.Position.X + 360f * (float)Math.Cos(spell_AyaB_Laser.Direction), spell_AyaB_Laser.Position.Y + 360f * (float)Math.Sin(spell_AyaB_Laser.Direction)), spell_AyaB_Laser.Velocity, spell_AyaB_Laser.Direction);
 					baseEffect.Active = false;
 					baseEffect.Mirrored = !Left;
 					baseEffect.Scale = 1.5f;
@@ -72,7 +72,7 @@ namespace Shooting
 				{
 					x.Obtain = true;
 				});
-				BaseEffect baseEffect2 = new BaseEffect(StageData, null, MyPlane.Position, 0f, 1.5707963267948966);
+				var baseEffect2 = new BaseEffect(StageData, null, MyPlane.Position, 0f, 1.5707963267948966);
 				baseEffect2.TxtureObject = MyPlane.TxtureObject;
 				baseEffect2.Scale = 3f;
 				baseEffect2.ScaleVelocity = -0.1f;

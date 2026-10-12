@@ -27,12 +27,12 @@ namespace Shooting
 
 		public override bool HitCheck(BaseObject MyPlane)
 		{
-			double distance = GetDistance(MyPlane);
-			double direction = GetDirection(MyPlane);
-			double num = distance * Math.Cos((double)((float)(Direction - direction)));
-			double num2 = distance * Math.Sin((double)((float)(Direction - direction)));
-			double num3 = (double)((float)Region * ScaleWidth);
-			double num4 = (double)((float)TxtureObject.Height * ScaleLength * 0.45f);
+			var distance = GetDistance(MyPlane);
+			var direction = GetDirection(MyPlane);
+			var num = distance * Math.Cos((double)((float)(Direction - direction)));
+			var num2 = distance * Math.Sin((double)((float)(Direction - direction)));
+			var num3 = (double)((float)Region * ScaleWidth);
+			var num4 = (double)((float)TxtureObject.Height * ScaleLength * 0.45f);
 			return num2 * num2 / num3 / num3 + (num - (double)((float)TxtureObject.Height * ScaleLength / 2f)) * (num - (double)((float)TxtureObject.Height * ScaleLength / 2f)) / num4 / num4 < 1.0;
 		}
 
@@ -44,14 +44,14 @@ namespace Shooting
 		{
 			if (TxtureObject != null)
 			{
-				SizeF sizeF = new SizeF((float)TxtureObject.Width * ScaleWidth, (float)TxtureObject.Height * ScaleLength);
+				var sizeF = new SizeF((float)TxtureObject.Width * ScaleWidth, (float)TxtureObject.Height * ScaleLength);
 				SpriteMain.Draw2D(TxtureObject.TXTure, TxtureObject.PosRect, sizeF, new PointF((float)(TxtureObject.Width / 2), 0f), (float)(Direction - 1.5707963267948966 + Angle), Position, Color.FromArgb(TransparentValue, ColorValue));
 			}
 		}
 
 		public override void ShowRegion()
 		{
-			PointF originalPosition = OriginalPosition;
+			var originalPosition = OriginalPosition;
 			OriginalPosition = new PointF(OriginalPosition.X + (float)TxtureObject.Height * ScaleLength * 0.5f * (float)Math.Cos(Direction), OriginalPosition.Y + (float)TxtureObject.Height * ScaleLength * 0.5f * (float)Math.Sin(Direction));
 			SpriteMain.Draw2D(TextureObjectDictionary["Region"], 2f * (float)Region / (float)TextureObjectDictionary["Region"].Width * ScaleWidth, (float)TxtureObject.Height * 0.9f / (float)TextureObjectDictionary["Region"].Height * ScaleLength, (float)(Direction - 1.5707963267948966 + Angle), Position, Color.White, Mirrored);
 			OriginalPosition = originalPosition;

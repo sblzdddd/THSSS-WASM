@@ -30,9 +30,9 @@ namespace Shooting
 			base.Ctrl();
 			if (Time % 4 == 0)
 			{
-				int num = 20;
-				float num2 = 2f;
-				for (int i = 0; i < num; i++)
+				var num = 20;
+				var num2 = 2f;
+				for (var i = 0; i < num; i++)
 				{
 					new ParticleColored(StageData, "光点", new PointF(Position.X - (float)num + (float)(2 * i), Position.Y - 20f), 20f, -1.5707963267948966 - (double)(num2 / 2f) + (double)((float)i / (float)num * num2));
 				}

@@ -32,12 +32,12 @@ namespace Shooting
 			base.Ctrl();
 			if (Target == null && !targetFlag)
 			{
-				double dist = 300.0;
+				var dist = 300.0;
 				EnemyPlaneList.ForEach(delegate(BaseEnemyPlane x)
 				{
 					if (x.HitEnabled)
 					{
-						double distance = GetDistance(x);
+						var distance = GetDistance(x);
 						if (distance < dist)
 						{
 							Target = x;
@@ -54,8 +54,8 @@ namespace Shooting
 			{
 				if (Target.HealthPoint > 0f)
 				{
-					double num = GetDirection(Target);
-					double num2 = Direction;
+					var num = GetDirection(Target);
+					var num2 = Direction;
 					if (num > 3.141592653589793)
 					{
 						num -= 6.283185307179586;
@@ -64,7 +64,7 @@ namespace Shooting
 					{
 						num2 -= 6.283185307179586;
 					}
-					double num3 = num - num2;
+					var num3 = num - num2;
 					if (num3 > 3.141592653589793)
 					{
 						num3 -= 6.283185307179586;
@@ -102,7 +102,7 @@ namespace Shooting
 			}
 			else
 			{
-				int num = 2;
+				var num = 2;
 				flag = (float)(-(float)num) >= OriginalPosition.X || OriginalPosition.X >= (float)(BoundRect.Width + num) || (float)(-(float)num) >= OriginalPosition.Y || OriginalPosition.Y >= (float)(BoundRect.Height + num);
 			}
 			return flag;
@@ -110,7 +110,7 @@ namespace Shooting
 
 		public override void GiveEndEffect()
 		{
-			ParticleBiger particleBiger = new ParticleBiger(StageData, null, Position, 2f, Direction);
+			var particleBiger = new ParticleBiger(StageData, null, Position, 2f, Direction);
 			particleBiger.Scale = 1.2f;
 			particleBiger.LifeTime = 15;
 			particleBiger.TxtureObject = TxtureObject;

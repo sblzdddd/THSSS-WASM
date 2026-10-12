@@ -18,13 +18,13 @@ namespace Shooting
 		{
 			if (KClass.Key_Shift)
 			{
-				BaseMyBullet_Touhou baseMyBullet_Touhou = new BaseMyBullet_Touhou(StageData, "AyaBullet10", OriginalPosition, 12f, ShootDirection);
+				var baseMyBullet_Touhou = new BaseMyBullet_Touhou(StageData, "AyaBullet10", OriginalPosition, 12f, ShootDirection);
 				baseMyBullet_Touhou.Angle = 1.5707963705062866;
 				baseMyBullet_Touhou.Damage = 4;
 			}
 			else
 			{
-				BulletGuidance bulletGuidance = new BulletGuidance(StageData, "AyaBullet10", Position, 8f, ShootDirection);
+				var bulletGuidance = new BulletGuidance(StageData, "AyaBullet10", Position, 8f, ShootDirection);
 				bulletGuidance.TransparentValueF = 180f;
 				bulletGuidance.Angle = 1.5707963705062866;
 			}

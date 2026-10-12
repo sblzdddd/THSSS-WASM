@@ -71,37 +71,37 @@ namespace Shooting
 				CameraTarget.X = 40f * (float)Math.Sin((double)((float)(Time - 60) / 360f));
 				while ((float)PosY3 < CameraPosition.Y + 4200f)
 				{
-					Background3DObject background3DObject = new Background3DObject(StageData, "柳树", new PointF(300f, (float)PosY3), true);
+					var background3DObject = new Background3DObject(StageData, "柳树", new PointF(300f, (float)PosY3), true);
 					background3DObject.Angle3DX = -1.5707964f;
 					background3DObject.Height = 400f;
-					Background3DObject background3DObject2 = new Background3DObject(StageData, "柳树", new PointF(-300f, (float)PosY3), true);
+					var background3DObject2 = new Background3DObject(StageData, "柳树", new PointF(-300f, (float)PosY3), true);
 					background3DObject2.Angle3DX = -1.5707964f;
 					background3DObject2.Height = 400f;
 					background3DObject2.Mirrored = true;
-					Background3DObject background3DObject3 = new Background3DObject(StageData, "柳树", new PointF(300f, (float)(PosY3 + 200)), true);
+					var background3DObject3 = new Background3DObject(StageData, "柳树", new PointF(300f, (float)(PosY3 + 200)), true);
 					background3DObject3.Angle3DX = -1.5707964f;
 					background3DObject3.Height = 400f;
 					background3DObject3.Mirrored = true;
-					Background3DObject background3DObject4 = new Background3DObject(StageData, "柳树", new PointF(-300f, (float)(PosY3 + 200)), true);
+					var background3DObject4 = new Background3DObject(StageData, "柳树", new PointF(-300f, (float)(PosY3 + 200)), true);
 					background3DObject4.Angle3DX = -1.5707964f;
 					background3DObject4.Height = 400f;
 					PosY3 += 400;
 				}
 				while ((float)PosY < CameraPosition.Y + 3072f)
 				{
-					Background3DObject background3DObject5 = new Background3DObject(StageData, "地砖", new PointF(0f, (float)PosY), true);
+					var background3DObject5 = new Background3DObject(StageData, "地砖", new PointF(0f, (float)PosY), true);
 					background3DObject5.Angle3DX = -3.1415927f;
 					background3DObject5.Scale = 1f;
 					PosY += 256;
 				}
 				while ((float)PosY2 < CameraPosition.Y + 1950f)
 				{
-					Background3DObject background3DObject6 = new Background3DObject(StageData, "草地", new PointF(0f, (float)PosY2), true);
+					var background3DObject6 = new Background3DObject(StageData, "草地", new PointF(0f, (float)PosY2), true);
 					background3DObject6.Angle3DX = -3.1415927f;
 					background3DObject6.Scale = 5f;
 					PosY2 += 1625;
 				}
-				for (int i = Background3D.BackgroundList.Count - 1; i >= 0; i--)
+				for (var i = Background3D.BackgroundList.Count - 1; i >= 0; i--)
 				{
 					if (Background3D.BackgroundList[i].OriginalPosition.Y < CameraPosition.Y - 1000f)
 					{
@@ -118,21 +118,21 @@ namespace Shooting
 			}
 			if (TimeMain == 150)
 			{
-				BackgroundTransitionOut backgroundTransitionOut = new BackgroundTransitionOut(StageData, 150);
+				var backgroundTransitionOut = new BackgroundTransitionOut(StageData, 150);
 				backgroundTransitionOut.LifeTime = 400;
 			}
 			else if (TimeMain == 550)
 			{
-				BackgroundTransitionIn backgroundTransitionIn = new BackgroundTransitionIn(StageData);
+				var backgroundTransitionIn = new BackgroundTransitionIn(StageData);
 				backgroundTransitionIn.Delay = 0;
 				backgroundTransitionIn.LifeTime = 300;
 				CameraPosition = new Vector3(0f, 0f, 250f);
 				CameraTarget = new Vector3(0f, 0f, 0f);
 				CameraDirection = new Vector3(0f, 1f, 1f);
 				Background3D.BackgroundList.Clear();
-				Background3DObject background3DObject7 = new Background3DObject(StageData, "万花镜素材", new PointF(0f, 0f), false);
+				var background3DObject7 = new Background3DObject(StageData, "万花镜素材", new PointF(0f, 0f), false);
 				background3DObject7.AngularVelocityDegree = 0.1f;
-				Background3DObject background3DObject8 = new Background3DObject(StageData, "黑暗滤镜", new PointF(0f, 0f), false)
+				var background3DObject8 = new Background3DObject(StageData, "黑暗滤镜", new PointF(0f, 0f), false)
 				{
 					Height = 10f,
 					Scale = 1f
@@ -143,7 +143,7 @@ namespace Shooting
 			}
 			else if (TimeMain == 4300)
 			{
-				BaseParticle3D bk2 = new BaseParticle3D(StageData, "极光素材", new PointF((float)(BoundRect.Width / 2), 125f), 0f, 0.0)
+				var bk2 = new BaseParticle3D(StageData, "极光素材", new PointF((float)(BoundRect.Width / 2), 125f), 0f, 0.0)
 				{
 					TransparentValueF = 128f,
 					Active = true,
@@ -167,11 +167,11 @@ namespace Shooting
 					CameraPosition = new Vector3(0f, 0f, 250f);
 					CameraTarget = new Vector3(0f, 500f, 0f);
 					CameraDirection = new Vector3(0f, 1f, 1f);
-					Background3DObject background3DObject9 = new Background3DObject(StageData, "万花镜素材", new PointF(0f, 0f), false);
+					var background3DObject9 = new Background3DObject(StageData, "万花镜素材", new PointF(0f, 0f), false);
 					background3DObject9.AngularVelocityDegree = 0.1f;
 					FogStart = 0f;
 					FogEnd = 2000000f;
-					BaseParticle3D bk = new BaseParticle3D(StageData, "极光素材", new PointF((float)(BoundRect.Width / 2), 125f), 0f, 0.0)
+					var bk = new BaseParticle3D(StageData, "极光素材", new PointF((float)(BoundRect.Width / 2), 125f), 0f, 0.0)
 					{
 						TransparentValueF = 128f,
 						Active = true,

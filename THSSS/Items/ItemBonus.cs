@@ -22,11 +22,11 @@ namespace Shooting
 
 		public override void Shoot()
 		{
-			int num = 160 - Time;
-			int num2 = 10;
-			for (int i = 0; i < num2; i++)
+			var num = 160 - Time;
+			var num2 = 10;
+			for (var i = 0; i < num2; i++)
 			{
-				PointF pointF = new PointF(OriginalPosition.X + (float)num * (float)Math.Sin(Angle) + (float)Ran.Next(-15, 15), OriginalPosition.Y + (float)num * (float)Math.Cos(Angle) + (float)Ran.Next(-15, 15));
+				var pointF = new PointF(OriginalPosition.X + (float)num * (float)Math.Sin(Angle) + (float)Ran.Next(-15, 15), OriginalPosition.Y + (float)num * (float)Math.Cos(Angle) + (float)Ran.Next(-15, 15));
 				new StarItem_Touhou(StageData, pointF);
 				pointF = new PointF(OriginalPosition.X - (float)num * (float)Math.Sin(Angle) + (float)Ran.Next(-15, 15), OriginalPosition.Y - (float)num * (float)Math.Cos(Angle) + (float)Ran.Next(-15, 15));
 				new StarItem_Touhou(StageData, pointF);

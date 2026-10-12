@@ -25,11 +25,11 @@ namespace Shooting
 		{
 			get
 			{
-				float x = OriginalPosition.X;
-				float y = OriginalPosition.Y;
+				var x = OriginalPosition.X;
+				var y = OriginalPosition.Y;
 				if (PresentLerp < 1f && hasPrev)
 				{
-					float t = PresentLerp;
+					var t = PresentLerp;
 					x = prevX + (x - prevX) * t;
 					y = prevY + (y - prevY) * t;
 				}
@@ -100,7 +100,7 @@ namespace Shooting
 			}
 			set
 			{
-				float vy = Vy;
+				var vy = Vy;
 				Velocity = (float)Math.Sqrt((double)(value * value + vy * vy));
 				Direction = ((Velocity == 0f) ? 0.0 : Math.Atan2((double)vy, (double)value));
 			}
@@ -114,7 +114,7 @@ namespace Shooting
 			}
 			set
 			{
-				float vx = Vx;
+				var vx = Vx;
 				Velocity = (float)Math.Sqrt((double)(value * value + vx * vx));
 				Direction = ((Velocity == 0f) ? 0.0 : Math.Atan2((double)value, (double)vx));
 			}
@@ -569,7 +569,7 @@ namespace Shooting
 			set
 			{
 				LastPoints = new PointF[value];
-				for (int i = 0; i < value; i++)
+				for (var i = 0; i < value; i++)
 				{
 					LastPoints[i] = OriginalPosition;
 				}
@@ -863,7 +863,7 @@ namespace Shooting
 
 		public void MovePoint()
 		{
-			float num = (float)GetDistance(DestPoint);
+			var num = (float)GetDistance(DestPoint);
 			if (num > Math.Abs(Velocity))
 			{
 				Direction = GetDirection(DestPoint);
@@ -937,11 +937,11 @@ namespace Shooting
 			{
 				if (ScaleLength == ScaleWidth)
 				{
-					float reach = Radius * Scale + (float)Target.Region * Target.Scale;
+					var reach = Radius * Scale + (float)Target.Region * Target.Scale;
 					if (reach > 0f)
 					{
-						float dx = OriginalPosition.X - Target.OriginalPosition.X;
-						float dy = OriginalPosition.Y - Target.OriginalPosition.Y;
+						var dx = OriginalPosition.X - Target.OriginalPosition.X;
+						var dy = OriginalPosition.Y - Target.OriginalPosition.Y;
 						if (dx * dx + dy * dy < reach * reach)
 						{
 							return true;
@@ -950,13 +950,13 @@ namespace Shooting
 				}
 				else
 				{
-					double num = (AngleWithDirection ? (Direction + Angle) : Angle);
-					double num2 = GetDistance(Target) + (double)((float)Target.Region * Target.Scale);
-					double num3 = GetDirection(Target);
-					double num4 = num2 * Math.Cos((double)((float)(num - num3)));
-					double num5 = num2 * Math.Sin((double)((float)(num - num3)));
-					double num6 = (double)(Radius * ScaleWidth);
-					double num7 = (double)(Radius * ScaleLength);
+					var num = (AngleWithDirection ? (Direction + Angle) : Angle);
+					var num2 = GetDistance(Target) + (double)((float)Target.Region * Target.Scale);
+					var num3 = GetDirection(Target);
+					var num4 = num2 * Math.Cos((double)((float)(num - num3)));
+					var num5 = num2 * Math.Sin((double)((float)(num - num3)));
+					var num6 = (double)(Radius * ScaleWidth);
+					var num7 = (double)(Radius * ScaleLength);
 					if (num5 * num5 / num6 / num6 + num4 * num4 / num7 / num7 < 1.0)
 					{
 						return true;
@@ -1002,8 +1002,8 @@ namespace Shooting
 						LastBindingObj.StageData = StageData;
 						LastBindingObj.CopyPosition(BindingObj);
 					}
-					double distance = GetDistance(LastBindingObj);
-					double num = GetDirection(LastBindingObj) + 3.141592653589793 + BindingObj.Angle - LastBindingObj.Angle;
+					var distance = GetDistance(LastBindingObj);
+					var num = GetDirection(LastBindingObj) + 3.141592653589793 + BindingObj.Angle - LastBindingObj.Angle;
 					Direction += BindingObj.Angle - LastBindingObj.Angle;
 					if (BindingObj.AngleWithDirection)
 					{
@@ -1015,8 +1015,8 @@ namespace Shooting
 				}
 				if (Ax != 0f || Ay != 0f)
 				{
-					float num2 = Velocity;
-					double num = Direction;
+					var num2 = Velocity;
+					var num = Direction;
 					Velocity = (float)Math.Sqrt((double)(num2 * num2 + Ax * Ax + Ay * Ay) + (double)(2f * num2 * Ax) * Math.Cos(num) + (double)(2f * num2 * Ay) * Math.Sin(num));
 					Direction = Math.Atan2((double)num2 * Math.Sin(num) + (double)Ay, (double)num2 * Math.Cos(num) + (double)Ax);
 				}
@@ -1070,7 +1070,7 @@ namespace Shooting
 				}
 				if (GhostingCount > 0)
 				{
-					for (int i = LastPoints.Length - 1; i > 0; i--)
+					for (var i = LastPoints.Length - 1; i > 0; i--)
 					{
 						LastPoints[i] = LastPoints[i - 1];
 					}
@@ -1099,11 +1099,11 @@ namespace Shooting
 			{
 				if (TransparentValue > 0)
 				{
-					double num = (AngleWithDirection ? (Direction + Angle - 1.5707963267948966) : (Angle - 1.5707963267948966));
-					for (int i = GhostingCount - 1; i >= 0; i -= 2)
+					var num = (AngleWithDirection ? (Direction + Angle - 1.5707963267948966) : (Angle - 1.5707963267948966));
+					for (var i = GhostingCount - 1; i >= 0; i -= 2)
 					{
-						float num2 = 1f - 0.1f * (float)i / (float)LastPoints.Length;
-						PointF pointF = new PointF(LastPoints[i].X + (float)BoundRect.Left, LastPoints[i].Y + (float)BoundRect.Top);
+						var num2 = 1f - 0.1f * (float)i / (float)LastPoints.Length;
+						var pointF = new PointF(LastPoints[i].X + (float)BoundRect.Left, LastPoints[i].Y + (float)BoundRect.Top);
 						SpriteMain.Draw2D(TxtureObject, ScaleWidth * num2, ScaleLength * num2, (float)num, pointF, Color.FromArgb(TransparentValue * (GhostingCount - i) / (GhostingCount + 1) / 4, GhostingColor), Mirrored);
 					}
 					SpriteMain.Draw2D(TxtureObject, ScaleWidth, ScaleLength, (float)num, Position, Color.FromArgb(TransparentValue, ColorValue), Mirrored);
@@ -1115,7 +1115,7 @@ namespace Shooting
 		{
 			if (Region >= 0)
 			{
-				double num = (AngleWithDirection ? (Direction + Angle - 1.5707963267948966) : (Angle - 1.5707963267948966));
+				var num = (AngleWithDirection ? (Direction + Angle - 1.5707963267948966) : (Angle - 1.5707963267948966));
 				SpriteMain.Draw2D(TextureObjectDictionary["Region"], 2f * (float)Region / (float)TextureObjectDictionary["Region"].Width * ScaleWidth, 2f * (float)Region / (float)TextureObjectDictionary["Region"].Height * ScaleLength, (float)num, Position, Color.White, Mirrored);
 			}
 		}
@@ -1208,7 +1208,7 @@ namespace Shooting
 
 		public virtual object Clone()
 		{
-			BaseObject baseObject = (BaseObject)MemberwiseClone();
+			var baseObject = (BaseObject)MemberwiseClone();
 			baseObject.GhostingCount = GhostingCount;
 			return baseObject;
 		}

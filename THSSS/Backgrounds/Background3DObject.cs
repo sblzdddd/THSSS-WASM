@@ -57,7 +57,7 @@ namespace Shooting
 
 		private void SetupMatrices()
 		{
-			Matrix matrix = Matrix.Identity;
+			var matrix = Matrix.Identity;
 			matrix *= Matrix.RotationZ((float)Angle);
 			matrix *= Matrix.Scaling(new Vector3(Scale, Scale, Scale));
 			if (Mirrored)

@@ -16,7 +16,7 @@
 			}
 			else
 			{
-				long num2 = 99999990L;
+				var num2 = 99999990L;
 				num = num2;
 			}
 			return num;

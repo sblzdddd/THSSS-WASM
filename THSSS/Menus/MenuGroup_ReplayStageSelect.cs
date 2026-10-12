@@ -13,7 +13,7 @@ namespace Shooting
 			RepIndex = RepMenuItem.Name;
 			MenuSelectIndex = 0;
 			MenuItemList = new List<BaseMenuItem>();
-			for (int i = 0; i < 6; i++)
+			for (var i = 0; i < 6; i++)
 			{
 				MenuItemList.Add(new DescriptionMenuItem(StageData, string.Format("Stage{0:00}", i + 1))
 				{
@@ -24,18 +24,18 @@ namespace Shooting
 			{
 				Description = "----------"
 			});
-			float num = OriginalPosition.X + 12f;
-			float num2 = OriginalPosition.Y + 12f;
-			foreach (BaseMenuItem baseMenuItem in MenuItemList)
+			var num = OriginalPosition.X + 12f;
+			var num2 = OriginalPosition.Y + 12f;
+			foreach (var baseMenuItem in MenuItemList)
 			{
 				baseMenuItem.Position = new PointF(num, OriginalPosition.Y + 10f);
 				baseMenuItem.DestPoint = new PointF(num, num2);
 				num2 += 17f;
 			}
-			string text = ".\\Replay\\thSSS_" + RepIndex + ".rpy";
+			var text = ".\\Replay\\thSSS_" + RepIndex + ".rpy";
 			if (File.Exists(text))
 			{
-				ReplayInfo replayInfo = Replay.ReadTitle(text);
+				var replayInfo = Replay.ReadTitle(text);
 				if (replayInfo.StartStage == "StEx")
 				{
 					((DescriptionMenuItem)MenuItemList[6]).Description = replayInfo.MyPlaneData[1].Score.ToString().PadLeft(10);
@@ -51,7 +51,7 @@ namespace Shooting
 					{
 						num3 = Convert.ToInt32(replayInfo.StartStage.Replace("Bs", ""));
 					}
-					for (int i = 0; i < replayInfo.MyPlaneData.Count - 1; i++)
+					for (var i = 0; i < replayInfo.MyPlaneData.Count - 1; i++)
 					{
 						if (num3 - 1 + i < 6)
 						{
@@ -87,7 +87,7 @@ namespace Shooting
 			{
 				OnRemoveMenu = TimeMain + 20;
 				TransparentVelocity = -15f;
-				foreach (BaseMenuItem baseMenuItem in MenuItemList)
+				foreach (var baseMenuItem in MenuItemList)
 				{
 					baseMenuItem.DestPoint = new PointF(MenuItemList[0].OriginalPosition.X, MenuItemList[0].OriginalPosition.Y);
 					baseMenuItem.OnRemove = true;
@@ -101,23 +101,23 @@ namespace Shooting
 			if (((DescriptionMenuItem)MenuItemList[MenuSelectIndex]).Description != "----------")
 			{
 				StageData.SoundPlay("se_ok00.wav");
-				string text = ".\\Replay\\thSSS_" + RepIndex + ".rpy";
+				var text = ".\\Replay\\thSSS_" + RepIndex + ".rpy";
 				StageData.Rep.LoadRpy(text);
-				ReplayInfo replayInfo = Replay.ReadTitle(text);
+				var replayInfo = Replay.ReadTitle(text);
 				StageData.RepInfo = replayInfo;
 				string text3;
 				if (MenuSelectIndex < 6)
 				{
 					if (replayInfo.StartStage.Contains("St"))
 					{
-						string text2 = "St";
-						int num = MenuSelectIndex + 1;
+						var text2 = "St";
+						var num = MenuSelectIndex + 1;
 						text3 = text2 + num.ToString();
 					}
 					else
 					{
-						string text4 = "Bs";
-						int num = MenuSelectIndex + 1;
+						var text4 = "Bs";
+						var num = MenuSelectIndex + 1;
 						text3 = text4 + num.ToString();
 					}
 				}
@@ -148,12 +148,12 @@ namespace Shooting
 				{
 					num2 = MenuSelectIndex - Convert.ToInt32(replayInfo.StartStage.Replace("Bs", "")) + 1;
 				}
-				Point point = new Point(192, 398);
+				var point = new Point(192, 398);
 				if (num2 >= 0)
 				{
 					point = new Point((int)replayInfo.MyPlaneData[num2].PosX, (int)replayInfo.MyPlaneData[num2].PosY);
 				}
-				string text5 = replayInfo.MyPlaneName;
+				var text5 = replayInfo.MyPlaneName;
 				BaseMyPlane baseMyPlane;
 				switch (text5)
 				{

@@ -25,55 +25,55 @@ namespace Shooting
 		public void String2Data(StageDataPackage StageData)
 		{
 			EmitterList.Clear();
-			int num = 0;
+			var num = 0;
 			if (MBGtext[num++] != "Crazy Storm Data 1.01")
 			{
 				MessageBox.Show("当前暂不支持除1.01以外的数据格式", "错误", MessageBoxButtons.OK, MessageBoxIcon.Hand);
 			}
 			else
 			{
-				string text = MBGtext[num++];
+				var text = MBGtext[num++];
 				if (text.Contains("Types"))
 				{
-					int num2 = int.Parse(text.Split(new char[] { ' ' })[0]);
-					for (int i = 0; i < num2; i++)
+					var num2 = int.Parse(text.Split(new char[] { ' ' })[0]);
+					for (var i = 0; i < num2; i++)
 					{
-						string text2 = MBGtext[num++];
-						string[] array = text2.Split(new char[] { '_' });
+						var text2 = MBGtext[num++];
+						var array = text2.Split(new char[] { '_' });
 					}
 					text = MBGtext[num++];
 				}
 				if (text.Contains("GlobalEvents"))
 				{
-					int num3 = int.Parse(text.Split(new char[] { ' ' })[0]);
-					for (int j = 0; j < num3; j++)
+					var num3 = int.Parse(text.Split(new char[] { ' ' })[0]);
+					for (var j = 0; j < num3; j++)
 					{
-						string text3 = MBGtext[num++];
+						var text3 = MBGtext[num++];
 					}
 					text = MBGtext[num++];
 				}
 				if (text.Contains("Sounds"))
 				{
-					int num4 = int.Parse(text.Split(new char[] { ' ' })[0]);
-					for (int k = 0; k < num4; k++)
+					var num4 = int.Parse(text.Split(new char[] { ' ' })[0]);
+					for (var k = 0; k < num4; k++)
 					{
-						string text4 = MBGtext[num++];
+						var text4 = MBGtext[num++];
 					}
 					text = MBGtext[num++];
 				}
 				text = MBGtext[num++];
 				TimeTotal = int.Parse(text.Split(new char[] { ':' })[1]);
-				for (int l = 0; l < 4; l++)
+				for (var l = 0; l < 4; l++)
 				{
 					text = MBGtext[num++];
 					if (text.Split(new char[] { ':' })[1].Split(new char[] { ',' })[0] != "empty")
 					{
-						int num5 = int.Parse(text.Split(new char[] { ':' })[1].Split(new char[] { ',' })[3]);
-						for (int m = 0; m < num5; m++)
+						var num5 = int.Parse(text.Split(new char[] { ':' })[1].Split(new char[] { ',' })[3]);
+						for (var m = 0; m < num5; m++)
 						{
-							string text5 = MBGtext[num++];
-							string[] array2 = text5.Split(new char[] { ',' });
-							EmitterMode emitterMode = EmitterMode.Bullet;
+							var text5 = MBGtext[num++];
+							var array2 = text5.Split(new char[] { ',' });
+							var emitterMode = EmitterMode.Bullet;
 							if (array2.Length > 91)
 							{
 								if (bool.Parse(array2[81]))
@@ -85,7 +85,7 @@ namespace Shooting
 									emitterMode = EmitterMode.Effect;
 								}
 							}
-							BaseEmitter_CS baseEmitter_CS = new BaseEmitter_CS(StageData, this, emitterMode);
+							var baseEmitter_CS = new BaseEmitter_CS(StageData, this, emitterMode);
 							if (baseEmitter_CS.EmitterMode == EmitterMode.Enemy)
 							{
 								baseEmitter_CS.SubBullet = new EnemyFactory(array2[82])
@@ -111,7 +111,7 @@ namespace Shooting
 							baseEmitter_CS.EmitPoint = new PointF(float.Parse(array2[10]), float.Parse(array2[11]));
 							baseEmitter_CS.EmitRadius = (float)int.Parse(array2[12]);
 							baseEmitter_CS.RadiusDirection = (double)float.Parse(array2[13]);
-							string text6 = array2[14].Replace("{", "").Replace("}", "");
+							var text6 = array2[14].Replace("{", "").Replace("}", "");
 							baseEmitter_CS.RadiusDirectionPoint = new PointF(float.Parse(text6.Split(new char[] { ' ' })[0].Split(new char[] { ':' })[1]), float.Parse(text6.Split(new char[] { ' ' })[1].Split(new char[] { ':' })[1]));
 							baseEmitter_CS.Way = int.Parse(array2[15]);
 							baseEmitter_CS.Circle = int.Parse(array2[16]);
@@ -147,17 +147,17 @@ namespace Shooting
 							baseEmitter_CS.SubBullet.OutBound = bool.Parse(array2[49]);
 							baseEmitter_CS.SubBullet.UnRemoveable = bool.Parse(array2[50]);
 							text6 = array2[51];
-							for (int n = 0; n < text6.Split(new char[] { '&' }).Length - 1; n++)
+							for (var n = 0; n < text6.Split(new char[] { '&' }).Length - 1; n++)
 							{
-								string text7 = text6.Split(new char[] { '&' })[n];
-								EventGroup eventGroup = new EventGroup();
+								var text7 = text6.Split(new char[] { '&' })[n];
+								var eventGroup = new EventGroup();
 								eventGroup.index = n;
 								eventGroup.tag = text7.Split(new char[] { '|' })[0];
 								eventGroup.t = int.Parse(text7.Split(new char[] { '|' })[1]);
 								eventGroup.addtime = int.Parse(text7.Split(new char[] { '|' })[2]);
-								for (int num6 = 0; num6 < text7.Split(new char[] { '|' })[3].Split(new char[] { ';' }).Length - 1; num6++)
+								for (var num6 = 0; num6 < text7.Split(new char[] { '|' })[3].Split(new char[] { ';' }).Length - 1; num6++)
 								{
-									Event @event = new Event();
+									var @event = new Event();
 									@event.EventString = text7.Split(new char[] { '|' })[3].Split(new char[] { ';' })[num6];
 									@event.String2EmitterEvent();
 									eventGroup.EventList.Add(@event);
@@ -165,17 +165,17 @@ namespace Shooting
 								baseEmitter_CS.EventGroupList.Add(eventGroup);
 							}
 							text6 = array2[52];
-							for (int num7 = 0; num7 < text6.Split(new char[] { '&' }).Length - 1; num7++)
+							for (var num7 = 0; num7 < text6.Split(new char[] { '&' }).Length - 1; num7++)
 							{
-								string text8 = text6.Split(new char[] { '&' })[num7];
-								EventGroup eventGroup2 = new EventGroup();
+								var text8 = text6.Split(new char[] { '&' })[num7];
+								var eventGroup2 = new EventGroup();
 								eventGroup2.index = num7;
 								eventGroup2.tag = text8.Split(new char[] { '|' })[0];
 								eventGroup2.t = int.Parse(text8.Split(new char[] { '|' })[1]);
 								eventGroup2.addtime = int.Parse(text8.Split(new char[] { '|' })[2]);
-								for (int num8 = 0; num8 < text8.Split(new char[] { '|' })[3].Split(new char[] { ';' }).Length - 1; num8++)
+								for (var num8 = 0; num8 < text8.Split(new char[] { '|' })[3].Split(new char[] { ';' }).Length - 1; num8++)
 								{
-									Event @event = new Event();
+									var @event = new Event();
 									@event.EventString = text8.Split(new char[] { '|' })[3].Split(new char[] { ';' })[num8];
 									@event.String2BulletEvent();
 									eventGroup2.EventList.Add(@event);
@@ -248,10 +248,10 @@ namespace Shooting
 						if (text.Split(new char[] { ':' })[1].Split(new char[] { ',' }).Length >= 7)
 						{
 							num5 = int.Parse(text.Split(new char[] { ':' })[1].Split(new char[] { ',' })[4]);
-							for (int num9 = 0; num9 < num5; num9++)
+							for (var num9 = 0; num9 < num5; num9++)
 							{
-								string text5 = MBGtext[num++];
-								string[] array2 = text5.Split(new char[] { ',' });
+								var text5 = MBGtext[num++];
+								var array2 = text5.Split(new char[] { ',' });
 								BaseEmitter_CS baseEmitter_CS2;
 								if (bool.Parse(array2[29]))
 								{
@@ -311,18 +311,18 @@ namespace Shooting
 								baseEmitter_CS2.SubBullet.AccDirection = (double)float.Parse(array2[34]);
 								baseEmitter_CS2.SubBullet.Active = bool.Parse(array2[38]);
 								baseEmitter_CS2.SubBullet.UnRemoveable = bool.Parse(array2[40]);
-								string text9 = array2[42];
-								for (int num10 = 0; num10 < text9.Split(new char[] { '&' }).Length - 1; num10++)
+								var text9 = array2[42];
+								for (var num10 = 0; num10 < text9.Split(new char[] { '&' }).Length - 1; num10++)
 								{
-									string text10 = text9.Split(new char[] { '&' })[num10];
-									EventGroup eventGroup = new EventGroup();
+									var text10 = text9.Split(new char[] { '&' })[num10];
+									var eventGroup = new EventGroup();
 									eventGroup.index = num10;
 									eventGroup.tag = text10.Split(new char[] { '|' })[0];
 									eventGroup.t = int.Parse(text10.Split(new char[] { '|' })[1]);
 									eventGroup.addtime = int.Parse(text10.Split(new char[] { '|' })[2]);
-									for (int num11 = 0; num11 < text10.Split(new char[] { '|' })[3].Split(new char[] { ';' }).Length - 1; num11++)
+									for (var num11 = 0; num11 < text10.Split(new char[] { '|' })[3].Split(new char[] { ';' }).Length - 1; num11++)
 									{
-										Event @event = new Event();
+										var @event = new Event();
 										@event.EventString = text10.Split(new char[] { '|' })[3].Split(new char[] { ';' })[num11];
 										@event.String2EmitterEvent();
 										eventGroup.EventList.Add(@event);
@@ -330,17 +330,17 @@ namespace Shooting
 									baseEmitter_CS2.EventGroupList.Add(eventGroup);
 								}
 								text9 = array2[43];
-								for (int num12 = 0; num12 < text9.Split(new char[] { '&' }).Length - 1; num12++)
+								for (var num12 = 0; num12 < text9.Split(new char[] { '&' }).Length - 1; num12++)
 								{
-									string text11 = text9.Split(new char[] { '&' })[num12];
-									EventGroup eventGroup2 = new EventGroup();
+									var text11 = text9.Split(new char[] { '&' })[num12];
+									var eventGroup2 = new EventGroup();
 									eventGroup2.index = num12;
 									eventGroup2.tag = text11.Split(new char[] { '|' })[0];
 									eventGroup2.t = int.Parse(text11.Split(new char[] { '|' })[1]);
 									eventGroup2.addtime = int.Parse(text11.Split(new char[] { '|' })[2]);
-									for (int num13 = 0; num13 < text11.Split(new char[] { '|' })[3].Split(new char[] { ';' }).Length - 1; num13++)
+									for (var num13 = 0; num13 < text11.Split(new char[] { '|' })[3].Split(new char[] { ';' }).Length - 1; num13++)
 									{
-										Event @event = new Event();
+										var @event = new Event();
 										@event.EventString = text11.Split(new char[] { '|' })[3].Split(new char[] { ';' })[num13];
 										@event.String2BulletEvent();
 										eventGroup2.EventList.Add(@event);
@@ -380,11 +380,11 @@ namespace Shooting
 								EmitterList.Add(baseEmitter_CS2);
 							}
 							num5 = int.Parse(text.Split(new char[] { ':' })[1].Split(new char[] { ',' })[5]);
-							for (int num14 = 0; num14 < num5; num14++)
+							for (var num14 = 0; num14 < num5; num14++)
 							{
-								string text5 = MBGtext[num++];
-								string[] array2 = text5.Split(new char[] { ',' });
-								BaseCover_CS baseCover_CS = new BaseCover_CS(StageData);
+								var text5 = MBGtext[num++];
+								var array2 = text5.Split(new char[] { ',' });
+								var baseCover_CS = new BaseCover_CS(StageData);
 								baseCover_CS.MaxScale = 1000f;
 								baseCover_CS.ID = int.Parse(array2[0]);
 								baseCover_CS.LayerID = int.Parse(array2[1]);
@@ -400,18 +400,18 @@ namespace Shooting
 								baseCover_CS.DirectionDegree = (double)float.Parse(array2[12]);
 								baseCover_CS.AccelerateCS = float.Parse(array2[14]);
 								baseCover_CS.AccDirection = (double)float.Parse(array2[15]);
-								string text12 = array2[17];
-								for (int num15 = 0; num15 < text12.Split(new char[] { '&' }).Length - 1; num15++)
+								var text12 = array2[17];
+								for (var num15 = 0; num15 < text12.Split(new char[] { '&' }).Length - 1; num15++)
 								{
-									string text13 = text12.Split(new char[] { '&' })[num15];
-									EventGroup eventGroup = new EventGroup();
+									var text13 = text12.Split(new char[] { '&' })[num15];
+									var eventGroup = new EventGroup();
 									eventGroup.index = num15;
 									eventGroup.tag = text13.Split(new char[] { '|' })[0];
 									eventGroup.t = int.Parse(text13.Split(new char[] { '|' })[1]);
 									eventGroup.addtime = int.Parse(text13.Split(new char[] { '|' })[2]);
-									for (int num16 = 0; num16 < text13.Split(new char[] { '|' })[3].Split(new char[] { ';' }).Length - 1; num16++)
+									for (var num16 = 0; num16 < text13.Split(new char[] { '|' })[3].Split(new char[] { ';' }).Length - 1; num16++)
 									{
-										Event @event = new Event();
+										var @event = new Event();
 										@event.EventString = text13.Split(new char[] { '|' })[3].Split(new char[] { ';' })[num16];
 										@event.String2EmitterEvent();
 										eventGroup.EventList.Add(@event);
@@ -419,17 +419,17 @@ namespace Shooting
 									baseCover_CS.EventGroupList.Add(eventGroup);
 								}
 								text12 = array2[18];
-								for (int num17 = 0; num17 < text12.Split(new char[] { '&' }).Length - 1; num17++)
+								for (var num17 = 0; num17 < text12.Split(new char[] { '&' }).Length - 1; num17++)
 								{
-									string text14 = text12.Split(new char[] { '&' })[num17];
-									EventGroup eventGroup2 = new EventGroup();
+									var text14 = text12.Split(new char[] { '&' })[num17];
+									var eventGroup2 = new EventGroup();
 									eventGroup2.index = num17;
 									eventGroup2.tag = text14.Split(new char[] { '|' })[0];
 									eventGroup2.t = int.Parse(text14.Split(new char[] { '|' })[1]);
 									eventGroup2.addtime = int.Parse(text14.Split(new char[] { '|' })[2]);
-									for (int num18 = 0; num18 < text14.Split(new char[] { '|' })[3].Split(new char[] { ';' }).Length - 1; num18++)
+									for (var num18 = 0; num18 < text14.Split(new char[] { '|' })[3].Split(new char[] { ';' }).Length - 1; num18++)
 									{
-										Event @event = new Event();
+										var @event = new Event();
 										@event.EventString = text14.Split(new char[] { '|' })[3].Split(new char[] { ';' })[num18];
 										@event.String2BulletEvent();
 										eventGroup2.EventList.Add(@event);
@@ -451,14 +451,14 @@ namespace Shooting
 								EmitterList.Add(baseCover_CS);
 							}
 							num5 = int.Parse(text.Split(new char[] { ':' })[1].Split(new char[] { ',' })[6]);
-							for (int num19 = 0; num19 < num5; num19++)
+							for (var num19 = 0; num19 < num5; num19++)
 							{
-								string text5 = MBGtext[num++];
+								var text5 = MBGtext[num++];
 							}
 							num5 = int.Parse(text.Split(new char[] { ':' })[1].Split(new char[] { ',' })[7]);
-							for (int num20 = 0; num20 < num5; num20++)
+							for (var num20 = 0; num20 < num5; num20++)
 							{
-								string text5 = MBGtext[num++];
+								var text5 = MBGtext[num++];
 							}
 						}
 					}
@@ -481,7 +481,7 @@ namespace Shooting
 					{
 						text = b.EmitterMode.ToString();
 					}
-					TreeNode treeNode2 = new TreeNode(b.ID.ToString());
+					var treeNode2 = new TreeNode(b.ID.ToString());
 					treeNode2.Name = b.ID.ToString();
 					treeNode2.Text = "ID：" + b.ID.ToString() + "  " + text;
 					treeNode.Nodes.Add(treeNode2);

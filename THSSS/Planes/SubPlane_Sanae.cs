@@ -21,24 +21,24 @@ namespace Shooting
 		{
 			if (KClass.Key_Shift)
 			{
-				BaseMyBullet_Touhou baseMyBullet_Touhou = new BaseMyBullet_Touhou(StageData, "SanaeSubBullet02", OriginalPosition, 40f, ShootDirection - 0.029999999329447746);
+				var baseMyBullet_Touhou = new BaseMyBullet_Touhou(StageData, "SanaeSubBullet02", OriginalPosition, 40f, ShootDirection - 0.029999999329447746);
 				baseMyBullet_Touhou.Angle = 1.5707963705062866;
 				baseMyBullet_Touhou.Damage = 3;
-				BaseMyBullet_Touhou baseMyBullet_Touhou2 = new BaseMyBullet_Touhou(StageData, "SanaeSubBullet02", OriginalPosition, 40f, ShootDirection + 0.029999999329447746);
+				var baseMyBullet_Touhou2 = new BaseMyBullet_Touhou(StageData, "SanaeSubBullet02", OriginalPosition, 40f, ShootDirection + 0.029999999329447746);
 				baseMyBullet_Touhou2.Angle = 1.5707963705062866;
 				baseMyBullet_Touhou2.Damage = 3;
 			}
 			else
 			{
-				BaseMyBullet_Touhou baseMyBullet_Touhou3 = new BaseMyBullet_Touhou(StageData, "SanaeSubBullet00", OriginalPosition, 30f, ShootDirection - 0.15000000596046448);
+				var baseMyBullet_Touhou3 = new BaseMyBullet_Touhou(StageData, "SanaeSubBullet00", OriginalPosition, 30f, ShootDirection - 0.15000000596046448);
 				baseMyBullet_Touhou3.Angle = 3.1415927410125732;
 				baseMyBullet_Touhou3.Damage = 7;
 				baseMyBullet_Touhou3.Mirrored = Mirrored;
-				BaseMyBullet_Touhou baseMyBullet_Touhou4 = new BaseMyBullet_Touhou(StageData, "SanaeSubBullet00", OriginalPosition, 30f, ShootDirection + 0.15000000596046448);
+				var baseMyBullet_Touhou4 = new BaseMyBullet_Touhou(StageData, "SanaeSubBullet00", OriginalPosition, 30f, ShootDirection + 0.15000000596046448);
 				baseMyBullet_Touhou4.Angle = 3.1415927410125732;
 				baseMyBullet_Touhou4.Damage = 7;
 				baseMyBullet_Touhou4.Mirrored = Mirrored;
-				BaseMyBullet_Touhou baseMyBullet_Touhou5 = new BaseMyBullet_Touhou(StageData, "SanaeSubBullet00", OriginalPosition, 30f, ShootDirection);
+				var baseMyBullet_Touhou5 = new BaseMyBullet_Touhou(StageData, "SanaeSubBullet00", OriginalPosition, 30f, ShootDirection);
 				baseMyBullet_Touhou5.Angle = 3.1415927410125732;
 				baseMyBullet_Touhou5.Damage = 7;
 				baseMyBullet_Touhou5.Mirrored = Mirrored;
@@ -51,8 +51,8 @@ namespace Shooting
 			{
 				if (MyPlane.Power >= 400)
 				{
-					float scale = Scale;
-					float transparentValueF = TransparentValueF;
+					var scale = Scale;
+					var transparentValueF = TransparentValueF;
 					Scale = 1.3f;
 					TransparentValueF = 150f;
 					base.Show();

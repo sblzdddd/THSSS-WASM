@@ -17,7 +17,7 @@ namespace SlimDX.Direct3D9
 
 		public static Effect FromFile(Device device, string fileName, ShaderFlags flags)
 		{
-			string path = (fileName ?? "").Replace('\\', '/');
+			var path = (fileName ?? "").Replace('\\', '/');
 			if (!File.Exists(path))
 			{
 				throw new FileNotFoundException("Effect file not found.", fileName);

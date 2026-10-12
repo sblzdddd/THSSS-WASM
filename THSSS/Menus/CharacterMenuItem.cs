@@ -29,7 +29,7 @@ namespace Shooting
 				}
 				if (Selected)
 				{
-					double num = 1.0 + Math.Sin((double)((float)Time / 6f));
+					var num = 1.0 + Math.Sin((double)((float)Time / 6f));
 					ColorValue = Color.White;
 					TransparentVelocity = 25f;
 					DestPoint = DestPoint1;

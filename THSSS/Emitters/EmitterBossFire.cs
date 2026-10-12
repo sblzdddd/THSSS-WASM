@@ -23,11 +23,11 @@ namespace Shooting
 		{
 			if (Time % 10 == 0)
 			{
-				ParticleBossFire particleBossFire = new ParticleBossFire(StageData, "Effect01_1", OriginalPosition, 0f, 0.0, 60);
+				var particleBossFire = new ParticleBossFire(StageData, "Effect01_1", OriginalPosition, 0f, 0.0, 60);
 				particleBossFire.ColorValue = ColorValue;
-				ParticleBossFire2 particleBossFire2 = new ParticleBossFire2(StageData, "Effect01_2", OriginalPosition, 0f, (double)Ran.Next(360) * 3.141592653589793 / 180.0, 80);
+				var particleBossFire2 = new ParticleBossFire2(StageData, "Effect01_2", OriginalPosition, 0f, (double)Ran.Next(360) * 3.141592653589793 / 180.0, 80);
 				particleBossFire2.ColorValue = ColorValue;
-				ParticleBossFire2 particleBossFire3 = new ParticleBossFire2(StageData, "Effect01_2", OriginalPosition, 0f, (double)Ran.Next(360) * 3.141592653589793 / 180.0, 100);
+				var particleBossFire3 = new ParticleBossFire2(StageData, "Effect01_2", OriginalPosition, 0f, (double)Ran.Next(360) * 3.141592653589793 / 180.0, 100);
 				particleBossFire3.ColorValue = ColorValue;
 			}
 		}

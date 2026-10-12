@@ -11,7 +11,7 @@ namespace Shooting
 			MenuItemList = new List<BaseMenuItem>();
 			MenuItemList.Add(new BaseMenuItem(StageData, "Stage01"));
 			MenuItemList.Add(new BaseMenuItem(StageData, "Boss01"));
-			int practiceLevel = 1;
+			var practiceLevel = 1;
 			StageData.PData.C_History.ForEach(delegate(ClearHistory a)
 			{
 				if (a.Rank == StageData.StateSwitchData.SDPswitch.Difficulty && a.MyPlaneFullName == StageData.StateSwitchData.SDPswitch.MyPlane.FullName)
@@ -44,11 +44,11 @@ namespace Shooting
 				MenuItemList.Add(new BaseMenuItem(StageData, "Stage06"));
 				MenuItemList.Add(new BaseMenuItem(StageData, "Boss06"));
 			}
-			int num = 440;
-			int num2 = 120;
-			int num3 = 0;
-			int num4 = 0;
-			foreach (BaseMenuItem baseMenuItem in MenuItemList)
+			var num = 440;
+			var num2 = 120;
+			var num3 = 0;
+			var num4 = 0;
+			foreach (var baseMenuItem in MenuItemList)
 			{
 				baseMenuItem.Position = new PointF((float)(num + num3), 120f);
 				if (num4 % 2 == 0)
@@ -111,7 +111,7 @@ namespace Shooting
 			{
 				OnRemoveMenu = TimeMain + 20;
 				TransparentVelocity = -15f;
-				foreach (BaseMenuItem baseMenuItem in MenuItemList)
+				foreach (var baseMenuItem in MenuItemList)
 				{
 					baseMenuItem.DestPoint = new PointF(480f, 120f);
 					baseMenuItem.OnRemove = true;
@@ -124,7 +124,7 @@ namespace Shooting
 		{
 			StageData.StateSwitchData.SDPswitch.MyPlane.Life = 9;
 			StageData.StateSwitchData.SDPswitch.OnPractice = true;
-			string name = MenuItemList[MenuSelectIndex].Name;
+			var name = MenuItemList[MenuSelectIndex].Name;
 			switch (name)
 			{
 			case "Stage01":

@@ -228,7 +228,7 @@ namespace Shooting
 		{
 			if (Time >= StartTime && Time <= StartTime + Duration)
 			{
-				int num = Circle + (int)((double)RanCircle * Ran.NextPMDouble());
+				var num = Circle + (int)((double)RanCircle * Ran.NextPMDouble());
 				num = ((num < 1) ? 1 : num);
 				if (!DeepBinding && (Time - StartTime + 1) % num == 0)
 				{
@@ -243,8 +243,8 @@ namespace Shooting
 
 		public void ShootBullet()
 		{
-			float num = EmitPoint.X;
-			float num2 = EmitPoint.Y;
+			var num = EmitPoint.X;
+			var num2 = EmitPoint.Y;
 			if (num == -99999f)
 			{
 				num = MyPlane.OriginalPosition.X;
@@ -274,7 +274,7 @@ namespace Shooting
 				num = OriginalPosition.X;
 				num2 = OriginalPosition.Y;
 			}
-			PointF pointF = new PointF(num + (float)((double)RanX * Ran.NextPMDouble()), num2 + (float)((double)RanY * Ran.NextPMDouble()));
+			var pointF = new PointF(num + (float)((double)RanX * Ran.NextPMDouble()), num2 + (float)((double)RanY * Ran.NextPMDouble()));
 			double edi;
 			if (EmitDirection == -99999.0)
 			{
@@ -293,17 +293,17 @@ namespace Shooting
 			{
 				num3 = (RadiusDirection + RanRadiusDirection * Ran.NextPMDouble()) * 3.141592653589793 / 180.0;
 			}
-			float num4 = EmitRadius + (float)((double)RanRadius * Ran.NextPMDouble());
-			int num5 = Way + (int)((double)RanWay * Ran.NextPMDouble());
-			float num6 = SubBullet.Velocity + (float)((double)SubBullet.RanVelocity * Ran.NextPMDouble());
-			float num7 = SubBullet.AccelerateCS + (float)((double)SubBullet.RanAccelerate * Ran.NextPMDouble());
-			double num8 = SubBullet.AccDirection + SubBullet.RanAccDirection;
-			double num9 = Range + (double)((float)(RanRange * Ran.NextPMDouble()));
+			var num4 = EmitRadius + (float)((double)RanRadius * Ran.NextPMDouble());
+			var num5 = Way + (int)((double)RanWay * Ran.NextPMDouble());
+			var num6 = SubBullet.Velocity + (float)((double)SubBullet.RanVelocity * Ran.NextPMDouble());
+			var num7 = SubBullet.AccelerateCS + (float)((double)SubBullet.RanAccelerate * Ran.NextPMDouble());
+			var num8 = SubBullet.AccDirection + SubBullet.RanAccDirection;
+			var num9 = Range + (double)((float)(RanRange * Ran.NextPMDouble()));
 			if (RDirectionWithDirection)
 			{
 				num3 += edi;
 			}
-			double num10 = num9 * 3.141592653589793 / 180.0 / (double)num5;
+			var num10 = num9 * 3.141592653589793 / 180.0 / (double)num5;
 			edi -= (double)(num5 - 1) * num10 / 2.0;
 			num3 -= (double)(num5 - 1) * num10 / 2.0;
 			if (EffectType == 2)
@@ -319,14 +319,14 @@ namespace Shooting
 			}
 			else
 			{
-				for (int i = 0; i < num5; i++)
+				for (var i = 0; i < num5; i++)
 				{
-					PointF p = new PointF((float)((double)pointF.X + (double)num4 * Math.Cos(num3)), (float)((double)pointF.Y + (double)num4 * Math.Sin(num3)));
-					for (int j = 0; j < Count; j++)
+					var p = new PointF((float)((double)pointF.X + (double)num4 * Math.Cos(num3)), (float)((double)pointF.Y + (double)num4 * Math.Sin(num3)));
+					for (var j = 0; j < Count; j++)
 					{
 						if (EmitterMode == EmitterMode.Bullet || EmitterMode == EmitterMode.StraightLaser || EmitterMode == EmitterMode.RadialLaser || EmitterMode == EmitterMode.BendLaser)
 						{
-							BaseBullet_Touhou b = new BaseBullet_Touhou(StageData);
+							var b = new BaseBullet_Touhou(StageData);
 							if (CSBullet != null)
 							{
 								b = (BaseBullet_CS)CSBullet.Clone();
@@ -375,7 +375,7 @@ namespace Shooting
 									if (em.BindingID == ID)
 									{
 										b.UnRemoveable = true;
-										BaseEmitter_CS baseEmitter_CS = (BaseEmitter_CS)em.Clone();
+										var baseEmitter_CS = (BaseEmitter_CS)em.Clone();
 										StageData.EnemyPlaneList.Add(baseEmitter_CS);
 										baseEmitter_CS.OriginalPosition = p;
 										baseEmitter_CS.LifeTime = SubBullet.LifeTime;
@@ -401,7 +401,7 @@ namespace Shooting
 						}
 						else if (EmitterMode == EmitterMode.Enemy)
 						{
-							BaseEnemyPlane_Touhou enemy = (BaseEnemyPlane_Touhou)SubBullet.Clone();
+							var enemy = (BaseEnemyPlane_Touhou)SubBullet.Clone();
 							enemy.LifeTime = 0;
 							enemy.OriginalPosition = p;
 							enemy.GhostingCount = enemy.GhostingCount;
@@ -420,7 +420,7 @@ namespace Shooting
 							{
 								if (em.BindingID == ID)
 								{
-									BaseEmitter_CS baseEmitter_CS2 = (BaseEmitter_CS)em.Clone();
+									var baseEmitter_CS2 = (BaseEmitter_CS)em.Clone();
 									StageData.EnemyPlaneList.Add(baseEmitter_CS2);
 									baseEmitter_CS2.OriginalPosition = p;
 									baseEmitter_CS2.LifeTime = SubBullet.LifeTime;
@@ -445,7 +445,7 @@ namespace Shooting
 						}
 						else if (EmitterMode == EmitterMode.Effect)
 						{
-							BaseEffect_CS baseEffect_CS = (BaseEffect_CS)CSEffect.Clone();
+							var baseEffect_CS = (BaseEffect_CS)CSEffect.Clone();
 							baseEffect_CS.OriginalPosition = p;
 							baseEffect_CS.GhostingCount = baseEffect_CS.GhostingCount;
 							baseEffect_CS.AngleDegree += CSEffect.RanAngle * Ran.NextPMDouble();
@@ -482,7 +482,7 @@ namespace Shooting
 
 		public override object Clone()
 		{
-			BaseEmitter_CS baseEmitter_CS = (BaseEmitter_CS)base.Clone();
+			var baseEmitter_CS = (BaseEmitter_CS)base.Clone();
 			if (CSBullet != null)
 			{
 				baseEmitter_CS.CSBullet = (BaseBullet_CS)CSBullet.Clone();

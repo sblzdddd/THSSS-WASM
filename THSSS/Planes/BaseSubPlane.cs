@@ -23,14 +23,14 @@ namespace Shooting
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			PointF destPoint = DestPoint;
-			bool flag = 1 == 0;
+			var destPoint = DestPoint;
+			var flag = 1 == 0;
 			MoveToPoint(DestPoint);
 		}
 
 		public void MoveToPoint(PointF DP)
 		{
-			float num = (float)GetDistance(DP);
+			var num = (float)GetDistance(DP);
 			if (num > 2f)
 			{
 				Velocity = num / 2.5f;
@@ -48,7 +48,7 @@ namespace Shooting
 
 		public override void Shoot()
 		{
-			BulletGuidance bulletGuidance = new BulletGuidance(StageData, "子机子弹", Position, 8f, -1.5707963267948966);
+			var bulletGuidance = new BulletGuidance(StageData, "子机子弹", Position, 8f, -1.5707963267948966);
 			bulletGuidance.TransparentValueF = 150f;
 			bulletGuidance.Angle = 3.1415927410125732;
 		}

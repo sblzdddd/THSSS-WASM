@@ -14,7 +14,7 @@ namespace Shooting
 			text += "\r\n";
 			text += Description;
 			text += "\r\n";
-			string text2 = "Log.txt";
+			var text2 = "Log.txt";
 			StreamWriter streamWriter;
 			if (!File.Exists(text2))
 			{

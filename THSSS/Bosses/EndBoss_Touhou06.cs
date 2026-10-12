@@ -23,7 +23,7 @@ namespace Shooting
 			if (Time == 98)
 			{
 				Boss.GiveItems();
-				BaseParticle3D baseParticle3D = new BaseParticle3D(StageData, "夜空（亮）", new PointF((float)(BoundRect.Width / 2), (float)(BoundRect.Height / 2)), 0f, 1.5707963267948966);
+				var baseParticle3D = new BaseParticle3D(StageData, "夜空（亮）", new PointF((float)(BoundRect.Width / 2), (float)(BoundRect.Height / 2)), 0f, 1.5707963267948966);
 				baseParticle3D.Depth = -10f;
 				baseParticle3D.TransparentVelocity = 10f;
 				baseParticle3D.TransparentValueF = 0f;
@@ -42,9 +42,9 @@ namespace Shooting
 				}
 				else
 				{
-					EndStage endStage = new EndStage(StageData, "All", false, 100);
+					var endStage = new EndStage(StageData, "All", false, 100);
 					endStage.LifeTime = 210;
-					int num = MyPlane.Life * 20000000 + MyPlane.Spell * 5000000 + MyPlane.GreenPoint * 1000;
+					var num = MyPlane.Life * 20000000 + MyPlane.Spell * 5000000 + MyPlane.GreenPoint * 1000;
 					new ClearBonus(StageData, 6000000 * ((int)Difficulty + 1) + num);
 				}
 			}

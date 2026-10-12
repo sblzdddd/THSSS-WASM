@@ -35,15 +35,15 @@ namespace Shooting
 
 		public virtual void SetupVertex()
 		{
-			DataStream dataStream = vertexBuffer.Lock(0, 0, LockFlags.Discard);
-			float num = -TxtureObject.RotatingCenter.X;
-			float num2 = (float)TxtureObject.Width - TxtureObject.RotatingCenter.X;
-			float num3 = -TxtureObject.RotatingCenter.Y;
-			float num4 = (float)TxtureObject.Height - TxtureObject.RotatingCenter.Y;
-			float num5 = (float)TxtureObject.PosRect.X / (float)TxtureObject.SrcWidth;
-			float num6 = (float)(TxtureObject.PosRect.X + TxtureObject.Width) / (float)TxtureObject.SrcWidth;
-			float num7 = (float)TxtureObject.PosRect.Y / (float)TxtureObject.SrcHeight;
-			float num8 = (float)(TxtureObject.PosRect.Y + TxtureObject.Height) / (float)TxtureObject.SrcHeight;
+			var dataStream = vertexBuffer.Lock(0, 0, LockFlags.Discard);
+			var num = -TxtureObject.RotatingCenter.X;
+			var num2 = (float)TxtureObject.Width - TxtureObject.RotatingCenter.X;
+			var num3 = -TxtureObject.RotatingCenter.Y;
+			var num4 = (float)TxtureObject.Height - TxtureObject.RotatingCenter.Y;
+			var num5 = (float)TxtureObject.PosRect.X / (float)TxtureObject.SrcWidth;
+			var num6 = (float)(TxtureObject.PosRect.X + TxtureObject.Width) / (float)TxtureObject.SrcWidth;
+			var num7 = (float)TxtureObject.PosRect.Y / (float)TxtureObject.SrcHeight;
+			var num8 = (float)(TxtureObject.PosRect.Y + TxtureObject.Height) / (float)TxtureObject.SrcHeight;
 			dataStream.WriteRange<TexturedVertex>(new TexturedVertex[]
 			{
 				new TexturedVertex(new Vector3(num, num3, 0f), new Vector2(num5, num7)),

@@ -50,7 +50,7 @@ namespace Shooting
 			{
 				Bombed = true;
 			}
-			long spellCardBonus = GetSpellCardBonus();
+			var spellCardBonus = GetSpellCardBonus();
 			if (spellCardBonus > 0L)
 			{
 				StageData.SCBstring = GetSpellCardBonus().ToString().PadRight(14, ' ') + (SC_Data.Recorded.ToString() + "/" + SC_Data.History.ToString()).PadLeft(6);
@@ -88,7 +88,7 @@ namespace Shooting
 			}
 			else
 			{
-				long num2 = BaseScore - BaseScore * (long)Time / 2L / (long)SpellTime;
+				var num2 = BaseScore - BaseScore * (long)Time / 2L / (long)SpellTime;
 				num2 /= 10L;
 				num2 *= 10L;
 				num = num2;

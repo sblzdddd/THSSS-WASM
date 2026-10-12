@@ -267,19 +267,19 @@ namespace Shooting
 							ChangeEnchantment(EnchantmentType.Green);
 						}
 						StageData.SoundPlay("se_focusrot.wav");
-						BaseBackground baseBackground = new BaseBackground(StageData, "pl02b", Position, 0f, 0.0);
+						var baseBackground = new BaseBackground(StageData, "pl02b", Position, 0f, 0.0);
 						baseBackground.ScaleVelocity = 1f;
 						baseBackground.LifeTime = 26;
 						baseBackground.TransparentVelocity = -10f;
 						baseBackground.Active = false;
 						baseBackground.ColorValue = Color.Black;
-						BaseBackground baseBackground2 = new BaseBackground(StageData, "pl02b", Position, 0f, 0.0);
+						var baseBackground2 = new BaseBackground(StageData, "pl02b", Position, 0f, 0.0);
 						baseBackground2.ScaleVelocity = 1f;
 						baseBackground2.LifeTime = 26;
 						baseBackground2.TransparentVelocity = -10f;
 						baseBackground2.Active = false;
 						baseBackground2.ColorValue = Color.Black;
-						BaseBackground baseBackground3 = new BaseBackground(StageData, "pl02b", Position, 0f, 0.0);
+						var baseBackground3 = new BaseBackground(StageData, "pl02b", Position, 0f, 0.0);
 						baseBackground3.ScaleVelocity = 1f;
 						baseBackground3.LifeTime = 26;
 						baseBackground3.TransparentVelocity = -10f;
@@ -344,7 +344,7 @@ namespace Shooting
 						{
 							EnchantmentCount++;
 							Rate += 0.1f;
-							long num = 0L;
+							var num = 0L;
 							if (enchantmentState == EnchantmentType.Blue)
 							{
 								num = (long)(HighItemScore * 20);
@@ -363,19 +363,19 @@ namespace Shooting
 						}
 						else
 						{
-							BaseEffect baseEffect = new BaseEffect(StageData, "pl02b", Position, 0f, 0.0);
+							var baseEffect = new BaseEffect(StageData, "pl02b", Position, 0f, 0.0);
 							baseEffect.ScaleVelocity = 1f;
 							baseEffect.LifeTime = 26;
 							baseEffect.TransparentVelocity = -10f;
 							baseEffect.Active = false;
 							baseEffect.ColorValue = Color.Black;
-							BaseEffect baseEffect2 = new BaseEffect(StageData, "pl02b", Position, 0f, 0.0);
+							var baseEffect2 = new BaseEffect(StageData, "pl02b", Position, 0f, 0.0);
 							baseEffect2.ScaleVelocity = 1f;
 							baseEffect2.LifeTime = 26;
 							baseEffect2.TransparentVelocity = -10f;
 							baseEffect2.Active = false;
 							baseEffect2.ColorValue = Color.Black;
-							BaseEffect baseEffect3 = new BaseEffect(StageData, "pl02b", Position, 0f, 0.0);
+							var baseEffect3 = new BaseEffect(StageData, "pl02b", Position, 0f, 0.0);
 							baseEffect3.ScaleVelocity = 1f;
 							baseEffect3.LifeTime = 26;
 							baseEffect3.TransparentVelocity = -10f;
@@ -390,10 +390,10 @@ namespace Shooting
 						}
 						StarPoint = 0;
 						StageData.SoundPlay("ice005.wav");
-						TextureObject textureObject = TextureObjectDictionary["White"];
-						int num2 = 16;
-						int num3 = 8;
-						Color color = Color.White;
+						var textureObject = TextureObjectDictionary["White"];
+						var num2 = 16;
+						var num3 = 8;
+						var color = Color.White;
 						if (enchantmentState == EnchantmentType.Blue)
 						{
 							color = Color.Blue;
@@ -406,12 +406,12 @@ namespace Shooting
 						{
 							color = Color.Red;
 						}
-						for (int i = 0; i < num2; i++)
+						for (var i = 0; i < num2; i++)
 						{
-							for (int j = 0; j < num3; j++)
+							for (var j = 0; j < num3; j++)
 							{
-								Model_Triangle model_Triangle = new Model_Triangle(StageData.DeviceMain, textureObject, i.ToString() + "_" + j.ToString(), new Vector2((float)i / (float)num2, (float)j / (float)num3), new Vector2((float)(i + 1) / (float)num2, (float)j / (float)num3), new Vector2((float)i / (float)num2, (float)(j + 1) / (float)num3), 640 / num2, 480 / num3);
-								BaseParticle3D baseParticle3D = new BaseParticle3D();
+								var model_Triangle = new Model_Triangle(StageData.DeviceMain, textureObject, i.ToString() + "_" + j.ToString(), new Vector2((float)i / (float)num2, (float)j / (float)num3), new Vector2((float)(i + 1) / (float)num2, (float)j / (float)num3), new Vector2((float)i / (float)num2, (float)(j + 1) / (float)num3), 640 / num2, 480 / num3);
+								var baseParticle3D = new BaseParticle3D();
 								baseParticle3D.StageData = StageData;
 								baseParticle3D.Position = new PointF((float)(i * 640 / num2), (float)(j * 480 / num3));
 								baseParticle3D.model = model_Triangle;
@@ -427,12 +427,12 @@ namespace Shooting
 								StageData.Particle3D.ParticleList.Add(baseParticle3D);
 							}
 						}
-						for (int i = 0; i < num2; i++)
+						for (var i = 0; i < num2; i++)
 						{
-							for (int j = 0; j < num3; j++)
+							for (var j = 0; j < num3; j++)
 							{
-								Model_Triangle model_Triangle = new Model_Triangle(StageData.DeviceMain, textureObject, i.ToString() + "_" + j.ToString(), new Vector2((float)(i + 1) / (float)num2, (float)(j + 1) / (float)num3), new Vector2((float)i / (float)num2, (float)(j + 1) / (float)num3), new Vector2((float)(i + 1) / (float)num2, (float)j / (float)num3), 640 / num2, 480 / num3);
-								BaseParticle3D baseParticle3D = new BaseParticle3D();
+								var model_Triangle = new Model_Triangle(StageData.DeviceMain, textureObject, i.ToString() + "_" + j.ToString(), new Vector2((float)(i + 1) / (float)num2, (float)(j + 1) / (float)num3), new Vector2((float)i / (float)num2, (float)(j + 1) / (float)num3), new Vector2((float)(i + 1) / (float)num2, (float)j / (float)num3), 640 / num2, 480 / num3);
+								var baseParticle3D = new BaseParticle3D();
 								baseParticle3D.StageData = StageData;
 								baseParticle3D.Position = new PointF((float)((i + 1) * 640 / num2), (float)((j + 1) * 480 / num3));
 								baseParticle3D.model = model_Triangle;
@@ -541,7 +541,7 @@ namespace Shooting
 			this.StageData = StageData;
 			this.Position = Position;
 			TxtureObjects = new TextureObject[72];
-			for (int i = 0; i < 72; i++)
+			for (var i = 0; i < 72; i++)
 			{
 				TxtureObjects[i] = TextureObjectDictionary["MyPlane" + i.ToString("D3")];
 			}
@@ -580,8 +580,8 @@ namespace Shooting
 		{
 			Vx = 0f;
 			Vy = 0f;
-			float num = OriginalPosition.X;
-			float num2 = OriginalPosition.Y;
+			var num = OriginalPosition.X;
+			var num2 = OriginalPosition.Y;
 			SlowMove = KClass.Key_Shift;
 			if (!SlowMove)
 			{
@@ -697,13 +697,13 @@ namespace Shooting
 					break;
 				}
 			}
-			for (int i = 0; i < PowerLevel; i++)
+			for (var i = 0; i < PowerLevel; i++)
 			{
 				SubPlaneList[i].Enabled = true;
 				SubPlaneList[i].DestPoint = SubPlanePoint[i];
 				SubPlaneList[i].Ctrl();
 			}
-			for (int i = PowerLevel; i < SubPlaneList.Count; i++)
+			for (var i = PowerLevel; i < SubPlaneList.Count; i++)
 			{
 				SubPlaneList[i].Enabled = false;
 				SubPlaneList[i].Position = Position;
@@ -789,7 +789,7 @@ namespace Shooting
 			{
 				Angle3D += 360;
 			}
-			int num = Angle3D / 5;
+			var num = Angle3D / 5;
 			if (num < 0)
 			{
 				num += 72;
@@ -806,16 +806,16 @@ namespace Shooting
 			if (Time % 3 == 0)
 			{
 				StageData.SoundPlay("se_plst00.wav", OriginalPosition.X / (float)BoundRect.Width);
-				float x = Position.X;
-				float y = Position.Y;
-				float num = 7f;
+				var x = Position.X;
+				var y = Position.Y;
+				var num = 7f;
 				num *= (float)Math.Cos((double)Angle3D * 3.141592653589793 / 180.0);
 				new BaseMyBullet(StageData, "自机子弹", new PointF(x - num, y), 30f, -1.5707963267948966);
 				new BaseMyBullet(StageData, "自机子弹", new PointF(x + num, y), 30f, -1.5707963267948966);
 			}
 			if (Time % 5 == 0)
 			{
-				for (int i = 0; i < PowerLevel; i++)
+				for (var i = 0; i < PowerLevel; i++)
 				{
 					SubPlaneList[i].Shoot();
 				}
@@ -838,7 +838,7 @@ namespace Shooting
 					{
 						if (EnchantmentState == EnchantmentType.Green)
 						{
-							BulletRemover_Small bulletRemover_Small = new BulletRemover_Small(StageData, OriginalPosition);
+							var bulletRemover_Small = new BulletRemover_Small(StageData, OriginalPosition);
 							bulletRemover_Small.Region = 500;
 							ChangeEnchantment(EnchantmentType.None);
 							EnemyPlaneList.ForEach(delegate(BaseEnemyPlane x)
@@ -934,7 +934,7 @@ namespace Shooting
 					{
 						if (EnchantmentState == EnchantmentType.Green)
 						{
-							BulletRemover_Small bulletRemover_Small = new BulletRemover_Small(StageData, OriginalPosition);
+							var bulletRemover_Small = new BulletRemover_Small(StageData, OriginalPosition);
 							bulletRemover_Small.Region = 500;
 							ChangeEnchantment(EnchantmentType.None);
 							EnemyPlaneList.ForEach(delegate(BaseEnemyPlane x)
@@ -985,7 +985,7 @@ namespace Shooting
 				Spell++;
 			}
 			StageData.SoundPlay("se_extend.wav");
-			BaseEffect baseEffect = new BaseEffect(StageData, "Extend", new PointF(0f, 0f), 0f, 1.5707963267948966)
+			var baseEffect = new BaseEffect(StageData, "Extend", new PointF(0f, 0f), 0f, 1.5707963267948966)
 			{
 				Active = false,
 				OriginalPosition = new PointF((float)(BoundRect.Width / 2), 112f),
@@ -1001,7 +1001,7 @@ namespace Shooting
 		{
 			StageData.SoundPlay("se_cardget.wav");
 			Spell++;
-			BaseEffect baseEffect = new BaseEffect(StageData, "SpellExtend", new PointF(0f, 0f), 0f, 1.5707963267948966)
+			var baseEffect = new BaseEffect(StageData, "SpellExtend", new PointF(0f, 0f), 0f, 1.5707963267948966)
 			{
 				Active = false,
 				OriginalPosition = new PointF((float)(BoundRect.Width / 2), 80f),
@@ -1052,7 +1052,7 @@ namespace Shooting
 					{
 						SpriteMain.Draw2D(TxtureObject, 1f, 0f, Position, Color.White);
 					}
-					for (int i = 0; i < PowerLevel; i++)
+					for (var i = 0; i < PowerLevel; i++)
 					{
 						SubPlaneList[i].Show();
 					}

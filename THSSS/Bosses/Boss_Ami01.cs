@@ -7,7 +7,7 @@ namespace Shooting
 		public Boss_Ami01(StageDataPackage StageData)
 			: base(StageData)
 		{
-			TextureObject[,] array = new TextureObject[3, 4];
+			var array = new TextureObject[3, 4];
 			array[0, 0] = TextureObjectDictionary["BossAmi-00"];
 			array[0, 1] = TextureObjectDictionary["BossAmi-01"];
 			array[0, 2] = TextureObjectDictionary["BossAmi-02"];
@@ -146,8 +146,8 @@ namespace Shooting
 						text = ".\\CS\\St01\\道中Boss\\1非L.mbg";
 						break;
 					}
-					CS_Data cs_Data = StageData.LoadCS(text);
-					CSEmitterController csemitterController = new CSEmitterController(StageData, cs_Data);
+					var cs_Data = StageData.LoadCS(text);
+					var csemitterController = new CSEmitterController(StageData, cs_Data);
 					csemitterController.BossBinding = true;
 					csemitterController.BaseOriginalPosition = OriginalPosition;
 				}
@@ -182,8 +182,8 @@ namespace Shooting
 							text = ".\\CS\\St01\\道中Boss\\2非N.mbg";
 							break;
 						}
-						CS_Data cs_Data = StageData.LoadCS(text);
-						CSEmitterController csemitterController2 = new CSEmitterController(StageData, cs_Data);
+						var cs_Data = StageData.LoadCS(text);
+						var csemitterController2 = new CSEmitterController(StageData, cs_Data);
 						csemitterController2.BossBinding = true;
 						csemitterController2.BaseOriginalPosition = new Point(BoundRect.Width / 2, 120);
 					}

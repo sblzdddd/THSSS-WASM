@@ -32,15 +32,15 @@ namespace Shooting
 
 		public static ReplayInfo ReadTitle(string fileName)
 		{
-			string[] array = File.ReadAllLines(fileName, Encoding.Default);
+			var array = File.ReadAllLines(fileName, Encoding.Default);
 			ReplayInfo replayInfo2;
 			try
 			{
-				int num = 0;
+				var num = 0;
 				while (array[++num] != "ReplayInformation" && num < array.Length - 1)
 				{
 				}
-				ReplayInfo replayInfo = new ReplayInfo
+				var replayInfo = new ReplayInfo
 				{
 					Version = array[num + 1],
 					PlayerName = array[num + 2],
@@ -53,11 +53,11 @@ namespace Shooting
 					LastStage = array[num + 9],
 					SlowRate = array[num + 10]
 				};
-				for (int i = num + 11; i < array.Length; i++)
+				for (var i = num + 11; i < array.Length; i++)
 				{
-					char[] array2 = new char[] { '\t' };
-					string[] array3 = array[i].Split(array2);
-					MyPlaneInfo myPlaneInfo = new MyPlaneInfo
+					var array2 = new char[] { '\t' };
+					var array3 = array[i].Split(array2);
+					var myPlaneInfo = new MyPlaneInfo
 					{
 						Life = Convert.ToInt32(array3[0]),
 						Spell = Convert.ToInt32(array3[1]),
@@ -88,7 +88,7 @@ namespace Shooting
 
 		public void WriteKey(int KeyValue)
 		{
-			byte b = (byte)(KeyValue & 255);
+			var b = (byte)(KeyValue & 255);
 			ReplayData.WriteByte(b);
 			b = (byte)(KeyValue >> 8);
 			b &= byte.MaxValue;
@@ -97,7 +97,7 @@ namespace Shooting
 
 		public int ReadKey()
 		{
-			int num = ReplayData.ReadByte();
+			var num = ReplayData.ReadByte();
 			return num + (ReplayData.ReadByte() << 8);
 		}
 
@@ -139,7 +139,7 @@ namespace Shooting
 				{
 					tmp += "\r\n";
 					object tmp2 = tmp;
-					object[] array = new object[30];
+					var array = new object[30];
 					array[0] = tmp2;
 					array[1] = x.Life.ToString();
 					array[2] = '\t';
@@ -167,15 +167,15 @@ namespace Shooting
 					array[24] = '\t';
 					array[25] = x.Rate.ToString();
 					array[26] = '\t';
-					object[] array2 = array;
-					int num = 27;
-					int lastColor = (int)x.LastColor;
+					var array2 = array;
+					var num = 27;
+					var lastColor = (int)x.LastColor;
 					array2[num] = lastColor.ToString();
 					array[28] = '\t';
 					array[29] = x.DataPosition.ToString();
 					tmp = string.Concat(array);
 				});
-				StreamWriter streamWriter = new StreamWriter(ReplayData);
+				var streamWriter = new StreamWriter(ReplayData);
 				streamWriter.Write(tmp);
 				streamWriter.Close();
 				ReplayData.Close();
@@ -189,13 +189,13 @@ namespace Shooting
 		public void LoadRpy(string fileName)
 		{
 			FileName = fileName;
-			FileInfo fileInfo = new FileInfo(fileName);
+			var fileInfo = new FileInfo(fileName);
 			ReplayData = fileInfo.OpenRead();
 		}
 
 		public void ReloadRpy()
 		{
-			FileInfo fileInfo = new FileInfo(FileName);
+			var fileInfo = new FileInfo(FileName);
 			ReplayData = fileInfo.OpenRead();
 		}
 

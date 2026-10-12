@@ -28,8 +28,8 @@ namespace System.Windows.Forms
 
 		public void Close()
 		{
-			FormClosingEventArgs formClosingEventArgs = new FormClosingEventArgs();
-			FormClosingEventHandler formClosingEventHandler = this.FormClosing;
+			var formClosingEventArgs = new FormClosingEventArgs();
+			var formClosingEventHandler = this.FormClosing;
 			if (formClosingEventHandler != null)
 			{
 				formClosingEventHandler(this, formClosingEventArgs);
@@ -38,7 +38,7 @@ namespace System.Windows.Forms
 
 		public void RaiseActivated()
 		{
-			EventHandler eventHandler = this.Activated;
+			var eventHandler = this.Activated;
 			if (eventHandler != null)
 			{
 				eventHandler(this, EventArgs.Empty);
@@ -47,7 +47,7 @@ namespace System.Windows.Forms
 
 		public void RaiseDeactivate()
 		{
-			EventHandler eventHandler = this.Deactivate;
+			var eventHandler = this.Deactivate;
 			if (eventHandler != null)
 			{
 				eventHandler(this, EventArgs.Empty);

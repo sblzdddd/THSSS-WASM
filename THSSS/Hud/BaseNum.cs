@@ -15,12 +15,12 @@ namespace Shooting
 
 		public override void Show()
 		{
-			int num = Num;
-			for (int i = 0; i < Count; i++)
+			var num = Num;
+			for (var i = 0; i < Count; i++)
 			{
-				int num2 = num % 10;
+				var num2 = num % 10;
 				num /= 10;
-				TextureObject textureObject = TextureObjectDictionary[num2.ToString()];
+				var textureObject = TextureObjectDictionary[num2.ToString()];
 				SpriteMain.Draw2D(textureObject.TXTure, textureObject.PosRect, new SizeF((float)textureObject.Width, (float)textureObject.Height), textureObject.RotatingCenter, 0f, new PointF(Position.X + (float)(16 * (Count - i - 1)), Position.Y), Color.White);
 			}
 		}

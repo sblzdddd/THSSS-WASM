@@ -12,19 +12,19 @@ namespace SlimDX.Imaging
 			{
 				throw new InvalidDataException("Not a PNG.");
 			}
-			int num = 8;
-			int num2 = 0;
-			int num3 = 0;
-			int num4 = 8;
-			int num5 = 6;
+			var num = 8;
+			var num2 = 0;
+			var num3 = 0;
+			var num4 = 8;
+			var num5 = 6;
 			byte[] array = null;
-			using (MemoryStream memoryStream = new MemoryStream())
+			using (var memoryStream = new MemoryStream())
 			{
 				while (num + 8 <= file.Length)
 				{
-					int num6 = ReadInt(file, num);
-					string text = System.Text.Encoding.ASCII.GetString(file, num + 4, 4);
-					int num7 = num + 8;
+					var num6 = ReadInt(file, num);
+					var text = System.Text.Encoding.ASCII.GetString(file, num + 4, 4);
+					var num7 = num + 8;
 					if (text == "IHDR")
 					{
 						num2 = ReadInt(file, num7);
@@ -50,16 +50,16 @@ namespace SlimDX.Imaging
 			}
 			width = num2;
 			height = num3;
-			int num8 = BytesPerPixel(num5, num4);
-			int num9 = num2 * num8;
-			byte[] array2 = Inflate(array);
-			byte[] array3 = Unfilter(array2, num2, num3, num8, num9);
+			var num8 = BytesPerPixel(num5, num4);
+			var num9 = num2 * num8;
+			var array2 = Inflate(array);
+			var array3 = Unfilter(array2, num2, num3, num8, num9);
 			return ToRgba(array3, num2, num3, num5, num4, num8);
 		}
 
 		private static int BytesPerPixel(int colorType, int depth)
 		{
-			int num = depth / 8;
+			var num = depth / 8;
 			if (num < 1)
 			{
 				num = 1;
@@ -85,18 +85,18 @@ namespace SlimDX.Imaging
 
 		private static byte[] Inflate(byte[] zlib)
 		{
-			int num = 2;
-			int num2 = zlib.Length - 6;
+			var num = 2;
+			var num2 = zlib.Length - 6;
 			if (num2 < 1)
 			{
 				num = 0;
 				num2 = zlib.Length;
 			}
-			using (MemoryStream memoryStream = new MemoryStream(zlib, num, num2))
+			using (var memoryStream = new MemoryStream(zlib, num, num2))
 			{
-				using (DeflateStream deflateStream = new DeflateStream(memoryStream, CompressionMode.Decompress))
+				using (var deflateStream = new DeflateStream(memoryStream, CompressionMode.Decompress))
 				{
-					using (MemoryStream memoryStream2 = new MemoryStream())
+					using (var memoryStream2 = new MemoryStream())
 					{
 						deflateStream.CopyTo(memoryStream2);
 						return memoryStream2.ToArray();
@@ -107,18 +107,18 @@ namespace SlimDX.Imaging
 
 		private static byte[] Unfilter(byte[] raw, int width, int height, int bpp, int stride)
 		{
-			byte[] array = new byte[height * stride];
-			int num = 0;
-			for (int i = 0; i < height; i++)
+			var array = new byte[height * stride];
+			var num = 0;
+			for (var i = 0; i < height; i++)
 			{
 				int num2 = raw[num++];
-				int num3 = i * stride;
-				for (int j = 0; j < stride; j++)
+				var num3 = i * stride;
+				for (var j = 0; j < stride; j++)
 				{
-					byte b = raw[num++];
-					byte b2 = (j >= bpp) ? array[num3 + j - bpp] : (byte)0;
-					byte b3 = (i > 0) ? array[num3 - stride + j] : (byte)0;
-					byte b4 = (i > 0 && j >= bpp) ? array[num3 - stride + j - bpp] : (byte)0;
+					var b = raw[num++];
+					var b2 = (j >= bpp) ? array[num3 + j - bpp] : (byte)0;
+					var b3 = (i > 0) ? array[num3 - stride + j] : (byte)0;
+					var b4 = (i > 0 && j >= bpp) ? array[num3 - stride + j - bpp] : (byte)0;
 					byte b5 = 0;
 					if (num2 == 1)
 					{
@@ -144,10 +144,10 @@ namespace SlimDX.Imaging
 
 		private static byte Paeth(byte a, byte b, byte c)
 		{
-			int num = a + b - c;
-			int num2 = Math.Abs(num - a);
-			int num3 = Math.Abs(num - b);
-			int num4 = Math.Abs(num - c);
+			var num = a + b - c;
+			var num2 = Math.Abs(num - a);
+			var num3 = Math.Abs(num - b);
+			var num4 = Math.Abs(num - c);
 			if (num2 <= num3 && num2 <= num4)
 			{
 				return a;
@@ -161,14 +161,14 @@ namespace SlimDX.Imaging
 
 		private static byte[] ToRgba(byte[] raw, int width, int height, int colorType, int depth, int bpp)
 		{
-			byte[] array = new byte[width * height * 4];
-			int num = depth > 8 ? 2 : 1;
-			for (int i = 0; i < height; i++)
+			var array = new byte[width * height * 4];
+			var num = depth > 8 ? 2 : 1;
+			for (var i = 0; i < height; i++)
 			{
-				for (int j = 0; j < width; j++)
+				for (var j = 0; j < width; j++)
 				{
-					int num2 = (i * width + j) * bpp;
-					int num3 = (i * width + j) * 4;
+					var num2 = (i * width + j) * bpp;
+					var num3 = (i * width + j) * 4;
 					if (colorType == 6)
 					{
 						array[num3] = raw[num2];

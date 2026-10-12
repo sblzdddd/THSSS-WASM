@@ -81,12 +81,12 @@ namespace Shooting
 			}
 			else
 			{
-				double distance = GetDistance(Target);
-				double direction = GetDirection(Target);
-				double num = distance * Math.Cos((double)((float)(Direction - direction)));
-				double num2 = distance * Math.Sin((double)((float)(Direction - direction)));
-				double num3 = (double)(Radius * ScaleLength + (float)Target.Region * Target.Scale);
-				double num4 = (double)(((float)TxtureObject.Width + Radius) * ScaleWidth * 0.45f + (float)Target.Region * Target.Scale);
+				var distance = GetDistance(Target);
+				var direction = GetDirection(Target);
+				var num = distance * Math.Cos((double)((float)(Direction - direction)));
+				var num2 = distance * Math.Sin((double)((float)(Direction - direction)));
+				var num3 = (double)(Radius * ScaleLength + (float)Target.Region * Target.Scale);
+				var num4 = (double)(((float)TxtureObject.Width + Radius) * ScaleWidth * 0.45f + (float)Target.Region * Target.Scale);
 				flag = num2 * num2 / num3 / num3 + (num - (double)((float)TxtureObject.Width * ScaleWidth / 2f)) * (num - (double)((float)TxtureObject.Width * ScaleWidth / 2f)) / num4 / num4 < 1.0;
 			}
 			return flag;
@@ -101,14 +101,14 @@ namespace Shooting
 		{
 			if (TxtureObject != null)
 			{
-				SizeF sizeF = new SizeF((float)TxtureObject.Width * ScaleWidth, (float)TxtureObject.Height * ScaleLength);
+				var sizeF = new SizeF((float)TxtureObject.Width * ScaleWidth, (float)TxtureObject.Height * ScaleLength);
 				SpriteMain.Draw2D(TxtureObject.TXTure, TxtureObject.PosRect, sizeF, new PointF(0f, (float)(TxtureObject.Height / 2)), (float)(Direction - 1.5707963267948966 + Angle), Position, Color.FromArgb(TransparentValue, ColorValue));
 			}
 		}
 
 		public override void ShowRegion()
 		{
-			PointF originalPosition = OriginalPosition;
+			var originalPosition = OriginalPosition;
 			OriginalPosition = new PointF(OriginalPosition.X + (float)TxtureObject.Width * ScaleWidth * 0.5f * (float)Math.Cos(Direction), OriginalPosition.Y + (float)TxtureObject.Width * ScaleWidth * 0.5f * (float)Math.Sin(Direction));
 			SpriteMain.Draw2D(TextureObjectDictionary["Region"], (float)TxtureObject.Width * 0.9f / (float)TextureObjectDictionary["Region"].Height * ScaleWidth, 2f * (float)Region / (float)TextureObjectDictionary["Region"].Width * ScaleLength, (float)(Direction - 1.5707963267948966 + Angle), Position, Color.Red, Mirrored);
 			OriginalPosition = originalPosition;

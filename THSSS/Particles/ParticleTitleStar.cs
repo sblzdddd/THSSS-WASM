@@ -19,7 +19,7 @@ namespace Shooting
 				TransparentVelocity -= 5f;
 				Time += Ran.Next(20);
 			}
-			double num = 80.0 * Math.Sin((double)((float)Time * 20f / 180f) * 3.141592653589793);
+			var num = 80.0 * Math.Sin((double)((float)Time * 20f / 180f) * 3.141592653589793);
 			Tran = TransparentValue + (int)num;
 			if (Tran < 0)
 			{
@@ -33,7 +33,7 @@ namespace Shooting
 
 		public override void Show()
 		{
-			SizeF sizeF = new SizeF((float)TxtureObject.Width * Scale, (float)TxtureObject.Height * Scale);
+			var sizeF = new SizeF((float)TxtureObject.Width * Scale, (float)TxtureObject.Height * Scale);
 			SpriteMain.Draw2D(TxtureObject.TXTure, TxtureObject.PosRect, sizeF, TxtureObject.RotatingCenter, 0f, Position, Color.FromArgb(Tran, Color.White));
 		}
 

@@ -52,46 +52,46 @@ namespace Shooting
 			}
 			while ((float)PosY3 < CameraPosition.Y + 1600f)
 			{
-				Background3DObject background3DObject = new Background3DObject(StageData, "zhu", new PointF(200f, (float)PosY3), true);
+				var background3DObject = new Background3DObject(StageData, "zhu", new PointF(200f, (float)PosY3), true);
 				background3DObject.Angle3DX = -1.5707964f;
 				background3DObject.Height = 256f;
-				Background3DObject background3DObject2 = new Background3DObject(StageData, "zhu", new PointF(-200f, (float)PosY3), true);
+				var background3DObject2 = new Background3DObject(StageData, "zhu", new PointF(-200f, (float)PosY3), true);
 				background3DObject2.Angle3DX = -1.5707964f;
 				background3DObject2.Height = 256f;
 				background3DObject2.Mirrored = true;
-				Background3DObject background3DObject3 = new Background3DObject(StageData, "zhu", new PointF(200f, (float)(PosY3 + 100)), true);
+				var background3DObject3 = new Background3DObject(StageData, "zhu", new PointF(200f, (float)(PosY3 + 100)), true);
 				background3DObject3.Angle3DX = -1.5707964f;
 				background3DObject3.Height = 256f;
 				background3DObject3.Mirrored = true;
-				Background3DObject background3DObject4 = new Background3DObject(StageData, "zhu", new PointF(-200f, (float)(PosY3 + 100)), true);
+				var background3DObject4 = new Background3DObject(StageData, "zhu", new PointF(-200f, (float)(PosY3 + 100)), true);
 				background3DObject4.Angle3DX = -1.5707964f;
 				background3DObject4.Height = 256f;
 				PosY3 += 200;
 			}
 			while ((float)PosY2 < CameraPosition.Y + 1500f)
 			{
-				Background3DObject background3DObject5 = new Background3DObject(StageData, "BG02d", new PointF(0f, (float)PosY2), true);
+				var background3DObject5 = new Background3DObject(StageData, "BG02d", new PointF(0f, (float)PosY2), true);
 				background3DObject5.Angle3DX = -3.1415927f;
 				PosY2 += 310;
 			}
 			while ((float)PosY < CameraPosition.Y + 1500f)
 			{
-				Background3DObject background3DObject6 = new Background3DObject(StageData, "liba", new PointF(150f, (float)PosY), false);
+				var background3DObject6 = new Background3DObject(StageData, "liba", new PointF(150f, (float)PosY), false);
 				background3DObject6.Angle = 1.5707963705062866;
 				background3DObject6.Angle3DY = -1.5707964f;
 				background3DObject6.Height = 45f;
-				Background3DObject background3DObject7 = new Background3DObject(StageData, "liba", new PointF(-150f, (float)PosY), false);
+				var background3DObject7 = new Background3DObject(StageData, "liba", new PointF(-150f, (float)PosY), false);
 				background3DObject7.Angle = -1.5707963705062866;
 				background3DObject7.Angle3DY = 1.5707964f;
 				background3DObject7.Height = 45f;
-				Background3DObject background3DObject8 = new Background3DObject(StageData, "591-1R", new PointF(150f, (float)PosY), false);
+				var background3DObject8 = new Background3DObject(StageData, "591-1R", new PointF(150f, (float)PosY), false);
 				background3DObject8.Scale = 1.5f;
 				background3DObject8.Active = true;
 				background3DObject8.Angle3DX = -1.5707964f + StageData.Background3D.Envi.CameraAngle;
 				background3DObject8.TransparentValueF = 0f;
 				background3DObject8.TransparentVelocity = 10f;
 				background3DObject8.Height = 60f;
-				Background3DObject background3DObject9 = new Background3DObject(StageData, "591-1R", new PointF(-150f, (float)PosY), false);
+				var background3DObject9 = new Background3DObject(StageData, "591-1R", new PointF(-150f, (float)PosY), false);
 				background3DObject9.Scale = 1.5f;
 				background3DObject9.Active = true;
 				background3DObject9.Angle3DX = -1.5707964f + StageData.Background3D.Envi.CameraAngle;
@@ -100,7 +100,7 @@ namespace Shooting
 				background3DObject9.Height = 60f;
 				PosY += 133;
 			}
-			for (int i = Background3D.BackgroundList.Count - 1; i >= 0; i--)
+			for (var i = Background3D.BackgroundList.Count - 1; i >= 0; i--)
 			{
 				if (Background3D.BackgroundList[i].OriginalPosition.Y < CameraPosition.Y - 310f)
 				{

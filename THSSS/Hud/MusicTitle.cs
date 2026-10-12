@@ -34,7 +34,7 @@ namespace Shooting
 
 		public override void Move()
 		{
-			float num = (float)GetDistance(DestPoint);
+			var num = (float)GetDistance(DestPoint);
 			if (num > 50f)
 			{
 				Velocity = 7f;
@@ -80,7 +80,7 @@ namespace Shooting
 
 		public override void Show()
 		{
-			SizeF sizeF = new SizeF((float)TxtureObject.Width * Scale, (float)TxtureObject.Height * Scale);
+			var sizeF = new SizeF((float)TxtureObject.Width * Scale, (float)TxtureObject.Height * Scale);
 			SpriteMain.Draw2D(TxtureObject.TXTure, TxtureObject.PosRect, sizeF, TxtureObject.RightTop, 0f, Position, Color.FromArgb(TransparentValue, Color.White));
 		}
 	}

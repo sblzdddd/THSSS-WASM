@@ -12,7 +12,7 @@ namespace Shooting
 
 		public override void Shoot()
 		{
-			BaseMyBullet_Touhou baseMyBullet_Touhou = new BaseMyBullet_Touhou(StageData, "子机子弹", OriginalPosition, 4f, ShootDirection);
+			var baseMyBullet_Touhou = new BaseMyBullet_Touhou(StageData, "子机子弹", OriginalPosition, 4f, ShootDirection);
 			baseMyBullet_Touhou.Angle = 3.1415927410125732;
 			baseMyBullet_Touhou.Damage = 5;
 			baseMyBullet_Touhou.Accelerate = 0.5f;

@@ -15,10 +15,10 @@ namespace Shooting
 				new BaseMenuItem(StageData, "Menu_SE_Vol"),
 				new BaseMenuItem(StageData, "Menu_Quit")
 			};
-			int num = 220;
-			int num2 = 220;
-			int num3 = -200;
-			foreach (BaseMenuItem baseMenuItem in MenuItemList)
+			var num = 220;
+			var num2 = 220;
+			var num3 = -200;
+			foreach (var baseMenuItem in MenuItemList)
 			{
 				baseMenuItem.DestPoint = new PointF((float)num, (float)num2);
 				baseMenuItem.Position = new PointF((float)(num + num3), 140f);
@@ -43,14 +43,14 @@ namespace Shooting
 			base.ProcessKeys();
 			if (KClass.Key_Z && LastZ == 0)
 			{
-				string text = MenuItemList[MenuSelectIndex].Name;
+				var text = MenuItemList[MenuSelectIndex].Name;
 				if (text != null)
 				{
 					if (text == "Menu_Quit")
 					{
 						OnRemoveMenu = TimeMain + 20;
 						TransparentVelocity = -15f;
-						foreach (BaseMenuItem baseMenuItem in MenuItemList)
+						foreach (var baseMenuItem in MenuItemList)
 						{
 							baseMenuItem.DestPoint = new PointF(60f, 160f);
 							baseMenuItem.OnRemove = true;
@@ -83,14 +83,14 @@ namespace Shooting
 			}
 			if (KClass.ArrowRight && (LastRight == 0 || LastRight > 30))
 			{
-				string text = MenuItemList[MenuSelectIndex].Name;
+				var text = MenuItemList[MenuSelectIndex].Name;
 				if (text != null)
 				{
 					if (!(text == "Menu_BGM_Vol"))
 					{
 						if (text == "Menu_SE_Vol")
 						{
-							foreach (XAudio2_Player xaudio2_Player in StageData.SoundDictionary.Values)
+							foreach (var xaudio2_Player in StageData.SoundDictionary.Values)
 							{
 								xaudio2_Player.Volume += 5;
 								SEvolumn.Num = xaudio2_Player.Volume;
@@ -110,14 +110,14 @@ namespace Shooting
 			}
 			if (KClass.ArrowLeft && (LastLeft == 0 || LastLeft > 30))
 			{
-				string text = MenuItemList[MenuSelectIndex].Name;
+				var text = MenuItemList[MenuSelectIndex].Name;
 				if (text != null)
 				{
 					if (!(text == "Menu_BGM_Vol"))
 					{
 						if (text == "Menu_SE_Vol")
 						{
-							foreach (XAudio2_Player xaudio2_Player in StageData.SoundDictionary.Values)
+							foreach (var xaudio2_Player in StageData.SoundDictionary.Values)
 							{
 								xaudio2_Player.Volume -= 5;
 								SEvolumn.Num = xaudio2_Player.Volume;

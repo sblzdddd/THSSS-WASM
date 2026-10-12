@@ -7,8 +7,8 @@ namespace SlimDX.Imaging
 	{
 		public static byte[] DecodeRgba(string path, out int width, out int height)
 		{
-			byte[] array = File.ReadAllBytes(path);
-			string text = Path.GetExtension(path);
+			var array = File.ReadAllBytes(path);
+			var text = Path.GetExtension(path);
 			if (text != null && text.Equals(".bmp", StringComparison.OrdinalIgnoreCase))
 			{
 				return BmpDecoder.Decode(array, out width, out height);

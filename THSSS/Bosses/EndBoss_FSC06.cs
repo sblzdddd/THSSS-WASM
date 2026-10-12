@@ -14,9 +14,9 @@ namespace Shooting
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			int num = LifeTime - 90;
+			var num = LifeTime - 90;
 			BGM_Player.Volume = (int)((float)tempVolumn * (1f - (float)Time / (float)num));
-			PointF pointF = new PointF((float)(BoundRect.Width / 2), 150f);
+			var pointF = new PointF((float)(BoundRect.Width / 2), 150f);
 			if (Time == LifeTime - 60 || Time == LifeTime - 40 || Time == LifeTime - 20)
 			{
 				new EmitterSaveEnegy3D(StageData, pointF, Color.SkyBlue);

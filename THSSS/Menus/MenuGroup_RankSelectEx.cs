@@ -13,11 +13,11 @@ namespace Shooting
 			{
 				new BaseMenuItem(StageData, "Menu_Extra")
 			};
-			int num = 200 + MenuSelectIndex * 150;
-			int num2 = 200 - MenuSelectIndex * 100;
-			int num3 = -200;
-			int num4 = 0;
-			foreach (BaseMenuItem baseMenuItem in MenuItemList)
+			var num = 200 + MenuSelectIndex * 150;
+			var num2 = 200 - MenuSelectIndex * 100;
+			var num3 = -200;
+			var num4 = 0;
+			foreach (var baseMenuItem in MenuItemList)
 			{
 				baseMenuItem.Position = new PointF((float)(num + num3), 48f);
 				baseMenuItem.DestPoint = new PointF((float)num, (float)num2);

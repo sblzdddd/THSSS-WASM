@@ -25,7 +25,7 @@ namespace SlimDX.Direct3D9
 			}
 			if (offset + size > this.Data.Length)
 			{
-				byte[] array = new byte[offset + size];
+				var array = new byte[offset + size];
 				System.Buffer.BlockCopy(this.Data, 0, array, 0, this.Data.Length);
 				this.Data = array;
 			}

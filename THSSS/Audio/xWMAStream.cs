@@ -25,7 +25,7 @@ namespace Shooting
 
 		private void analyzeXWMAFileStream()
 		{
-			byte[] array = new byte[4];
+			var array = new byte[4];
 			dataStream.Seek(0L, SeekOrigin.Begin);
 			dataStream.Read(array, 0, 4);
 			if (Encoding.ASCII.GetString(array) != "RIFF")
@@ -33,7 +33,7 @@ namespace Shooting
 				throw new InvalidDataException("Invalid xWMA file.");
 			}
 			dataStream.Read(array, 0, 4);
-			int num = BitConverter.ToInt32(array, 0);
+			var num = BitConverter.ToInt32(array, 0);
 			if (dataStream.Length != (long)(num + 8))
 			{
 				throw new InvalidDataException("Invalid Format");
@@ -43,13 +43,13 @@ namespace Shooting
 			{
 				throw new InvalidDataException("Invalid xWMA file.");
 			}
-			long num2 = (long)dataStream.Read(array, 0, 4);
+			var num2 = (long)dataStream.Read(array, 0, 4);
 			while (num2 > 3L)
 			{
-				string @string = Encoding.ASCII.GetString(array);
+				var @string = Encoding.ASCII.GetString(array);
 				dataStream.Read(array, 0, 4);
 				num = BitConverter.ToInt32(array, 0);
-				string text = @string;
+				var text = @string;
 				if (text == null)
 				{
 					goto IL_0407;
@@ -72,9 +72,9 @@ namespace Shooting
 						{
 							throw new InvalidDataException("Invalid Format.");
 						}
-						int num3 = num / 4;
+						var num3 = num / 4;
 						decodedPacketCumulativeBytes = new int[num3];
-						for (int i = 0; i < num3; i++)
+						for (var i = 0; i < num3; i++)
 						{
 							dataStream.Read(array, 0, 4);
 							decodedPacketCumulativeBytes[i] = BitConverter.ToInt32(array, 0);
@@ -84,7 +84,7 @@ namespace Shooting
 				else
 				{
 					dataStream.Read(array, 0, 2);
-					ushort num4 = BitConverter.ToUInt16(array, 0);
+					var num4 = BitConverter.ToUInt16(array, 0);
 					format = new WaveFormat();
 					dataStream.Read(array, 0, 2);
 					format.Channels = (short)BitConverter.ToUInt16(array, 0);
@@ -107,7 +107,7 @@ namespace Shooting
 						{
 							throw new InvalidDataException("Invalid xWMA file.");
 						}
-						WaveFormatExtensible waveFormatExtensible = new WaveFormatExtensible();
+						var waveFormatExtensible = new WaveFormatExtensible();
 						waveFormatExtensible.Channels = format.Channels;
 						waveFormatExtensible.SamplesPerSecond = format.SamplesPerSecond;
 						waveFormatExtensible.AverageBytesPerSecond = format.AverageBytesPerSecond;
@@ -123,7 +123,7 @@ namespace Shooting
 						waveFormatExtensible.ValidBitsPerSample = BitConverter.ToInt16(array, 0);
 						dataStream.Read(array, 0, 4);
 						waveFormatExtensible.ChannelMask = (Speakers)BitConverter.ToUInt32(array, 0);
-						byte[] array2 = new byte[16];
+						var array2 = new byte[16];
 						dataStream.Read(array2, 0, 16);
 						waveFormatExtensible.SubFormat = new Guid(array2);
 						waveFormatExtensible.FormatTag = WaveFormatTag.Extensible;
@@ -173,7 +173,7 @@ namespace Shooting
 
 		public override long Seek(long offset, SeekOrigin origin)
 		{
-			long num = 0L;
+			var num = 0L;
 			switch (origin)
 			{
 			case SeekOrigin.Begin:

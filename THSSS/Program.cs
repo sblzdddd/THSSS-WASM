@@ -11,12 +11,12 @@ namespace Shooting
 		private static void Main()
 		{
 			bool flag;
-			Mutex mutex = new Mutex(false, "AA", out flag);
+			var mutex = new Mutex(false, "AA", out flag);
 			if (flag)
 			{
 				Application.EnableVisualStyles();
 				Application.SetCompatibleTextRenderingDefault(false);
-				Game_Main game_Main = new Game_Main();
+				var game_Main = new Game_Main();
 				if (game_Main.initSuccess)
 				{
 					MessagePump.Run(game_Main.Form_Main, new MainLoop(game_Main.MainProcess));

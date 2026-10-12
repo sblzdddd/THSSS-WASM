@@ -22,7 +22,7 @@
 			base.Ctrl();
 			if (Time < 30)
 			{
-				for (int i = ItemList.Count - 1; i >= 0; i--)
+				for (var i = ItemList.Count - 1; i >= 0; i--)
 				{
 					if (HitCheck(ItemList[i]) && !(ItemList[i] is ShootingStarShard))
 					{
@@ -46,7 +46,7 @@
 
 		public override void HitCheckAll()
 		{
-			for (int i = BulletList.Count - 1; i >= 0; i--)
+			for (var i = BulletList.Count - 1; i >= 0; i--)
 			{
 				if (HitCheck(BulletList[i]))
 				{
@@ -58,7 +58,7 @@
 					}
 				}
 			}
-			for (int i = EnemyPlaneList.Count - 1; i >= 0; i--)
+			for (var i = EnemyPlaneList.Count - 1; i >= 0; i--)
 			{
 				if (HitCheck(EnemyPlaneList[i]))
 				{

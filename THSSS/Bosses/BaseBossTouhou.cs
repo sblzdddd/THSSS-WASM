@@ -36,7 +36,7 @@ namespace Shooting
 
 		public void MoveToPoint(PointF destOriginalPosition)
 		{
-			float num = (float)GetDistance(destOriginalPosition);
+			var num = (float)GetDistance(destOriginalPosition);
 			if (num > Math.Abs(Velocity))
 			{
 				Direction = GetDirection(destOriginalPosition);
@@ -59,14 +59,14 @@ namespace Shooting
 			{
 				if (Time % 80 == 0)
 				{
-					float num = DestPoint.Y;
+					var num = DestPoint.Y;
 					num += 10f;
 					Velocity = 0.5f;
 					DestPoint = new PointF(DestPoint.X, num);
 				}
 				else if (Time % 80 == 40)
 				{
-					float num = DestPoint.Y;
+					var num = DestPoint.Y;
 					num -= 10f;
 					Velocity = 0.5f;
 					DestPoint = new PointF(DestPoint.X, num);
@@ -80,14 +80,14 @@ namespace Shooting
 			{
 				if (Time % circle == 0)
 				{
-					float num = DestPoint.Y;
+					var num = DestPoint.Y;
 					num += 10f;
 					Velocity = 0.5f;
 					DestPoint = new PointF(DestPoint.X, num);
 				}
 				else if (Time % circle == circle / 2)
 				{
-					float num = DestPoint.Y;
+					var num = DestPoint.Y;
 					num -= 10f;
 					Velocity = 0.5f;
 					DestPoint = new PointF(DestPoint.X, num);
@@ -119,11 +119,11 @@ namespace Shooting
 		{
 			if (Time % T == 0)
 			{
-				for (int i = 0; i < 300; i++)
+				for (var i = 0; i < 300; i++)
 				{
-					double num = (double)Ran.Next(360) * 3.141592653589793 / 180.0;
-					float num2 = OriginalPosition.X + (float)((double)Dist * Math.Sin(num));
-					float num3 = OriginalPosition.Y + (float)((double)Dist * Math.Cos(num));
+					var num = (double)Ran.Next(360) * 3.141592653589793 / 180.0;
+					var num2 = OriginalPosition.X + (float)((double)Dist * Math.Sin(num));
+					var num3 = OriginalPosition.Y + (float)((double)Dist * Math.Cos(num));
 					if (num2 > (float)RangeRect.Left && num2 < (float)RangeRect.Right && num3 > (float)RangeRect.Top && num3 < (float)RangeRect.Bottom)
 					{
 						DestPoint = new PointF(num2, num3);
@@ -162,7 +162,7 @@ namespace Shooting
 
 		public virtual void TextureCtrl()
 		{
-			int num = (Mirrored ? IndexY : (-IndexY));
+			var num = (Mirrored ? IndexY : (-IndexY));
 			if (OnAction > 0)
 			{
 				IndexY = 2;
@@ -254,22 +254,22 @@ namespace Shooting
 		{
 			if (MyPlane.Power < 400)
 			{
-				for (int i = 0; i < 15; i++)
+				for (var i = 0; i < 15; i++)
 				{
-					PointF pointF = new PointF(OriginalPosition.X + (float)Ran.Next(-49, 50), OriginalPosition.Y + (float)Ran.Next(-49, 50));
+					var pointF = new PointF(OriginalPosition.X + (float)Ran.Next(-49, 50), OriginalPosition.Y + (float)Ran.Next(-49, 50));
 					new PowerItem_Touhou(StageData, pointF);
 				}
-				for (int i = 0; i < 15; i++)
+				for (var i = 0; i < 15; i++)
 				{
-					PointF pointF = new PointF(OriginalPosition.X + (float)Ran.Next(-49, 50), OriginalPosition.Y + (float)Ran.Next(-49, 50));
+					var pointF = new PointF(OriginalPosition.X + (float)Ran.Next(-49, 50), OriginalPosition.Y + (float)Ran.Next(-49, 50));
 					new ScoreItem_Touhou(StageData, pointF);
 				}
 			}
 			else
 			{
-				for (int i = 0; i < 30; i++)
+				for (var i = 0; i < 30; i++)
 				{
-					PointF pointF = new PointF(OriginalPosition.X + (float)Ran.Next(-49, 50), OriginalPosition.Y + (float)Ran.Next(-49, 50));
+					var pointF = new PointF(OriginalPosition.X + (float)Ran.Next(-49, 50), OriginalPosition.Y + (float)Ran.Next(-49, 50));
 					new ScoreItem_Touhou(StageData, pointF);
 				}
 			}
@@ -279,10 +279,10 @@ namespace Shooting
 		{
 			if (File.Exists(fileName))
 			{
-				char[] array = new char[] { ',' };
-				string[] array2 = File.ReadAllLines(fileName, Encoding.Default);
+				var array = new char[] { ',' };
+				var array2 = File.ReadAllLines(fileName, Encoding.Default);
 				ArmonArray = new float[array2.Length];
-				for (int i = 0; i < array2.Length; i++)
+				for (var i = 0; i < array2.Length; i++)
 				{
 					ArmonArray[i] = float.Parse(array2[i]);
 				}

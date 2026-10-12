@@ -23,7 +23,7 @@ namespace Shooting
 			{
 				try
 				{
-					ReplayInfo replayInfo = Replay.ReadTitle(fileName);
+					var replayInfo = Replay.ReadTitle(fileName);
 					if (replayInfo.Version != "ver 1.00")
 					{
 						return "------- -------- ----- ------- ------- --- ----";
@@ -60,7 +60,7 @@ namespace Shooting
 			{
 				OnRemoveMenu = TimeMain + 20;
 				TransparentVelocity = -15f;
-				foreach (BaseMenuItem baseMenuItem in MenuItemList)
+				foreach (var baseMenuItem in MenuItemList)
 				{
 					baseMenuItem.DestPoint = new PointF(MenuItemList[0].OriginalPosition.X, MenuItemList[0].OriginalPosition.Y);
 					baseMenuItem.OnRemove = true;
@@ -71,7 +71,7 @@ namespace Shooting
 
 		public override void ProcessZ()
 		{
-			string description = ((DescriptionMenuItem)MenuItemList[MenuSelectIndex]).Description;
+			var description = ((DescriptionMenuItem)MenuItemList[MenuSelectIndex]).Description;
 			if (description != "------- -------- ----- ------- ------- --- ----")
 			{
 				StageData.SoundPlay("se_ok00.wav");

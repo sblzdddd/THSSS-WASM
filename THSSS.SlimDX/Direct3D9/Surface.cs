@@ -24,7 +24,7 @@ namespace SlimDX.Direct3D9
 
 		public static void ToFile(Surface surface, string fileName, ImageFileFormat format)
 		{
-			string text = Path.GetDirectoryName(fileName);
+			var text = Path.GetDirectoryName(fileName);
 			if (!string.IsNullOrEmpty(text))
 			{
 				Directory.CreateDirectory(text);

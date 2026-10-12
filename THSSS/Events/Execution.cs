@@ -12,13 +12,13 @@ namespace Shooting
 			{
 			case 0:
 			{
-				float x = objects.CS_Position.X;
+				var x = objects.CS_Position.X;
 				objects.CS_Position = new PointF(ChangeValue(x), objects.CS_Position.Y);
 				break;
 			}
 			case 1:
 			{
-				float y = objects.CS_Position.Y;
+				var y = objects.CS_Position.Y;
 				objects.CS_Position = new PointF(objects.CS_Position.X, ChangeValue(y));
 				break;
 			}
@@ -66,7 +66,7 @@ namespace Shooting
 				break;
 			case 16:
 			{
-				int num = (int)objects.SubBullet.ColorValue.R;
+				var num = (int)objects.SubBullet.ColorValue.R;
 				num = ChangeValue(num);
 				num = ((num < 0) ? 0 : num);
 				num = ((num > 255) ? 255 : num);
@@ -75,7 +75,7 @@ namespace Shooting
 			}
 			case 17:
 			{
-				int num2 = (int)objects.SubBullet.ColorValue.G;
+				var num2 = (int)objects.SubBullet.ColorValue.G;
 				num2 = ChangeValue(num2);
 				num2 = ((num2 < 0) ? 0 : num2);
 				num2 = ((num2 > 255) ? 255 : num2);
@@ -84,7 +84,7 @@ namespace Shooting
 			}
 			case 18:
 			{
-				int num3 = (int)objects.SubBullet.ColorValue.B;
+				var num3 = (int)objects.SubBullet.ColorValue.B;
 				num3 = ChangeValue(num3);
 				num3 = ((num3 < 0) ? 0 : num3);
 				num3 = ((num3 > 255) ? 255 : num3);
@@ -159,7 +159,7 @@ namespace Shooting
 				break;
 			case 4:
 			{
-				int num = (int)objects.ColorValue.R;
+				var num = (int)objects.ColorValue.R;
 				num = ChangeValue(num);
 				num = ((num < 0) ? 0 : num);
 				num = ((num > 255) ? 255 : num);
@@ -168,7 +168,7 @@ namespace Shooting
 			}
 			case 5:
 			{
-				int num2 = (int)objects.ColorValue.G;
+				var num2 = (int)objects.ColorValue.G;
 				num2 = ChangeValue(num2);
 				num2 = ((num2 < 0) ? 0 : num2);
 				num2 = ((num2 > 255) ? 255 : num2);
@@ -177,7 +177,7 @@ namespace Shooting
 			}
 			case 6:
 			{
-				int num3 = (int)objects.ColorValue.B;
+				var num3 = (int)objects.ColorValue.B;
 				num3 = ChangeValue(num3);
 				num3 = ((num3 < 0) ? 0 : num3);
 				num3 = ((num3 > 255) ? 255 : num3);

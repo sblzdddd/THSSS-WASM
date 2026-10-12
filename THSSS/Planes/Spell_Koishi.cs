@@ -10,7 +10,7 @@
 			Region = 1000;
 			LifeTime = 60;
 			SpellList.Add(this);
-			BulletRemover_Small bulletRemover_Small = new BulletRemover_Small(StageData, MyPlane.OriginalPosition);
+			var bulletRemover_Small = new BulletRemover_Small(StageData, MyPlane.OriginalPosition);
 			bulletRemover_Small.Region = 150;
 			StageData.SoundPlay("se_focusrot.wav");
 		}

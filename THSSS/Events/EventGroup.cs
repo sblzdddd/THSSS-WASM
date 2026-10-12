@@ -12,8 +12,8 @@ namespace Shooting
 			{
 				CS_Emitter.Time = 1;
 			}
-			float[] array = new float[13];
-			float[] array2 = new float[33];
+			var array = new float[13];
+			var array2 = new float[33];
 			array[0] = (float)(CS_Emitter.Time - CS_Emitter.StartTime + 1);
 			array[1] = CS_Emitter.CS_Position.X;
 			array[2] = CS_Emitter.CS_Position.Y;
@@ -68,9 +68,9 @@ namespace Shooting
 			{
 				loop++;
 			}
-			foreach (Event @event in EventList)
+			foreach (var @event in EventList)
 			{
-				bool flag = CheckCondition(array, @event);
+				var flag = CheckCondition(array, @event);
 				if (flag)
 				{
 					if (@event.special == 3)
@@ -111,7 +111,7 @@ namespace Shooting
 						}
 						else
 						{
-							Execution execution = new Execution();
+							var execution = new Execution();
 							if (!@event.noloop)
 							{
 								if (@event.time > 0)
@@ -148,8 +148,8 @@ namespace Shooting
 
 		public void Update(BaseObject_CS CS_Bullet)
 		{
-			float[] array = new float[3];
-			float[] array2 = new float[21];
+			var array = new float[3];
+			var array2 = new float[21];
 			array[0] = (float)CS_Bullet.Time;
 			array[1] = CS_Bullet.CS_Position.X;
 			array[2] = CS_Bullet.CS_Position.Y;
@@ -182,13 +182,13 @@ namespace Shooting
 			{
 				loop++;
 			}
-			foreach (Event @event in EventList)
+			foreach (var @event in EventList)
 			{
 				if (@event.special2 == 1)
 				{
 					array[0] = (float)CS_Bullet.StageData.TimeMain;
 				}
-				bool flag = CheckCondition(array, @event);
+				var flag = CheckCondition(array, @event);
 				if (flag)
 				{
 					if (@event.special == 4)
@@ -198,7 +198,7 @@ namespace Shooting
 							@event.res = Twopointangle(CS_Bullet.MyPlane.OriginalPosition.X, CS_Bullet.MyPlane.OriginalPosition.Y, CS_Bullet.OriginalPosition.X, CS_Bullet.OriginalPosition.Y) * 180f / 3.1415927f;
 						}
 					}
-					Execution execution = new Execution();
+					var execution = new Execution();
 					if (!@event.noloop)
 					{
 						if (@event.time > 0)
@@ -231,8 +231,8 @@ namespace Shooting
 
 		private bool CheckCondition(float[] conditions, Event ev)
 		{
-			bool flag = false;
-			bool flag2 = false;
+			var flag = false;
+			var flag2 = false;
 			if (ev.opreator == ">")
 			{
 				flag = conditions[ev.contype] > float.Parse(ev.condition) + (float)(loop * addtime);
@@ -293,7 +293,7 @@ namespace Shooting
 
 		public object Clone()
 		{
-			EventGroup ev = (EventGroup)MemberwiseClone();
+			var ev = (EventGroup)MemberwiseClone();
 			ev.EventList = new List<Event>();
 			EventList.ForEach(delegate(Event x)
 			{

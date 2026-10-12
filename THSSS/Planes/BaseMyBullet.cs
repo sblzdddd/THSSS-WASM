@@ -24,7 +24,7 @@ namespace Shooting
 		public override void GiveEndEffect()
 		{
 			new Emitter2(StageData, Position);
-			ParticleBiger particleBiger = new ParticleBiger(StageData, null, Position, 3f, Direction);
+			var particleBiger = new ParticleBiger(StageData, null, Position, 3f, Direction);
 			particleBiger.Scale = 1.2f;
 			particleBiger.LifeTime = 15;
 			particleBiger.TxtureObject = TxtureObject;

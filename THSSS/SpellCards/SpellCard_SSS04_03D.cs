@@ -53,7 +53,7 @@ namespace Shooting
 					text = ".\\CS\\St04\\关底Boss\\3符U3.mbg";
 					break;
 				}
-				CS_Data cs_Data = StageData.LoadCS(text);
+				var cs_Data = StageData.LoadCS(text);
 				new CSEmitterController(StageData, cs_Data);
 			}
 			if ((Time - 160) % 363 == 0)

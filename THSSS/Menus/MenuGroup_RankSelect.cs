@@ -17,11 +17,11 @@ namespace Shooting
 				new BaseMenuItem(StageData, "Menu_Hard"),
 				new BaseMenuItem(StageData, "Menu_Lunatic")
 			};
-			int num = 220 + MenuSelectIndex * 150;
-			int num2 = 200 - MenuSelectIndex * 100;
-			int num3 = -200;
-			int num4 = 0;
-			foreach (BaseMenuItem baseMenuItem in MenuItemList)
+			var num = 220 + MenuSelectIndex * 150;
+			var num2 = 200 - MenuSelectIndex * 100;
+			var num3 = -200;
+			var num4 = 0;
+			foreach (var baseMenuItem in MenuItemList)
 			{
 				baseMenuItem.Position = new PointF((float)(num + num3), 48f);
 				baseMenuItem.DestPoint = new PointF((float)num, (float)num2);
@@ -56,9 +56,9 @@ namespace Shooting
 		public override void SelectItemChanged()
 		{
 			base.SelectItemChanged();
-			int num = 220 + MenuSelectIndex * 150;
-			int num2 = 200 - MenuSelectIndex * 100;
-			foreach (BaseMenuItem baseMenuItem in MenuItemList)
+			var num = 220 + MenuSelectIndex * 150;
+			var num2 = 200 - MenuSelectIndex * 100;
+			foreach (var baseMenuItem in MenuItemList)
 			{
 				baseMenuItem.DestPoint = new PointF((float)num, (float)num2);
 				num2 += 100;
@@ -92,7 +92,7 @@ namespace Shooting
 			{
 				OnRemoveMenu = TimeMain + 20;
 				TransparentVelocity = -15f;
-				foreach (BaseMenuItem baseMenuItem in MenuItemList)
+				foreach (var baseMenuItem in MenuItemList)
 				{
 					baseMenuItem.DestPoint = new PointF(0f, 0f);
 					baseMenuItem.OnRemove = true;
@@ -103,7 +103,7 @@ namespace Shooting
 
 		public override void ProcessZ()
 		{
-			string name = MenuItemList[MenuSelectIndex].Name;
+			var name = MenuItemList[MenuSelectIndex].Name;
 			if (name != null)
 			{
 				if (name == "Menu_Easy")

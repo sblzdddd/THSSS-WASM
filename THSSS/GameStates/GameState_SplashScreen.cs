@@ -145,7 +145,7 @@ namespace Shooting
 			}
 			if (TimeMain == 1)
 			{
-				BaseObject baseObject = new BaseObject(StageData, "Splash_Screen", new PointF(320f, 240f), 0f, 1.5707963267948966)
+				var baseObject = new BaseObject(StageData, "Splash_Screen", new PointF(320f, 240f), 0f, 1.5707963267948966)
 				{
 					OutsideRegion = 10000
 				};
@@ -163,11 +163,11 @@ namespace Shooting
 				Background.BackgroundList.Add(baseObject);
 			}
 			Background.Ctrl();
-			Particle particle = new Particle(StageData, "Star", new PointF((float)StageData.Ran.Next(StageData.BoundRect.Left - 50, StageData.BoundRect.Right), (float)StageData.Ran.Next(StageData.BoundRect.Top + 50, StageData.BoundRect.Top + 100)), (float)(StageData.Ran.Next(10, 20) / 10), -1.5707963267948966 - (double)((float)StageData.Ran.Next(1, 5) / 10f));
+			var particle = new Particle(StageData, "Star", new PointF((float)StageData.Ran.Next(StageData.BoundRect.Left - 50, StageData.BoundRect.Right), (float)StageData.Ran.Next(StageData.BoundRect.Top + 50, StageData.BoundRect.Top + 100)), (float)(StageData.Ran.Next(10, 20) / 10), -1.5707963267948966 - (double)((float)StageData.Ran.Next(1, 5) / 10f));
 			particle.Active = true;
 			particle.Scale = (float)StageData.Ran.Next(25, 70) / 100f;
 			particle.LifeTime = 70;
-			for (int i = StageData.EffectList.Count - 1; i >= 0; i--)
+			for (var i = StageData.EffectList.Count - 1; i >= 0; i--)
 			{
 				StageData.EffectList[i].Ctrl();
 			}

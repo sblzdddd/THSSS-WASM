@@ -24,10 +24,10 @@ namespace Shooting
 			}
 			MenuItemList.Add(new BaseMenuItem(StageData, "Menu_返回主菜单"));
 			MenuItemList.Add(new BaseMenuItem(StageData, "Menu_从头开始"));
-			int num = 62;
-			int num2 = 300;
-			int num3 = -200;
-			foreach (BaseMenuItem baseMenuItem in MenuItemList)
+			var num = 62;
+			var num2 = 300;
+			var num3 = -200;
+			foreach (var baseMenuItem in MenuItemList)
 			{
 				baseMenuItem.DestPoint = new PointF((float)num, (float)num2);
 				baseMenuItem.Position = new PointF((float)(num + num3), 150f);
@@ -35,7 +35,7 @@ namespace Shooting
 				num3 -= 50;
 			}
 			MenuItemList[MenuSelectIndex].Selected = true;
-			BackgroundRotate backgroundRotate = new BackgroundRotate(StageData, "Menu_图案");
+			var backgroundRotate = new BackgroundRotate(StageData, "Menu_图案");
 			backgroundRotate.OriginalPosition = new PointF(120f, 340f);
 			backgroundRotate.Scale = 1f;
 			backgroundRotate.TransparentValueF = 0f;
@@ -55,7 +55,7 @@ namespace Shooting
 
 		public override void ProcessZ()
 		{
-			string text = MenuItemList[MenuSelectIndex].Name;
+			var text = MenuItemList[MenuSelectIndex].Name;
 			if (text != null)
 			{
 				if (!(text == "Menu_继续游戏"))
@@ -79,9 +79,9 @@ namespace Shooting
 							}
 							else if (StageData.GlobalData.LastState != null)
 							{
-								bool onReplay = StageData.GlobalData.LastState.StageData.OnReplay;
-								bool onPractice = StageData.GlobalData.LastState.StageData.OnPractice;
-								ReplayInfo repInfo = StageData.GlobalData.LastState.StageData.RepInfo;
+								var onReplay = StageData.GlobalData.LastState.StageData.OnReplay;
+								var onPractice = StageData.GlobalData.LastState.StageData.OnPractice;
+								var repInfo = StageData.GlobalData.LastState.StageData.RepInfo;
 								StageData.StateSwitchData = new StateSwitchDataPackage
 								{
 									NextState = StageData.GlobalData.LastState.StageData.RepInfo.StartStage,
@@ -92,8 +92,8 @@ namespace Shooting
 										OnReplay = onReplay
 									}
 								};
-								int num = 0;
-								Point point = new Point(192, 398);
+								var num = 0;
+								var point = new Point(192, 398);
 								if (num >= 0)
 								{
 									point = new Point((int)repInfo.MyPlaneData[num].PosX, (int)repInfo.MyPlaneData[num].PosY);

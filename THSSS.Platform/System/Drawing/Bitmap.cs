@@ -41,7 +41,7 @@ namespace System.Drawing
 		{
 			int num;
 			int num2;
-			byte[] array = SlimDX.Imaging.ImageFiles.DecodeRgba(filename, out num, out num2);
+			var array = SlimDX.Imaging.ImageFiles.DecodeRgba(filename, out num, out num2);
 			this.Width = num;
 			this.Height = num2;
 			this.PixelFormat = PixelFormat.Format32bppArgb;
@@ -54,7 +54,7 @@ namespace System.Drawing
 			{
 				return;
 			}
-			int num = Math.Min(this.rgba.Length, pixels.Length);
+			var num = Math.Min(this.rgba.Length, pixels.Length);
 			Buffer.BlockCopy(pixels, 0, this.rgba, 0, num);
 		}
 
@@ -64,17 +64,17 @@ namespace System.Drawing
 			{
 				return Color.Transparent;
 			}
-			int num = (y * this.Width + x) * 4;
+			var num = (y * this.Width + x) * 4;
 			return Color.FromArgb(this.rgba[num + 3], this.rgba[num], this.rgba[num + 1], this.rgba[num + 2]);
 		}
 
 		public BitmapData LockBits(Rectangle rect, ImageLockMode flags, PixelFormat format)
 		{
-			byte[] array = new byte[Math.Max(1, this.Width * this.Height * 4)];
+			var array = new byte[Math.Max(1, this.Width * this.Height * 4)];
 			if (this.rgba != null)
 			{
-				int num = Math.Min(array.Length, this.rgba.Length);
-				for (int i = 0; i < num / 4; i++)
+				var num = Math.Min(array.Length, this.rgba.Length);
+				for (var i = 0; i < num / 4; i++)
 				{
 					array[i * 4] = this.rgba[i * 4 + 2];
 					array[i * 4 + 1] = this.rgba[i * 4 + 1];

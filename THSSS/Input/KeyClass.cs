@@ -4,7 +4,7 @@
 	{
 		public int Key2Hex()
 		{
-			int num = 0;
+			var num = 0;
 			if (ArrowUp)
 			{
 				num++;

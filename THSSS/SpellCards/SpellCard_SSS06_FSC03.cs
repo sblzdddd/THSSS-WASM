@@ -39,7 +39,7 @@ namespace Shooting
 					text = ".\\CS\\St06\\关底Boss\\FSC3L.mbg";
 					break;
 				}
-				CS_Data cs_Data = StageData.LoadCS(text);
+				var cs_Data = StageData.LoadCS(text);
 				new CSEmitterController(StageData, cs_Data);
 			}
 		}
@@ -71,7 +71,7 @@ namespace Shooting
 			}
 			else
 			{
-				long num2 = 99999990L;
+				var num2 = 99999990L;
 				num = num2;
 			}
 			return num;

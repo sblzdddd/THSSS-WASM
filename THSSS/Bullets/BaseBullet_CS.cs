@@ -16,7 +16,7 @@ namespace Shooting
 				type = value;
 				if (value >= 0 && value < BulletName.Length)
 				{
-					string text = BulletName[type];
+					var text = BulletName[type];
 					ColorType = BulletColorType[type];
 					if (text != null)
 					{

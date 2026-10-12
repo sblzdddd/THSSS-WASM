@@ -53,30 +53,30 @@ namespace Shooting
 			}
 			while ((float)PosY3 < CameraPosition.Y + 4200f)
 			{
-				Background3DObject background3DObject = new Background3DObject(StageData, "Tree2", new PointF(300f, (float)PosY3), true);
+				var background3DObject = new Background3DObject(StageData, "Tree2", new PointF(300f, (float)PosY3), true);
 				background3DObject.Angle3DX = -1.5707964f + CameraAngle;
 				background3DObject.Height = 233f * (float)Math.Cos((double)CameraAngle);
-				Background3DObject background3DObject2 = new Background3DObject(StageData, "Tree2", new PointF(-300f, (float)PosY3), true);
+				var background3DObject2 = new Background3DObject(StageData, "Tree2", new PointF(-300f, (float)PosY3), true);
 				background3DObject2.Angle3DX = -1.5707964f + CameraAngle;
 				background3DObject2.Height = 233f * (float)Math.Cos((double)CameraAngle);
 				background3DObject2.Mirrored = true;
-				Background3DObject background3DObject3 = new Background3DObject(StageData, "Tree1", new PointF(300f, (float)(PosY3 + 200)), true);
+				var background3DObject3 = new Background3DObject(StageData, "Tree1", new PointF(300f, (float)(PosY3 + 200)), true);
 				background3DObject3.Angle3DX = -1.5707964f + CameraAngle;
 				background3DObject3.Height = 225f * (float)Math.Cos((double)CameraAngle);
 				background3DObject3.Mirrored = true;
-				Background3DObject background3DObject4 = new Background3DObject(StageData, "Tree1", new PointF(-300f, (float)(PosY3 + 200)), true);
+				var background3DObject4 = new Background3DObject(StageData, "Tree1", new PointF(-300f, (float)(PosY3 + 200)), true);
 				background3DObject4.Angle3DX = -1.5707964f + CameraAngle;
 				background3DObject4.Height = 225f * (float)Math.Cos((double)CameraAngle);
 				PosY3 += 400;
 			}
 			while ((float)PosY2 < CameraPosition.Y + 1950f)
 			{
-				Background3DObject background3DObject5 = new Background3DObject(StageData, "草地ex", new PointF(0f, (float)PosY2), true);
+				var background3DObject5 = new Background3DObject(StageData, "草地ex", new PointF(0f, (float)PosY2), true);
 				background3DObject5.Angle3DX = -3.1415927f;
 				background3DObject5.Scale = 2f;
 				PosY2 += 486;
 			}
-			for (int i = Background3D.BackgroundList.Count - 1; i >= 0; i--)
+			for (var i = Background3D.BackgroundList.Count - 1; i >= 0; i--)
 			{
 				if (Background3D.BackgroundList[i].OriginalPosition.Y < CameraPosition.Y - 1000f)
 				{

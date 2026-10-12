@@ -15,7 +15,7 @@ namespace Shooting
 		public override void Drama()
 		{
 			base.Drama();
-			int[] array = new int[] { 2500, 3000, 8750 };
+			var array = new int[] { 2500, 3000, 8750 };
 			if (TimeMain == 1)
 			{
 				switch (StageData.Difficulty)
@@ -35,11 +35,11 @@ namespace Shooting
 					StageData.C_History.PracticeLevel = 5;
 				}
 				StageData.ChangeBGM(".\\BGM\\Stage05.ogg", (testStartTime + 60) * 44100 / 60, 0, 255, 66150, 0);
-				MusicTitle musicTitle = new MusicTitle(StageData, "记忆中遥远的星星", new Point(BoundRect.Width, BoundRect.Height - 16));
+				var musicTitle = new MusicTitle(StageData, "记忆中遥远的星星", new Point(BoundRect.Width, BoundRect.Height - 16));
 				musicTitle.OriginalPosition = new PointF((float)BoundRect.Width, (float)(BoundRect.Height + 100));
 				musicTitle.Scale = 0.5f;
 				Background3D.Envi = new EnvironmentSSS05(StageData);
-				BackgroundTransitionIn backgroundTransitionIn = new BackgroundTransitionIn(StageData);
+				var backgroundTransitionIn = new BackgroundTransitionIn(StageData);
 				backgroundTransitionIn.Delay = 200;
 				backgroundTransitionIn.LifeTime = 320;
 				if (testStartTime > TimeMain)
@@ -67,10 +67,10 @@ namespace Shooting
 						array2 = Directory.GetFiles(".\\CS\\St05\\A\\L\\", "*.mbg");
 						break;
 					}
-					foreach (string text in array2)
+					foreach (var text in array2)
 					{
-						CS_Data cs_Data = StageData.LoadCS(text);
-						CSEmitterController csemitterController = new CSEmitterController(StageData, cs_Data);
+						var cs_Data = StageData.LoadCS(text);
+						var csemitterController = new CSEmitterController(StageData, cs_Data);
 						csemitterController.OnRoad = true;
 						csemitterController.Time = TimeMain - 60;
 					}
@@ -107,17 +107,17 @@ namespace Shooting
 					array2 = Directory.GetFiles(".\\CS\\St05\\B\\L\\", "*.mbg");
 					break;
 				}
-				foreach (string text in array2)
+				foreach (var text in array2)
 				{
-					CS_Data cs_Data = StageData.LoadCS(text);
-					CSEmitterController csemitterController2 = new CSEmitterController(StageData, cs_Data);
+					var cs_Data = StageData.LoadCS(text);
+					var csemitterController2 = new CSEmitterController(StageData, cs_Data);
 					csemitterController2.OnRoad = true;
 					csemitterController2.Time = TimeMain - 60;
 				}
 			}
 			if (array[2] - 130 == TimeMain)
 			{
-				BossStar bossStar = new BossStar(StageData, new PointF((float)(BoundRect.Width / 2), 150f));
+				var bossStar = new BossStar(StageData, new PointF((float)(BoundRect.Width / 2), 150f));
 				bossStar.ColorType = 1;
 			}
 			else if (array[2] == TimeMain)

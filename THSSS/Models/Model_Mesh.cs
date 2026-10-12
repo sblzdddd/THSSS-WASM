@@ -21,7 +21,7 @@ namespace Shooting
 			materials = this.mesh.GetMaterials();
 			if ((this.mesh.VertexFormat & VertexFormat.Normal) == VertexFormat.None)
 			{
-				Mesh mesh = this.mesh.Clone(DeviceMain, MeshFlags.SystemMemory, this.mesh.VertexFormat | VertexFormat.Normal);
+				var mesh = this.mesh.Clone(DeviceMain, MeshFlags.SystemMemory, this.mesh.VertexFormat | VertexFormat.Normal);
 				mesh.ComputeNormals();
 				this.mesh.Dispose();
 				this.mesh = mesh;
@@ -29,7 +29,7 @@ namespace Shooting
 			if (materials.Length >= 1)
 			{
 				textures = new Texture[materials.Length];
-				for (int i = 0; i < materials.Length; i++)
+				for (var i = 0; i < materials.Length; i++)
 				{
 					textures[i] = null;
 					if (!string.IsNullOrEmpty(materials[i].TextureFileName))
@@ -46,9 +46,9 @@ namespace Shooting
 
 		public override void Draw()
 		{
-			for (int i = 0; i < materials.Length; i++)
+			for (var i = 0; i < materials.Length; i++)
 			{
-				Material materialD3D = materials[i].MaterialD3D;
+				var materialD3D = materials[i].MaterialD3D;
 				materialD3D.Diffuse = new Color4(Color.FromArgb(TransparentValue, ColorValue));
 				materialD3D.Ambient = new Color4(Color.FromArgb(TransparentValue, ColorValue));
 				DeviceMain.Material = materialD3D;
@@ -60,7 +60,7 @@ namespace Shooting
 
 		public override void Dispose()
 		{
-			foreach (Texture texture in textures)
+			foreach (var texture in textures)
 			{
 				if (texture != null)
 				{

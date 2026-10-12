@@ -21,7 +21,7 @@ namespace Shooting
 		{
 			if (Time % 4 == 0)
 			{
-				for (int i = 0; i < 3; i++)
+				for (var i = 0; i < 3; i++)
 				{
 					new BackgroundParticle3D2(StageData, "Petal0" + Ran.Next(4).ToString(), new PointF((float)StageData.Ran.Next(0, BoundRect.Width), (float)StageData.Ran.Next(-150, (Time > 600) ? 100 : 300)), (float)StageData.Ran.Next(3, 6), 1.5707963267948966 + (double)((float)StageData.Ran.Next(-4, 3) / 10f), 250)
 					{
