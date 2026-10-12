@@ -16,6 +16,9 @@ namespace Thsss.Browser
 		[JSImport("takeArchive", "thsss.js")]
 		public static partial byte[] TakeArchive();
 
+		[JSImport("putAudioFile", "thsss.js")]
+		public static partial void PutAudioFile(string path, byte[] bytes);
+
 		[JSImport("writeSave", "thsss.js")]
 		public static partial void WriteSave(string path, string data);
 

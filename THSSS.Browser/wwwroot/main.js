@@ -1,6 +1,7 @@
 import { dotnet } from "./_framework/dotnet.js";
 import { createGl } from "./gl.js";
 import { createAudio } from "./audio.js";
+import { putRuntimeFile } from "./runtime-files.mjs";
 
 const canvas = document.getElementById("game");
 let lastStatus = "";
@@ -156,6 +157,9 @@ export async function prepareRuntime(options = {}) {
       const bytes = globalThis.__thsssArchive;
       globalThis.__thsssArchive = null;
       return bytes && bytes.byteLength ? bytes : new Uint8Array(0);
+    },
+    putAudioFile: (path, bytes) => {
+      putRuntimeFile(path, bytes instanceof Uint8Array ? bytes : new Uint8Array(bytes || []));
     },
     pageBase: () => document.baseURI,
     clear: glApi.clear,

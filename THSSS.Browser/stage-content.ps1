@@ -7,8 +7,8 @@ $ErrorActionPreference = "Stop"
 $Repo = (Resolve-Path -LiteralPath $Repo).Path.TrimEnd('\', '/')
 $required = @("Image", "CS", "FX", "Model", "Story", "Sound", "BGM")
 $optional = @("Replay")
-$packRoots = @("Image", "CS", "FX", "Model", "Story", "Replay")
-$audioRoots = @("BGM", "Sound")
+$packRoots = @("Image", "CS", "FX", "Model", "Story", "Sound")
+$looseRoots = @("BGM")
 $audioExt = @(".wav", ".mp3", ".ogg", ".xwma", ".flac", ".wma", ".mid", ".midi", ".m4a", ".aac")
 
 $problems = New-Object System.Collections.Generic.List[string]
@@ -45,10 +45,11 @@ function Write-U32([System.IO.Stream]$stream, [long]$value) {
   $stream.WriteByte([byte](($value -shr 24) -band 255))
 }
 
-function Test-AudioPath([string]$rel) {
-  foreach ($root in $audioRoots) {
+function Test-LooseAudio([string]$rel) {
+  foreach ($root in $looseRoots) {
     if ($rel.StartsWith($root + "/", [System.StringComparison]::OrdinalIgnoreCase)) { return $true }
   }
+  if ($rel.StartsWith("Sound/", [System.StringComparison]::OrdinalIgnoreCase)) { return $false }
   $ext = [System.IO.Path]::GetExtension($rel)
   return $audioExt -contains $ext.ToLowerInvariant()
 }
@@ -60,23 +61,10 @@ foreach ($root in $packRoots) {
   if (-not (Test-Path -LiteralPath $from -PathType Container)) { continue }
   Get-ChildItem -LiteralPath $from -Recurse -File | ForEach-Object {
     $rel = $_.FullName.Substring($Repo.Length).TrimStart('\', '/').Replace('\', '/')
-    if (Test-AudioPath $rel) { return }
+    if (Test-LooseAudio $rel) { return }
     $entries.Add([pscustomobject]@{ Rel = $rel; Full = $_.FullName; Bytes = $null; Size = [long]$_.Length })
   }
 }
-$score = Join-Path $Repo "Score.dat"
-if (Test-Path -LiteralPath $score -PathType Leaf) {
-  $info = Get-Item -LiteralPath $score
-  $entries.Add([pscustomobject]@{ Rel = "Score.dat"; Full = $info.FullName; Bytes = $null; Size = [long]$info.Length })
-}
-
-$soundNames = New-Object System.Collections.Generic.List[string]
-$soundDir = Join-Path $Repo "Sound"
-Get-ChildItem -LiteralPath $soundDir -File -Filter "*.wav" | ForEach-Object { $soundNames.Add("Sound/" + $_.Name) }
-$soundNames.Sort([System.StringComparer]::Ordinal)
-$soundBytes = $utf8.GetBytes(($soundNames -join "`n") + "`n")
-$entries.Add([pscustomobject]@{ Rel = "_thsss/sound.txt"; Full = $null; Bytes = $soundBytes; Size = [long]$soundBytes.Length })
-
 if ($entries.Count -eq 0) {
   throw "Game content check failed: no files were packed. Restore the gitignored asset folders at the repo root, or build with -p:StageGameAssets=false."
 }
@@ -127,7 +115,7 @@ finally {
   $out.Dispose()
 }
 
-foreach ($root in $audioRoots) {
+foreach ($root in $looseRoots) {
   $from = Join-Path $Repo $root
   Get-ChildItem -LiteralPath $from -Recurse -File | ForEach-Object {
     $rel = $_.FullName.Substring($Repo.Length).TrimStart('\', '/').Replace('\', '/')
@@ -150,4 +138,4 @@ finally {
   $check.Dispose()
 }
 
-Write-Host "Packed $($sorted.Count) files into thsss.dat; left BGM and Sound as wav files"
+Write-Host "Packed $($sorted.Count) files into thsss.dat; left BGM beside the archive"

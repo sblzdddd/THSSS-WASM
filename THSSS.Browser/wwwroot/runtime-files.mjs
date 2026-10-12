@@ -10,6 +10,7 @@ export function putRuntimeFile(path, data) {
   const copy = new Uint8Array(bytes.byteLength);
   copy.set(bytes);
   files.set(keyOf(path), copy);
+  if (typeof globalThis !== "undefined") globalThis.__thsssFiles = files;
   return copy;
 }
 

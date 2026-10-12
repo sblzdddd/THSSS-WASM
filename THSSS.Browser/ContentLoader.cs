@@ -16,8 +16,6 @@ namespace Thsss.Browser
 
 		private const string ArchiveName = "assets/thsss.dat";
 
-		private const string SoundIndex = "_thsss/sound.txt";
-
 		public static bool BackgroundIdle
 		{
 			get
@@ -100,18 +98,6 @@ namespace Thsss.Browser
 			EnsureDir("Image");
 			EnsureDir("Model");
 			EnsureDir("Story");
-			if (File.Exists(SoundIndex))
-			{
-				string[] lines = File.ReadAllLines(SoundIndex);
-				foreach (string line in lines)
-				{
-					string rel = line.Trim().Replace('\\', '/');
-					if (rel.StartsWith("Sound/", StringComparison.OrdinalIgnoreCase) && rel.EndsWith(".wav", StringComparison.OrdinalIgnoreCase))
-					{
-						Touch(rel);
-					}
-				}
-			}
 			OverlaySaves();
 			if (!File.Exists("Setting.INI"))
 			{
@@ -181,6 +167,8 @@ namespace Thsss.Browser
 			{
 				Directory.CreateDirectory(dir);
 			}
+			byte[] audio = IsRuntimeAudio(entry.Name) && entry.Size > 0 ? new byte[entry.Size] : null;
+			int audioAt = 0;
 			using (FileStream output = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None))
 			{
 				byte[] buffer = new byte[81920];
@@ -194,8 +182,17 @@ namespace Thsss.Browser
 						throw new EndOfStreamException("Truncated content archive.");
 					}
 					await output.WriteAsync(buffer, 0, read);
+					if (audio != null)
+					{
+						Buffer.BlockCopy(buffer, 0, audio, audioAt, read);
+						audioAt += read;
+					}
 					left -= read;
 				}
+			}
+			if (audio != null)
+			{
+				ThsssJs.PutAudioFile("/" + entry.Name, audio);
 			}
 		}
 
@@ -249,28 +246,18 @@ namespace Thsss.Browser
 			return rel.StartsWith("Image/", StringComparison.OrdinalIgnoreCase);
 		}
 
+		private static bool IsRuntimeAudio(string rel)
+		{
+			return rel.StartsWith("Sound/", StringComparison.OrdinalIgnoreCase)
+				&& (rel.EndsWith(".wav", StringComparison.OrdinalIgnoreCase) || rel.EndsWith(".ogg", StringComparison.OrdinalIgnoreCase));
+		}
+
 		private static void MarkReady(string rel)
 		{
 			lock (readyLock)
 			{
 				readyFiles.Add(rel);
 			}
-		}
-
-		private static void Touch(string rel)
-		{
-			WriteFile(rel, Array.Empty<byte>());
-		}
-
-		private static void WriteFile(string rel, byte[] bytes)
-		{
-			string path = rel.Replace('/', Path.DirectorySeparatorChar);
-			string dir = Path.GetDirectoryName(path);
-			if (!string.IsNullOrEmpty(dir))
-			{
-				Directory.CreateDirectory(dir);
-			}
-			File.WriteAllBytes(path, bytes);
 		}
 
 		private static void EnsureDir(string name)
