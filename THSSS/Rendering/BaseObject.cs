@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+#if !BROWSER
 using System.Runtime.Serialization.Formatters.Binary;
+#endif
 
 namespace Shooting
 {
@@ -1182,6 +1184,9 @@ namespace Shooting
 
 		public object Clone(object Obj)
 		{
+#if BROWSER
+			throw new NotSupportedException("BinaryFormatter clone is not available in the browser host.");
+#else
 			object obj;
 			if (Obj == null)
 			{
@@ -1198,6 +1203,7 @@ namespace Shooting
 				obj = obj2;
 			}
 			return obj;
+#endif
 		}
 
 		public virtual object Clone()
