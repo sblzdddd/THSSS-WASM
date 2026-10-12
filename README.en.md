@@ -14,7 +14,7 @@ A browser port of the Windows game (.NET Framework 4.8, SlimDX, WinForms). Game 
 | `THSSS` | dnSpy export of the game. `THSSS.sln` contains only this project (`net48`, x86). | Original logic. Browser differences are marked `#if BROWSER` (loading, saves, encoding, null audio). The layout is the original program and is not documented here. |
 | `THSSS-Config` | dnSpy export of the config tool. Separate solution, `net20` WinForms, reads and writes `Setting.INI`. | Not part of the browser build. The web build writes a default `Setting.INI` when none exists. |
 | `THSSS.Platform` | WinForms, GDI+, and WMI stand-ins on `net9.0`. | Decodes PNG and BMP, and rasters text through the canvas. Other APIs exist only so the game can compile and run its main loop. |
-| `THSSS.SlimDX` | SlimDX stand-in. The assembly name is still `SlimDX`. | Device, sprites, textures, the fixed-function pipeline, render targets, fog, and lighting go through WebGL2. `.x` meshes (`Mesh`) and HLSL (`Effect`) are empty and draw nothing. XAudio2 plays WAV files the browser can decode. Key state is filled from the page; the joystick API is empty. |
+| `THSSS.SlimDX` | SlimDX stand-in. The assembly name is still `SlimDX`. | Device, sprites, textures, the fixed-function pipeline, render targets, fog, and lighting go through WebGL2. Text `.x` meshes are loaded, transformed by their frames, and drawn per material. Blur, Warp, and Filter in `FX` run as hand-written `.vert` / `.frag` files in `wwwroot/shaders` on the full-screen blit. XAudio2 plays WAV files the browser can decode. Key state is filled from the page; the joystick API is empty. |
 | `THSSS.Browser` | `net9.0` / `browser-wasm` host. Not in `THSSS.sln`. | Transforms and compiles the `THSSS` sources, loads assets into the virtual file system, and calls `MainProcess` at 60fps. Keys come from the page. Saves go to IndexedDB. |
 
 ## Assets
@@ -50,7 +50,6 @@ GitHub Actions (`.github/workflows/browser-build.yml`) compiles a checkout that 
 
 ## Roadmap
 
-- Implement Mesh and Effect
 - Wire up game configuration (Config)
 - Full touchscreen support
 - Smaller and faster asset loading

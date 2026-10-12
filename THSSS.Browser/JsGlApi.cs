@@ -139,6 +139,11 @@ namespace Thsss.Browser
 			ThsssJs.DrawSprites(textureId, flipV, this.Pack(vertices));
 		}
 
+		public void DrawEffect(string name, int textureId, float flipV, Span<float> vertices, float blurLevel, float x, float y, float time, float radius, int colorKey)
+		{
+			ThsssJs.DrawEffect(name, textureId, flipV, this.Pack(vertices), blurLevel, x, y, time, radius, colorKey);
+		}
+
 		public void DrawFixed(int textureId, Span<float> vertices, Span<float> world, Span<float> view, Span<float> proj, float mr, float mg, float mb, float ma, float lighting, float fog, float fogStart, float fogEnd, float fr, float fg, float fb)
 		{
 			byte[] verts = this.Pack(vertices);

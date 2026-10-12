@@ -20,6 +20,7 @@ let fuFogColor;
 let fuTex;
 let spriteBuf;
 let fixedBuf;
+const effectRecs = new Map();
 let viewX = 0, viewY = 0, viewW = 640, viewH = 480, fbW = 640, fbH = 480;
 const imageJobs = new Map();
 let imageJobId = 1;
@@ -89,7 +90,7 @@ function makeTexture(width, height, pixels, renderTarget) {
   return id;
 }
 
-export function createGl(canvas) {
+export function createGl(canvas, shaderSources) {
   gl = canvas.getContext("webgl2", { alpha: false, depth: true, antialias: false, stencil: false, preserveDrawingBuffer: true });
   if (!gl) {
     throw new Error("WebGL2 is not available.");
@@ -164,6 +165,24 @@ void main() {
 }`;
   spriteProg = program(spriteVs, spriteFs);
   fixedProg = program(fixedVs, fixedFs);
+  for (const name of ["Filter", "Blur", "Warp"]) {
+    const vs = shaderSources && shaderSources[name + ".vert"];
+    const fs = shaderSources && shaderSources[name + ".frag"];
+    if (!vs || !fs) continue;
+    const prog = program(vs, fs);
+    effectRecs.set(name, {
+      prog,
+      uScreen: gl.getUniformLocation(prog, "uScreen"),
+      uFlip: gl.getUniformLocation(prog, "uFlipV"),
+      uTex: gl.getUniformLocation(prog, "uTex"),
+      uBlur: gl.getUniformLocation(prog, "BlurLevel"),
+      uX: gl.getUniformLocation(prog, "X"),
+      uY: gl.getUniformLocation(prog, "Y"),
+      uTime: gl.getUniformLocation(prog, "Time"),
+      uRadius: gl.getUniformLocation(prog, "Radius"),
+      uColorKey: gl.getUniformLocation(prog, "ColorKey")
+    });
+  }
   uScreen = gl.getUniformLocation(spriteProg, "uScreen");
   uFlip = gl.getUniformLocation(spriteProg, "uFlipV");
   uTex = gl.getUniformLocation(spriteProg, "uTex");
@@ -198,6 +217,7 @@ void main() {
     setDepth: glSetDepth,
     setCull: glSetCull,
     drawSprites: glDrawSprites,
+    drawEffect: glDrawEffect,
     drawFixed: glDrawFixed,
     beginImage: glBeginImage,
     imageState: glImageState,
@@ -404,6 +424,50 @@ function prepFixed() {
   gl.vertexAttribPointer(1, 2, gl.FLOAT, false, stride, 12);
   gl.vertexAttribPointer(2, 4, gl.FLOAT, false, stride, 20);
   gl.uniform1i(fuTex, 0);
+}
+
+function prepEffect(rec) {
+  activeProg = 3;
+  spriteReady = false;
+  fixedReady = false;
+  gl.useProgram(rec.prog);
+  gl.bindBuffer(gl.ARRAY_BUFFER, spriteBuf);
+  const stride = 32;
+  gl.enableVertexAttribArray(0);
+  gl.enableVertexAttribArray(1);
+  gl.enableVertexAttribArray(2);
+  gl.vertexAttribPointer(0, 2, gl.FLOAT, false, stride, 0);
+  gl.vertexAttribPointer(1, 2, gl.FLOAT, false, stride, 8);
+  gl.vertexAttribPointer(2, 4, gl.FLOAT, false, stride, 16);
+  gl.uniform1i(rec.uTex, 0);
+}
+
+export function glDrawEffect(name, textureId, flipV, raw, blurLevel, x, y, time, radius, colorKey) {
+  const rec = effectRecs.get(name);
+  if (!rec) {
+    glDrawSprites(textureId, flipV, raw);
+    return;
+  }
+  const data = asF32(raw);
+  if (data.length < 8) return;
+  prepEffect(rec);
+  gl.bufferData(gl.ARRAY_BUFFER, data, gl.DYNAMIC_DRAW);
+  gl.uniform2f(rec.uScreen, viewW, viewH);
+  gl.uniform1f(rec.uFlip, flipV);
+  if (rec.uBlur) gl.uniform1f(rec.uBlur, blurLevel);
+  if (rec.uX) gl.uniform1f(rec.uX, x);
+  if (rec.uY) gl.uniform1f(rec.uY, y);
+  if (rec.uTime) gl.uniform1f(rec.uTime, time);
+  if (rec.uRadius) gl.uniform1f(rec.uRadius, radius);
+  if (rec.uColorKey) gl.uniform1i(rec.uColorKey, colorKey | 0);
+  bindTex(textureId);
+  const bound = textures.get(textureId | 0) || textures.get(whiteId);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.MIRRORED_REPEAT);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.MIRRORED_REPEAT);
+  gl.drawArrays(gl.TRIANGLES, 0, (data.length / 8) | 0);
+  gl.bindTexture(gl.TEXTURE_2D, bound.tex);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
 }
 
 export function glDrawSprites(textureId, flipV, raw) {

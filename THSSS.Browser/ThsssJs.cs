@@ -64,6 +64,9 @@ namespace Thsss.Browser
 		[JSImport("drawSprites", "thsss.js")]
 		public static partial void DrawSprites(int textureId, float flipV, byte[] vertices);
 
+		[JSImport("drawEffect", "thsss.js")]
+		public static partial void DrawEffect(string name, int textureId, float flipV, byte[] vertices, float blurLevel, float x, float y, float time, float radius, int colorKey);
+
 		[JSImport("drawFixed", "thsss.js")]
 		public static partial void DrawFixed(int textureId, byte[] vertices, byte[] world, byte[] view, byte[] proj, float mr, float mg, float mb, float ma, float lighting, float fog, float fogStart, float fogEnd, float fr, float fg, float fb);
 

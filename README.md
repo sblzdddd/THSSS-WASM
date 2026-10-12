@@ -14,7 +14,7 @@
 | `THSSS` | dnSpy 导出的游戏本体。`THSSS.sln` 只含这个工程，目标 `net48` / x86。 | 原逻辑。浏览器差异用 `#if BROWSER` 标出（加载、存档、编码、音频空引用）。内部结构即原程序，这里不展开。 |
 | `THSSS-Config` | dnSpy 导出的配置器，独立解决方案，目标 `net20` WinForms，读写 `Setting.INI`。 | 不参与浏览器构建。网页版若没有 `Setting.INI`，会自行写入一份默认配置。 |
 | `THSSS.Platform` | `net9.0` 上的 WinForms、GDI+、WMI 替身。 | 能解码 PNG / BMP，并用画布光栅化文字。其余 API 只保留游戏能编译、能跑主循环所需的部分。 |
-| `THSSS.SlimDX` | SlimDX API 替身，程序集名仍是 `SlimDX`。 | 设备、Sprite、纹理、固定功能管线、渲染目标、雾和光照已接到 WebGL2。`.x` 网格（`Mesh`）和 HLSL（`Effect`）是空实现，调用不会画出来。XAudio2 接到 Web Audio，播放浏览器能解码的 WAV。键盘状态由页面按键写入；手柄是空实现。 |
+| `THSSS.SlimDX` | SlimDX API 替身，程序集名仍是 `SlimDX`。 | 设备、Sprite、纹理、固定功能管线、渲染目标、雾和光照已接到 WebGL2。文本 `.x` 网格会读入，套用帧变换后按材质绘制。`FX` 里的 Blur、Warp、Filter 用 `wwwroot/shaders` 下手工改写的 `.vert` / `.frag` 画整屏贴图。XAudio2 接到 Web Audio，播放浏览器能解码的 WAV。键盘状态由页面按键写入；手柄是空实现。 |
 | `THSSS.Browser` | `net9.0` / `browser-wasm` 宿主。不参与 `THSSS.sln`。 | 构建时变换并编译 `THSSS` 的源码，把资源拉进虚拟文件系统，以 60fps 调用 `MainProcess`。按键来自页面，存档写入 IndexedDB。 |
 
 ## 资源
@@ -50,7 +50,6 @@ GitHub Actions（`.github/workflows/browser-build.yml`）在不含资源的检�
 
 ## 路线图
 
-- 实现 Mesh 和 Effect
 - 完成游戏配置接入（Config）
 - 完整适配触摸屏
 - 优化资源加载和大小
