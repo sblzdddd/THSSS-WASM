@@ -1,18 +1,22 @@
-// Rewrite a NativeAOT publish directory into the directory runtime eagler-touhou accepts.
-// The launcher allows the game html, manifest.json, root mjs/css/wasm/json,
-// and fonts/*.{bin,woff,woff2}. The runtime and the game are already one wasm module.
+// Bundle the browser host into the directory runtime eagler-touhou accepts.
+// esbuild minifies every hand-written module and the Emscripten loader into
+// one shell.mjs. The game and runtime stay in THSSS.Browser.wasm.
 //
 //   dotnet publish THSSS.Browser/THSSS.Browser.csproj -c Release
-//   node THSSS.Browser/stage-eagler-runtime.mjs
+//   npm install
+//   npm run stage:eagler
 
+import * as esbuild from "esbuild";
 import { createHash } from "node:crypto";
-import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import { mkdtemp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const browser = dirname(fileURLToPath(import.meta.url));
 const repo = resolve(browser, "..");
 const publish = resolve(browser, "bin/Release/net10.0/browser-wasm/publish");
+const wwwroot = resolve(browser, "wwwroot");
 const output = resolve(repo, "build-eagler");
 
 const allowed = name =>
@@ -42,6 +46,36 @@ function stripMap(source) {
   return source.replaceAll(/^[ \t]*\/\/# sourceMappingURL=.*\r?\n?/gm, "");
 }
 
+function bundleSources(moduleJs) {
+  const requireLine = 'nodeCrypto = require("node:crypto");';
+  if (!moduleJs.includes(requireLine)) throw new Error("Emscripten loader no longer requires node:crypto");
+  // The call sits in a Node-only branch. Leaving require() would become an
+  // import of a module the browser runtime is not allowed to reference.
+  moduleJs = moduleJs.replace(requireLine, "nodeCrypto = undefined;");
+
+  let main = stripMap((sources.main).replaceAll("\r\n", "\n"));
+  const shaderImport = 'import { putRuntimeFile } from "./runtime-files.mjs";';
+  if (!main.includes(shaderImport)) throw new Error("main.js no longer imports the runtime file helper");
+  main = main.replace(shaderImport, `import { shaderSource } from "./shaders.mjs";\n${shaderImport}`);
+  const shaderLoader = `async function loadShader(path) {
+  const response = await fetch(new URL(path, document.baseURI));
+  if (!response.ok) {
+    throw new Error("Missing shader " + path);
+  }
+  return response.text();
+}`;
+  const embeddedLoader = `async function loadShader(path) {
+  const name = path.slice(path.lastIndexOf("/") + 1);
+  const text = shaderSource[name];
+  if (typeof text !== "string") throw new Error("Missing shader " + path);
+  return text;
+}`;
+  if (!main.includes(shaderLoader)) throw new Error("main.js shader loader changed; update the stager");
+  main = main.replace(shaderLoader, embeddedLoader);
+  return { moduleJs, main };
+}
+
+const sources = {};
 await rm(output, { recursive: true, force: true });
 await mkdir(output, { recursive: true });
 
@@ -55,54 +89,64 @@ const moduleJs = stripMap(await text(resolve(publish, "THSSS.Browser.js")));
 if (!moduleJs.includes("export default createThsssModule")) {
   throw new Error("published THSSS.Browser.js is not the ES module loader");
 }
-await put("THSSS.Browser.mjs", Buffer.from(moduleJs, "utf8"));
+sources.main = await text(resolve(wwwroot, "main.js"));
+const rewritten = bundleSources(moduleJs);
 
 const shaderNames = ["Filter.vert", "Filter.frag", "Blur.vert", "Blur.frag", "Warp.vert", "Warp.frag"];
 const shaderSource = {};
-for (const name of shaderNames) {
-  shaderSource[name] = await text(resolve(browser, "wwwroot/shaders", name));
-}
-await put("shaders.mjs", Buffer.from(`export const shaderSource = ${JSON.stringify(shaderSource)};\n`, "utf8"));
+for (const name of shaderNames) shaderSource[name] = await text(resolve(wwwroot, "shaders", name));
 
-let main = stripMap((await text(resolve(browser, "wwwroot/main.js"))).replaceAll("\r\n", "\n"));
-const mainRewrites = [
-  ['import createThsssModule from "./THSSS.Browser.js";', 'import createThsssModule from "./THSSS.Browser.mjs";'],
-  ['import { createGl } from "./gl.js";', 'import { createGl } from "./gl.mjs";'],
-  ['import { createAudio } from "./audio.js";', 'import { createAudio } from "./audio.mjs";'],
-  ['import { putRuntimeFile } from "./runtime-files.mjs";', 'import { shaderSource } from "./shaders.mjs";\nimport { putRuntimeFile } from "./runtime-files.mjs";'],
-];
-for (const [from, to] of mainRewrites) {
-  if (!main.includes(from)) throw new Error(`main.js is missing ${from}`);
-  main = main.replace(from, to);
-}
-const shaderLoader = `async function loadShader(path) {
-  const response = await fetch(new URL(path, document.baseURI));
-  if (!response.ok) {
-    throw new Error("Missing shader " + path);
+const temp = await mkdtemp(resolve(tmpdir(), "thsss-shell-"));
+try {
+  const graph = {
+    "shell.mjs": await text(resolve(wwwroot, "shell.mjs")),
+    "directory-keyboard.mjs": await text(resolve(wwwroot, "directory-keyboard.mjs")),
+    "eagler-host.mjs": await text(resolve(wwwroot, "eagler-host.mjs")),
+    "runtime-files.mjs": await text(resolve(wwwroot, "runtime-files.mjs")),
+    "gl.js": stripMap(await text(resolve(wwwroot, "gl.js"))),
+    "audio.js": stripMap(await text(resolve(wwwroot, "audio.js"))),
+    "main.js": rewritten.main,
+    "shaders.mjs": `export const shaderSource = ${JSON.stringify(shaderSource)};\n`,
+    "THSSS.Browser.js": rewritten.moduleJs,
+  };
+  for (const [name, contents] of Object.entries(graph)) {
+    await writeFile(resolve(temp, name), contents);
   }
-  return response.text();
-}`;
-const embeddedLoader = `async function loadShader(path) {
-  const name = path.slice(path.lastIndexOf("/") + 1);
-  const text = shaderSource[name];
-  if (typeof text !== "string") throw new Error("Missing shader " + path);
-  return text;
-}`;
-if (!main.includes(shaderLoader)) throw new Error("main.js shader loader changed; update the stager");
-main = main.replace(shaderLoader, embeddedLoader);
-await put("main.mjs", Buffer.from(main, "utf8"));
-
-for (const [from, to] of [["gl.js", "gl.mjs"], ["audio.js", "audio.mjs"]]) {
-  await put(to, Buffer.from(stripMap(await text(resolve(browser, "wwwroot", from))), "utf8"));
+  const bundled = resolve(temp, "bundled", "shell.mjs");
+  await esbuild.build({
+    absWorkingDir: temp,
+    entryPoints: ["shell.mjs"],
+    bundle: true,
+    format: "esm",
+    platform: "browser",
+    target: "es2022",
+    minify: true,
+    legalComments: "none",
+    sourcemap: false,
+    outfile: bundled,
+    plugins: [{
+      name: "keep-wasm-url",
+      setup(build) {
+        build.onResolve({ filter: /\.wasm$/ }, () => ({
+          path: "THSSS.Browser.wasm",
+          external: true,
+        }));
+      },
+    }],
+  });
+  const shell = await text(bundled);
+  if (/\bfrom\s*["']\./.test(shell)) throw new Error("bundled shell still imports a local module");
+  if (!shell.includes("THSSS.Browser.wasm")) throw new Error("bundled shell lost the wasm URL");
+  if (!shell.includes("runtimeEpoch")) throw new Error("bundled shell lost the navigation epoch");
+  if (!shell.includes("__eaglerPrepareManagedRuntimeDataV1")) throw new Error("bundled shell lost the managed data bridge");
+  if (!shell.includes("ShiftKey")) throw new Error("bundled shell lost the keyboard owner");
+  await put("shell.mjs", Buffer.from(shell, "utf8"));
+} finally {
+  await rm(temp, { recursive: true, force: true });
 }
 
-let shell = await text(resolve(browser, "wwwroot/shell.mjs"));
-if (!shell.includes('from "./main.js"')) throw new Error("shell.mjs no longer imports ./main.js");
-shell = shell.replace('from "./main.js"', 'from "./main.mjs"');
-await put("shell.mjs", Buffer.from(shell, "utf8"));
-
-for (const name of ["thsss.html", "directory-keyboard.mjs", "eagler-host.mjs", "runtime-files.mjs", "manifest.json"]) {
-  await put(name, Buffer.from(await text(resolve(browser, "wwwroot", name)), "utf8"));
+for (const name of ["thsss.html", "manifest.json"]) {
+  await put(name, Buffer.from(await text(resolve(wwwroot, name)), "utf8"));
 }
 
 const manifest = JSON.parse(await text(resolve(output, "manifest.json")));
@@ -112,6 +156,9 @@ if (manifest.game !== "thsss" || manifest.protocol !== "eagler-touhou/1" || mani
 for (const feature of ["thprac", "languages", "focusHitbox"]) {
   if (manifest.features?.[feature] !== false) throw new Error(`manifest.features.${feature} must be false`);
 }
+
+const html = await text(resolve(output, "thsss.html"));
+if (!html.includes('src="./shell.mjs"')) throw new Error("thsss.html must load the bundled shell");
 
 const ordered = Object.fromEntries(Object.keys(files).sort().map(name => [name, files[name]]));
 await writeFile(resolve(output, "runtime-files.json"), JSON.stringify({
@@ -126,3 +173,4 @@ for (const name of Object.keys(ordered)) {
 }
 console.log(`staged ${Object.keys(ordered).length} files in ${output}`);
 console.log(counts);
+console.log(`shell.mjs ${files["shell.mjs"].bytes} bytes`);

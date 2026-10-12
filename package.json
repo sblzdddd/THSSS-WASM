@@ -1,0 +1,11 @@
+{
+  "name": "thsss-wasm",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "stage:eagler": "node THSSS.Browser/stage-eagler-runtime.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2"
+  }
+}

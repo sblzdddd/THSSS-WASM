@@ -151,3 +151,6 @@ THSSS.Browser/wwwroot/assets/
 
 # Directory runtime staged for eagler-touhou. Regenerate with stage-eagler-runtime.mjs.
 /build-eagler/
+
+# esbuild, used only to bundle the directory runtime.
+/node_modules/
