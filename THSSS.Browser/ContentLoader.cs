@@ -275,7 +275,7 @@ namespace Thsss.Browser
 			{
 				return;
 			}
-			Dictionary<string, string> map = JsonSerializer.Deserialize<Dictionary<string, string>>(json);
+			Dictionary<string, string> map = JsonSerializer.Deserialize(json, SaveJsonContext.Default.DictionaryStringString);
 			if (map == null)
 			{
 				return;
