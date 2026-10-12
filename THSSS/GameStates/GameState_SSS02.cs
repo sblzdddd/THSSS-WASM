@@ -35,7 +35,7 @@ namespace Shooting
 				{
 					base.StageData.C_History.PracticeLevel = 2;
 				}
-				base.StageData.ChangeBGM(".\\BGM\\Stage02.wav", (this.testStartTime + 60) * 44100 / 60, 0, 255, 1194228, 6866370);
+				base.StageData.ChangeBGM(".\\BGM\\Stage02.ogg", (this.testStartTime + 60) * 44100 / 60, 0, 255, 1194228, 6866370);
 				MusicTitle musicTitle = new MusicTitle(base.StageData, "灯火竹林", new Point(base.BoundRect.Width, base.BoundRect.Height - 16));
 				musicTitle.OriginalPosition = new PointF((float)base.BoundRect.Width, (float)(base.BoundRect.Height + 100));
 				musicTitle.Scale = 0.5f;

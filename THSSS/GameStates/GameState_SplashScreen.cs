@@ -168,24 +168,14 @@ namespace Shooting
 			particle.Active = true;
 			particle.Scale = (float)this.StageData.Ran.Next(25, 70) / 100f;
 			particle.LifeTime = 70;
+			for (int i = this.StageData.EffectList.Count - 1; i >= 0; i--)
+			{
+				this.StageData.EffectList[i].Ctrl();
+			}
 			if (this.GlobalData.LoadingList.Count > 0)
 			{
 #if BROWSER
-				int readyIndex = -1;
-				for (int n = 0; n < this.GlobalData.LoadingList.Count; n++)
-				{
-					if (Thsss.Browser.ContentLoader.IsFileReady(this.GlobalData.LoadingList[n]))
-					{
-						readyIndex = n;
-						break;
-					}
-				}
-				if (readyIndex >= 0)
-				{
-					string readyPath = this.GlobalData.LoadingList[readyIndex];
-					this.GlobalData.LoadingList.RemoveAt(readyIndex);
-					this.GlobalData.TextureObjectLoader(readyPath);
-				}
+				Thsss.Browser.TexturePump.Advance(this.GlobalData);
 #else
 				this.GlobalData.TextureObjectLoader(this.GlobalData.LoadingList[0]);
 				this.GlobalData.LoadingList.RemoveAt(0);
@@ -195,10 +185,6 @@ namespace Shooting
 
 		public virtual void Render()
 		{
-			for (int i = this.StageData.EffectList.Count - 1; i >= 0; i--)
-			{
-				this.StageData.EffectList[i].Ctrl();
-			}
 			this.SpriteMain.Begin(SpriteFlags.AlphaBlend);
 			this.Background.Show(false);
 			this.StageData.EffectList.ForEach(delegate(BaseEffect x)

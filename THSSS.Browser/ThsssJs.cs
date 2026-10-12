@@ -22,6 +22,21 @@ namespace Thsss.Browser
 		[JSImport("createTexture", "thsss.js")]
 		public static partial int CreateTexture(int width, int height, byte[] pixels);
 
+		[JSImport("beginImage", "thsss.js")]
+		public static partial int BeginImage(byte[] bytes);
+
+		[JSImport("imageState", "thsss.js")]
+		public static partial int ImageState(int id);
+
+		[JSImport("finishImage", "thsss.js")]
+		public static partial int FinishImage(int id);
+
+		[JSImport("imageWidth", "thsss.js")]
+		public static partial int ImageWidth(int id);
+
+		[JSImport("imageHeight", "thsss.js")]
+		public static partial int ImageHeight(int id);
+
 		[JSImport("createRenderTarget", "thsss.js")]
 		public static partial int CreateRenderTarget(int width, int height);
 
@@ -41,7 +56,7 @@ namespace Thsss.Browser
 		public static partial void SetBlend(bool enable, int src, int dst, int equation);
 
 		[JSImport("setDepth", "thsss.js")]
-		public static partial void SetDepth(bool enable);
+		public static partial void SetDepth(bool enable, bool write);
 
 		[JSImport("setCull", "thsss.js")]
 		public static partial void SetCull(int mode);

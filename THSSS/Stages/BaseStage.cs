@@ -313,10 +313,10 @@ namespace Shooting
 				{
 					x.HitCheckAll();
 				});
-				base.BulletList.ForEach(delegate(BaseBullet_Touhou x)
+				for (int i = 0; i < base.BulletList.Count; i++)
 				{
-					x.HitCheckAll();
-				});
+					base.BulletList[i].HitCheckAll();
+				}
 				if (base.Boss != null)
 				{
 					base.Boss.HitCheckAll();
@@ -335,7 +335,13 @@ namespace Shooting
 				base.MyPlane.ShowCenter();
 			}
 			base.SpriteMain.Draw2D(base.TextureObjectDictionary["TotalBackground"], 1f, 0f, new PointF(320f, 240f), 255);
-			base.DrawText(base.FPS.ToString("F1"), new Point(580, 460));
+			string fps = base.FPS.ToString("F1");
+			int fpsWidth = 0;
+			for (int i = 0; i < fps.Length; i++)
+			{
+				fpsWidth += fps[i] == '.' ? 10 : 16;
+			}
+			base.DrawText(fps, new Point(638 - fpsWidth, 460));
 		}
 
 		public virtual void Drama()
@@ -409,23 +415,25 @@ namespace Shooting
 				}
 			});
 			base.SpriteMain.End();
-			base.SpriteMain.Begin(SpriteFlags.AlphaBlend);
+			base.SpriteMain.Begin(SpriteFlags.AlphaBlend | SpriteFlags.SortTexture);
 			base.DeviceMain.SetRenderState(RenderState.SourceBlend, 5);
 			base.DeviceMain.SetRenderState(RenderState.DestinationBlend, 2);
-			base.BulletList.ForEach(delegate(BaseBullet_Touhou x)
+			for (int i = 0; i < base.BulletList.Count; i++)
 			{
-				if (x.Active)
+				BaseBullet_Touhou bullet = base.BulletList[i];
+				if (bullet.Active)
 				{
-					x.Show();
+					bullet.Show();
 				}
-			});
-			base.EffectList.ForEach(delegate(BaseEffect x)
+			}
+			for (int i = 0; i < base.EffectList.Count; i++)
 			{
-				if (x.Active)
+				BaseEffect effect = base.EffectList[i];
+				if (effect.Active)
 				{
-					x.Show();
+					effect.Show();
 				}
-			});
+			}
 			base.SpellList.ForEach(delegate(BaseObject x)
 			{
 				x.Show();
@@ -439,48 +447,54 @@ namespace Shooting
 			});
 			base.SpriteMain.End();
 			base.SpriteMain.Begin(SpriteFlags.AlphaBlend);
-			base.BulletList.ForEach(delegate(BaseBullet_Touhou x)
+			for (int i = 0; i < base.BulletList.Count; i++)
 			{
-				if (!x.Active && x.Layer < 0)
+				BaseBullet_Touhou bullet = base.BulletList[i];
+				if (!bullet.Active && bullet.Layer < 0)
 				{
-					x.Show();
+					bullet.Show();
 				}
-			});
-			base.BulletList.ForEach(delegate(BaseBullet_Touhou x)
+			}
+			for (int i = 0; i < base.BulletList.Count; i++)
 			{
-				if (!x.Active && x.Layer == 0)
+				BaseBullet_Touhou bullet = base.BulletList[i];
+				if (!bullet.Active && bullet.Layer == 0)
 				{
-					x.Show();
+					bullet.Show();
 				}
-			});
-			base.BulletList.ForEach(delegate(BaseBullet_Touhou x)
+			}
+			for (int i = 0; i < base.BulletList.Count; i++)
 			{
-				if (!x.Active && x.Layer > 0)
+				BaseBullet_Touhou bullet = base.BulletList[i];
+				if (!bullet.Active && bullet.Layer > 0)
 				{
-					x.Show();
+					bullet.Show();
 				}
-			});
-			base.EffectList.ForEach(delegate(BaseEffect x)
+			}
+			for (int i = 0; i < base.EffectList.Count; i++)
 			{
-				if (!x.Active && x.Layer < 0)
+				BaseEffect effect = base.EffectList[i];
+				if (!effect.Active && effect.Layer < 0)
 				{
-					x.Show();
+					effect.Show();
 				}
-			});
-			base.EffectList.ForEach(delegate(BaseEffect x)
+			}
+			for (int i = 0; i < base.EffectList.Count; i++)
 			{
-				if (!x.Active && x.Layer == 0)
+				BaseEffect effect = base.EffectList[i];
+				if (!effect.Active && effect.Layer == 0)
 				{
-					x.Show();
+					effect.Show();
 				}
-			});
-			base.EffectList.ForEach(delegate(BaseEffect x)
+			}
+			for (int i = 0; i < base.EffectList.Count; i++)
 			{
-				if (!x.Active && x.Layer > 0)
+				BaseEffect effect = base.EffectList[i];
+				if (!effect.Active && effect.Layer > 0)
 				{
-					x.Show();
+					effect.Show();
 				}
-			});
+			}
 			base.SpriteMain.End();
 			base.Particle3D.Show();
 			base.SpriteMain.Begin(SpriteFlags.AlphaBlend);
@@ -493,6 +507,14 @@ namespace Shooting
 			{
 				x.Show();
 			});
+			for (int i = 0; i < base.Background.BackgroundList.Count; i++)
+			{
+				BackgroundTransitionIn cover = base.Background.BackgroundList[i] as BackgroundTransitionIn;
+				if (cover != null)
+				{
+					cover.ShowLoading();
+				}
+			}
 			base.SpriteMain.End();
 			base.GlobalData.ScreenTexMan.End();
 			base.SpriteMain.Begin(SpriteFlags.AlphaBlend);

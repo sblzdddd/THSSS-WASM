@@ -87,16 +87,12 @@ namespace Shooting
 
 		public void Draw2D(TextureObject txtureObject, float scaleX, float scaleY, float rotationAngle, PointF position, PointF rotationCenter, Color color, bool mirrored)
 		{
-			Vector3 vector = new Vector3(rotationCenter.X, rotationCenter.Y, 0f);
-			Vector3 vector2 = new Vector3(position.X, position.Y, 0f);
-			Color4 color2 = new Color4(color);
-			Vector2 vector3 = new Vector2(rotationCenter.X, rotationCenter.Y);
-			Vector2 vector4 = new Vector2(position.X, position.Y);
-			Vector2 vector5 = vector3 + vector4;
-			Vector2 vector6 = (mirrored ? new Vector2(-scaleX, scaleY) : new Vector2(scaleX, scaleY));
-			this.sprite.Transform = Matrix.Transformation2D(vector4, 0f, vector6, vector4, rotationAngle, new Vector2(0f, 0f));
-			this.sprite.Draw(txtureObject.TXTure, new Rectangle?(txtureObject.PosRect), new Vector3?(vector), new Vector3?(vector2), color2);
-			this.sprite.Transform = Matrix.Identity;
+			if (txtureObject == null)
+			{
+				return;
+			}
+			float num = mirrored ? -scaleX : scaleX;
+			this.sprite.DrawSpriteQuad(txtureObject.TXTure, txtureObject.PosRect, rotationCenter.X, rotationCenter.Y, position.X, position.Y, num, scaleY, rotationAngle, (float)color.R / 255f, (float)color.G / 255f, (float)color.B / 255f, (float)color.A / 255f);
 		}
 
 		public void Dispose()

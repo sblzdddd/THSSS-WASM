@@ -216,9 +216,10 @@ namespace Shooting
 			if (this.SoundInitSuccess)
 			{
 				this.SoundDictionary = new Dictionary<string, XAudio2_Player>();
-				for (int i = 0; i < Directory.GetFiles(".\\Sound", "*.wav").Length; i++)
+				string[] files = Directory.GetFiles(".\\Sound", "*.wav");
+				for (int i = 0; i < files.Length; i++)
 				{
-					FileInfo fileInfo = new FileInfo(Directory.GetFiles(".\\Sound", "*.wav")[i]);
+					FileInfo fileInfo = new FileInfo(files[i]);
 					this.SoundDictionary.Add(fileInfo.Name, new XAudio2_Player(fileInfo.FullName, this.DeviceXaudio2)
 					{
 						Volume = this.SEVolume
@@ -240,46 +241,50 @@ namespace Shooting
 		{
 			if (File.Exists(imageFileName))
 			{
-				Bitmap bitmap = (Bitmap)Image.FromFile(imageFileName);
-				Rectangle rectangle = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
-				bitmap.Dispose();
 				int num = 0;
 				Texture texture;
-				while (!this.SetTexture(imageFileName, colorKey, rectangle, out texture) && num++ < 20)
+				while (!this.SetTexture(imageFileName, colorKey, new Rectangle(0, 0, 1, 1), out texture) && num++ < 20)
 				{
 				}
-				if (num >= 20)
+				if (texture == null)
 				{
 					MessageBox.Show(imageFileName + "纹理读取错误", "LoadTexture Error");
+					return;
 				}
-				FileInfo fileInfo = new FileInfo(imageFileName);
-				string text = fileInfo.FullName.Replace(fileInfo.Extension, ".txt");
-				if (File.Exists(text))
+				this.RegisterLoadedTexture(imageFileName, texture);
+			}
+		}
+
+		public void RegisterLoadedTexture(string imageFileName, Texture texture)
+		{
+			Rectangle rectangle = new Rectangle(0, 0, texture.Width, texture.Height);
+			FileInfo fileInfo = new FileInfo(imageFileName);
+			string text = fileInfo.FullName.Replace(fileInfo.Extension, ".txt");
+			if (File.Exists(text))
+			{
+				char[] array = new char[] { '\t' };
+				string[] array2 = File.ReadAllLines(text, Encoding.Default);
+				foreach (string text2 in array2)
 				{
-					char[] array = new char[] { '\t' };
-					string[] array2 = File.ReadAllLines(text, Encoding.Default);
-					foreach (string text2 in array2)
-					{
-						string[] array4 = text2.Split(array);
-						TextureObject textureObject = new TextureObject();
-						textureObject.TXTure = texture;
-						textureObject.PosRect = new Rectangle(Convert.ToInt32(array4[1]), Convert.ToInt32(array4[2]), Convert.ToInt32(array4[3]), Convert.ToInt32(array4[4]));
-						textureObject.OffsetX = Convert.ToInt32(array4[5]);
-						textureObject.OffsetY = Convert.ToInt32(array4[6]);
-						textureObject.SrcWidth = rectangle.Width;
-						textureObject.SrcHeight = rectangle.Height;
-						this.TextureObjectDictionary.Add(array4[0], textureObject);
-					}
-				}
-				else
-				{
+					string[] array4 = text2.Split(array);
 					TextureObject textureObject = new TextureObject();
 					textureObject.TXTure = texture;
-					textureObject.PosRect = new Rectangle(0, 0, rectangle.Width, rectangle.Height);
+					textureObject.PosRect = new Rectangle(Convert.ToInt32(array4[1]), Convert.ToInt32(array4[2]), Convert.ToInt32(array4[3]), Convert.ToInt32(array4[4]));
+					textureObject.OffsetX = Convert.ToInt32(array4[5]);
+					textureObject.OffsetY = Convert.ToInt32(array4[6]);
 					textureObject.SrcWidth = rectangle.Width;
 					textureObject.SrcHeight = rectangle.Height;
-					this.TextureObjectDictionary.Add(fileInfo.Name.Replace(".png", ""), textureObject);
+					this.TextureObjectDictionary.Add(array4[0], textureObject);
 				}
+			}
+			else
+			{
+				TextureObject textureObject = new TextureObject();
+				textureObject.TXTure = texture;
+				textureObject.PosRect = new Rectangle(0, 0, rectangle.Width, rectangle.Height);
+				textureObject.SrcWidth = rectangle.Width;
+				textureObject.SrcHeight = rectangle.Height;
+				this.TextureObjectDictionary.Add(fileInfo.Name.Replace(".png", ""), textureObject);
 			}
 		}
 

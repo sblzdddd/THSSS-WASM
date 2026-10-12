@@ -36,7 +36,7 @@ namespace Shooting.Planes.Story
 			if (base.Time == this.Conv.Count)
 			{
 				base.Boss.Enabled = true;
-				base.StageData.ChangeBGM(".\\BGM\\Boss02.wav", 0, 0, 255, 327663, 3504627);
+				base.StageData.ChangeBGM(".\\BGM\\Boss02.ogg", 0, 0, 255, 327663, 3504627);
 				MusicTitle musicTitle = new MusicTitle(base.StageData, "疾风闪电", new Point(base.BoundRect.Width, base.BoundRect.Height - 16));
 				musicTitle.OriginalPosition = new PointF((float)base.BoundRect.Width, (float)(base.BoundRect.Height + 100));
 				musicTitle.Scale = 0.5f;

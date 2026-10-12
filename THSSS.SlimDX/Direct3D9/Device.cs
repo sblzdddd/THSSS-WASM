@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using SlimDX.Gl;
 
@@ -24,6 +23,8 @@ namespace SlimDX.Direct3D9
 		public bool AlphaBlendEnable = true;
 
 		public bool DepthEnable = true;
+
+		public bool DepthWrite = true;
 
 		public bool Lighting = true;
 
@@ -54,6 +55,68 @@ namespace SlimDX.Direct3D9
 		private Matrix view = Matrix.Identity;
 
 		private Matrix projection = Matrix.Identity;
+
+		private float[] vertSrc = new float[576];
+
+		private float[] vertDst = new float[576];
+
+		private readonly float[] worldBuf = new float[16];
+
+		private readonly float[] viewBuf = new float[16];
+
+		private readonly float[] projBuf = new float[16];
+
+		private static readonly float[] IdentityWorld = new float[]
+		{
+			1f, 0f, 0f, 0f,
+			0f, 1f, 0f, 0f,
+			0f, 0f, 1f, 0f,
+			0f, 0f, 0f, 1f
+		};
+
+		private float[] worldBatch = new float[8192];
+
+		private int worldBatchCount;
+
+		private bool worldBatchOpen;
+
+		private int worldBatchTex;
+
+		private int worldBatchTarget;
+
+		private bool worldBatchAlpha;
+
+		private int worldBatchSrc;
+
+		private int worldBatchDst;
+
+		private int worldBatchEq;
+
+		private bool worldBatchDepth;
+
+		private bool worldBatchWrite;
+
+		private int worldBatchCull;
+
+		private bool worldBatchFog;
+
+		private float worldBatchFogStart;
+
+		private float worldBatchFogEnd;
+
+		private int worldBatchFogColor;
+
+		private int batchVx;
+
+		private int batchVy;
+
+		private int batchVw;
+
+		private int batchVh;
+
+		private int batchCw;
+
+		private int batchCh;
 
 		private Surface backBuffer;
 
@@ -109,6 +172,7 @@ namespace SlimDX.Direct3D9
 
 		public void Clear(ClearFlags flags, Color4 color, float z, int stencil)
 		{
+			this.FlushWorldBatch();
 			this.ApplyTarget();
 			this.ApplyViewport();
 			GlHost.Need().Clear(color.Red, color.Green, color.Blue, color.Alpha, (flags & ClearFlags.Target) != 0, (flags & ClearFlags.ZBuffer) != 0);
@@ -120,10 +184,12 @@ namespace SlimDX.Direct3D9
 
 		public void EndScene()
 		{
+			this.FlushWorldBatch();
 		}
 
 		public void Present(Present flags)
 		{
+			this.FlushWorldBatch();
 			this.ApplyTarget();
 		}
 
@@ -183,6 +249,10 @@ namespace SlimDX.Direct3D9
 
 		public void SetTransform(TransformState state, Matrix matrix)
 		{
+			if (state == TransformState.View || state == TransformState.Projection)
+			{
+				this.FlushWorldBatch();
+			}
 			if (state == TransformState.World)
 			{
 				this.world = matrix;
@@ -218,6 +288,7 @@ namespace SlimDX.Direct3D9
 
 		public void SetRenderTarget(int index, Surface surface)
 		{
+			this.FlushWorldBatch();
 			this.currentColor = surface ?? this.backBuffer;
 			this.ApplyTarget();
 		}
@@ -238,50 +309,142 @@ namespace SlimDX.Direct3D9
 			{
 				return;
 			}
-			int num = primitiveType == PrimitiveType.TriangleList ? primitiveCount * 3 : primitiveCount + 2;
-			List<float> list = new List<float>(num * 9);
-			for (int i = 0; i < num; i++)
+			int srcCount = primitiveType == PrimitiveType.TriangleList ? primitiveCount * 3 : primitiveCount + 2;
+			if (startVertex < 0 || srcCount <= 0)
 			{
-				this.AppendVertex(list, startVertex + i);
+				return;
 			}
-			List<float> list2 = new List<float>();
-			if (primitiveType == PrimitiveType.TriangleList || primitiveType == PrimitiveType.TriangleFan)
+			this.EnsureDecoded();
+			if (this.stream.Decoded == null || startVertex + srcCount > this.stream.DecodedCount)
 			{
-				list2 = list;
+				return;
 			}
-			else
+			if (Sprite.Current != null)
+			{
+				Sprite.Current.FlushPending();
+			}
+			int tex = this.boundTexture != null && !this.boundTexture.Disposed ? this.boundTexture.GlId : 0;
+			if (this.worldBatchOpen && !this.BatchSame(tex))
+			{
+				this.FlushWorldBatch();
+			}
+			if (!this.worldBatchOpen)
+			{
+				this.OpenBatch(tex);
+			}
+			int outVerts = primitiveType == PrimitiveType.TriangleList ? srcCount : primitiveCount * 3;
+			this.EnsureBatchRoom(outVerts * 9);
+			float mr = 1f;
+			float mg = 1f;
+			float mb = 1f;
+			float ma = 1f;
+			if (this.Lighting)
+			{
+				Color4 color = this.Material.Diffuse;
+				mr = color.Red;
+				mg = color.Green;
+				mb = color.Blue;
+				ma = color.Alpha;
+			}
+			if (primitiveType == PrimitiveType.TriangleStrip)
 			{
 				for (int j = 0; j < primitiveCount; j++)
 				{
-					this.CopyVert(list, list2, j);
-					this.CopyVert(list, list2, j + 1);
-					this.CopyVert(list, list2, j + 2);
+					this.BakeVertex(startVertex + j, mr, mg, mb, ma);
+					this.BakeVertex(startVertex + j + 1, mr, mg, mb, ma);
+					this.BakeVertex(startVertex + j + 2, mr, mg, mb, ma);
 				}
 			}
-			if (primitiveType == PrimitiveType.TriangleFan && primitiveCount > 0)
+			else if (primitiveType == PrimitiveType.TriangleFan)
 			{
-				list2 = new List<float>();
 				for (int k = 0; k < primitiveCount; k++)
 				{
-					this.CopyVert(list, list2, 0);
-					this.CopyVert(list, list2, k + 1);
-					this.CopyVert(list, list2, k + 2);
+					this.BakeVertex(startVertex, mr, mg, mb, ma);
+					this.BakeVertex(startVertex + k + 1, mr, mg, mb, ma);
+					this.BakeVertex(startVertex + k + 2, mr, mg, mb, ma);
 				}
 			}
-			this.ApplyTarget();
-			this.ApplyViewport();
-			GlHost.Need().SetBlend(this.AlphaBlendEnable, this.BlendSrc, this.BlendDst, this.BlendEquation);
-			GlHost.Need().SetDepth(this.DepthEnable);
-			GlHost.Need().SetCull(this.CullMode);
-			Color4 color = this.Lighting ? this.Material.Diffuse : new Color4(1f, 1f, 1f, 1f);
-			float num2 = (float)((this.FogColor >> 16) & 255) / 255f;
-			float num3 = (float)((this.FogColor >> 8) & 255) / 255f;
-			float num4 = (float)(this.FogColor & 255) / 255f;
-			int num5 = this.boundTexture != null && !this.boundTexture.Disposed ? this.boundTexture.GlId : 0;
-			GlHost.Need().DrawFixed(num5, list2.ToArray(), this.world.ToArray(), this.view.ToArray(), this.projection.ToArray(), color.Red, color.Green, color.Blue, color.Alpha, this.Lighting ? 1f : 0f, this.FogEnable ? 1f : 0f, this.FogStart, this.FogEnd, num2, num3, num4);
+			else
+			{
+				for (int i = 0; i < srcCount; i++)
+				{
+					this.BakeVertex(startVertex + i, mr, mg, mb, ma);
+				}
+			}
 		}
 
-		private void AppendVertex(List<float> dest, int index)
+		public void FlushWorldBatch()
+		{
+			if (!this.worldBatchOpen)
+			{
+				return;
+			}
+			this.worldBatchOpen = false;
+			int count = this.worldBatchCount;
+			this.worldBatchCount = 0;
+			if (count < 9)
+			{
+				return;
+			}
+			float fr = (float)((this.worldBatchFogColor >> 16) & 255) / 255f;
+			float fg = (float)((this.worldBatchFogColor >> 8) & 255) / 255f;
+			float fb = (float)(this.worldBatchFogColor & 255) / 255f;
+			Store(this.view, this.viewBuf);
+			Store(this.projection, this.projBuf);
+			IGlApi api = GlHost.Need();
+			api.BindTarget(this.worldBatchTarget);
+			api.SetViewport(this.batchVx, this.batchVy, this.batchVw, this.batchVh, this.batchCw, this.batchCh);
+			api.SetBlend(this.worldBatchAlpha, this.worldBatchSrc, this.worldBatchDst, this.worldBatchEq);
+			api.SetDepth(this.worldBatchDepth, this.worldBatchWrite);
+			api.SetCull(this.worldBatchCull);
+			api.DrawFixed(this.worldBatchTex, this.worldBatch.AsSpan(0, count), IdentityWorld.AsSpan(), this.viewBuf.AsSpan(), this.projBuf.AsSpan(), 1f, 1f, 1f, 1f, 0f, this.worldBatchFog ? 1f : 0f, this.worldBatchFogStart, this.worldBatchFogEnd, fr, fg, fb);
+		}
+
+		private static void Store(Matrix matrix, float[] dest)
+		{
+			dest[0] = matrix.M11;
+			dest[1] = matrix.M12;
+			dest[2] = matrix.M13;
+			dest[3] = matrix.M14;
+			dest[4] = matrix.M21;
+			dest[5] = matrix.M22;
+			dest[6] = matrix.M23;
+			dest[7] = matrix.M24;
+			dest[8] = matrix.M31;
+			dest[9] = matrix.M32;
+			dest[10] = matrix.M33;
+			dest[11] = matrix.M34;
+			dest[12] = matrix.M41;
+			dest[13] = matrix.M42;
+			dest[14] = matrix.M43;
+			dest[15] = matrix.M44;
+		}
+
+		private static void EnsureScratch(ref float[] buffer, int floats)
+		{
+			if (buffer.Length >= floats)
+			{
+				return;
+			}
+			int num = buffer.Length;
+			while (num < floats)
+			{
+				num *= 2;
+			}
+			buffer = new float[num];
+		}
+
+		private static void Copy9(float[] src, int srcVert, float[] dst, int dstVert)
+		{
+			int num = srcVert * 9;
+			int num2 = dstVert * 9;
+			for (int i = 0; i < 9; i++)
+			{
+				dst[num2 + i] = num + i < src.Length ? src[num + i] : 0f;
+			}
+		}
+
+		private void WriteVertex(float[] dest, int vertexIndex, int index)
 		{
 			byte[] data = this.stream.Data;
 			int num = index * this.streamStride;
@@ -334,24 +497,16 @@ namespace SlimDX.Direct3D9
 					}
 				}
 			}
-			dest.Add(num2);
-			dest.Add(num3);
-			dest.Add(num4);
-			dest.Add(num5);
-			dest.Add(num6);
-			dest.Add(num7);
-			dest.Add(num8);
-			dest.Add(num9);
-			dest.Add(num10);
-		}
-
-		private void CopyVert(List<float> src, List<float> dst, int index)
-		{
-			int num = index * 9;
-			for (int i = 0; i < 9; i++)
-			{
-				dst.Add(num + i < src.Count ? src[num + i] : 0f);
-			}
+			int num13 = vertexIndex * 9;
+			dest[num13] = num2;
+			dest[num13 + 1] = num3;
+			dest[num13 + 2] = num4;
+			dest[num13 + 3] = num5;
+			dest[num13 + 4] = num6;
+			dest[num13 + 5] = num7;
+			dest[num13 + 6] = num8;
+			dest[num13 + 7] = num9;
+			dest[num13 + 8] = num10;
 		}
 
 		private static float ReadSingle(byte[] data, int offset)
@@ -370,6 +525,113 @@ namespace SlimDX.Direct3D9
 				return -1;
 			}
 			return BitConverter.ToInt32(data, offset);
+		}
+
+		private void EnsureDecoded()
+		{
+			VertexBuffer buffer = this.stream;
+			int stride = this.streamStride;
+			if (buffer.Data == null || stride <= 0)
+			{
+				return;
+			}
+			int count = buffer.Data.Length / stride;
+			if (!buffer.DecodeDirty && buffer.DecodedDecl == this.VertexDeclaration && buffer.Decoded != null && buffer.DecodedCount == count)
+			{
+				return;
+			}
+			if (buffer.Decoded == null || buffer.Decoded.Length < count * 9)
+			{
+				buffer.Decoded = new float[count * 9 > 0 ? count * 9 : 9];
+			}
+			for (int i = 0; i < count; i++)
+			{
+				this.WriteVertex(buffer.Decoded, i, i);
+			}
+			buffer.DecodedCount = count;
+			buffer.DecodedDecl = this.VertexDeclaration;
+			buffer.DecodeDirty = false;
+		}
+
+		private bool BatchSame(int tex)
+		{
+			Viewport viewport = this.Viewport;
+			int width = viewport.Width > 0 ? viewport.Width : this.BackBufferWidth;
+			int height = viewport.Height > 0 ? viewport.Height : this.BackBufferHeight;
+			int target = this.currentColor != null ? this.currentColor.GlTextureId : 0;
+			return this.worldBatchTex == tex && this.worldBatchTarget == target && this.worldBatchAlpha == this.AlphaBlendEnable && this.worldBatchSrc == this.BlendSrc && this.worldBatchDst == this.BlendDst && this.worldBatchEq == this.BlendEquation && this.worldBatchDepth == this.DepthEnable && this.worldBatchWrite == this.DepthWrite && this.worldBatchCull == this.CullMode && this.worldBatchFog == this.FogEnable && this.worldBatchFogStart == this.FogStart && this.worldBatchFogEnd == this.FogEnd && this.worldBatchFogColor == this.FogColor && this.batchVx == viewport.X && this.batchVy == viewport.Y && this.batchVw == width && this.batchVh == height && this.batchCw == this.BackBufferWidth && this.batchCh == this.BackBufferHeight;
+		}
+
+		private void OpenBatch(int tex)
+		{
+			Viewport viewport = this.Viewport;
+			this.worldBatchOpen = true;
+			this.worldBatchCount = 0;
+			this.worldBatchTex = tex;
+			this.worldBatchTarget = this.currentColor != null ? this.currentColor.GlTextureId : 0;
+			this.worldBatchAlpha = this.AlphaBlendEnable;
+			this.worldBatchSrc = this.BlendSrc;
+			this.worldBatchDst = this.BlendDst;
+			this.worldBatchEq = this.BlendEquation;
+			this.worldBatchDepth = this.DepthEnable;
+			this.worldBatchWrite = this.DepthWrite;
+			this.worldBatchCull = this.CullMode;
+			this.worldBatchFog = this.FogEnable;
+			this.worldBatchFogStart = this.FogStart;
+			this.worldBatchFogEnd = this.FogEnd;
+			this.worldBatchFogColor = this.FogColor;
+			this.batchVx = viewport.X;
+			this.batchVy = viewport.Y;
+			this.batchVw = viewport.Width > 0 ? viewport.Width : this.BackBufferWidth;
+			this.batchVh = viewport.Height > 0 ? viewport.Height : this.BackBufferHeight;
+			this.batchCw = this.BackBufferWidth;
+			this.batchCh = this.BackBufferHeight;
+		}
+
+		private void EnsureBatchRoom(int floats)
+		{
+			if (this.worldBatchCount > 0 && this.worldBatchCount + floats > 65536)
+			{
+				int tex = this.worldBatchTex;
+				this.FlushWorldBatch();
+				this.OpenBatch(tex);
+			}
+			if (this.worldBatchCount + floats > this.worldBatch.Length)
+			{
+				int num = this.worldBatch.Length;
+				while (num < this.worldBatchCount + floats)
+				{
+					num *= 2;
+				}
+				float[] next = new float[num];
+				if (this.worldBatchCount > 0)
+				{
+					Array.Copy(this.worldBatch, next, this.worldBatchCount);
+				}
+				this.worldBatch = next;
+			}
+		}
+
+		private void BakeVertex(int srcIndex, float mr, float mg, float mb, float ma)
+		{
+			float[] src = this.stream.Decoded;
+			int num = srcIndex * 9;
+			float x = src[num];
+			float y = src[num + 1];
+			float z = src[num + 2];
+			Matrix matrix = this.world;
+			int dest = this.worldBatchCount;
+			float[] data = this.worldBatch;
+			data[dest] = matrix.M11 * x + matrix.M21 * y + matrix.M31 * z + matrix.M41;
+			data[dest + 1] = matrix.M12 * x + matrix.M22 * y + matrix.M32 * z + matrix.M42;
+			data[dest + 2] = matrix.M13 * x + matrix.M23 * y + matrix.M33 * z + matrix.M43;
+			data[dest + 3] = src[num + 3];
+			data[dest + 4] = src[num + 4];
+			data[dest + 5] = src[num + 5] * mr;
+			data[dest + 6] = src[num + 6] * mg;
+			data[dest + 7] = src[num + 7] * mb;
+			data[dest + 8] = src[num + 8] * ma;
+			this.worldBatchCount = dest + 9;
 		}
 
 		private void ApplyInt(RenderState state, int value)
@@ -393,6 +655,10 @@ namespace SlimDX.Direct3D9
 			else if (state == RenderState.ZEnable)
 			{
 				this.DepthEnable = value != 0;
+			}
+			else if (state == RenderState.ZWriteEnable)
+			{
+				this.DepthWrite = value != 0;
 			}
 			else if (state == RenderState.Lighting)
 			{

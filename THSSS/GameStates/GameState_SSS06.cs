@@ -35,7 +35,7 @@ namespace Shooting
 				{
 					base.StageData.C_History.PracticeLevel = 6;
 				}
-				base.StageData.ChangeBGM(".\\BGM\\Stage06.wav", (this.testStartTime + 60) * 44100 / 60, 0, 255, 0, 6220746);
+				base.StageData.ChangeBGM(".\\BGM\\Stage06.ogg", (this.testStartTime + 60) * 44100 / 60, 0, 255, 0, 6220746);
 				MusicTitle musicTitle = new MusicTitle(base.StageData, "银河的彼方", new Point(base.BoundRect.Width, base.BoundRect.Height - 16));
 				musicTitle.OriginalPosition = new PointF((float)base.BoundRect.Width, (float)(base.BoundRect.Height + 100));
 				musicTitle.Scale = 0.5f;

@@ -45,7 +45,7 @@ namespace Shooting.Planes.Story
 			if (base.Time == 10 && this.LastTime < base.Time)
 			{
 				this.LastTime = base.Time;
-				base.StageData.ChangeBGM(".\\BGM\\Boss01.wav", 0, 0, 255, 754110, 3294270);
+				base.StageData.ChangeBGM(".\\BGM\\Boss01.ogg", 0, 0, 255, 754110, 3294270);
 			}
 			if (base.Time == this.Conv.Count)
 			{

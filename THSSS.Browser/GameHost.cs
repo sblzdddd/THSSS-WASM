@@ -16,6 +16,8 @@ namespace Thsss.Browser
 
 		private static int frame;
 
+		private static bool unlockFps;
+
 		private static readonly Dictionary<string, string> hashes = new Dictionary<string, string>();
 
 		public static async System.Threading.Tasks.Task Start()
@@ -34,7 +36,36 @@ namespace Thsss.Browser
 				throw new InvalidOperationException("Game_Main did not finish device init.");
 			}
 			FlushSaves();
+			try
+			{
+				unlockFps = new INI_RW(".\\Setting.INI").IniReadValue("Mode", "UnlockFPS") == "1";
+			}
+			catch (Exception)
+			{
+				unlockFps = false;
+			}
+			Game_Main.RefreshUnlocked = unlockFps;
 			ThsssJs.SetStatus("Device ready. Click the canvas. Arrows move, Z shoots, X bombs, Shift slows, Esc pauses.");
+		}
+
+		[System.Runtime.InteropServices.JavaScript.JSExport]
+		public static int FpsUnlocked()
+		{
+			return unlockFps ? 1 : 0;
+		}
+
+		[System.Runtime.InteropServices.JavaScript.JSExport]
+		public static void SetFpsUnlocked(int value)
+		{
+			unlockFps = value != 0;
+			Game_Main.RefreshUnlocked = unlockFps;
+			try
+			{
+				new INI_RW(".\\Setting.INI").IniWriteValue("Mode", "UnlockFPS", unlockFps ? "1" : "0");
+			}
+			catch (Exception)
+			{
+			}
 		}
 
 		[System.Runtime.InteropServices.JavaScript.JSExport]
@@ -59,6 +90,50 @@ namespace Thsss.Browser
 			if (frame % 30 == 0)
 			{
 				FlushSaves();
+			}
+		}
+
+		[System.Runtime.InteropServices.JavaScript.JSExport]
+		public static void Simulate()
+		{
+			if (game == null || !game.initSuccess)
+			{
+				return;
+			}
+			try
+			{
+				game.SimulateOnly();
+			}
+			catch (Exception ex)
+			{
+				ThsssJs.SetStatus(ex.ToString());
+				Console.WriteLine(ex);
+				game = null;
+				return;
+			}
+			frame++;
+			if (frame % 30 == 0)
+			{
+				FlushSaves();
+			}
+		}
+
+		[System.Runtime.InteropServices.JavaScript.JSExport]
+		public static void Draw(float alpha)
+		{
+			if (game == null || !game.initSuccess)
+			{
+				return;
+			}
+			try
+			{
+				game.DrawOnly(alpha);
+			}
+			catch (Exception ex)
+			{
+				ThsssJs.SetStatus(ex.ToString());
+				Console.WriteLine(ex);
+				game = null;
 			}
 		}
 

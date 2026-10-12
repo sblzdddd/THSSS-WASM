@@ -17,11 +17,21 @@ namespace Shooting
 
 		public PointF OriginalPosition { get; set; }
 
+		public static float PresentLerp = 1f;
+
 		public PointF Position
 		{
 			get
 			{
-				return new PointF(this.OriginalPosition.X + (float)this.BoundRect.Left, this.OriginalPosition.Y + (float)this.BoundRect.Top);
+				float x = this.OriginalPosition.X;
+				float y = this.OriginalPosition.Y;
+				if (BaseObject.PresentLerp < 1f && this.hasPrev)
+				{
+					float t = BaseObject.PresentLerp;
+					x = this.prevX + (x - this.prevX) * t;
+					y = this.prevY + (y - this.prevY) * t;
+				}
+				return new PointF(x + (float)this.BoundRect.Left, y + (float)this.BoundRect.Top);
 			}
 			set
 			{
@@ -156,7 +166,14 @@ namespace Shooting
 				{
 					value += 6.283185307179586;
 				}
+				if (this.dirReady && value == this.direction)
+				{
+					return;
+				}
 				this.direction = value;
+				this.dirCos = MathF.Cos((float)value);
+				this.dirSin = MathF.Sin((float)value);
+				this.dirReady = true;
 			}
 		}
 
@@ -829,21 +846,17 @@ namespace Shooting
 
 		public virtual void Move()
 		{
-			bool flag;
-			if (this.DestPoint != new PointF(0f, 0f))
-			{
-				PointF destPoint = this.DestPoint;
-				flag = 1 == 0;
-			}
-			else
-			{
-				flag = true;
-			}
-			if (!flag)
+			if (this.DestPoint.X != 0f || this.DestPoint.Y != 0f)
 			{
 				this.MovePoint();
 			}
-			this.Position = new PointF((float)((double)this.Position.X + (double)this.Velocity * Math.Cos(this.Direction) * (double)this.scaleX), (float)((double)this.Position.Y + (double)this.Velocity * Math.Sin(this.Direction) * (double)this.scaleY));
+			if (!this.dirReady)
+			{
+				this.dirCos = MathF.Cos((float)this.direction);
+				this.dirSin = MathF.Sin((float)this.direction);
+				this.dirReady = true;
+			}
+			this.OriginalPosition = new PointF(this.OriginalPosition.X + this.Velocity * this.dirCos * this.scaleX, this.OriginalPosition.Y + this.Velocity * this.dirSin * this.scaleY);
 		}
 
 		public void MovePoint()
@@ -922,9 +935,15 @@ namespace Shooting
 			{
 				if (this.ScaleLength == this.ScaleWidth)
 				{
-					if (this.GetDistance(Target) - (double)((float)Target.Region * Target.Scale) < (double)(Radius * this.Scale))
+					float reach = Radius * this.Scale + (float)Target.Region * Target.Scale;
+					if (reach > 0f)
 					{
-						return true;
+						float dx = this.OriginalPosition.X - Target.OriginalPosition.X;
+						float dy = this.OriginalPosition.Y - Target.OriginalPosition.Y;
+						if (dx * dx + dy * dy < reach * reach)
+						{
+							return true;
+						}
 					}
 				}
 				else
@@ -954,8 +973,21 @@ namespace Shooting
 		{
 		}
 
+		protected void PlaceAt(float x, float y)
+		{
+			if (this.hasPrev)
+			{
+				this.prevX += x - this.OriginalPosition.X;
+				this.prevY += y - this.OriginalPosition.Y;
+			}
+			this.OriginalPosition = new PointF(x, y);
+		}
+
 		public virtual void Ctrl()
 		{
+			this.prevX = this.OriginalPosition.X;
+			this.prevY = this.OriginalPosition.Y;
+			this.hasPrev = true;
 			if (this.Enabled)
 			{
 				this.Time++;
@@ -987,40 +1019,46 @@ namespace Shooting
 					this.Direction = Math.Atan2((double)num2 * Math.Sin(num) + (double)this.Ay, (double)num2 * Math.Cos(num) + (double)this.Ax);
 				}
 				this.Velocity += this.Accelerate;
-				this.AngleDegree += (double)this.AngularVelocityDegree;
-				this.DirectionDegree += (double)this.DirectionVelocityDegree;
+				if (this.AngularVelocityDegree != 0f)
+				{
+					this.AngleDegree += (double)this.AngularVelocityDegree;
+				}
+				if (this.DirectionVelocityDegree != 0f)
+				{
+					this.DirectionDegree += (double)this.DirectionVelocityDegree;
+				}
 				this.TransparentValueF += this.TransparentVelocity;
 				this.ScaleLength += this.ScaleVL;
 				this.ScaleWidth += this.ScaleVW;
-				if (this.AccelerateDictionary.ContainsKey(this.Time))
+				if (this.AccelerateDictionary.Count > 0 && this.AccelerateDictionary.ContainsKey(this.Time))
 				{
 					this.Accelerate = this.AccelerateDictionary[this.Time];
 				}
-				if (this.VelocityDictionary.ContainsKey(this.Time))
+				if (this.VelocityDictionary.Count > 0 && this.VelocityDictionary.ContainsKey(this.Time))
 				{
 					this.Velocity = this.VelocityDictionary[this.Time];
 				}
-				if (this.DirectionVelocityDegreeDictionary.ContainsKey(this.Time))
+				if (this.DirectionVelocityDegreeDictionary.Count > 0 && this.DirectionVelocityDegreeDictionary.ContainsKey(this.Time))
 				{
 					this.DirectionVelocityDegree = this.DirectionVelocityDegreeDictionary[this.Time];
 				}
-				if (this.DirectionDegreeDictionary.ContainsKey(this.Time))
+				if (this.DirectionDegreeDictionary.Count > 0 && this.DirectionDegreeDictionary.ContainsKey(this.Time))
 				{
 					this.DirectionDegree = (double)this.DirectionDegreeDictionary[this.Time];
 				}
-				if (this.DestPointDictionary.ContainsKey(this.Time))
+				if (this.DestPointDictionary.Count > 0 && this.DestPointDictionary.ContainsKey(this.Time))
 				{
 					this.DestPoint = this.DestPointDictionary[this.Time];
 				}
-				if (this.TransparentVelocityDictionary.ContainsKey(this.Time))
+				if (this.TransparentVelocityDictionary.Count > 0 && this.TransparentVelocityDictionary.ContainsKey(this.Time))
 				{
 					this.TransparentVelocity = this.TransparentVelocityDictionary[this.Time];
 				}
-				if (this.ScaleWidthVelocityDictionary.ContainsKey(this.Time))
+				if (this.ScaleWidthVelocityDictionary.Count > 0 && this.ScaleWidthVelocityDictionary.ContainsKey(this.Time))
 				{
 					this.ScaleVW = this.ScaleWidthVelocityDictionary[this.Time];
 				}
-				if (this.ScaleLengthVelocityDictionary.ContainsKey(this.Time))
+				if (this.ScaleLengthVelocityDictionary.Count > 0 && this.ScaleLengthVelocityDictionary.ContainsKey(this.Time))
 				{
 					this.ScaleVL = this.ScaleLengthVelocityDictionary[this.Time];
 				}
@@ -1173,6 +1211,15 @@ namespace Shooting
 		{
 		}
 
+		[System.NonSerialized]
+		private float prevX;
+
+		[System.NonSerialized]
+		private float prevY;
+
+		[System.NonSerialized]
+		private bool hasPrev;
+
 		private float velocity = 0f;
 
 		private float maxVelocity = 100f;
@@ -1180,6 +1227,12 @@ namespace Shooting
 		private float minVelocity = -100f;
 
 		private double direction = 0.0;
+
+		private float dirCos = 1f;
+
+		private float dirSin;
+
+		private bool dirReady;
 
 		private bool enabled = true;
 

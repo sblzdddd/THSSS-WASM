@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
+using System.Text;
 using System.Text.Json;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace Thsss.Browser
@@ -14,17 +14,15 @@ namespace Thsss.Browser
 
 		private static readonly object readyLock = new object();
 
-		private static int backgroundLeft;
+		private const string ArchiveName = "assets/thsss.dat";
 
-		private static Task backgroundTask;
-
-		private static readonly byte[] TinyPng = Convert.FromBase64String("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==");
+		private const string SoundIndex = "_thsss/sound.txt";
 
 		public static bool BackgroundIdle
 		{
 			get
 			{
-				return Volatile.Read(ref backgroundLeft) == 0;
+				return true;
 			}
 		}
 
@@ -59,35 +57,20 @@ namespace Thsss.Browser
 			{
 				Console.WriteLine("Using default directory: " + ex.Message);
 			}
-			ThsssJs.SetStatus("Fetching content list…");
+			ThsssJs.SetStatus("Fetching content…");
 			HttpClient client = new HttpClient();
+			client.Timeout = System.Threading.Timeout.InfiniteTimeSpan;
 			client.BaseAddress = new Uri(ThsssJs.PageBase());
-			string manifest = await client.GetStringAsync("assets/manifest.txt");
-			string[] lines = manifest.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-			List<string> priority = new List<string>();
-			List<string> rest = new List<string>();
-			foreach (string line in lines)
+			try
 			{
-				string rel = line.Trim().Replace('\\', '/');
-				if (rel.Length == 0 || rel == "manifest.txt" || rel.StartsWith("BGM/", StringComparison.OrdinalIgnoreCase))
+				using (Stream stream = await client.GetStreamAsync(ArchiveName))
 				{
-					continue;
+					await UnpackAsync(stream);
 				}
-				if (IsSound(rel))
-				{
-					Touch(rel);
-					continue;
-				}
-				if (IsPriority(rel))
-				{
-					priority.Add(rel);
-					continue;
-				}
-				if (IsImage(rel))
-				{
-					Touch(rel);
-				}
-				rest.Add(rel);
+			}
+			finally
+			{
+				client.Dispose();
 			}
 			EnsureDir("Sound");
 			EnsureDir("BPic");
@@ -98,103 +81,153 @@ namespace Thsss.Browser
 			EnsureDir("Image");
 			EnsureDir("Model");
 			EnsureDir("Story");
-			await FetchGroup(client, priority, true);
+			if (File.Exists(SoundIndex))
+			{
+				string[] lines = File.ReadAllLines(SoundIndex);
+				foreach (string line in lines)
+				{
+					string rel = line.Trim().Replace('\\', '/');
+					if (rel.StartsWith("Sound/", StringComparison.OrdinalIgnoreCase) && rel.EndsWith(".wav", StringComparison.OrdinalIgnoreCase))
+					{
+						Touch(rel);
+					}
+				}
+			}
 			OverlaySaves();
 			if (!File.Exists("Setting.INI"))
 			{
 				File.WriteAllText("Setting.INI", DefaultIni);
 			}
-			if (rest.Count == 0)
-			{
-				client.Dispose();
-			}
-			else
-			{
-				Interlocked.Exchange(ref backgroundLeft, rest.Count);
-				backgroundTask = FetchRest(client, rest);
-			}
 			ThsssJs.SetStatus("Content ready.");
 		}
 
-		private static async Task FetchRest(HttpClient client, List<string> rest)
+		private static async Task UnpackAsync(Stream input)
 		{
-			try
+			byte[] magic = new byte[4];
+			await ReadExactAsync(input, magic, 4);
+			if (magic[0] != (byte)'T' || magic[1] != (byte)'H' || magic[2] != (byte)'D' || magic[3] != (byte)'A')
 			{
-				await FetchGroup(client, rest, false);
+				throw new InvalidDataException("Content archive is not a THDAT file.");
 			}
-			finally
+			int version = await ReadU16Async(input);
+			await ReadU16Async(input);
+			if (version != 1)
 			{
-				client.Dispose();
+				throw new InvalidDataException("Unsupported content archive version.");
+			}
+			int count = await ReadU32Async(input);
+			List<ArchiveEntry> entries = new List<ArchiveEntry>(count);
+			int position = 12;
+			for (int i = 0; i < count; i++)
+			{
+				int offset = await ReadU32Async(input);
+				int size = await ReadU32Async(input);
+				int nameLen = await ReadU16Async(input);
+				byte[] nameBytes = new byte[nameLen];
+				await ReadExactAsync(input, nameBytes, nameLen);
+				position += 10 + nameLen;
+				string name = Encoding.UTF8.GetString(nameBytes).Replace('\\', '/');
+				if (!IsSafePath(name))
+				{
+					throw new InvalidDataException("Content archive path is not allowed.");
+				}
+				entries.Add(new ArchiveEntry
+				{
+					Name = name,
+					Offset = offset,
+					Size = size
+				});
+			}
+			ThsssJs.SetStatus("Unpacking content…");
+			foreach (ArchiveEntry entry in entries)
+			{
+				if (entry.Offset != position)
+				{
+					throw new InvalidDataException("Content archive entry is out of order.");
+				}
+				await WriteEntryAsync(input, entry);
+				position += entry.Size;
+				if (IsImage(entry.Name))
+				{
+					MarkReady(entry.Name);
+				}
 			}
 		}
 
-		private static async Task FetchGroup(HttpClient client, List<string> files, bool required)
+		private static async Task WriteEntryAsync(Stream input, ArchiveEntry entry)
 		{
-			using (SemaphoreSlim gate = new SemaphoreSlim(8))
+			string path = entry.Name.Replace('/', Path.DirectorySeparatorChar);
+			string dir = Path.GetDirectoryName(path);
+			if (!string.IsNullOrEmpty(dir))
 			{
-				List<Task> tasks = new List<Task>();
-				foreach (string rel in files)
+				Directory.CreateDirectory(dir);
+			}
+			using (FileStream output = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None))
+			{
+				byte[] buffer = new byte[81920];
+				int left = entry.Size;
+				while (left > 0)
 				{
-					tasks.Add(FetchOne(client, gate, rel, required));
+					int want = left < buffer.Length ? left : buffer.Length;
+					int read = await input.ReadAsync(buffer, 0, want);
+					if (read <= 0)
+					{
+						throw new EndOfStreamException("Truncated content archive.");
+					}
+					await output.WriteAsync(buffer, 0, read);
+					left -= read;
 				}
-				await Task.WhenAll(tasks);
 			}
 		}
 
-		private static async Task FetchOne(HttpClient client, SemaphoreSlim gate, string rel, bool required)
+		private static async Task ReadExactAsync(Stream input, byte[] buffer, int count)
 		{
-			await gate.WaitAsync();
-			try
+			int offset = 0;
+			while (offset < count)
 			{
-				byte[] bytes = null;
-				try
+				int read = await input.ReadAsync(buffer, offset, count - offset);
+				if (read <= 0)
 				{
-					bytes = await client.GetByteArrayAsync("assets/" + rel);
+					throw new EndOfStreamException("Truncated content archive.");
 				}
-				catch (Exception ex)
-				{
-					if (required)
-					{
-						throw new FileNotFoundException("Missing content file assets/" + rel, ex);
-					}
-					Console.WriteLine("Missing content file assets/" + rel + " " + ex.Message);
-					if (IsImage(rel))
-					{
-						bytes = TinyPng;
-					}
-				}
-				if (bytes != null)
-				{
-					WriteFile(rel, bytes);
-					if (IsImage(rel))
-					{
-						MarkReady(rel);
-					}
-				}
-			}
-			finally
-			{
-				if (!required)
-				{
-					Interlocked.Decrement(ref backgroundLeft);
-				}
-				gate.Release();
+				offset += read;
 			}
 		}
 
-		private static bool IsSound(string rel)
+		private static async Task<int> ReadU16Async(Stream input)
 		{
-			return rel.StartsWith("Sound/", StringComparison.OrdinalIgnoreCase);
+			byte[] buffer = new byte[2];
+			await ReadExactAsync(input, buffer, 2);
+			return buffer[0] | (buffer[1] << 8);
+		}
+
+		private static async Task<int> ReadU32Async(Stream input)
+		{
+			byte[] buffer = new byte[4];
+			await ReadExactAsync(input, buffer, 4);
+			return buffer[0] | (buffer[1] << 8) | (buffer[2] << 16) | (buffer[3] << 24);
+		}
+
+		private static bool IsSafePath(string rel)
+		{
+			if (string.IsNullOrEmpty(rel) || rel.StartsWith("/", StringComparison.Ordinal) || rel.IndexOf(':') >= 0)
+			{
+				return false;
+			}
+			string[] parts = rel.Split('/');
+			foreach (string part in parts)
+			{
+				if (part.Length == 0 || part == "." || part == "..")
+				{
+					return false;
+				}
+			}
+			return true;
 		}
 
 		private static bool IsImage(string rel)
 		{
 			return rel.StartsWith("Image/", StringComparison.OrdinalIgnoreCase);
-		}
-
-		private static bool IsPriority(string rel)
-		{
-			return rel.StartsWith("Image/NowLoading/", StringComparison.OrdinalIgnoreCase) || rel.Equals("FX/Blur.fx", StringComparison.OrdinalIgnoreCase) || rel.Equals("FX/Warp.fx", StringComparison.OrdinalIgnoreCase) || rel.Equals("FX/Filter.fx", StringComparison.OrdinalIgnoreCase) || rel.Equals("Score.dat", StringComparison.OrdinalIgnoreCase) || rel.StartsWith("Replay/", StringComparison.OrdinalIgnoreCase);
 		}
 
 		private static void MarkReady(string rel)
@@ -258,6 +291,15 @@ namespace Thsss.Browser
 			}
 		}
 
-		private const string DefaultIni = "[DirectX]\r\nFullWindow=0\r\nAntiAlias=0\r\nVerticalSync=0\r\n[DirectInput]\r\nUseDirectInput=0\r\n[Mode]\r\nClear=no\r\nSingleThreaded=1\r\nFixedFPS=0\r\nDelayTolerance=10\r\nWindowSize=0\r\nPresentInterval=1\r\n[Key]\r\nLeft=Left\r\nRight=Right\r\nUp=Up\r\nDown=Down\r\nSlow=ShiftKey\r\nShoot=Z\r\nBomb=X\r\n[JoyStick]\r\nSkip=0\r\nPause=0\r\nSlow=0\r\nShoot=0\r\nBomb=0\r\nC=0\r\n[Volume]\r\nBGMVolume=80\r\nSEVolume=80\r\n[Game]\r\nFontType=Arial\r\n";
+		private sealed class ArchiveEntry
+		{
+			public string Name;
+
+			public int Offset;
+
+			public int Size;
+		}
+
+		private const string DefaultIni = "[DirectX]\r\nFullWindow=0\r\nAntiAlias=0\r\nVerticalSync=0\r\n[DirectInput]\r\nUseDirectInput=0\r\n[Mode]\r\nClear=no\r\nSingleThreaded=1\r\nFixedFPS=0\r\nUnlockFPS=0\r\nDelayTolerance=10\r\nWindowSize=0\r\nPresentInterval=1\r\n[Key]\r\nLeft=Left\r\nRight=Right\r\nUp=Up\r\nDown=Down\r\nSlow=ShiftKey\r\nShoot=Z\r\nBomb=X\r\n[JoyStick]\r\nSkip=0\r\nPause=0\r\nSlow=0\r\nShoot=0\r\nBomb=0\r\nC=0\r\n[Volume]\r\nBGMVolume=80\r\nSEVolume=80\r\n[Game]\r\nFontType=Arial\r\n";
 	}
 }

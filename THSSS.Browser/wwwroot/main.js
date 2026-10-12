@@ -129,6 +129,11 @@ try {
     setCull: glApi.setCull,
     drawSprites: glApi.drawSprites,
     drawFixed: glApi.drawFixed,
+    beginImage: glApi.beginImage,
+    imageState: glApi.imageState,
+    finishImage: glApi.finishImage,
+    imageWidth: glApi.imageWidth,
+    imageHeight: glApi.imageHeight,
     rasterText: glApi.rasterText,
     rasterTextBox: glApi.rasterTextBox,
     paintText: glApi.paintText,
@@ -158,26 +163,41 @@ try {
   }
   window.__thsssHost = true;
   bootKeys((name, down) => host.OnKey(name, down));
+  const fpsToggle = document.getElementById("unlock-fps");
+  if (host.FpsUnlocked && fpsToggle) fpsToggle.checked = host.FpsUnlocked() !== 0;
+  if (fpsToggle && host.SetFpsUnlocked) {
+    fpsToggle.addEventListener("change", () => host.SetFpsUnlocked(fpsToggle.checked ? 1 : 0));
+  }
   let last = performance.now();
   let acc = 0;
   const step = 1000 / 60;
   let failed = false;
   const frame = (now) => {
     if (failed) return;
-    acc += Math.min(100, now - last);
+    const delta = Math.min(100, now - last);
     last = now;
-    if (acc >= step) {
-      try {
-        host.Frame();
-        window.__thsssFrames = (window.__thsssFrames || 0) + 1;
-      } catch (err) {
-        failed = true;
-        window.__thsssFrameError = String(err && err.stack || err);
-        setStatus(window.__thsssFrameError);
-        return;
+    try {
+      if (fpsToggle && fpsToggle.checked && host.Simulate && host.Draw) {
+        acc += delta;
+        if (acc >= step) {
+          host.Simulate();
+          acc -= step;
+          if (acc > step) acc = step;
+        }
+        host.Draw(acc / step);
+      } else {
+        acc += delta;
+        if (acc >= step) {
+          host.Frame();
+          acc -= step;
+          if (acc > step * 2) acc = 0;
+        }
       }
-      acc -= step;
-      if (acc > step * 2) acc = 0;
+    } catch (err) {
+      failed = true;
+      window.__thsssFrameError = String(err && err.stack || err);
+      setStatus(window.__thsssFrameError);
+      return;
     }
     requestAnimationFrame(frame);
   };

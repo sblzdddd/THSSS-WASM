@@ -81,17 +81,22 @@ namespace Shooting
 		{
 			base.OriginalPosition = OriginalPosition;
 			base.Direction = (double)((float)base.Ran.Next(360) / 180f) * 3.141592653589793;
-			this.TxtureObjects = new TextureObject[]
+			TextureObject first = base.TextureObjectDictionary["EndBullet00"];
+			if (sharedFrames == null || sharedFrames[0] != first)
 			{
-				base.TextureObjectDictionary["EndBullet00"],
-				base.TextureObjectDictionary["EndBullet01"],
-				base.TextureObjectDictionary["EndBullet02"],
-				base.TextureObjectDictionary["EndBullet03"],
-				base.TextureObjectDictionary["EndBullet04"],
-				base.TextureObjectDictionary["EndBullet05"],
-				base.TextureObjectDictionary["EndBullet06"],
-				base.TextureObjectDictionary["EndBullet07"]
-			};
+				sharedFrames = new TextureObject[]
+				{
+					first,
+					base.TextureObjectDictionary["EndBullet01"],
+					base.TextureObjectDictionary["EndBullet02"],
+					base.TextureObjectDictionary["EndBullet03"],
+					base.TextureObjectDictionary["EndBullet04"],
+					base.TextureObjectDictionary["EndBullet05"],
+					base.TextureObjectDictionary["EndBullet06"],
+					base.TextureObjectDictionary["EndBullet07"]
+				};
+			}
+			this.TxtureObjects = sharedFrames;
 			base.TxtureObject = this.TxtureObjects[0];
 			base.LifeTime = 31;
 			base.AngularVelocityDegree = (float)base.Ran.Next(-3, 3);
@@ -108,5 +113,7 @@ namespace Shooting
 				base.ScaleVelocity = -base.ScaleVelocity;
 			}
 		}
+
+		private static TextureObject[] sharedFrames;
 	}
 }

@@ -9,12 +9,13 @@ namespace Shooting
 		{
 			byte[] plain = Ansi.GBK.GetBytes(text ?? "");
 			byte[] cipher = Transform(plain, Encoding.ASCII.GetBytes(keyText), Encoding.ASCII.GetBytes(ivText), true);
-			StringBuilder builder = new StringBuilder(cipher.Length * 2);
+			char[] hexChars = new char[cipher.Length * 2];
 			for (int i = 0; i < cipher.Length; i++)
 			{
-				builder.Append(cipher[i].ToString("X2"));
+				hexChars[i * 2] = Hex[cipher[i] >> 4];
+				hexChars[i * 2 + 1] = Hex[cipher[i] & 15];
 			}
-			return builder.ToString();
+			return new string(hexChars);
 		}
 
 		public static string DecryptFromHex(string hex, string keyText, string ivText)
@@ -22,10 +23,27 @@ namespace Shooting
 			byte[] cipher = new byte[hex.Length / 2];
 			for (int i = 0; i < cipher.Length; i++)
 			{
-				cipher[i] = Convert.ToByte(hex.Substring(i * 2, 2), 16);
+				cipher[i] = (byte)((Nibble(hex[i * 2]) << 4) | Nibble(hex[i * 2 + 1]));
 			}
 			byte[] plain = Transform(cipher, Encoding.ASCII.GetBytes(keyText), Encoding.ASCII.GetBytes(ivText), false);
 			return Ansi.GBK.GetString(plain);
+		}
+
+		private static int Nibble(char c)
+		{
+			if (c >= '0' && c <= '9')
+			{
+				return c - '0';
+			}
+			if (c >= 'A' && c <= 'F')
+			{
+				return c - 'A' + 10;
+			}
+			if (c >= 'a' && c <= 'f')
+			{
+				return c - 'a' + 10;
+			}
+			return 0;
 		}
 
 		private static byte[] Transform(byte[] input, byte[] key, byte[] iv, bool encrypt)
@@ -41,31 +59,22 @@ namespace Shooting
 					padded[i] = (byte)pad;
 				}
 				byte[] output = new byte[padded.Length];
-				byte[] previous = (byte[])iv.Clone();
+				ulong previous = Read64(iv);
 				for (int offset = 0; offset < padded.Length; offset += 8)
 				{
-					byte[] block = new byte[8];
-					for (int i = 0; i < 8; i++)
-					{
-						block[i] = (byte)(padded[offset + i] ^ previous[i]);
-					}
-					byte[] enc = CryptBlock(block, subkeys, true);
-					Buffer.BlockCopy(enc, 0, output, offset, 8);
+					ulong enc = CryptBlock(Read64At(padded, offset) ^ previous, subkeys, true);
+					Write64At(output, offset, enc);
 					previous = enc;
 				}
 				return output;
 			}
 			byte[] plain = new byte[input.Length];
-			byte[] prev = (byte[])iv.Clone();
+			ulong prev = Read64(iv);
 			for (int offset = 0; offset < input.Length; offset += 8)
 			{
-				byte[] block = new byte[8];
-				Buffer.BlockCopy(input, offset, block, 0, 8);
-				byte[] dec = CryptBlock(block, subkeys, false);
-				for (int i = 0; i < 8; i++)
-				{
-					plain[offset + i] = (byte)(dec[i] ^ prev[i]);
-				}
+				ulong block = Read64At(input, offset);
+				ulong dec = CryptBlock(block, subkeys, false) ^ prev;
+				Write64At(plain, offset, dec);
 				prev = block;
 			}
 			int n = plain[plain.Length - 1];
@@ -81,19 +90,19 @@ namespace Shooting
 		private static ulong[] BuildSubkeys(byte[] key)
 		{
 			ulong k = Read64(key);
-			ulong cd = Permute(k, Pc1, 64, 56);
+			ulong cd = Permute(k, MapPc1, 64);
 			ulong[] sub = new ulong[16];
 			for (int round = 0; round < 16; round++)
 			{
 				cd = Rotate28(cd, Shifts[round]);
-				sub[round] = Permute(cd, Pc2, 56, 48);
+				sub[round] = Permute(cd, MapPc2, 56);
 			}
 			return sub;
 		}
 
-		private static byte[] CryptBlock(byte[] block, ulong[] subkeys, bool encrypt)
+		private static ulong CryptBlock(ulong block, ulong[] subkeys, bool encrypt)
 		{
-			ulong ip = Permute(Read64(block), Ip, 64, 64);
+			ulong ip = Permute(block, MapIp, 64);
 			uint left = (uint)(ip >> 32);
 			uint right = (uint)(ip & 0xffffffffu);
 			for (int round = 0; round < 16; round++)
@@ -103,12 +112,12 @@ namespace Shooting
 				right = next;
 			}
 			ulong pre = ((ulong)right << 32) | left;
-			return Write64(Permute(pre, Fp, 64, 64));
+			return Permute(pre, MapFp, 64);
 		}
 
 		private static uint F(uint right, ulong subkey)
 		{
-			ulong expanded = Permute(right, E, 32, 48);
+			ulong expanded = Permute(right, MapE, 32);
 			ulong mixed = expanded ^ subkey;
 			uint s = 0;
 			for (int i = 0; i < 8; i++)
@@ -118,19 +127,46 @@ namespace Shooting
 				int col = (six >> 1) & 0x0f;
 				s = (s << 4) | (uint)S[i, row * 16 + col];
 			}
-			return (uint)Permute(s, P, 32, 32);
+			return (uint)Permute(s, MapP, 32);
 		}
 
-		private static ulong Permute(ulong value, int[] table, int inBits, int outBits)
+		private static ulong Permute(ulong value, ulong[][] map, int inBits)
 		{
-			ulong result = 0;
-			for (int i = 0; i < outBits; i++)
+			int shift = inBits - 8;
+			ulong result = map[0][(int)((value >> shift) & 255)];
+			for (int b = 1; b < map.Length; b++)
 			{
-				int src = table[i] - 1;
-				ulong bit = (value >> (inBits - 1 - src)) & 1ul;
-				result = (result << 1) | bit;
+				shift -= 8;
+				result |= map[b][(int)((value >> shift) & 255)];
 			}
 			return result;
+		}
+
+		private static ulong[][] BuildMap(int[] table, int inBits, int outBits)
+		{
+			ulong[][] map = new ulong[inBits / 8][];
+			for (int b = 0; b < map.Length; b++)
+			{
+				map[b] = new ulong[256];
+				for (int v = 0; v < 256; v++)
+				{
+					ulong acc = 0;
+					for (int outi = 0; outi < outBits; outi++)
+					{
+						int src = table[outi] - 1;
+						if (src >> 3 != b)
+						{
+							continue;
+						}
+						if (((v >> (7 - (src & 7))) & 1) != 0)
+						{
+							acc |= 1ul << (outBits - 1 - outi);
+						}
+					}
+					map[b][v] = acc;
+				}
+			}
+			return map;
 		}
 
 		private static ulong Rotate28(ulong cd, int shift)
@@ -144,23 +180,50 @@ namespace Shooting
 
 		private static ulong Read64(byte[] bytes)
 		{
+			return Read64At(bytes, 0);
+		}
+
+		private static ulong Read64At(byte[] bytes, int offset)
+		{
 			ulong value = 0;
 			for (int i = 0; i < 8; i++)
 			{
-				value = (value << 8) | bytes[i];
+				value = (value << 8) | bytes[offset + i];
 			}
 			return value;
 		}
 
-		private static byte[] Write64(ulong value)
+		private static void Write64At(byte[] bytes, int offset, ulong value)
 		{
-			byte[] bytes = new byte[8];
 			for (int i = 7; i >= 0; i--)
 			{
-				bytes[i] = (byte)(value & 0xff);
+				bytes[offset + i] = (byte)(value & 0xff);
 				value >>= 8;
 			}
-			return bytes;
+		}
+
+		private static readonly char[] Hex = "0123456789ABCDEF".ToCharArray();
+
+		private static readonly ulong[][] MapIp;
+
+		private static readonly ulong[][] MapFp;
+
+		private static readonly ulong[][] MapE;
+
+		private static readonly ulong[][] MapP;
+
+		private static readonly ulong[][] MapPc1;
+
+		private static readonly ulong[][] MapPc2;
+
+		static DesCbc()
+		{
+			MapIp = BuildMap(Ip, 64, 64);
+			MapFp = BuildMap(Fp, 64, 64);
+			MapE = BuildMap(E, 32, 48);
+			MapP = BuildMap(P, 32, 32);
+			MapPc1 = BuildMap(Pc1, 64, 56);
+			MapPc2 = BuildMap(Pc2, 56, 48);
 		}
 
 		private static readonly int[] Shifts = { 1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1 };
