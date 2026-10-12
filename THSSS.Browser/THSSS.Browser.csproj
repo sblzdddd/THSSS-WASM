@@ -32,12 +32,12 @@
     <_EmscriptenCache>$(_DotNetInstallRoot)\packs\Microsoft.NET.Runtime.Emscripten.3.1.56.Cache.win-x64\$(_EmscriptenPackVersion)\tools\emscripten\cache</_EmscriptenCache>
   </PropertyGroup>
   <ItemGroup>
-    <EmscriptenEnvVars Include="EMSDK_PYTHON=$(_EmscriptenPython)" />
-    <EmscriptenEnvVars Include="DOTNET_EMSCRIPTEN_LLVM_ROOT=$(_EmscriptenSdkRoot)\bin" />
-    <EmscriptenEnvVars Include="DOTNET_EMSCRIPTEN_NODE_JS=$(_EmscriptenNode)" />
-    <EmscriptenEnvVars Include="DOTNET_EMSCRIPTEN_BINARYEN_ROOT=$(_EmscriptenSdkRoot)" />
-    <EmscriptenEnvVars Include="EM_CACHE=$(_EmscriptenCache)" />
-    <EmscriptenEnvVars Include="EM_FROZEN_CACHE=1" />
+    <EmscriptenEnvVars Include="EMSDK_PYTHON=$(_EmscriptenPython)" Visible="false" />
+    <EmscriptenEnvVars Include="DOTNET_EMSCRIPTEN_LLVM_ROOT=$(_EmscriptenSdkRoot)\bin" Visible="false" />
+    <EmscriptenEnvVars Include="DOTNET_EMSCRIPTEN_NODE_JS=$(_EmscriptenNode)" Visible="false" />
+    <EmscriptenEnvVars Include="DOTNET_EMSCRIPTEN_BINARYEN_ROOT=$(_EmscriptenSdkRoot)" Visible="false" />
+    <EmscriptenEnvVars Include="EM_CACHE=$(_EmscriptenCache)" Visible="false" />
+    <EmscriptenEnvVars Include="EM_FROZEN_CACHE=1" Visible="false" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.DotNet.ILCompiler.LLVM" Version="10.0.0-rc.1.26357.1" />
@@ -45,14 +45,14 @@
     <TrimmerRootAssembly Include="THSSS.Browser" />
     <TrimmerRootAssembly Include="SlimDX" />
     <TrimmerRootAssembly Include="THSSS.Platform" />
-    <LinkerArg Include="-sMODULARIZE=1" />
-    <LinkerArg Include="-sEXPORT_ES6=1" />
-    <LinkerArg Include="-sEXPORT_NAME=createThsssModule" />
-    <LinkerArg Include="-sENVIRONMENT=web,webview,worker" />
-    <LinkerArg Include="-sALLOW_MEMORY_GROWTH=1" />
-    <LinkerArg Include="-sEXPORTED_RUNTIME_METHODS=UTF8ToString,stringToUTF8,lengthBytesUTF8,stringToNewUTF8" />
-    <LinkerArg Include="--js-library=native/thsss-lib.js" />
-    <DirectPInvoke Include="System.IO.Compression.Native" />
+    <LinkerArg Include="-sMODULARIZE=1" Visible="false" />
+    <LinkerArg Include="-sEXPORT_ES6=1" Visible="false" />
+    <LinkerArg Include="-sEXPORT_NAME=createThsssModule" Visible="false" />
+    <LinkerArg Include="-sENVIRONMENT=web,webview,worker" Visible="false" />
+    <LinkerArg Include="-sALLOW_MEMORY_GROWTH=1" Visible="false" />
+    <LinkerArg Include="-sEXPORTED_RUNTIME_METHODS=UTF8ToString,stringToUTF8,lengthBytesUTF8,stringToNewUTF8" Visible="false" />
+    <LinkerArg Include="--js-library=native/thsss-lib.js" Visible="false" />
+    <DirectPInvoke Include="System.IO.Compression.Native" Visible="false" />
     <ProjectReference Include="..\THSSS.SlimDX\THSSS.SlimDX.csproj" />
     <ProjectReference Include="..\THSSS.Platform\THSSS.Platform.csproj" />
     <EmbeddedResource Include="Shooting.RenderForm_Main.resources">
