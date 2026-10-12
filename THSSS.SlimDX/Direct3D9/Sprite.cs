@@ -337,7 +337,15 @@ namespace SlimDX.Direct3D9
 			GlHost.Need().SetViewport(viewport.X, viewport.Y, viewport.Width, viewport.Height, device.BackBufferWidth, device.BackBufferHeight);
 			GlHost.Need().SetBlend(device.AlphaBlendEnable, src, dst, equation);
 			GlHost.Need().SetDepth(false, false);
-			GlHost.Need().DrawSprites(texture.GlId, flip ? 1f : 0f, data.AsSpan(0, count));
+			Effect effect = Effect.Active;
+			if (effect != null)
+			{
+				GlHost.Need().DrawEffect(effect.Name, texture.GlId, flip ? 1f : 0f, data.AsSpan(0, count), effect.Float("BlurLevel"), effect.Float("X"), effect.Float("Y"), effect.Float("Time"), effect.Float("Radius"), effect.Int("ColorKey"));
+			}
+			else
+			{
+				GlHost.Need().DrawSprites(texture.GlId, flip ? 1f : 0f, data.AsSpan(0, count));
+			}
 		}
 
 		private void RestoreDepth()

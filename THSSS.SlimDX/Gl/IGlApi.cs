@@ -26,6 +26,8 @@ namespace SlimDX.Gl
 
 		void DrawSprites(int textureId, float flipV, Span<float> vertices);
 
+		void DrawEffect(string name, int textureId, float flipV, Span<float> vertices, float blurLevel, float x, float y, float time, float radius, int colorKey);
+
 		void DrawFixed(int textureId, Span<float> vertices, Span<float> world, Span<float> view, Span<float> proj, float mr, float mg, float mb, float ma, float lighting, float fog, float fogStart, float fogEnd, float fr, float fg, float fb);
 
 		byte[] RasterText(string text, int width, int height, float sizePx, bool bold, bool italic);

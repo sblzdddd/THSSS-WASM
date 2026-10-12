@@ -100,8 +100,21 @@ function bootKeys(onKey) {
   canvas.focus();
 }
 
+async function loadShader(path) {
+  const response = await fetch(new URL(path, document.baseURI));
+  if (!response.ok) {
+    throw new Error("Missing shader " + path);
+  }
+  return response.text();
+}
+
 try {
-  const glApi = createGl(canvas);
+  const shaderSources = {};
+  for (const name of ["Filter", "Blur", "Warp"]) {
+    shaderSources[name + ".vert"] = await loadShader("shaders/" + name + ".vert");
+    shaderSources[name + ".frag"] = await loadShader("shaders/" + name + ".frag");
+  }
+  const glApi = createGl(canvas, shaderSources);
   const audioApi = createAudio();
   const unlockAudio = () => audioApi.resume();
   canvas.addEventListener("pointerdown", unlockAudio);
@@ -128,6 +141,7 @@ try {
     setDepth: glApi.setDepth,
     setCull: glApi.setCull,
     drawSprites: glApi.drawSprites,
+    drawEffect: glApi.drawEffect,
     drawFixed: glApi.drawFixed,
     beginImage: glApi.beginImage,
     imageState: glApi.imageState,
