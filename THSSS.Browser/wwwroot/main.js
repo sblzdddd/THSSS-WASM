@@ -394,14 +394,6 @@ export async function prepareRuntime(options = {}) {
     }
   });
   finishWasm("THSSS.Browser.wasm");
-  if (!globalThis.__thsssArchive || !globalThis.__thsssArchive.byteLength) {
-    setStatus("Fetching content…");
-    const response = await fetch(new URL("assets/thsss.dat", import.meta.url));
-    if (!response.ok) {
-      throw new Error("Missing assets/thsss.dat (" + response.status + ")");
-    }
-    globalThis.__thsssArchive = new Uint8Array(await response.arrayBuffer());
-  }
   const keyPtr = (name) => module.stringToNewUTF8(name);
   const host = {
     Frame: () => module._thsss_frame(),
@@ -445,6 +437,14 @@ export async function launchRuntime(runtime, hooks = {}) {
   exitHook = hooks.onExit || null;
   exitRequested = false;
   setStatus("Starting the game…");
+  if (!globalThis.__thsssArchive || !globalThis.__thsssArchive.byteLength) {
+    setStatus("Fetching content…");
+    const response = await fetch(new URL("assets/thsss.dat", import.meta.url));
+    if (!response.ok) {
+      throw new Error("Missing assets/thsss.dat (" + response.status + ")");
+    }
+    globalThis.__thsssArchive = new Uint8Array(await response.arrayBuffer());
+  }
   runtime.module._thsss_start();
   for (;;) {
     const state = runtime.module._thsss_ready();
