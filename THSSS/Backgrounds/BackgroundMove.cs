@@ -38,7 +38,7 @@ namespace Shooting
 			{
 				num2 = base.OriginalPosition.Y - (float)base.BoundRect.Height;
 			}
-			base.OriginalPosition = new PointF(num, num2);
+			this.PlaceAt(num, num2);
 		}
 
 		public override void Show()
@@ -47,16 +47,16 @@ namespace Shooting
 			float num2 = base.OriginalPosition.Y;
 			base.Show();
 			num += (float)base.BoundRect.Height;
-			base.OriginalPosition = new PointF(num, num2);
+			this.PlaceAt(num, num2);
 			base.Show();
 			num2 += (float)base.BoundRect.Height;
-			base.OriginalPosition = new PointF(num, num2);
+			this.PlaceAt(num, num2);
 			base.Show();
 			num -= (float)base.BoundRect.Height;
-			base.OriginalPosition = new PointF(num, num2);
+			this.PlaceAt(num, num2);
 			base.Show();
 			num2 -= (float)base.BoundRect.Height;
-			base.OriginalPosition = new PointF(num, num2);
+			this.PlaceAt(num, num2);
 		}
 	}
 }

@@ -315,7 +315,10 @@ namespace Shooting
 			if (this.TimeMain % 30 == 0)
 			{
 				long timestamp = Stopwatch.GetTimestamp();
-				this.FPS = (double)(30f * (float)Stopwatch.Frequency / (float)(timestamp - this.TimeCount));
+				if (!Game_Main.RefreshUnlocked)
+				{
+					this.FPS = (double)(30f * (float)Stopwatch.Frequency / (float)(timestamp - this.TimeCount));
+				}
 				if (this.TimeMain != 0)
 				{
 					this.StageData.RealTimeTotal += timestamp - this.TimeCount;

@@ -17,11 +17,21 @@ namespace Shooting
 
 		public PointF OriginalPosition { get; set; }
 
+		public static float PresentLerp = 1f;
+
 		public PointF Position
 		{
 			get
 			{
-				return new PointF(this.OriginalPosition.X + (float)this.BoundRect.Left, this.OriginalPosition.Y + (float)this.BoundRect.Top);
+				float x = this.OriginalPosition.X;
+				float y = this.OriginalPosition.Y;
+				if (BaseObject.PresentLerp < 1f && this.hasPrev)
+				{
+					float t = BaseObject.PresentLerp;
+					x = this.prevX + (x - this.prevX) * t;
+					y = this.prevY + (y - this.prevY) * t;
+				}
+				return new PointF(x + (float)this.BoundRect.Left, y + (float)this.BoundRect.Top);
 			}
 			set
 			{
@@ -963,8 +973,21 @@ namespace Shooting
 		{
 		}
 
+		protected void PlaceAt(float x, float y)
+		{
+			if (this.hasPrev)
+			{
+				this.prevX += x - this.OriginalPosition.X;
+				this.prevY += y - this.OriginalPosition.Y;
+			}
+			this.OriginalPosition = new PointF(x, y);
+		}
+
 		public virtual void Ctrl()
 		{
+			this.prevX = this.OriginalPosition.X;
+			this.prevY = this.OriginalPosition.Y;
+			this.hasPrev = true;
 			if (this.Enabled)
 			{
 				this.Time++;
@@ -1187,6 +1210,15 @@ namespace Shooting
 		public virtual void Dispose()
 		{
 		}
+
+		[System.NonSerialized]
+		private float prevX;
+
+		[System.NonSerialized]
+		private float prevY;
+
+		[System.NonSerialized]
+		private bool hasPrev;
 
 		private float velocity = 0f;
 

@@ -177,8 +177,14 @@ try {
     const delta = Math.min(100, now - last);
     last = now;
     try {
-      if (fpsToggle && fpsToggle.checked) {
-        host.Frame();
+      if (fpsToggle && fpsToggle.checked && host.Simulate && host.Draw) {
+        acc += delta;
+        if (acc >= step) {
+          host.Simulate();
+          acc -= step;
+          if (acc > step) acc = step;
+        }
+        host.Draw(acc / step);
       } else {
         acc += delta;
         if (acc >= step) {

@@ -44,6 +44,7 @@ namespace Thsss.Browser
 			{
 				unlockFps = false;
 			}
+			Game_Main.RefreshUnlocked = unlockFps;
 			ThsssJs.SetStatus("Device ready. Click the canvas. Arrows move, Z shoots, X bombs, Shift slows, Esc pauses.");
 		}
 
@@ -57,6 +58,7 @@ namespace Thsss.Browser
 		public static void SetFpsUnlocked(int value)
 		{
 			unlockFps = value != 0;
+			Game_Main.RefreshUnlocked = unlockFps;
 			try
 			{
 				new INI_RW(".\\Setting.INI").IniWriteValue("Mode", "UnlockFPS", unlockFps ? "1" : "0");
@@ -88,6 +90,50 @@ namespace Thsss.Browser
 			if (frame % 30 == 0)
 			{
 				FlushSaves();
+			}
+		}
+
+		[System.Runtime.InteropServices.JavaScript.JSExport]
+		public static void Simulate()
+		{
+			if (game == null || !game.initSuccess)
+			{
+				return;
+			}
+			try
+			{
+				game.SimulateOnly();
+			}
+			catch (Exception ex)
+			{
+				ThsssJs.SetStatus(ex.ToString());
+				Console.WriteLine(ex);
+				game = null;
+				return;
+			}
+			frame++;
+			if (frame % 30 == 0)
+			{
+				FlushSaves();
+			}
+		}
+
+		[System.Runtime.InteropServices.JavaScript.JSExport]
+		public static void Draw(float alpha)
+		{
+			if (game == null || !game.initSuccess)
+			{
+				return;
+			}
+			try
+			{
+				game.DrawOnly(alpha);
+			}
+			catch (Exception ex)
+			{
+				ThsssJs.SetStatus(ex.ToString());
+				Console.WriteLine(ex);
+				game = null;
 			}
 		}
 

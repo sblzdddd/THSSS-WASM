@@ -326,7 +326,59 @@ namespace Shooting
 			this.InitFlag = true;
 		}
 
+		public static bool RefreshUnlocked;
+
 		public void MainProcess()
+		{
+			if (!this.BeginFrame() || this.deviceLost)
+			{
+				return;
+			}
+			this.SimulateFrame();
+			if (this.deviceLost)
+			{
+				return;
+			}
+			this.DrawFrame();
+			this.PaceFrame();
+		}
+
+		public void SimulateOnly()
+		{
+			if (!this.BeginFrame() || this.deviceLost)
+			{
+				return;
+			}
+			this.SimulateFrame();
+		}
+
+		public void DrawOnly(float alpha)
+		{
+			if (this.deviceLost || this.PresentState == null)
+			{
+				return;
+			}
+			if (alpha < 0f)
+			{
+				alpha = 0f;
+			}
+			else if (alpha > 1f)
+			{
+				alpha = 1f;
+			}
+			BaseObject.PresentLerp = alpha;
+			try
+			{
+				this.DrawFrame();
+				this.NoteRefresh();
+			}
+			finally
+			{
+				BaseObject.PresentLerp = 1f;
+			}
+		}
+
+		private bool BeginFrame()
 		{
 #if BROWSER
 			if (this.browserAwaitLoad && this.GlobalData.LoadingList != null && this.GlobalData.LoadingList.Count == 0 && Thsss.Browser.ContentLoader.BackgroundIdle)
@@ -372,7 +424,7 @@ namespace Shooting
 				if (stateSwitchData.NextState == "GameExit")
 				{
 					this.Form_Main.Close();
-					return;
+					return false;
 				}
 				if (stateSwitchData.NextState != null)
 				{
@@ -425,7 +477,7 @@ namespace Shooting
 					if (this.KCapture.currentKeyboardState.IsPressed(Key.LeftAlt) && this.KCapture.currentKeyboardState.IsPressed(Key.F4))
 					{
 						this.Form_Main.Close();
-						return;
+						return false;
 					}
 					if (this.KCapture.currentKeyboardState.IsPressed(Key.F8) && this.KCapture.lastKeyboardState.IsReleased(Key.F8))
 					{
@@ -449,83 +501,134 @@ namespace Shooting
 					this.deviceLost = false;
 					this.firstFrame = true;
 				}
+				return false;
 			}
-			else
+			return true;
+		}
+
+		private void SimulateFrame()
+		{
+			try
 			{
-				try
+				if (this.OnPause)
 				{
-					if (this.OnPause)
+					if (this.PresentState is BaseStage)
 					{
-						if (this.PresentState is BaseStage)
-						{
-							this.GlobalData.KClass.Key_ESC = true;
-						}
+						this.GlobalData.KClass.Key_ESC = true;
 					}
-					this.PresentState.UpdateData();
-					for (int i = 1; i < this.presentInterval; i++)
+				}
+				this.PresentState.UpdateData();
+				for (int i = 1; i < this.presentInterval; i++)
+				{
+					if (this.PresentState.StateSwitchData != null)
 					{
-						if (this.PresentState.StateSwitchData != null)
-						{
-							if (this.PresentState.StateSwitchData.NextState == null)
-							{
-								this.PresentState.UpdateData();
-							}
-						}
-						else
+						if (this.PresentState.StateSwitchData.NextState == null)
 						{
 							this.PresentState.UpdateData();
 						}
 					}
-					this.DeviceMain.Clear(ClearFlags.ZBuffer | ClearFlags.Target, Color.Black, 1f, 0);
-					this.DeviceMain.BeginScene();
-					this.PresentState.Render();
-					this.DeviceMain.EndScene();
-					this.DeviceMain.Present(Present.None);
-					if (this.GlobalData.BGM_Player.OnPause)
-					{
-						this.PresentState.BGM_Resume();
-					}
-				}
-				catch (Direct3D9Exception ex)
-				{
-					if (ex.ResultCode == global::SlimDX.Direct3D9.ResultCode.DeviceLost)
-					{
-						this.GlobalData.OnLostDevice();
-						this.deviceLost = true;
-					}
 					else
 					{
-						ErrorLog.SaveErrorLog("SlimDX错误: " + ex.Message + "\n堆栈:\n" + ex.StackTrace, ex.ResultCode.Description);
-						MessageBox.Show(ex.Message);
-						this.Form_Main.Close();
+						this.PresentState.UpdateData();
 					}
 				}
-				if (!this.verticalSync || (this.presentInterval != 1 && !this.fullWindow))
+			}
+			catch (Direct3D9Exception ex)
+			{
+				this.OnDeviceException(ex);
+			}
+		}
+
+		private void DrawFrame()
+		{
+			try
+			{
+				this.DeviceMain.Clear(ClearFlags.ZBuffer | ClearFlags.Target, Color.Black, 1f, 0);
+				this.DeviceMain.BeginScene();
+				this.PresentState.Render();
+				this.DeviceMain.EndScene();
+				this.DeviceMain.Present(Present.None);
+				if (this.GlobalData.BGM_Player.OnPause)
 				{
-					float num = 16f * (float)this.presentInterval - this.fpsTimer.GetDuration();
+					this.PresentState.BGM_Resume();
+				}
+			}
+			catch (Direct3D9Exception ex)
+			{
+				this.OnDeviceException(ex);
+			}
+		}
+
+		private void PaceFrame()
+		{
+			if (!this.verticalSync || (this.presentInterval != 1 && !this.fullWindow))
+			{
+				float num = 16f * (float)this.presentInterval - this.fpsTimer.GetDuration();
 #if !BROWSER
-					if (num > 0f)
-					{
-						Thread.Sleep((int)num);
-					}
-					while (16.62f * (float)this.presentInterval - this.fpsTimer.GetDuration() > 0f)
-					{
-					}
+				if (num > 0f)
+				{
+					Thread.Sleep((int)num);
+				}
+				while (16.62f * (float)this.presentInterval - this.fpsTimer.GetDuration() > 0f)
+				{
+				}
 #endif
-					if (this.fixedFPS)
+				if (this.fixedFPS)
+				{
+					if (num < -16.66667f * (float)this.delayTolerance)
 					{
-						if (num < -16.66667f * (float)this.delayTolerance)
+						int i = 0;
+						while ((float)i < -num / 16.66667f - (float)this.delayTolerance)
 						{
-							int i = 0;
-							while ((float)i < -num / 16.66667f - (float)this.delayTolerance)
-							{
-								this.fpsTimer.IncreaseOneFrame();
-								i++;
-							}
+							this.fpsTimer.IncreaseOneFrame();
+							i++;
 						}
 					}
 				}
 			}
+		}
+
+		private void OnDeviceException(Direct3D9Exception ex)
+		{
+			if (ex.ResultCode == global::SlimDX.Direct3D9.ResultCode.DeviceLost)
+			{
+				this.GlobalData.OnLostDevice();
+				this.deviceLost = true;
+			}
+			else
+			{
+				ErrorLog.SaveErrorLog("SlimDX错误: " + ex.Message + "\n堆栈:\n" + ex.StackTrace, ex.ResultCode.Description);
+				MessageBox.Show(ex.Message);
+				this.Form_Main.Close();
+			}
+		}
+
+		private void NoteRefresh()
+		{
+			if (!Game_Main.RefreshUnlocked)
+			{
+				return;
+			}
+			BaseGameState state = this.PresentState as BaseGameState;
+			if (state == null)
+			{
+				return;
+			}
+			this.refreshCount++;
+			long now = System.Diagnostics.Stopwatch.GetTimestamp();
+			if (this.refreshStamp == 0L)
+			{
+				this.refreshStamp = now;
+				return;
+			}
+			long elapsed = now - this.refreshStamp;
+			if (elapsed < System.Diagnostics.Stopwatch.Frequency / 2L)
+			{
+				return;
+			}
+			state.FPS = this.refreshCount * (double)System.Diagnostics.Stopwatch.Frequency / (double)elapsed;
+			this.refreshCount = 0;
+			this.refreshStamp = now;
 		}
 
 		private void ToggleFullScreen()
@@ -783,6 +886,10 @@ namespace Shooting
 		private Thread LoadingThread;
 
 		private Watch fpsTimer = new Watch();
+
+		private int refreshCount;
+
+		private long refreshStamp;
 
 		private KeyboardCapture KCapture;
 

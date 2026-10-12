@@ -40,7 +40,7 @@ namespace Shooting
 			{
 				num2 = base.OriginalPosition.Y - (float)this.Length;
 			}
-			base.OriginalPosition = new PointF(num, num2);
+			this.PlaceAt(num, num2);
 		}
 
 		public override void Show()
@@ -49,16 +49,16 @@ namespace Shooting
 			float num2 = base.OriginalPosition.Y;
 			base.Show();
 			num += this.Width;
-			base.OriginalPosition = new PointF(num, num2);
+			this.PlaceAt(num, num2);
 			base.Show();
 			num2 += (float)this.Length;
-			base.OriginalPosition = new PointF(num, num2);
+			this.PlaceAt(num, num2);
 			base.Show();
 			num -= this.Width;
-			base.OriginalPosition = new PointF(num, num2);
+			this.PlaceAt(num, num2);
 			base.Show();
 			num2 -= (float)this.Length;
-			base.OriginalPosition = new PointF(num, num2);
+			this.PlaceAt(num, num2);
 		}
 
 		public int Length;
