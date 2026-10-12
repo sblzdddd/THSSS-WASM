@@ -335,7 +335,13 @@ namespace Shooting
 				base.MyPlane.ShowCenter();
 			}
 			base.SpriteMain.Draw2D(base.TextureObjectDictionary["TotalBackground"], 1f, 0f, new PointF(320f, 240f), 255);
-			base.DrawText(base.FPS.ToString("F1"), new Point(580, 460));
+			string fps = base.FPS.ToString("F1");
+			int fpsWidth = 0;
+			for (int i = 0; i < fps.Length; i++)
+			{
+				fpsWidth += fps[i] == '.' ? 10 : 16;
+			}
+			base.DrawText(fps, new Point(638 - fpsWidth, 460));
 		}
 
 		public virtual void Drama()
