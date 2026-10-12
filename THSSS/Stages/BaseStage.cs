@@ -501,6 +501,14 @@ namespace Shooting
 			{
 				x.Show();
 			});
+			for (int i = 0; i < base.Background.BackgroundList.Count; i++)
+			{
+				BackgroundTransitionIn cover = base.Background.BackgroundList[i] as BackgroundTransitionIn;
+				if (cover != null)
+				{
+					cover.ShowLoading();
+				}
+			}
 			base.SpriteMain.End();
 			base.GlobalData.ScreenTexMan.End();
 			base.SpriteMain.Begin(SpriteFlags.AlphaBlend);

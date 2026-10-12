@@ -168,6 +168,10 @@ namespace Shooting
 			particle.Active = true;
 			particle.Scale = (float)this.StageData.Ran.Next(25, 70) / 100f;
 			particle.LifeTime = 70;
+			for (int i = this.StageData.EffectList.Count - 1; i >= 0; i--)
+			{
+				this.StageData.EffectList[i].Ctrl();
+			}
 			if (this.GlobalData.LoadingList.Count > 0)
 			{
 #if BROWSER
@@ -181,10 +185,6 @@ namespace Shooting
 
 		public virtual void Render()
 		{
-			for (int i = this.StageData.EffectList.Count - 1; i >= 0; i--)
-			{
-				this.StageData.EffectList[i].Ctrl();
-			}
 			this.SpriteMain.Begin(SpriteFlags.AlphaBlend);
 			this.Background.Show(false);
 			this.StageData.EffectList.ForEach(delegate(BaseEffect x)
