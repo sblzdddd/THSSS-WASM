@@ -13,8 +13,8 @@ jobs:
     name: Build without game assets
     runs-on: windows-latest
     env:
-      # Private install so the runner's preinstalled .NET 10 SDK is not selected.
-      # net9.0 browser-wasm needs the wasm-tools workload from the .NET 9 SDK.
+      # Private install so the runner uses the SDK pinned by global.json.
+      # The browser host targets net10.0 and needs that SDK's wasm-tools workload.
       DOTNET_INSTALL_DIR: ${{ github.workspace }}/.dotnet
       DOTNET_ROOT: ${{ github.workspace }}/.dotnet
       DOTNET_MULTILEVEL_LOOKUP: 0
@@ -30,7 +30,7 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: .dotnet
-          key: ${{ runner.os }}-net9-wasm-tools-v1
+          key: ${{ runner.os }}-net10-wasm-tools-v1
 
       - name: Restore cached NuGet packages
         uses: actions/cache@v4
@@ -40,11 +40,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nuget-
 
-      - name: Install .NET 9
+      - name: Install .NET 10
         if: steps.sdk-cache.outputs.cache-hit != 'true'
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 9.0.x
+          dotnet-version: 10.0.x
           dotnet-quality: ga
 
       - name: Use the project-local .NET installation
@@ -61,15 +61,15 @@ jobs:
         uses: actions/cache/save@v4
         with:
           path: .dotnet
-          key: ${{ runner.os }}-net9-wasm-tools-v1
+          key: ${{ runner.os }}-net10-wasm-tools-v1
 
       - name: Check SDK and workload
         shell: pwsh
         run: |
           $version = (dotnet --version).Trim()
           Write-Host "SDK $version"
-          if ($version -notlike '9.*') {
-            throw "Expected the .NET 9 SDK, found $version."
+          if ($version -notlike '10.*') {
+            throw "Expected the .NET 10 SDK, found $version."
           }
           dotnet workload list
 
