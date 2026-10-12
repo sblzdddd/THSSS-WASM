@@ -21,6 +21,7 @@ let runtime = null;
 let firstFrameSent = false;
 let runtimeInfoSent = false;
 let touchState = null;
+let pulses = [];
 let frameStats = { frames: 0, gaps: [] };
 let lastFrameAt = 0;
 let healthTimer = 0;
@@ -181,7 +182,13 @@ async function handleFile(message) {
 
 function pulse(name, source) {
   setKey(name, true, source);
-  setKey(name, false, source);
+  pulses.push({ name, source });
+}
+
+function releasePulses() {
+  const due = pulses;
+  pulses = [];
+  for (const item of due) setKey(item.name, false, item.source);
 }
 
 function applyTouch(message) {
@@ -191,7 +198,7 @@ function applyTouch(message) {
   setKey("ShiftKey", !!next.focusEnabled, "touch-focus");
   if (previous && next.bombSerial !== previous.bombSerial) pulse("X", "touch-bomb");
   if (previous && next.escapeSerial !== previous.escapeSerial) pulse("Escape", "touch-esc");
-  const dead = 0.35;
+  const dead = 6000;
   const x = Number(next.joystickX) || 0;
   const y = Number(next.joystickY) || 0;
   setKey("Left", x <= -dead, "joy");
@@ -221,9 +228,10 @@ function applyDirectTouch(message) {
     setKey("Down", false, "direct");
     return;
   }
-  const dx = point.x - 320;
-  const dy = point.y - 240;
-  const dead = 24;
+  const normalized = point.x >= 0 && point.x <= 1 && point.y >= 0 && point.y <= 1;
+  const dx = normalized ? point.x - 0.5 : point.x - 320;
+  const dy = normalized ? point.y - 0.5 : point.y - 240;
+  const dead = normalized ? 0.08 : 24;
   setKey("Left", dx <= -dead, "direct");
   setKey("Right", dx >= dead, "direct");
   setKey("Up", dy <= -dead, "direct");
@@ -350,6 +358,7 @@ async function startGame() {
   starting = true;
   await launchRuntime(runtime, {
     onPresented() {
+      releasePulses();
       const now = performance.now();
       if (lastFrameAt) frameStats.gaps.push(now - lastFrameAt);
       lastFrameAt = now;
