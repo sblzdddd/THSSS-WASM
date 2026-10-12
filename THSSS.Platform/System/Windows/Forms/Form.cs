@@ -36,6 +36,15 @@ namespace System.Windows.Forms
 			}
 		}
 
+		public void RaiseLoad()
+		{
+			var eventHandler = this.Load;
+			if (eventHandler != null)
+			{
+				eventHandler(this, EventArgs.Empty);
+			}
+		}
+
 		public void RaiseActivated()
 		{
 			var eventHandler = this.Activated;

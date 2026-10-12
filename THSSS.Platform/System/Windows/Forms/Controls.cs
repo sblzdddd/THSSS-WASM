@@ -105,6 +105,15 @@ namespace System.Windows.Forms
 
 		public event EventHandler DoubleClick;
 
+		public void RaiseDoubleClick()
+		{
+			var eventHandler = this.DoubleClick;
+			if (eventHandler != null)
+			{
+				eventHandler(this, EventArgs.Empty);
+			}
+		}
+
 		public ObjectCollection Items { get; private set; }
 
 		public ListBox()

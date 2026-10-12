@@ -7,6 +7,8 @@ namespace System.Windows.Forms
 	{
 		private readonly List<Control> controls = new List<Control>();
 
+		private Size size;
+
 		public string Name { get; set; }
 
 		public string Text { get; set; }
@@ -23,7 +25,22 @@ namespace System.Windows.Forms
 
 		public Point Location { get; set; }
 
-		public Size Size { get; set; }
+		public Size Size
+		{
+			get
+			{
+				return this.size;
+			}
+			set
+			{
+				if (this.size == value)
+				{
+					return;
+				}
+				this.size = value;
+				this.RaiseSizeChanged();
+			}
+		}
 
 		public Size MaximumSize { get; set; }
 
@@ -191,6 +208,24 @@ namespace System.Windows.Forms
 
 		public void PerformLayout()
 		{
+		}
+
+		public void RaiseClick()
+		{
+			var eventHandler = this.Click;
+			if (eventHandler != null)
+			{
+				eventHandler(this, EventArgs.Empty);
+			}
+		}
+
+		public void RaiseSizeChanged()
+		{
+			var eventHandler = this.SizeChanged;
+			if (eventHandler != null)
+			{
+				eventHandler(this, EventArgs.Empty);
+			}
 		}
 
 		public void RaiseKeyDown(Keys key)
