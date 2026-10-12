@@ -42,11 +42,11 @@ namespace Thsss.Browser
 			FlushSaves();
 			try
 			{
-				unlockFps = new INI_RW(".\\Setting.INI").IniReadValue("Mode", "UnlockFPS") == "1";
+				unlockFps = new INI_RW(".\\Setting.INI").IniReadValue("Mode", "UnlockFPS") != "0";
 			}
 			catch (Exception)
 			{
-				unlockFps = false;
+				unlockFps = true;
 			}
 			Game_Main.RefreshUnlocked = unlockFps;
 			ThsssJs.SetStatus("Device ready. Click the canvas. Arrows move, Z shoots, X bombs, Shift slows, Esc pauses.");
