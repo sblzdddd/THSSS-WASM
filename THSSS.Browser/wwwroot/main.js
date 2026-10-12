@@ -2,13 +2,11 @@ import { dotnet } from "./_framework/dotnet.js";
 import { createGl } from "./gl.js";
 import { createAudio } from "./audio.js";
 
-const statusEl = document.getElementById("status");
 const canvas = document.getElementById("game");
 let lastStatus = "";
 
 function setStatus(text) {
   lastStatus = text || "";
-  if (statusEl) statusEl.textContent = lastStatus;
   if (text) console.log(text);
 }
 
@@ -284,7 +282,6 @@ export async function launchRuntime(runtime, hooks = {}) {
     if (presented && hooks.onPresented) hooks.onPresented();
     requestAnimationFrame(frame);
   };
-  if (runtime.captureKeys) setStatus("Click the canvas, then use arrows, Z, X, Shift, and Esc.");
   requestAnimationFrame(frame);
   return {
     stop() {
