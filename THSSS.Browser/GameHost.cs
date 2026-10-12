@@ -74,13 +74,11 @@ namespace Thsss.Browser
 			}
 		}
 
-		[System.Runtime.InteropServices.JavaScript.JSExport]
 		public static int FpsUnlocked()
 		{
 			return unlockFps ? 1 : 0;
 		}
 
-		[System.Runtime.InteropServices.JavaScript.JSExport]
 		public static void SetFpsUnlocked(int value)
 		{
 			unlockFps = value != 0;
@@ -94,7 +92,6 @@ namespace Thsss.Browser
 			}
 		}
 
-		[System.Runtime.InteropServices.JavaScript.JSExport]
 		public static void Frame()
 		{
 			if (exited || game == null || !game.initSuccess)
@@ -119,7 +116,6 @@ namespace Thsss.Browser
 			}
 		}
 
-		[System.Runtime.InteropServices.JavaScript.JSExport]
 		public static void Simulate()
 		{
 			if (exited || game == null || !game.initSuccess)
@@ -144,7 +140,6 @@ namespace Thsss.Browser
 			}
 		}
 
-		[System.Runtime.InteropServices.JavaScript.JSExport]
 		public static void Draw(float alpha)
 		{
 			if (exited || game == null || !game.initSuccess)
@@ -163,7 +158,6 @@ namespace Thsss.Browser
 			}
 		}
 
-		[System.Runtime.InteropServices.JavaScript.JSExport]
 		public static void OnKey(string name, int down)
 		{
 			if (game == null || game.Form_Main == null || string.IsNullOrEmpty(name))
