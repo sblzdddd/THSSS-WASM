@@ -7,6 +7,9 @@ namespace Thsss.Browser
 		[JSImport("setStatus", "thsss.js")]
 		public static partial void SetStatus(string text);
 
+		[JSImport("notifyExit", "thsss.js")]
+		public static partial void NotifyExit();
+
 		[JSImport("pageBase", "thsss.js")]
 		public static partial string PageBase();
 

@@ -6,6 +6,20 @@ import { putRuntimeFile } from "./runtime-files.mjs";
 const canvas = document.getElementById("game");
 let lastStatus = "";
 
+let exitRequested = false;
+let exitHook = null;
+let activeRuntime = null;
+
+function notifyExit() {
+  if (exitRequested) return;
+  exitRequested = true;
+  const flush = activeRuntime && activeRuntime.flushSaves ? activeRuntime.flushSaves() : Promise.resolve();
+  Promise.resolve(flush).then(() => (exitHook ? exitHook() : setStatus("游戏已退出"))).catch((err) => {
+    console.error(err);
+    setStatus(String(err && err.message || err));
+  });
+}
+
 function setStatus(text) {
   lastStatus = text || "";
   if (text) console.log(text);
@@ -147,6 +161,7 @@ export async function prepareRuntime(options = {}) {
   const { setModuleImports, getAssemblyExports, runMain } = await dotnet.create();
   setModuleImports("thsss.js", {
     setStatus,
+    notifyExit,
     log: (text) => console.log(text),
     readSaves: () => JSON.stringify(saves),
     writeSave: (path, b64) => {
@@ -219,6 +234,9 @@ export async function prepareRuntime(options = {}) {
 }
 
 export async function launchRuntime(runtime, hooks = {}) {
+  activeRuntime = runtime;
+  exitHook = hooks.onExit || null;
+  exitRequested = false;
   setStatus("Starting the game…");
   await runtime.runMain();
   window.__thsssBoot = lastStatus;
@@ -247,7 +265,7 @@ export async function launchRuntime(runtime, hooks = {}) {
   let failed = false;
   let running = true;
   const frame = (now) => {
-    if (!running || failed) return;
+    if (exitRequested || !running || failed) return;
     if (document.hidden) {
       last = now;
       requestAnimationFrame(frame);

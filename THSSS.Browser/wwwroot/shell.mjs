@@ -357,6 +357,13 @@ async function startGame() {
   if (phase === "launched" || starting) return;
   starting = true;
   await launchRuntime(runtime, {
+    onExit() {
+      if (healthTimer) window.clearInterval(healthTimer);
+      healthTimer = 0;
+      releaseAll();
+      phase = "exited";
+      emit("exit", { status: "success", code: 0 });
+    },
     onPresented() {
       releasePulses();
       const now = performance.now();
@@ -373,6 +380,7 @@ async function startGame() {
       }
     },
   });
+  if (phase === "exited") return;
   phase = "launched";
   healthTimer = window.setInterval(publishHealth, 1000);
 }

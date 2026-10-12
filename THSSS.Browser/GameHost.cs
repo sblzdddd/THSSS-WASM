@@ -18,6 +18,10 @@ namespace Thsss.Browser
 
 		private static bool unlockFps;
 
+		private static bool exited;
+
+		private static bool exitNotified;
+
 		private static readonly Dictionary<string, string> hashes = new Dictionary<string, string>();
 
 		public static async System.Threading.Tasks.Task Start()
@@ -48,6 +52,28 @@ namespace Thsss.Browser
 			ThsssJs.SetStatus("Device ready. Click the canvas. Arrows move, Z shoots, X bombs, Shift slows, Esc pauses.");
 		}
 
+		public static void MarkExited()
+		{
+			exited = true;
+		}
+
+		public static void NotifyClosed()
+		{
+			exited = true;
+			if (exitNotified)
+			{
+				return;
+			}
+			exitNotified = true;
+			try
+			{
+				ThsssJs.NotifyExit();
+			}
+			catch (Exception)
+			{
+			}
+		}
+
 		[System.Runtime.InteropServices.JavaScript.JSExport]
 		public static int FpsUnlocked()
 		{
@@ -71,7 +97,7 @@ namespace Thsss.Browser
 		[System.Runtime.InteropServices.JavaScript.JSExport]
 		public static void Frame()
 		{
-			if (game == null || !game.initSuccess)
+			if (exited || game == null || !game.initSuccess)
 			{
 				return;
 			}
@@ -96,7 +122,7 @@ namespace Thsss.Browser
 		[System.Runtime.InteropServices.JavaScript.JSExport]
 		public static void Simulate()
 		{
-			if (game == null || !game.initSuccess)
+			if (exited || game == null || !game.initSuccess)
 			{
 				return;
 			}
@@ -121,7 +147,7 @@ namespace Thsss.Browser
 		[System.Runtime.InteropServices.JavaScript.JSExport]
 		public static void Draw(float alpha)
 		{
-			if (game == null || !game.initSuccess)
+			if (exited || game == null || !game.initSuccess)
 			{
 				return;
 			}
