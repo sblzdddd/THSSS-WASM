@@ -14,7 +14,7 @@ installRuntimeFileSystem(window);
 
 const owners = new Map();
 const down = new Set();
-const pointers = new Map();
+const sticks = new Map();
 let phase = "booting";
 let starting = false;
 let runtime = null;
@@ -213,29 +213,47 @@ function applyTouch(message) {
   };
 }
 
-function applyDirectTouch(message) {
-  if (!message) return;
-  if (message.type === "up") pointers.delete(message.id);
-  else if (message.type === "down" || message.type === "move") {
-    pointers.set(message.id, { x: Number(message.x), y: Number(message.y) });
-  }
-  let point = null;
-  for (const value of pointers.values()) point = value;
-  if (!point) {
+function steerStick(stick) {
+  if (!stick) {
     setKey("Left", false, "direct");
     setKey("Right", false, "direct");
     setKey("Up", false, "direct");
     setKey("Down", false, "direct");
     return;
   }
-  const normalized = point.x >= 0 && point.x <= 1 && point.y >= 0 && point.y <= 1;
-  const dx = normalized ? point.x - 0.5 : point.x - 320;
-  const dy = normalized ? point.y - 0.5 : point.y - 240;
-  const dead = normalized ? 0.08 : 24;
-  setKey("Left", dx <= -dead, "direct");
-  setKey("Right", dx >= dead, "direct");
-  setKey("Up", dy <= -dead, "direct");
-  setKey("Down", dy >= dead, "direct");
+  const dx = stick.x - stick.originX;
+  const dy = stick.y - stick.originY;
+  const pixel = Math.abs(stick.originX) > 1.5 || Math.abs(stick.originY) > 1.5;
+  const dead = pixel ? 16 : 0.04;
+  const ax = Math.abs(dx);
+  const ay = Math.abs(dy);
+  const horizontal = ax >= dead && ax >= ay * 0.5;
+  const vertical = ay >= dead && ay >= ax * 0.5;
+  setKey("Left", horizontal && dx < 0, "direct");
+  setKey("Right", horizontal && dx > 0, "direct");
+  setKey("Up", vertical && dy < 0, "direct");
+  setKey("Down", vertical && dy > 0, "direct");
+}
+
+function applyDirectTouch(message) {
+  if (!message) return;
+  if (message.type === "up" && message.id == null) {
+    sticks.clear();
+    steerStick(null);
+    return;
+  }
+  const x = Number(message.x);
+  const y = Number(message.y);
+  if (message.type === "up") sticks.delete(message.id);
+  else if ((message.type === "down" || message.type === "move") && Number.isFinite(x) && Number.isFinite(y)) {
+    const stick = sticks.get(message.id);
+    if (message.type === "down" || !stick) sticks.set(message.id, { originX: x, originY: y, x, y });
+    else {
+      stick.x = x;
+      stick.y = y;
+    }
+  }
+  steerStick(sticks.values().next().value || null);
 }
 
 function rejectInapplicable(message) {
@@ -310,7 +328,7 @@ async function handle(message) {
       bombSerial: touchState ? touchState.bombSerial : 0,
       escapeSerial: touchState ? touchState.escapeSerial : 0,
     });
-    pointers.clear();
+    sticks.clear();
     applyDirectTouch({ type: "up" });
     reply(message, true, {});
     return;
