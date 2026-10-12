@@ -11,7 +11,7 @@
 			: this(Text, CharLAcitve, CharRAcitve, CharL, CharR, 255)
 		{
 			this.CharL2 = CharL2;
-			this.CharL2Acitve = Char2LAcitve;
+			CharL2Acitve = Char2LAcitve;
 		}
 
 		public Conversation(string Text, bool CharLAcitve, bool CharRAcitve, string CharL, string CharR, int StringCount)

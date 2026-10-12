@@ -14,67 +14,67 @@ namespace Shooting
 		public BaseItem(StageDataPackage StageData, string textureName, PointF Position)
 			: base(StageData, textureName, Position, 0f, 0.0)
 		{
-			base.ItemList.Add(this);
-			base.Velocity = (float)base.Ran.Next(1, 6);
-			base.Direction = (double)((float)base.Ran.Next(180, 360) / 360f) * 3.141592653589793 * 2.0;
-			base.Angle = 0.0;
-			if ((float)base.Direction - 1.5707964f > 0f)
+			ItemList.Add(this);
+			Velocity = (float)Ran.Next(1, 6);
+			Direction = (double)((float)Ran.Next(180, 360) / 360f) * 3.141592653589793 * 2.0;
+			Angle = 0.0;
+			if ((float)Direction - 1.5707964f > 0f)
 			{
-				this.AngularVelocity = -0.2f;
+				AngularVelocity = -0.2f;
 			}
 			else
 			{
-				this.AngularVelocity = 0.2f;
+				AngularVelocity = 0.2f;
 			}
 		}
 
 		public override void HitCheckAll()
 		{
-			if (this.HitCheck(base.MyPlane, 200f))
+			if (HitCheck(MyPlane, 200f))
 			{
-				this.Obtain = true;
+				Obtain = true;
 			}
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			base.Angle += (double)this.AngularVelocity;
-			if (base.Time == 12)
+			Angle += (double)AngularVelocity;
+			if (Time == 12)
 			{
-				base.Direction = 1.5707963267948966;
-				this.AngularVelocity = 0f;
-				base.Angle = 0.0;
+				Direction = 1.5707963267948966;
+				AngularVelocity = 0f;
+				Angle = 0.0;
 			}
-			else if (base.Time > 12)
+			else if (Time > 12)
 			{
-				if (this.Obtain)
+				if (Obtain)
 				{
-					base.Direction = 3.141592653589793 + Math.Atan2((double)(base.Position.Y - base.MyPlane.Position.Y), (double)(base.Position.X - base.MyPlane.Position.X));
-					base.Velocity = 8f;
+					Direction = 3.141592653589793 + Math.Atan2((double)(Position.Y - MyPlane.Position.Y), (double)(Position.X - MyPlane.Position.X));
+					Velocity = 8f;
 				}
 				else
 				{
-					base.Velocity = 4f;
+					Velocity = 4f;
 				}
 			}
-			if (this.OutBoundary())
+			if (OutBoundary())
 			{
-				base.ItemList.Remove(this);
+				ItemList.Remove(this);
 			}
 		}
 
 		public override bool OutBoundary()
 		{
-			if (base.OriginalPosition.X < 0f)
+			if (OriginalPosition.X < 0f)
 			{
-				base.OriginalPosition = new PointF(0f, base.OriginalPosition.Y);
+				OriginalPosition = new PointF(0f, OriginalPosition.Y);
 			}
-			else if (base.OriginalPosition.X > (float)base.BoundRect.Width)
+			else if (OriginalPosition.X > (float)BoundRect.Width)
 			{
-				base.OriginalPosition = new PointF((float)base.BoundRect.Width, base.OriginalPosition.Y);
+				OriginalPosition = new PointF((float)BoundRect.Width, OriginalPosition.Y);
 			}
-			return base.Time >= 30 && base.Position.Y > (float)(base.BoundRect.Bottom + 30);
+			return Time >= 30 && Position.Y > (float)(BoundRect.Bottom + 30);
 		}
 	}
 }

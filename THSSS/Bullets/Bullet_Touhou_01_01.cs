@@ -14,44 +14,44 @@ namespace Shooting
 		public override bool OutBoundary()
 		{
 			bool flag;
-			if (base.LifeTime != 0 && base.Time > base.LifeTime)
+			if (LifeTime != 0 && Time > LifeTime)
 			{
 				flag = true;
 			}
-			else if (base.Reflect <= 0)
+			else if (Reflect <= 0)
 			{
-				if (base.Time < 100)
+				if (Time < 100)
 				{
 					flag = false;
 				}
 				else
 				{
 					int num;
-					if (base.Region < 10)
+					if (Region < 10)
 					{
 						num = 10;
 					}
 					else
 					{
-						num = base.Region;
+						num = Region;
 					}
-					flag = (float)(-(float)num) >= base.OriginalPosition.X || base.OriginalPosition.X >= (float)(base.BoundRect.Width + num) || (float)(-(float)num) >= base.OriginalPosition.Y || base.OriginalPosition.Y >= (float)(base.BoundRect.Height + num);
+					flag = (float)(-(float)num) >= OriginalPosition.X || OriginalPosition.X >= (float)(BoundRect.Width + num) || (float)(-(float)num) >= OriginalPosition.Y || OriginalPosition.Y >= (float)(BoundRect.Height + num);
 				}
 			}
 			else
 			{
 				int num = 5;
-				if (base.OriginalPosition.X < (float)num || base.OriginalPosition.X >= (float)(base.BoundRect.Width - num))
+				if (OriginalPosition.X < (float)num || OriginalPosition.X >= (float)(BoundRect.Width - num))
 				{
-					base.Reflect -= 1;
-					base.Direction -= 2.0 * (base.Direction - 1.5707963267948966);
-					new BaseBullet_Touhou(base.StageData, this.SubBulletName, base.OriginalPosition, base.Velocity, base.Direction, base.ColorType);
-					this.GiveEndEffect();
+					Reflect -= 1;
+					Direction -= 2.0 * (Direction - 1.5707963267948966);
+					new BaseBullet_Touhou(StageData, SubBulletName, OriginalPosition, Velocity, Direction, ColorType);
+					GiveEndEffect();
 					flag = true;
 				}
 				else
 				{
-					flag = base.OriginalPosition.Y > (float)(base.BoundRect.Bottom + num);
+					flag = OriginalPosition.Y > (float)(BoundRect.Bottom + num);
 				}
 			}
 			return flag;

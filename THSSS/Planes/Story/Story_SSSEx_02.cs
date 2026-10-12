@@ -7,7 +7,7 @@ namespace Shooting.Planes.Story
 		public Story_SSSEx_02(StageDataPackage StageData)
 			: base(StageData)
 		{
-			string name = base.MyPlane.Name;
+			string name = MyPlane.Name;
 			if (name != null)
 			{
 				if (!(name == "Reimu"))
@@ -18,22 +18,22 @@ namespace Shooting.Planes.Story
 						{
 							if (name == "Koishi")
 							{
-								this.LoadConversation(".\\Story\\Ex-2D.csv");
+								LoadConversation(".\\Story\\Ex-2D.csv");
 							}
 						}
 						else
 						{
-							this.LoadConversation(".\\Story\\Ex-2C.csv");
+							LoadConversation(".\\Story\\Ex-2C.csv");
 						}
 					}
 					else
 					{
-						this.LoadConversation(".\\Story\\Ex-2B.csv");
+						LoadConversation(".\\Story\\Ex-2B.csv");
 					}
 				}
 				else
 				{
-					this.LoadConversation2(".\\Story\\Ex-2A.csv");
+					LoadConversation2(".\\Story\\Ex-2A.csv");
 				}
 			}
 		}
@@ -41,29 +41,29 @@ namespace Shooting.Planes.Story
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			if (base.Time == this.Conv.Count)
+			if (Time == Conv.Count)
 			{
-				this.SBox.Dispose();
-				base.Story = null;
-				new ClearBonus(base.StageData, 70000000);
-				base.StageData.CurrentStageName = "ExAll";
-				base.StageData.RepInfo.LastStage = base.StageData.CurrentStageName;
-				if (!base.StageData.OnReplay)
+				SBox.Dispose();
+				Story = null;
+				new ClearBonus(StageData, 70000000);
+				StageData.CurrentStageName = "ExAll";
+				StageData.RepInfo.LastStage = StageData.CurrentStageName;
+				if (!StageData.OnReplay)
 				{
-					base.StageData.C_History = base.StageData.PData.C_History.Find(new Predicate<ClearHistory>(base.StageData.FindClear));
-					base.StageData.C_History.ClearTimes++;
-					if (base.StageData.ContinueTimes == 0)
+					StageData.C_History = StageData.PData.C_History.Find(new Predicate<ClearHistory>(StageData.FindClear));
+					StageData.C_History.ClearTimes++;
+					if (StageData.ContinueTimes == 0)
 					{
-						base.StageData.C_History.NoContinueClearTimes++;
+						StageData.C_History.NoContinueClearTimes++;
 					}
 				}
-				if (base.StageData.ContinueTimes == 0 && !base.StageData.OnReplay)
+				if (StageData.ContinueTimes == 0 && !StageData.OnReplay)
 				{
-					new EndStage(base.StageData, "FinalReplaySaveMenu", true);
+					new EndStage(StageData, "FinalReplaySaveMenu", true);
 				}
 				else
 				{
-					new EndStage(base.StageData, "GameSetMenu", true);
+					new EndStage(StageData, "GameSetMenu", true);
 				}
 			}
 		}

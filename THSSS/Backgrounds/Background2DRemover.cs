@@ -7,19 +7,19 @@ namespace Shooting
 		public Background2DRemover(StageDataPackage StageData)
 			: base(StageData, null, new Point(0, 0), 0f, 1.5707963267948966)
 		{
-			base.LifeTime = 20;
+			LifeTime = 20;
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			base.Background.BackgroundList.ForEach(delegate(BaseObject x)
+			Background.BackgroundList.ForEach(delegate(BaseObject x)
 			{
-				x.TransparentValueF -= (float)(base.MaxTransparent / base.LifeTime);
+				x.TransparentValueF -= (float)(MaxTransparent / LifeTime);
 			});
-			if (base.Time >= base.LifeTime)
+			if (Time >= LifeTime)
 			{
-				base.Background.BackgroundList.Clear();
+				Background.BackgroundList.Clear();
 			}
 		}
 

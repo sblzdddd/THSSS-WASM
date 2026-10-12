@@ -7,38 +7,38 @@ namespace Shooting.Planes.Story
 		public Story_SSS02_01X(StageDataPackage StageData)
 			: base(StageData)
 		{
-			this.CharR = new CharacterR_Touhou(StageData, "FaceRakuki_no")
+			CharR = new CharacterR_Touhou(StageData, "FaceRakuki_no")
 			{
-				TxtureObject2 = base.TextureObjectDictionary[" "],
-				OriginalPosition = new PointF((float)(base.BoundRect.Width - 60), 380f)
+				TxtureObject2 = TextureObjectDictionary[" "],
+				OriginalPosition = new PointF((float)(BoundRect.Width - 60), 380f)
 			};
-			this.CharL = new CharacterL_Touhou(StageData, "Myplane")
+			CharL = new CharacterL_Touhou(StageData, "Myplane")
 			{
-				TxtureObject2 = base.TextureObjectDictionary["Myplane"]
+				TxtureObject2 = TextureObjectDictionary["Myplane"]
 			};
-			this.SBox = new StoryBox(StageData);
-			this.CharN = new CharacterName(StageData, "ename_Rakuki");
-			new StoryEmitterStar(StageData, this.CharN.Position, 0f, 0.0);
-			this.Conv.Add(new Conversation("。。。", false, true, "Myplane", "FaceRakuki_no"));
-			this.Conv.Add(new Conversation("。。。。。。", true, false, "Myplane", "FaceRakuki_no"));
+			SBox = new StoryBox(StageData);
+			CharN = new CharacterName(StageData, "ename_Rakuki");
+			new StoryEmitterStar(StageData, CharN.Position, 0f, 0.0);
+			Conv.Add(new Conversation("。。。", false, true, "Myplane", "FaceRakuki_no"));
+			Conv.Add(new Conversation("。。。。。。", true, false, "Myplane", "FaceRakuki_no"));
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			if (base.Time == this.Conv.Count)
+			if (Time == Conv.Count)
 			{
-				base.Boss.Enabled = true;
-				base.StageData.ChangeBGM(".\\BGM\\Boss02.ogg", 0, 0, 255, 327663, 3504627);
-				MusicTitle musicTitle = new MusicTitle(base.StageData, "疾风闪电", new Point(base.BoundRect.Width, base.BoundRect.Height - 16));
-				musicTitle.OriginalPosition = new PointF((float)base.BoundRect.Width, (float)(base.BoundRect.Height + 100));
+				Boss.Enabled = true;
+				StageData.ChangeBGM(".\\BGM\\Boss02.ogg", 0, 0, 255, 327663, 3504627);
+				MusicTitle musicTitle = new MusicTitle(StageData, "疾风闪电", new Point(BoundRect.Width, BoundRect.Height - 16));
+				musicTitle.OriginalPosition = new PointF((float)BoundRect.Width, (float)(BoundRect.Height + 100));
 				musicTitle.Scale = 0.5f;
-				this.SBox.Dispose();
-				base.Story = null;
-				new EmitterBossFire(base.StageData, base.Boss.OriginalPosition, Color.FromArgb(144, 255, 120));
-				MagicCircle magicCircle = new MagicCircle(base.StageData, "MagicCircleSix");
+				SBox.Dispose();
+				Story = null;
+				new EmitterBossFire(StageData, Boss.OriginalPosition, Color.FromArgb(144, 255, 120));
+				MagicCircle magicCircle = new MagicCircle(StageData, "MagicCircleSix");
 				magicCircle.Scale = 1.5f;
-				base.Background3D.WarpEnabled = true;
+				Background3D.WarpEnabled = true;
 			}
 		}
 	}

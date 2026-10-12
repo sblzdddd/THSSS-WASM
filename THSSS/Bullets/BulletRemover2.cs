@@ -7,27 +7,27 @@ namespace Shooting
 		public BulletRemover2(StageDataPackage StageData, PointF OriginalPosition)
 			: base(StageData, null, new Point(0, 0), 0f, 1.5707963267948966)
 		{
-			base.OriginalPosition = OriginalPosition;
-			base.LifeTime = 30;
-			base.Region = 2;
-			foreach (BaseEnemyPlane baseEnemyPlane in base.EnemyPlaneList)
+			this.OriginalPosition = OriginalPosition;
+			LifeTime = 30;
+			Region = 2;
+			foreach (BaseEnemyPlane baseEnemyPlane in EnemyPlaneList)
 			{
 				baseEnemyPlane.GiveEndEffect();
 			}
-			base.EnemyPlaneList.Clear();
+			EnemyPlaneList.Clear();
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			base.Region += 25;
-			for (int i = base.BulletList.Count - 1; i >= 0; i--)
+			Region += 25;
+			for (int i = BulletList.Count - 1; i >= 0; i--)
 			{
-				if (this.HitCheck(base.BulletList[i], (float)base.Region))
+				if (HitCheck(BulletList[i], (float)Region))
 				{
-					base.BulletList[i].GiveEndEffect();
-					base.BulletList[i].GiveItems();
-					base.BulletList.RemoveAt(i);
+					BulletList[i].GiveEndEffect();
+					BulletList[i].GiveItems();
+					BulletList.RemoveAt(i);
 				}
 			}
 		}

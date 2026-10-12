@@ -9,11 +9,11 @@ namespace Shooting
 		public MenuGroup_ScoreSaver(StageDataPackage StageData, PointF OriginalPosition)
 			: base(StageData)
 		{
-			base.OriginalPosition = OriginalPosition;
-			this.ScoreHistorys = new List<BaseMenuItem>();
+			this.OriginalPosition = OriginalPosition;
+			ScoreHistorys = new List<BaseMenuItem>();
 			for (int i = 0; i < 10; i++)
 			{
-				this.ScoreHistorys.Add(new DescriptionMenuItem(StageData, string.Format("{0:00}", i + 1)));
+				ScoreHistorys.Add(new DescriptionMenuItem(StageData, string.Format("{0:00}", i + 1)));
 			}
 			StageDataPackage stageData = StageData.GlobalData.LastState.StageData;
 			for (int i = 0; i < stageData.S_History.Count; i++)
@@ -36,16 +36,16 @@ namespace Shooting
 						stageData.S_History[j].Copy(stageData.S_History[j - 1]);
 					}
 					stageData.S_History[i].Copy(scoreHistory);
-					this.HistorySelectIndex = i;
+					HistorySelectIndex = i;
 					break;
 				}
 			}
 			float num = OriginalPosition.X + 12f;
 			float num2 = OriginalPosition.Y + 30f;
 			int num3 = 0;
-			foreach (BaseMenuItem baseMenuItem in this.ScoreHistorys)
+			foreach (BaseMenuItem baseMenuItem in ScoreHistorys)
 			{
-				baseMenuItem.Position = new PointF(num, (float)(base.BoundRect.Top + 40));
+				baseMenuItem.Position = new PointF(num, (float)(BoundRect.Top + 40));
 				baseMenuItem.DestPoint = new PointF(num, num2);
 				num2 += 17f;
 				if (stageData.CurrentStageName.Contains("St"))
@@ -57,9 +57,9 @@ namespace Shooting
 					((DescriptionMenuItem)baseMenuItem).Description = stageData.S_History[num3++].Data2DrawString();
 				}
 			}
-			if (this.HistorySelectIndex >= 0)
+			if (HistorySelectIndex >= 0)
 			{
-				this.ScoreHistorys[this.HistorySelectIndex].Selected = true;
+				ScoreHistorys[HistorySelectIndex].Selected = true;
 			}
 			string[,] array = new string[7, 13];
 			array[0, 0] = "A";
@@ -154,7 +154,7 @@ namespace Shooting
 			array[6, 11] = "BS";
 			array[6, 12] = "OK";
 			string[,] array2 = array;
-			base.MenuItemList = new List<BaseMenuItem>();
+			MenuItemList = new List<BaseMenuItem>();
 			for (int k = 0; k < 7; k++)
 			{
 				for (int l = 0; l < 13; l++)
@@ -162,110 +162,110 @@ namespace Shooting
 					BaseMenuItem baseMenuItem2 = new DescriptionMenuItem(StageData, array2[k, l]);
 					baseMenuItem2.OriginalPosition = new PointF((float)(stageData.BoundRect.Left + stageData.BoundRect.Width / 2 - 138), 300f);
 					baseMenuItem2.DestPoint = new PointF((float)(stageData.BoundRect.Left + stageData.BoundRect.Width / 2 - 138 + l * 22), (float)(270 + k * 22));
-					base.MenuItemList.Add(baseMenuItem2);
+					MenuItemList.Add(baseMenuItem2);
 				}
 			}
-			base.MenuSelectIndex = base.MenuItemList.Count - 1;
-			if (base.MenuSelectIndex >= 0)
+			MenuSelectIndex = MenuItemList.Count - 1;
+			if (MenuSelectIndex >= 0)
 			{
-				base.MenuItemList[base.MenuSelectIndex].Selected = true;
+				MenuItemList[MenuSelectIndex].Selected = true;
 			}
 			char[] array3 = stageData.PData.PlayerName.ToCharArray();
-			while (this.NameIndex < array3.Length)
+			while (NameIndex < array3.Length)
 			{
-				this.PlayerName[this.NameIndex] = array3[this.NameIndex].ToString();
-				this.NameIndex++;
+				PlayerName[NameIndex] = array3[NameIndex].ToString();
+				NameIndex++;
 			}
-			this.ShowPlayerName();
+			ShowPlayerName();
 		}
 
 		public override void ProcessKeys()
 		{
-			this.ScoreHistorys.ForEach(delegate(BaseMenuItem x)
+			ScoreHistorys.ForEach(delegate(BaseMenuItem x)
 			{
 				x.Ctrl();
 			});
-			if (base.KClass.ArrowDown && (this.LastDown == 0 || this.LastDown > 30))
+			if (KClass.ArrowDown && (LastDown == 0 || LastDown > 30))
 			{
-				base.MenuSelectIndex += 13;
-				base.StageData.SoundPlay("se_select00.wav");
-				this.SelectItemChanged();
+				MenuSelectIndex += 13;
+				StageData.SoundPlay("se_select00.wav");
+				SelectItemChanged();
 			}
-			if (base.KClass.ArrowUp && (this.LastUp == 0 || this.LastUp > 30))
+			if (KClass.ArrowUp && (LastUp == 0 || LastUp > 30))
 			{
-				base.MenuSelectIndex -= 13;
-				base.StageData.SoundPlay("se_select00.wav");
-				this.SelectItemChanged();
+				MenuSelectIndex -= 13;
+				StageData.SoundPlay("se_select00.wav");
+				SelectItemChanged();
 			}
-			if (base.KClass.ArrowLeft && (this.LastLeft == 0 || this.LastLeft > 30))
+			if (KClass.ArrowLeft && (LastLeft == 0 || LastLeft > 30))
 			{
-				base.MenuSelectIndex--;
-				if ((base.MenuSelectIndex + 1) % 13 == 0)
+				MenuSelectIndex--;
+				if ((MenuSelectIndex + 1) % 13 == 0)
 				{
-					base.MenuSelectIndex += 13;
+					MenuSelectIndex += 13;
 				}
-				base.StageData.SoundPlay("se_select00.wav");
-				this.SelectItemChanged();
+				StageData.SoundPlay("se_select00.wav");
+				SelectItemChanged();
 			}
-			if (base.KClass.ArrowRight && (this.LastRight == 0 || this.LastRight > 30))
+			if (KClass.ArrowRight && (LastRight == 0 || LastRight > 30))
 			{
-				base.MenuSelectIndex++;
-				if (base.MenuSelectIndex % 13 == 0)
+				MenuSelectIndex++;
+				if (MenuSelectIndex % 13 == 0)
 				{
-					base.MenuSelectIndex -= 13;
+					MenuSelectIndex -= 13;
 				}
-				base.StageData.SoundPlay("se_select00.wav");
-				this.SelectItemChanged();
+				StageData.SoundPlay("se_select00.wav");
+				SelectItemChanged();
 			}
-			if (base.KClass.Key_Z && this.LastZ == 0)
+			if (KClass.Key_Z && LastZ == 0)
 			{
-				base.MenuItemList[base.MenuSelectIndex].Click();
-				this.OnChangeMenu = base.TimeMain + 1;
+				MenuItemList[MenuSelectIndex].Click();
+				OnChangeMenu = TimeMain + 1;
 			}
-			if (base.KClass.Key_X && this.LastX == 0)
+			if (KClass.Key_X && LastX == 0)
 			{
-				if (this.NameIndex > 0)
+				if (NameIndex > 0)
 				{
-					this.NameIndex--;
-					this.PlayerName[this.NameIndex] = null;
+					NameIndex--;
+					PlayerName[NameIndex] = null;
 				}
-				base.StageData.SoundPlay("se_cancel00.wav");
-				this.ShowPlayerName();
+				StageData.SoundPlay("se_cancel00.wav");
+				ShowPlayerName();
 			}
 		}
 
 		public override void ProcessZ()
 		{
-			if (base.MenuSelectIndex == base.MenuItemList.Count - 1)
+			if (MenuSelectIndex == MenuItemList.Count - 1)
 			{
-				this.OnRemoveMenu = base.TimeMain + 20;
-				base.TransparentVelocity = -15f;
-				foreach (BaseMenuItem baseMenuItem in this.ScoreHistorys)
+				OnRemoveMenu = TimeMain + 20;
+				TransparentVelocity = -15f;
+				foreach (BaseMenuItem baseMenuItem in ScoreHistorys)
 				{
-					baseMenuItem.DestPoint = new PointF(base.OriginalPosition.X + 12f, base.OriginalPosition.Y + 30f);
+					baseMenuItem.DestPoint = new PointF(OriginalPosition.X + 12f, OriginalPosition.Y + 30f);
 					baseMenuItem.OnRemove = true;
 				}
-				base.StageData.SoundPlay("se_ok00.wav");
+				StageData.SoundPlay("se_ok00.wav");
 			}
-			else if (base.MenuSelectIndex == base.MenuItemList.Count - 2)
+			else if (MenuSelectIndex == MenuItemList.Count - 2)
 			{
-				if (this.NameIndex > 0)
+				if (NameIndex > 0)
 				{
-					this.NameIndex--;
-					this.PlayerName[this.NameIndex] = " ";
+					NameIndex--;
+					PlayerName[NameIndex] = " ";
 				}
-				base.StageData.SoundPlay("se_cancel00.wav");
+				StageData.SoundPlay("se_cancel00.wav");
 			}
 			else
 			{
-				this.PlayerName[this.NameIndex] = base.MenuItemList[base.MenuSelectIndex].Name;
-				base.StageData.SoundPlay("se_ok00.wav");
-				if (this.NameIndex < 7)
+				PlayerName[NameIndex] = MenuItemList[MenuSelectIndex].Name;
+				StageData.SoundPlay("se_ok00.wav");
+				if (NameIndex < 7)
 				{
-					this.NameIndex++;
+					NameIndex++;
 				}
 			}
-			this.ShowPlayerName();
+			ShowPlayerName();
 		}
 
 		private void ShowPlayerName()
@@ -273,20 +273,20 @@ namespace Shooting
 			string text = null;
 			for (int i = 0; i < 7; i++)
 			{
-				text += this.PlayerName[i];
+				text += PlayerName[i];
 			}
-			StageDataPackage stageData = base.StageData.GlobalData.LastState.StageData;
-			if (this.HistorySelectIndex >= 0)
+			StageDataPackage stageData = StageData.GlobalData.LastState.StageData;
+			if (HistorySelectIndex >= 0)
 			{
-				stageData.S_History[this.HistorySelectIndex].PlayerName = text;
+				stageData.S_History[HistorySelectIndex].PlayerName = text;
 				stageData.PData.PlayerName = text;
 				if (stageData.CurrentStageName.Contains("St"))
 				{
-					((DescriptionMenuItem)this.ScoreHistorys[this.HistorySelectIndex]).Description = stageData.S_History[this.HistorySelectIndex].Data2DrawStringSimple();
+					((DescriptionMenuItem)ScoreHistorys[HistorySelectIndex]).Description = stageData.S_History[HistorySelectIndex].Data2DrawStringSimple();
 				}
 				else
 				{
-					((DescriptionMenuItem)this.ScoreHistorys[this.HistorySelectIndex]).Description = stageData.S_History[this.HistorySelectIndex].Data2DrawString();
+					((DescriptionMenuItem)ScoreHistorys[HistorySelectIndex]).Description = stageData.S_History[HistorySelectIndex].Data2DrawString();
 				}
 			}
 		}
@@ -294,9 +294,9 @@ namespace Shooting
 		public override void Show()
 		{
 			base.Show();
-			if (this.ScoreHistorys.Count > 0)
+			if (ScoreHistorys.Count > 0)
 			{
-				this.ScoreHistorys.ForEach(delegate(BaseMenuItem x)
+				ScoreHistorys.ForEach(delegate(BaseMenuItem x)
 				{
 					x.Show();
 				});

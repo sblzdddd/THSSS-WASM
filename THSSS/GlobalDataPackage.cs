@@ -14,13 +14,13 @@ namespace Shooting
 	{
 		public GlobalDataPackage()
 		{
-			this.TextureObjectDictionary = new Dictionary<string, TextureObject>();
+			TextureObjectDictionary = new Dictionary<string, TextureObject>();
 			try
 			{
-				this.DeviceXaudio2 = new XAudio2();
-				this.MasteringVoice = new MasteringVoice(this.DeviceXaudio2);
-				this.SoundInitSuccess = true;
-				this.BGM_Player = new Wave_Player(this.DeviceXaudio2);
+				DeviceXaudio2 = new XAudio2();
+				MasteringVoice = new MasteringVoice(DeviceXaudio2);
+				SoundInitSuccess = true;
+				BGM_Player = new Wave_Player(DeviceXaudio2);
 			}
 			catch
 			{
@@ -30,20 +30,20 @@ namespace Shooting
 
 		public void LoadResources1()
 		{
-			this.ScreenTexMan = new ScreenTexManager(this.DeviceMain);
-			while (!this.LoadEffect())
+			ScreenTexMan = new ScreenTexManager(DeviceMain);
+			while (!LoadEffect())
 			{
 			}
-			this.LoadingList = new List<string>();
-			this.LoadFolderTextureList(".\\Image");
+			LoadingList = new List<string>();
+			LoadFolderTextureList(".\\Image");
 		}
 
 		public void LoadResources()
 		{
-			this.PData = new PlayerData();
-			this.LoadSound();
-			this.LoadBulletPic();
-			while (this.LoadingList.Count > 0)
+			PData = new PlayerData();
+			LoadSound();
+			LoadBulletPic();
+			while (LoadingList.Count > 0)
 			{
 				Thread.Sleep(1);
 			}
@@ -63,25 +63,25 @@ namespace Shooting
 				foreach (string text in files)
 				{
 					FileInfo fileInfo = new FileInfo(text);
-					this.LoadingList.Add(fileInfo.FullName);
+					LoadingList.Add(fileInfo.FullName);
 				}
 				string[] directories = Directory.GetDirectories(Path);
 				foreach (string text in directories)
 				{
-					this.LoadFolderTextureList(text);
+					LoadFolderTextureList(text);
 				}
 			}
 		}
 
 		private bool LoadEffect()
 		{
-			this.EffectDictionary = new Dictionary<string, Effect>();
+			EffectDictionary = new Dictionary<string, Effect>();
 			bool flag;
 			try
 			{
-				this.EffectDictionary.Add("Blur", Effect.FromFile(this.DeviceMain, ".\\FX\\Blur.fx", ShaderFlags.None));
-				this.EffectDictionary.Add("Warp", Effect.FromFile(this.DeviceMain, ".\\FX\\Warp.fx", ShaderFlags.None));
-				this.EffectDictionary.Add("Filter", Effect.FromFile(this.DeviceMain, ".\\FX\\Filter.fx", ShaderFlags.None));
+				EffectDictionary.Add("Blur", Effect.FromFile(DeviceMain, ".\\FX\\Blur.fx", ShaderFlags.None));
+				EffectDictionary.Add("Warp", Effect.FromFile(DeviceMain, ".\\FX\\Warp.fx", ShaderFlags.None));
+				EffectDictionary.Add("Filter", Effect.FromFile(DeviceMain, ".\\FX\\Filter.fx", ShaderFlags.None));
 				flag = true;
 			}
 			catch
@@ -93,50 +93,50 @@ namespace Shooting
 
 		public void LoadModelDictionary()
 		{
-			this.ModelDictionary = new Dictionary<string, IModel>();
-			this.LoadModel("Petal00", 0);
-			this.LoadModel("Petal01", 0);
-			this.LoadModel("Petal02", 0);
-			this.LoadModel("Petal03", 0);
-			this.LoadModel("Petal10", 0);
-			this.LoadModel("Petal11", 0);
-			this.LoadModel("Petal12", 0);
-			this.LoadModel("Petal13", 0);
-			this.LoadModel("Petal20", 0);
-			this.LoadModel("Petal21", 0);
-			this.LoadModel("Petal22", 0);
-			this.LoadModel("Petal23", 0);
-			this.LoadModel("Petal30", 0);
-			this.LoadModel("Petal31", 0);
-			this.LoadModel("Petal32", 0);
-			this.LoadModel("Petal33", 0);
-			this.LoadModel("Effect-0", 0);
-			this.LoadModel("Effect-1", 0);
-			this.LoadModel("BG02d", 0);
-			this.LoadModel("liba", 0);
-			this.LoadModel("zhu", 0);
-			this.LoadModel("柳树", 0);
-			this.LoadModel("草地", 0);
-			this.LoadModel("地砖", 0);
-			this.LoadModel("黑暗滤镜", 0);
-			this.LoadModel("极光素材", 0);
-			this.LoadModel("万花镜素材", 0);
-			this.LoadModel("草地ex", 0);
-			this.LoadModel("Tree1", 0);
-			this.LoadModel("Tree2", 0);
-			this.LoadModel("591-1", 0);
-			this.LoadModel("591-1R", 0);
-			this.LoadModel("Leaf", 0);
-			this.LoadModel("Tree", 0);
-			this.LoadModel("Cloud01", 0);
-			this.LoadModel("Cloud02", 0);
-			this.LoadModel("夜空（暗）", 0);
-			this.LoadModel("夜空（亮）", 0);
-			this.LoadModel("云（暗层）", 0);
-			this.LoadModel("云（亮层）", 0);
-			this.LoadModel("BG01a", 0);
-			this.LoadModel("Stair", 2);
-			this.LoadModel("祭坛", 2);
+			ModelDictionary = new Dictionary<string, IModel>();
+			LoadModel("Petal00", 0);
+			LoadModel("Petal01", 0);
+			LoadModel("Petal02", 0);
+			LoadModel("Petal03", 0);
+			LoadModel("Petal10", 0);
+			LoadModel("Petal11", 0);
+			LoadModel("Petal12", 0);
+			LoadModel("Petal13", 0);
+			LoadModel("Petal20", 0);
+			LoadModel("Petal21", 0);
+			LoadModel("Petal22", 0);
+			LoadModel("Petal23", 0);
+			LoadModel("Petal30", 0);
+			LoadModel("Petal31", 0);
+			LoadModel("Petal32", 0);
+			LoadModel("Petal33", 0);
+			LoadModel("Effect-0", 0);
+			LoadModel("Effect-1", 0);
+			LoadModel("BG02d", 0);
+			LoadModel("liba", 0);
+			LoadModel("zhu", 0);
+			LoadModel("柳树", 0);
+			LoadModel("草地", 0);
+			LoadModel("地砖", 0);
+			LoadModel("黑暗滤镜", 0);
+			LoadModel("极光素材", 0);
+			LoadModel("万花镜素材", 0);
+			LoadModel("草地ex", 0);
+			LoadModel("Tree1", 0);
+			LoadModel("Tree2", 0);
+			LoadModel("591-1", 0);
+			LoadModel("591-1R", 0);
+			LoadModel("Leaf", 0);
+			LoadModel("Tree", 0);
+			LoadModel("Cloud01", 0);
+			LoadModel("Cloud02", 0);
+			LoadModel("夜空（暗）", 0);
+			LoadModel("夜空（亮）", 0);
+			LoadModel("云（暗层）", 0);
+			LoadModel("云（亮层）", 0);
+			LoadModel("BG01a", 0);
+			LoadModel("Stair", 2);
+			LoadModel("祭坛", 2);
 		}
 
 		private void LoadModel(string Name, int ModelType)
@@ -151,23 +151,23 @@ namespace Shooting
 					{
 					case 0:
 					{
-						IModel model = new Model(this.DeviceMain, this.TextureObjectDictionary[Name], Name);
-						this.ModelDictionary.Add(Name, model);
+						IModel model = new Model(DeviceMain, TextureObjectDictionary[Name], Name);
+						ModelDictionary.Add(Name, model);
 						break;
 					}
 					case 1:
 					{
-						IModel model = new Model_Circle(this.DeviceMain, this.TextureObjectDictionary[Name], Name);
-						this.ModelDictionary.Add(Name, model);
+						IModel model = new Model_Circle(DeviceMain, TextureObjectDictionary[Name], Name);
+						ModelDictionary.Add(Name, model);
 						break;
 					}
 					case 2:
 					{
-						IModel model = new Model_Mesh(this.DeviceMain, Name)
+						IModel model = new Model_Mesh(DeviceMain, Name)
 						{
 							GlobalData = this
 						};
-						this.ModelDictionary.Add(model.Name, model);
+						ModelDictionary.Add(model.Name, model);
 						break;
 					}
 					}
@@ -189,7 +189,7 @@ namespace Shooting
 		{
 			try
 			{
-				this.BulletPicDictionary = new Dictionary<string, bool[,]>();
+				BulletPicDictionary = new Dictionary<string, bool[,]>();
 				for (int i = 0; i < Directory.GetFiles(".\\BPic", "*.png").Length; i++)
 				{
 					FileInfo fileInfo = new FileInfo(Directory.GetFiles(".\\BPic", "*.png")[i]);
@@ -202,7 +202,7 @@ namespace Shooting
 							array[j, k] = bitmap.GetPixel(j, k).G < 128;
 						}
 					}
-					this.BulletPicDictionary.Add(fileInfo.Name, array);
+					BulletPicDictionary.Add(fileInfo.Name, array);
 				}
 			}
 			catch
@@ -213,18 +213,18 @@ namespace Shooting
 
 		public void LoadSound()
 		{
-			if (this.SoundInitSuccess)
+			if (SoundInitSuccess)
 			{
-				this.SoundDictionary = new Dictionary<string, XAudio2_Player>();
+				SoundDictionary = new Dictionary<string, XAudio2_Player>();
 				string[] files = Directory.GetFiles(".\\Sound", "*.wav");
 				for (int i = 0; i < files.Length; i++)
 				{
 					FileInfo fileInfo = new FileInfo(files[i]);
-					this.SoundDictionary.Add(fileInfo.Name, new XAudio2_Player(fileInfo.FullName, this.DeviceXaudio2)
+					SoundDictionary.Add(fileInfo.Name, new XAudio2_Player(fileInfo.FullName, DeviceXaudio2)
 					{
-						Volume = this.SEVolume
+						Volume = SEVolume
 					});
-					if (!this.SoundDictionary[fileInfo.Name].loadSuccess)
+					if (!SoundDictionary[fileInfo.Name].loadSuccess)
 					{
 						MessageBox.Show(fileInfo.Name + "读取错误", "LoadSound Error");
 					}
@@ -234,7 +234,7 @@ namespace Shooting
 
 		public void TextureObjectLoader(string imageFileName)
 		{
-			this.TextureObjectLoader(imageFileName, 0);
+			TextureObjectLoader(imageFileName, 0);
 		}
 
 		public void TextureObjectLoader(string imageFileName, int colorKey)
@@ -243,7 +243,7 @@ namespace Shooting
 			{
 				int num = 0;
 				Texture texture;
-				while (!this.SetTexture(imageFileName, colorKey, new Rectangle(0, 0, 1, 1), out texture) && num++ < 20)
+				while (!SetTexture(imageFileName, colorKey, new Rectangle(0, 0, 1, 1), out texture) && num++ < 20)
 				{
 				}
 				if (texture == null)
@@ -251,7 +251,7 @@ namespace Shooting
 					MessageBox.Show(imageFileName + "纹理读取错误", "LoadTexture Error");
 					return;
 				}
-				this.RegisterLoadedTexture(imageFileName, texture);
+				RegisterLoadedTexture(imageFileName, texture);
 			}
 		}
 
@@ -274,7 +274,7 @@ namespace Shooting
 					textureObject.OffsetY = Convert.ToInt32(array4[6]);
 					textureObject.SrcWidth = rectangle.Width;
 					textureObject.SrcHeight = rectangle.Height;
-					this.TextureObjectDictionary.Add(array4[0], textureObject);
+					TextureObjectDictionary.Add(array4[0], textureObject);
 				}
 			}
 			else
@@ -284,7 +284,7 @@ namespace Shooting
 				textureObject.PosRect = new Rectangle(0, 0, rectangle.Width, rectangle.Height);
 				textureObject.SrcWidth = rectangle.Width;
 				textureObject.SrcHeight = rectangle.Height;
-				this.TextureObjectDictionary.Add(fileInfo.Name.Replace(".png", ""), textureObject);
+				TextureObjectDictionary.Add(fileInfo.Name.Replace(".png", ""), textureObject);
 			}
 		}
 
@@ -293,7 +293,7 @@ namespace Shooting
 			bool flag;
 			try
 			{
-				texture = Texture.FromFile(this.DeviceMain, imageFileName, Rect.Width, Rect.Height, 0, Usage.None, Format.Unknown, Pool.Managed, Filter.Linear, Filter.None, colorKey);
+				texture = Texture.FromFile(DeviceMain, imageFileName, Rect.Width, Rect.Height, 0, Usage.None, Format.Unknown, Pool.Managed, Filter.Linear, Filter.None, colorKey);
 				flag = true;
 			}
 			catch
@@ -308,10 +308,10 @@ namespace Shooting
 		{
 			try
 			{
-				int bgmvolume = this.BGMVolume;
-				this.BGM_Player.FileName = FileName;
-				this.BGM_Player.Volume = bgmvolume;
-				this.BGM_Player.Play();
+				int bgmvolume = BGMVolume;
+				BGM_Player.FileName = FileName;
+				BGM_Player.Volume = bgmvolume;
+				BGM_Player.Play();
 			}
 			catch
 			{
@@ -320,35 +320,35 @@ namespace Shooting
 
 		public void BGM_OFF()
 		{
-			this.BGM_Player.Stop();
+			BGM_Player.Stop();
 		}
 
 		public void BGM_Pause()
 		{
-			this.BGM_Player.Puase();
+			BGM_Player.Puase();
 		}
 
 		public void BGM_Resume()
 		{
-			if (this.BGM_Player != null)
+			if (BGM_Player != null)
 			{
-				this.BGM_Player.Resume();
+				BGM_Player.Resume();
 			}
 		}
 
 		public void OnLostDevice()
 		{
-			if (this.SpriteMain != null)
+			if (SpriteMain != null)
 			{
-				this.SpriteMain.sprite.OnLostDevice();
+				SpriteMain.sprite.OnLostDevice();
 			}
-			if (this.ScreenTexMan != null)
+			if (ScreenTexMan != null)
 			{
-				this.ScreenTexMan.Dispose();
+				ScreenTexMan.Dispose();
 			}
-			if (this.EffectDictionary != null)
+			if (EffectDictionary != null)
 			{
-				foreach (Effect effect in this.EffectDictionary.Values)
+				foreach (Effect effect in EffectDictionary.Values)
 				{
 					effect.OnLostDevice();
 				}
@@ -357,15 +357,15 @@ namespace Shooting
 
 		public void OnResetDevice()
 		{
-			this.SpriteMain.sprite.OnResetDevice();
-			this.DeviceMain.Reset(new PresentParameters[] { this.presentParams });
-			if (this.ScreenTexMan != null)
+			SpriteMain.sprite.OnResetDevice();
+			DeviceMain.Reset(new PresentParameters[] { presentParams });
+			if (ScreenTexMan != null)
 			{
-				this.ScreenTexMan.Reset();
+				ScreenTexMan.Reset();
 			}
-			if (this.EffectDictionary != null)
+			if (EffectDictionary != null)
 			{
-				foreach (Effect effect in this.EffectDictionary.Values)
+				foreach (Effect effect in EffectDictionary.Values)
 				{
 					effect.OnResetDevice();
 				}
@@ -374,48 +374,48 @@ namespace Shooting
 
 		public void Dispose()
 		{
-			this.DeviceMain.Direct3D.Dispose();
-			this.SpriteMain.Dispose();
-			if (this.TextureObjectDictionary != null)
+			DeviceMain.Direct3D.Dispose();
+			SpriteMain.Dispose();
+			if (TextureObjectDictionary != null)
 			{
-				foreach (TextureObject textureObject in this.TextureObjectDictionary.Values)
+				foreach (TextureObject textureObject in TextureObjectDictionary.Values)
 				{
 					textureObject.Dispose();
 				}
 			}
-			if (this.SoundDictionary != null)
+			if (SoundDictionary != null)
 			{
-				foreach (XAudio2_Player xaudio2_Player in this.SoundDictionary.Values)
+				foreach (XAudio2_Player xaudio2_Player in SoundDictionary.Values)
 				{
 					xaudio2_Player.Dispose();
 				}
 			}
-			if (this.BGM_Player != null)
+			if (BGM_Player != null)
 			{
-				this.BGM_Player.Dispose();
+				BGM_Player.Dispose();
 			}
-			if (this.ScreenTexMan != null)
+			if (ScreenTexMan != null)
 			{
-				this.ScreenTexMan.Dispose();
+				ScreenTexMan.Dispose();
 			}
-			if (this.EffectDictionary != null)
+			if (EffectDictionary != null)
 			{
-				foreach (Effect effect in this.EffectDictionary.Values)
+				foreach (Effect effect in EffectDictionary.Values)
 				{
 					effect.Dispose();
 				}
 			}
-			if (this.ModelDictionary != null)
+			if (ModelDictionary != null)
 			{
-				foreach (IModel model in this.ModelDictionary.Values)
+				foreach (IModel model in ModelDictionary.Values)
 				{
 					Model model2 = (Model)model;
 					model2.Dispose();
 				}
 			}
-			if (this.DeviceXaudio2 != null)
+			if (DeviceXaudio2 != null)
 			{
-				this.DeviceXaudio2.Dispose();
+				DeviceXaudio2.Dispose();
 			}
 		}
 

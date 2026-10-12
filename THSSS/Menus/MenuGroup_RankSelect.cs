@@ -9,19 +9,19 @@ namespace Shooting
 			: base(StageData)
 		{
 			this.StageSelect = StageSelect;
-			base.MenuSelectIndex = 1;
-			base.MenuItemList = new List<BaseMenuItem>
+			MenuSelectIndex = 1;
+			MenuItemList = new List<BaseMenuItem>
 			{
 				new BaseMenuItem(StageData, "Menu_Easy"),
 				new BaseMenuItem(StageData, "Menu_Normal"),
 				new BaseMenuItem(StageData, "Menu_Hard"),
 				new BaseMenuItem(StageData, "Menu_Lunatic")
 			};
-			int num = 220 + base.MenuSelectIndex * 150;
-			int num2 = 200 - base.MenuSelectIndex * 100;
+			int num = 220 + MenuSelectIndex * 150;
+			int num2 = 200 - MenuSelectIndex * 100;
 			int num3 = -200;
 			int num4 = 0;
-			foreach (BaseMenuItem baseMenuItem in base.MenuItemList)
+			foreach (BaseMenuItem baseMenuItem in MenuItemList)
 			{
 				baseMenuItem.Position = new PointF((float)(num + num3), 48f);
 				baseMenuItem.DestPoint = new PointF((float)num, (float)num2);
@@ -33,119 +33,119 @@ namespace Shooting
 				num3 -= 100;
 				num4++;
 			}
-			base.MenuItemList[base.MenuSelectIndex].Selected = true;
-			this.MenuTitlePos1 = new PointF(0f, 0f);
-			this.MenuTitlePos2 = new PointF(0f, -150f);
-			base.MenuTilte = new BaseMenuItem(StageData, "MenuTitle_RankSelect")
+			MenuItemList[MenuSelectIndex].Selected = true;
+			MenuTitlePos1 = new PointF(0f, 0f);
+			MenuTitlePos2 = new PointF(0f, -150f);
+			MenuTilte = new BaseMenuItem(StageData, "MenuTitle_RankSelect")
 			{
-				Position = this.MenuTitlePos2
+				Position = MenuTitlePos2
 			};
-			base.TransparentValueF = 0f;
-			base.TransparentVelocity = 20f;
-			base.TxtureObject = base.TextureObjectDictionary["MenuBackground"];
-			base.OriginalPosition = new PointF((float)(base.BoundRect.Width / 2), (float)(base.BoundRect.Height / 2));
-			base.AngleDegree = 90.0;
-			base.Scale = 0.625f;
-			base.MaxScale = 0.75f;
-			base.ScaleVelocity = 0.005f;
-			base.DestPoint = new PointF((float)(base.BoundRect.Width / 2 + 30 * (base.MenuSelectIndex - 1)), (float)(base.BoundRect.Height / 2 - 20 * (base.MenuSelectIndex - 1)));
-			base.Velocity = 4f;
-			base.AngleWithDirection = false;
+			TransparentValueF = 0f;
+			TransparentVelocity = 20f;
+			TxtureObject = TextureObjectDictionary["MenuBackground"];
+			OriginalPosition = new PointF((float)(BoundRect.Width / 2), (float)(BoundRect.Height / 2));
+			AngleDegree = 90.0;
+			Scale = 0.625f;
+			MaxScale = 0.75f;
+			ScaleVelocity = 0.005f;
+			DestPoint = new PointF((float)(BoundRect.Width / 2 + 30 * (MenuSelectIndex - 1)), (float)(BoundRect.Height / 2 - 20 * (MenuSelectIndex - 1)));
+			Velocity = 4f;
+			AngleWithDirection = false;
 		}
 
 		public override void SelectItemChanged()
 		{
 			base.SelectItemChanged();
-			int num = 220 + base.MenuSelectIndex * 150;
-			int num2 = 200 - base.MenuSelectIndex * 100;
-			foreach (BaseMenuItem baseMenuItem in base.MenuItemList)
+			int num = 220 + MenuSelectIndex * 150;
+			int num2 = 200 - MenuSelectIndex * 100;
+			foreach (BaseMenuItem baseMenuItem in MenuItemList)
 			{
 				baseMenuItem.DestPoint = new PointF((float)num, (float)num2);
 				num2 += 100;
 				num -= 150;
 			}
-			base.DestPoint = new PointF((float)(base.BoundRect.Width / 2 + 30 * (base.MenuSelectIndex - 1)), (float)(base.BoundRect.Height / 2 - 20 * (base.MenuSelectIndex - 1)));
-			base.Velocity = 4f;
+			DestPoint = new PointF((float)(BoundRect.Width / 2 + 30 * (MenuSelectIndex - 1)), (float)(BoundRect.Height / 2 - 20 * (MenuSelectIndex - 1)));
+			Velocity = 4f;
 		}
 
 		public override void ProcessKeys()
 		{
-			if ((base.KClass.ArrowDown && (this.LastDown == 0 || this.LastDown > 30)) || (base.KClass.ArrowLeft && (this.LastLeft == 0 || this.LastLeft > 30)))
+			if ((KClass.ArrowDown && (LastDown == 0 || LastDown > 30)) || (KClass.ArrowLeft && (LastLeft == 0 || LastLeft > 30)))
 			{
-				base.MenuSelectIndex++;
-				base.StageData.SoundPlay("se_select00.wav");
-				this.SelectItemChanged();
+				MenuSelectIndex++;
+				StageData.SoundPlay("se_select00.wav");
+				SelectItemChanged();
 			}
-			if ((base.KClass.ArrowUp && (this.LastUp == 0 || this.LastUp > 30)) || (base.KClass.ArrowRight && (this.LastRight == 0 || this.LastRight > 30)))
+			if ((KClass.ArrowUp && (LastUp == 0 || LastUp > 30)) || (KClass.ArrowRight && (LastRight == 0 || LastRight > 30)))
 			{
-				base.MenuSelectIndex--;
-				base.StageData.SoundPlay("se_select00.wav");
-				this.SelectItemChanged();
+				MenuSelectIndex--;
+				StageData.SoundPlay("se_select00.wav");
+				SelectItemChanged();
 			}
-			if (base.KClass.Key_Z && this.LastZ == 0)
+			if (KClass.Key_Z && LastZ == 0)
 			{
-				base.MenuItemList[base.MenuSelectIndex].Click();
-				this.OnChangeMenu = base.TimeMain + 20;
-				base.StageData.SoundPlay("se_ok00.wav");
+				MenuItemList[MenuSelectIndex].Click();
+				OnChangeMenu = TimeMain + 20;
+				StageData.SoundPlay("se_ok00.wav");
 			}
-			if ((base.KClass.Key_X || base.KClass.Key_ESC) && this.LastX == 0)
+			if ((KClass.Key_X || KClass.Key_ESC) && LastX == 0)
 			{
-				this.OnRemoveMenu = base.TimeMain + 20;
-				base.TransparentVelocity = -15f;
-				foreach (BaseMenuItem baseMenuItem in base.MenuItemList)
+				OnRemoveMenu = TimeMain + 20;
+				TransparentVelocity = -15f;
+				foreach (BaseMenuItem baseMenuItem in MenuItemList)
 				{
 					baseMenuItem.DestPoint = new PointF(0f, 0f);
 					baseMenuItem.OnRemove = true;
 				}
-				base.StageData.SoundPlay("se_cancel00.wav");
+				StageData.SoundPlay("se_cancel00.wav");
 			}
 		}
 
 		public override void ProcessZ()
 		{
-			string name = base.MenuItemList[base.MenuSelectIndex].Name;
+			string name = MenuItemList[MenuSelectIndex].Name;
 			if (name != null)
 			{
 				if (name == "Menu_Easy")
 				{
-					base.StageData.StateSwitchData.SDPswitch.Difficulty = DifficultLevel.Easy;
+					StageData.StateSwitchData.SDPswitch.Difficulty = DifficultLevel.Easy;
 					goto IL_010E;
 				}
 				if (name == "Menu_Normal")
 				{
-					base.StageData.StateSwitchData.SDPswitch.Difficulty = DifficultLevel.Normal;
+					StageData.StateSwitchData.SDPswitch.Difficulty = DifficultLevel.Normal;
 					goto IL_010E;
 				}
 				if (name == "Menu_Hard")
 				{
-					base.StageData.StateSwitchData.SDPswitch.Difficulty = DifficultLevel.Hard;
+					StageData.StateSwitchData.SDPswitch.Difficulty = DifficultLevel.Hard;
 					goto IL_010E;
 				}
 				if (name == "Menu_Lunatic")
 				{
-					base.StageData.StateSwitchData.SDPswitch.Difficulty = DifficultLevel.Lunatic;
+					StageData.StateSwitchData.SDPswitch.Difficulty = DifficultLevel.Lunatic;
 					goto IL_010E;
 				}
 				if (name == "Ultra")
 				{
-					base.StageData.StateSwitchData.SDPswitch.Difficulty = DifficultLevel.Ultra;
+					StageData.StateSwitchData.SDPswitch.Difficulty = DifficultLevel.Ultra;
 					goto IL_010E;
 				}
 			}
-			base.StageData.StateSwitchData = new StateSwitchDataPackage
+			StageData.StateSwitchData = new StateSwitchDataPackage
 			{
 				NextState = "此功能尚未开通",
 				NeedInit = true,
-				SDPswitch = base.StageData
+				SDPswitch = StageData
 			};
 			IL_010E:
-			base.StageData.MenuGroupList.Add(new MenuGroup_PlayerSelect(base.StageData, this.StageSelect));
+			StageData.MenuGroupList.Add(new MenuGroup_PlayerSelect(StageData, StageSelect));
 		}
 
 		public override void Show()
 		{
 			base.Show();
-			base.MenuItemList[base.MenuSelectIndex].Show();
+			MenuItemList[MenuSelectIndex].Show();
 		}
 
 		private bool StageSelect;

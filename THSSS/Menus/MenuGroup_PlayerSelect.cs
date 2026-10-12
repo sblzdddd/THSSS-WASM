@@ -9,76 +9,76 @@ namespace Shooting
 			: base(StageData)
 		{
 			this.StageSelect = StageSelect;
-			base.MenuSelectIndex = 0;
-			base.MenuItemList = new List<BaseMenuItem>();
-			this.PlayerDescription = new List<BaseMenuItem>();
-			base.MenuItemList.Add(new CharacterMenuItem(StageData, "FaceReimu_me")
+			MenuSelectIndex = 0;
+			MenuItemList = new List<BaseMenuItem>();
+			PlayerDescription = new List<BaseMenuItem>();
+			MenuItemList.Add(new CharacterMenuItem(StageData, "FaceReimu_me")
 			{
 				DestPoint1 = new PointF(-128f, 10f),
 				DestPoint2 = new PointF(-228f, 10f),
 				TransparentValueF = 0f
 			});
-			this.PlayerDescription.Add(new CharacterMenuItem(StageData, "DescriptionReimu")
+			PlayerDescription.Add(new CharacterMenuItem(StageData, "DescriptionReimu")
 			{
 				DestPoint1 = new PointF(190f, 10f),
 				DestPoint2 = new PointF(260f, 10f),
 				TransparentValueF = 0f
 			});
-			base.MenuItemList.Add(new CharacterMenuItem(StageData, "FaceMarisa_me")
+			MenuItemList.Add(new CharacterMenuItem(StageData, "FaceMarisa_me")
 			{
 				DestPoint1 = new PointF(-128f, 10f),
 				DestPoint2 = new PointF(-228f, 10f),
 				TransparentValueF = 0f
 			});
-			this.PlayerDescription.Add(new CharacterMenuItem(StageData, "DescriptionMarisa")
+			PlayerDescription.Add(new CharacterMenuItem(StageData, "DescriptionMarisa")
 			{
 				DestPoint1 = new PointF(190f, 10f),
 				DestPoint2 = new PointF(260f, 10f),
 				TransparentValueF = 0f
 			});
-			base.MenuItemList.Add(new CharacterMenuItem(StageData, "FaceSanae_me")
+			MenuItemList.Add(new CharacterMenuItem(StageData, "FaceSanae_me")
 			{
 				DestPoint1 = new PointF(0f, 30f),
 				DestPoint2 = new PointF(-100f, 30f),
 				TransparentValueF = 0f
 			});
-			this.PlayerDescription.Add(new CharacterMenuItem(StageData, "DescriptionSanae")
+			PlayerDescription.Add(new CharacterMenuItem(StageData, "DescriptionSanae")
 			{
 				DestPoint1 = new PointF(190f, 10f),
 				DestPoint2 = new PointF(260f, 10f),
 				TransparentValueF = 0f
 			});
-			base.MenuItemList.Add(new CharacterMenuItem(StageData, "FaceKoishi_me")
+			MenuItemList.Add(new CharacterMenuItem(StageData, "FaceKoishi_me")
 			{
 				DestPoint1 = new PointF(-128f, 10f),
 				DestPoint2 = new PointF(-228f, 10f),
 				TransparentValueF = 0f
 			});
-			this.PlayerDescription.Add(new CharacterMenuItem(StageData, "DescriptionKoishi")
+			PlayerDescription.Add(new CharacterMenuItem(StageData, "DescriptionKoishi")
 			{
 				DestPoint1 = new PointF(190f, 10f),
 				DestPoint2 = new PointF(260f, 10f),
 				TransparentValueF = 0f
 			});
-			base.MenuItemList[base.MenuSelectIndex].Selected = true;
-			this.PlayerDescription[base.MenuSelectIndex].Selected = true;
-			base.MenuTilte = new BaseMenuItem(StageData, "MenuTitle_PlayerSelect")
+			MenuItemList[MenuSelectIndex].Selected = true;
+			PlayerDescription[MenuSelectIndex].Selected = true;
+			MenuTilte = new BaseMenuItem(StageData, "MenuTitle_PlayerSelect")
 			{
-				Position = this.MenuTitlePos2
+				Position = MenuTitlePos2
 			};
-			base.TransparentValueF = 0f;
-			base.MaxTransparent = 255;
-			base.TransparentVelocity = 10f;
-			base.TxtureObject = base.TextureObjectDictionary["MenuBackground"];
-			base.AngleDegree = 90.0;
-			base.Scale = 0.75f;
-			base.OriginalPosition = new PointF((float)(base.BoundRect.Width / 2 + 30 * (StageData.StateSwitchData.SDPswitch.Difficulty - DifficultLevel.Normal)), (float)(base.BoundRect.Height / 2 - 20 * (StageData.StateSwitchData.SDPswitch.Difficulty - DifficultLevel.Normal)));
+			TransparentValueF = 0f;
+			MaxTransparent = 255;
+			TransparentVelocity = 10f;
+			TxtureObject = TextureObjectDictionary["MenuBackground"];
+			AngleDegree = 90.0;
+			Scale = 0.75f;
+			OriginalPosition = new PointF((float)(BoundRect.Width / 2 + 30 * (StageData.StateSwitchData.SDPswitch.Difficulty - DifficultLevel.Normal)), (float)(BoundRect.Height / 2 - 20 * (StageData.StateSwitchData.SDPswitch.Difficulty - DifficultLevel.Normal)));
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			this.PlayerDescription.ForEach(delegate(BaseMenuItem x)
+			PlayerDescription.ForEach(delegate(BaseMenuItem x)
 			{
 				x.Ctrl();
 			});
@@ -86,54 +86,54 @@ namespace Shooting
 
 		public override void ProcessKeys()
 		{
-			if (base.KClass.ArrowLeft && this.LastLeft == 0)
+			if (KClass.ArrowLeft && LastLeft == 0)
 			{
-				base.MenuSelectIndex--;
-				base.StageData.SoundPlay("se_select00.wav");
-				this.SelectItemChanged();
+				MenuSelectIndex--;
+				StageData.SoundPlay("se_select00.wav");
+				SelectItemChanged();
 			}
-			if (base.KClass.ArrowRight && this.LastRight == 0)
+			if (KClass.ArrowRight && LastRight == 0)
 			{
-				base.MenuSelectIndex++;
-				base.StageData.SoundPlay("se_select00.wav");
-				this.SelectItemChanged();
+				MenuSelectIndex++;
+				StageData.SoundPlay("se_select00.wav");
+				SelectItemChanged();
 			}
-			if (base.KClass.Key_Z && this.LastZ == 0)
+			if (KClass.Key_Z && LastZ == 0)
 			{
-				base.MenuItemList[base.MenuSelectIndex].Click();
-				this.OnChangeMenu = base.TimeMain + 20;
-				base.StageData.SoundPlay("se_ok00.wav");
+				MenuItemList[MenuSelectIndex].Click();
+				OnChangeMenu = TimeMain + 20;
+				StageData.SoundPlay("se_ok00.wav");
 			}
-			if ((base.KClass.Key_X || base.KClass.Key_ESC) && this.LastX == 0)
+			if ((KClass.Key_X || KClass.Key_ESC) && LastX == 0)
 			{
-				this.OnRemoveMenu = base.TimeMain + 20;
-				base.TransparentVelocity = -15f;
-				foreach (BaseMenuItem baseMenuItem in base.MenuItemList)
+				OnRemoveMenu = TimeMain + 20;
+				TransparentVelocity = -15f;
+				foreach (BaseMenuItem baseMenuItem in MenuItemList)
 				{
 					baseMenuItem.Selected = false;
 					baseMenuItem.OnRemove = true;
 				}
-				foreach (BaseMenuItem baseMenuItem in this.PlayerDescription)
+				foreach (BaseMenuItem baseMenuItem in PlayerDescription)
 				{
 					baseMenuItem.Selected = false;
 					baseMenuItem.OnRemove = true;
 				}
-				base.StageData.SoundPlay("se_cancel00.wav");
+				StageData.SoundPlay("se_cancel00.wav");
 			}
 		}
 
 		public override void SelectItemChanged()
 		{
 			base.SelectItemChanged();
-			for (int i = 0; i < this.PlayerDescription.Count; i++)
+			for (int i = 0; i < PlayerDescription.Count; i++)
 			{
-				if (i == base.MenuSelectIndex)
+				if (i == MenuSelectIndex)
 				{
-					this.PlayerDescription[i].Select();
+					PlayerDescription[i].Select();
 				}
 				else
 				{
-					this.PlayerDescription[i].Selected = false;
+					PlayerDescription[i].Selected = false;
 				}
 			}
 		}
@@ -141,65 +141,65 @@ namespace Shooting
 		public override void ProcessZ()
 		{
 			Point point = new Point(192, 398);
-			string name = base.MenuItemList[base.MenuSelectIndex].Name;
+			string name = MenuItemList[MenuSelectIndex].Name;
 			switch (name)
 			{
 			case "FaceAya_ct":
-				base.StageData.MenuGroupList.Add(new MenuGroup_WeaponSelect(base.StageData, this.StageSelect, 0));
+				StageData.MenuGroupList.Add(new MenuGroup_WeaponSelect(StageData, StageSelect, 0));
 				break;
 			case "Plane":
-				base.StageData.MenuGroupList.Add(new MenuGroup_WeaponSelect(base.StageData, this.StageSelect, 1));
+				StageData.MenuGroupList.Add(new MenuGroup_WeaponSelect(StageData, StageSelect, 1));
 				break;
 			case "FaceReimu_me":
-				base.StageData.StateSwitchData.SDPswitch.MyPlane = new MyPlane_Reimu(base.StageData.StateSwitchData.SDPswitch, point);
-				if (!this.StageSelect)
+				StageData.StateSwitchData.SDPswitch.MyPlane = new MyPlane_Reimu(StageData.StateSwitchData.SDPswitch, point);
+				if (!StageSelect)
 				{
-					base.StageData.Rep.CreatRpy();
-					base.StageData.StateSwitchData.NextState = "St1";
-					base.StageData.StateSwitchData.SDPswitch.SetReplayInfo(base.StageData.StateSwitchData.NextState);
+					StageData.Rep.CreatRpy();
+					StageData.StateSwitchData.NextState = "St1";
+					StageData.StateSwitchData.SDPswitch.SetReplayInfo(StageData.StateSwitchData.NextState);
 				}
 				else
 				{
-					base.StageData.MenuGroupList.Add(new MenuGroup_StageSelect(base.StageData));
+					StageData.MenuGroupList.Add(new MenuGroup_StageSelect(StageData));
 				}
 				break;
 			case "FaceSanae_me":
-				base.StageData.StateSwitchData.SDPswitch.MyPlane = new MyPlane_Sanae(base.StageData.StateSwitchData.SDPswitch, point);
-				if (!this.StageSelect)
+				StageData.StateSwitchData.SDPswitch.MyPlane = new MyPlane_Sanae(StageData.StateSwitchData.SDPswitch, point);
+				if (!StageSelect)
 				{
-					base.StageData.Rep.CreatRpy();
-					base.StageData.StateSwitchData.NextState = "St1";
-					base.StageData.StateSwitchData.SDPswitch.SetReplayInfo(base.StageData.StateSwitchData.NextState);
+					StageData.Rep.CreatRpy();
+					StageData.StateSwitchData.NextState = "St1";
+					StageData.StateSwitchData.SDPswitch.SetReplayInfo(StageData.StateSwitchData.NextState);
 				}
 				else
 				{
-					base.StageData.MenuGroupList.Add(new MenuGroup_StageSelect(base.StageData));
+					StageData.MenuGroupList.Add(new MenuGroup_StageSelect(StageData));
 				}
 				break;
 			case "FaceMarisa_me":
-				base.StageData.StateSwitchData.SDPswitch.MyPlane = new MyPlane_Marisa(base.StageData.StateSwitchData.SDPswitch, point);
-				if (!this.StageSelect)
+				StageData.StateSwitchData.SDPswitch.MyPlane = new MyPlane_Marisa(StageData.StateSwitchData.SDPswitch, point);
+				if (!StageSelect)
 				{
-					base.StageData.Rep.CreatRpy();
-					base.StageData.StateSwitchData.NextState = "St1";
-					base.StageData.StateSwitchData.SDPswitch.SetReplayInfo(base.StageData.StateSwitchData.NextState);
+					StageData.Rep.CreatRpy();
+					StageData.StateSwitchData.NextState = "St1";
+					StageData.StateSwitchData.SDPswitch.SetReplayInfo(StageData.StateSwitchData.NextState);
 				}
 				else
 				{
-					base.StageData.MenuGroupList.Add(new MenuGroup_StageSelect(base.StageData));
+					StageData.MenuGroupList.Add(new MenuGroup_StageSelect(StageData));
 				}
 				break;
 			case "FaceKoishi_me":
-				base.StageData.StateSwitchData.SDPswitch.MyPlane = new MyPlane_Koishi(base.StageData.StateSwitchData.SDPswitch, point);
-				if (!this.StageSelect)
+				StageData.StateSwitchData.SDPswitch.MyPlane = new MyPlane_Koishi(StageData.StateSwitchData.SDPswitch, point);
+				if (!StageSelect)
 				{
-					base.StageData.Rep.CreatRpy();
-					base.StageData.StateSwitchData.NextState = "St1";
-					base.StageData.StateSwitchData.SDPswitch.SetReplayInfo(base.StageData.StateSwitchData.NextState);
+					StageData.Rep.CreatRpy();
+					StageData.StateSwitchData.NextState = "St1";
+					StageData.StateSwitchData.SDPswitch.SetReplayInfo(StageData.StateSwitchData.NextState);
 				}
 				else
 				{
-					base.StageData.MenuGroupList.Add(new MenuGroup_StageSelect(base.StageData));
+					StageData.MenuGroupList.Add(new MenuGroup_StageSelect(StageData));
 				}
 				break;
 			}
@@ -208,9 +208,9 @@ namespace Shooting
 		public override void Show()
 		{
 			base.Show();
-			if (base.StageData.MenuGroupList[base.StageData.MenuGroupList.Count - 1] == this)
+			if (StageData.MenuGroupList[StageData.MenuGroupList.Count - 1] == this)
 			{
-				this.PlayerDescription.ForEach(delegate(BaseMenuItem x)
+				PlayerDescription.ForEach(delegate(BaseMenuItem x)
 				{
 					x.Show();
 				});

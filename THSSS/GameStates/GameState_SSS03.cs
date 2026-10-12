@@ -9,47 +9,47 @@ namespace Shooting
 		public GameState_SSS03(GlobalDataPackage GlobalData)
 			: base(GlobalData)
 		{
-			base.StageName = "St3";
+			StageName = "St3";
 		}
 
 		public override void Drama()
 		{
 			base.Drama();
 			int[] array = new int[] { 3360, 3800, 7300 };
-			if (base.TimeMain == 1)
+			if (TimeMain == 1)
 			{
-				switch (base.StageData.Difficulty)
+				switch (StageData.Difficulty)
 				{
 				case DifficultLevel.Hard:
-					base.MyPlane.EnchantmentCountNeeded = 5;
+					MyPlane.EnchantmentCountNeeded = 5;
 					break;
 				case DifficultLevel.Lunatic:
-					base.MyPlane.EnchantmentCountNeeded = 6;
+					MyPlane.EnchantmentCountNeeded = 6;
 					break;
 				}
 			}
-			if (base.TimeMain == 2)
+			if (TimeMain == 2)
 			{
-				if (base.StageData.C_History.PracticeLevel < 3)
+				if (StageData.C_History.PracticeLevel < 3)
 				{
-					base.StageData.C_History.PracticeLevel = 3;
+					StageData.C_History.PracticeLevel = 3;
 				}
-				base.StageData.ChangeBGM(".\\BGM\\Stage03.ogg", (this.testStartTime + 60) * 44100 / 60, 0, 255, 88200, 5606874);
-				MusicTitle musicTitle = new MusicTitle(base.StageData, "木灵们的夏夜祭", new Point(base.BoundRect.Width, base.BoundRect.Height - 16));
-				musicTitle.OriginalPosition = new PointF((float)base.BoundRect.Width, (float)(base.BoundRect.Height + 100));
+				StageData.ChangeBGM(".\\BGM\\Stage03.ogg", (testStartTime + 60) * 44100 / 60, 0, 255, 88200, 5606874);
+				MusicTitle musicTitle = new MusicTitle(StageData, "木灵们的夏夜祭", new Point(BoundRect.Width, BoundRect.Height - 16));
+				musicTitle.OriginalPosition = new PointF((float)BoundRect.Width, (float)(BoundRect.Height + 100));
 				musicTitle.Scale = 0.5f;
-				base.Background3D.Envi = new EnvironmentSSS03(base.StageData);
-				BackgroundTransitionIn backgroundTransitionIn = new BackgroundTransitionIn(base.StageData);
+				Background3D.Envi = new EnvironmentSSS03(StageData);
+				BackgroundTransitionIn backgroundTransitionIn = new BackgroundTransitionIn(StageData);
 				backgroundTransitionIn.Delay = 200;
 				backgroundTransitionIn.LifeTime = 320;
-				if (this.testStartTime > base.TimeMain)
+				if (testStartTime > TimeMain)
 				{
-					base.TimeMain = this.testStartTime;
+					TimeMain = testStartTime;
 				}
-				if (base.TimeMain < array[0])
+				if (TimeMain < array[0])
 				{
 					string[] array2;
-					switch (base.StageData.Difficulty)
+					switch (StageData.Difficulty)
 					{
 					case DifficultLevel.Easy:
 						array2 = Directory.GetFiles(".\\CS\\St03\\A\\E\\", "*.mbg");
@@ -69,28 +69,28 @@ namespace Shooting
 					}
 					foreach (string text in array2)
 					{
-						CS_Data cs_Data = base.StageData.LoadCS(text);
-						CSEmitterController csemitterController = new CSEmitterController(base.StageData, cs_Data);
+						CS_Data cs_Data = StageData.LoadCS(text);
+						CSEmitterController csemitterController = new CSEmitterController(StageData, cs_Data);
 						csemitterController.OnRoad = true;
-						csemitterController.Time = base.TimeMain - 60;
+						csemitterController.Time = TimeMain - 60;
 					}
 				}
 			}
-			if (base.TimeMain == array[0])
+			if (TimeMain == array[0])
 			{
-				base.StageData.RemoveBullets();
-				new Boss_Koreirei01(base.StageData);
-				new EmitterBossFire(base.StageData, base.Boss.OriginalPosition, Color.OrangeRed);
-				MagicCircle magicCircle = new MagicCircle(base.StageData, "MagicCircleSix");
+				StageData.RemoveBullets();
+				new Boss_Koreirei01(StageData);
+				new EmitterBossFire(StageData, Boss.OriginalPosition, Color.OrangeRed);
+				MagicCircle magicCircle = new MagicCircle(StageData, "MagicCircleSix");
 				magicCircle.Scale = 1.5f;
-				base.Background3D.WarpEnabled = true;
-				base.Background3D.WarpColorKey = 2;
+				Background3D.WarpEnabled = true;
+				Background3D.WarpColorKey = 2;
 			}
-			else if (base.TimeMain > array[1] && base.Boss == null && !base.RoadFlag)
+			else if (TimeMain > array[1] && Boss == null && !RoadFlag)
 			{
-				base.RoadFlag = true;
+				RoadFlag = true;
 				string[] array2;
-				switch (base.StageData.Difficulty)
+				switch (StageData.Difficulty)
 				{
 				case DifficultLevel.Easy:
 					array2 = Directory.GetFiles(".\\CS\\St03\\B\\E\\", "*.mbg");
@@ -110,54 +110,54 @@ namespace Shooting
 				}
 				foreach (string text in array2)
 				{
-					CS_Data cs_Data = base.StageData.LoadCS(text);
-					CSEmitterController csemitterController2 = new CSEmitterController(base.StageData, cs_Data);
+					CS_Data cs_Data = StageData.LoadCS(text);
+					CSEmitterController csemitterController2 = new CSEmitterController(StageData, cs_Data);
 					csemitterController2.OnRoad = true;
-					csemitterController2.Time = base.TimeMain - 60;
+					csemitterController2.Time = TimeMain - 60;
 				}
 			}
-			else if (array[2] - 130 == base.TimeMain)
+			else if (array[2] - 130 == TimeMain)
 			{
-				BossStar bossStar = new BossStar(base.StageData, new PointF((float)(base.BoundRect.Width / 2), 150f));
+				BossStar bossStar = new BossStar(StageData, new PointF((float)(BoundRect.Width / 2), 150f));
 				bossStar.ColorType = 5;
 			}
-			else if (array[2] == base.TimeMain)
+			else if (array[2] == TimeMain)
 			{
-				base.StageData.RemoveBullets();
-				new Boss_Seiryuu01(base.StageData);
-				string name = base.MyPlane.Name;
+				StageData.RemoveBullets();
+				new Boss_Seiryuu01(StageData);
+				string name = MyPlane.Name;
 				if (name != null)
 				{
 					if (name == "Aya")
 					{
-						new Story_SSS03_01(base.StageData);
+						new Story_SSS03_01(StageData);
 						goto IL_058E;
 					}
 					if (name == "Reimu")
 					{
-						new Story_SSS03_01A(base.StageData);
+						new Story_SSS03_01A(StageData);
 						goto IL_058E;
 					}
 					if (name == "Marisa")
 					{
-						new Story_SSS03_01B(base.StageData);
+						new Story_SSS03_01B(StageData);
 						goto IL_058E;
 					}
 					if (name == "Sanae")
 					{
-						new Story_SSS03_01C(base.StageData);
+						new Story_SSS03_01C(StageData);
 						goto IL_058E;
 					}
 					if (name == "Koishi")
 					{
-						new Story_SSS03_01D(base.StageData);
+						new Story_SSS03_01D(StageData);
 						goto IL_058E;
 					}
 				}
-				new Story_SSS03_01X(base.StageData);
+				new Story_SSS03_01X(StageData);
 				IL_058E:
-				base.Background3D.WarpEnabled = false;
-				base.Background3D.WarpColorKey = 0;
+				Background3D.WarpEnabled = false;
+				Background3D.WarpColorKey = 0;
 			}
 		}
 

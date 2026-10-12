@@ -6,42 +6,42 @@ namespace Shooting
 	{
 		public ParticleBossFire(StageDataPackage StageData, string textureName, PointF OriginalPosition, float Velocity, double Direction, int LifeTime)
 		{
-			base.StageData = StageData;
-			base.Velocity = Velocity;
-			base.Direction = Direction;
-			base.OriginalPosition = OriginalPosition;
-			base.LifeTime = LifeTime;
+			this.StageData = StageData;
+			this.Velocity = Velocity;
+			this.Direction = Direction;
+			this.OriginalPosition = OriginalPosition;
+			this.LifeTime = LifeTime;
 			if (textureName != null)
 			{
-				base.TxtureObject = base.TextureObjectDictionary[textureName];
+				TxtureObject = TextureObjectDictionary[textureName];
 			}
-			base.Active = true;
-			base.Background.BackgroundList.Add(this);
-			base.ScaleLength = 0.5f;
-			base.ScaleWidth = 0.3f;
-			base.DirectionDegree = (double)(90 + base.Ran.Next(-4, 5));
+			Active = true;
+			Background.BackgroundList.Add(this);
+			ScaleLength = 0.5f;
+			ScaleWidth = 0.3f;
+			DirectionDegree = (double)(90 + Ran.Next(-4, 5));
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			if (base.Time > 0)
+			if (Time > 0)
 			{
-				base.TransparentValueF -= (float)(255 / base.LifeTime);
+				TransparentValueF -= (float)(255 / LifeTime);
 			}
-			if (base.Boss != null)
+			if (Boss != null)
 			{
-				base.OriginalPosition = base.Boss.OriginalPosition;
+				OriginalPosition = Boss.OriginalPosition;
 			}
-			if (base.Time > 0)
+			if (Time > 0)
 			{
-				base.ScaleLength += 0.07f;
-				base.ScaleWidth += 0.03f;
-				base.TransparentValueF -= (float)(base.MaxTransparent / base.LifeTime);
+				ScaleLength += 0.07f;
+				ScaleWidth += 0.03f;
+				TransparentValueF -= (float)(MaxTransparent / LifeTime);
 			}
-			if (this.OutBoundary())
+			if (OutBoundary())
 			{
-				base.Background.BackgroundList.Remove(this);
+				Background.BackgroundList.Remove(this);
 			}
 		}
 	}

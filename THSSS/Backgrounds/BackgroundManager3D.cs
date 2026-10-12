@@ -27,7 +27,7 @@ namespace Shooting
 		{
 			get
 			{
-				return this.StageData.DeviceMain;
+				return StageData.DeviceMain;
 			}
 		}
 
@@ -35,120 +35,120 @@ namespace Shooting
 
 		public BackgroundManager3D(StageDataPackage StageData)
 		{
-			this.BackgroundList = new List<BaseObject>();
-			this.BackgroundParticleList = new List<BaseParticle3D>();
+			BackgroundList = new List<BaseObject>();
+			BackgroundParticleList = new List<BaseParticle3D>();
 			this.StageData = StageData;
-			this.Enabled3D = true;
-			this.vertexDecl = new VertexDeclaration(this.DeviceMain, TexturedVertex.VertexElements);
-			this.SetupLight();
+			Enabled3D = true;
+			vertexDecl = new VertexDeclaration(DeviceMain, TexturedVertex.VertexElements);
+			SetupLight();
 		}
 
 		private void SetupLight()
 		{
-			this.light = default(Light);
-			this.light.Type = LightType.Directional;
-			this.light.Diffuse = Color.White;
-			this.light.Ambient = Color.White;
-			this.light.Direction = new Vector3(0f, 0f, -1f);
+			light = default(Light);
+			light.Type = LightType.Directional;
+			light.Diffuse = Color.White;
+			light.Ambient = Color.White;
+			light.Direction = new Vector3(0f, 0f, -1f);
 		}
 
 		public void Ctrl()
 		{
-			if (this.Envi != null)
+			if (Envi != null)
 			{
-				this.Envi.Ctrl();
+				Envi.Ctrl();
 			}
-			for (int i = this.BackgroundList.Count - 1; i >= 0; i--)
+			for (int i = BackgroundList.Count - 1; i >= 0; i--)
 			{
-				BaseObject x = this.BackgroundList[i];
+				BaseObject x = BackgroundList[i];
 				if (x.OutBoundary())
 				{
 					x.Dispose();
-					this.BackgroundList.RemoveAt(i);
+					BackgroundList.RemoveAt(i);
 				}
 			}
-			for (int i = 0; i < this.BackgroundList.Count; i++)
+			for (int i = 0; i < BackgroundList.Count; i++)
 			{
-				this.BackgroundList[i].Ctrl();
+				BackgroundList[i].Ctrl();
 			}
-			for (int i = this.BackgroundParticleList.Count - 1; i >= 0; i--)
+			for (int i = BackgroundParticleList.Count - 1; i >= 0; i--)
 			{
-				BaseParticle3D x = this.BackgroundParticleList[i];
+				BaseParticle3D x = BackgroundParticleList[i];
 				if (x.OutBoundary())
 				{
 					x.Dispose();
-					this.BackgroundParticleList.RemoveAt(i);
+					BackgroundParticleList.RemoveAt(i);
 				}
 			}
-			for (int i = 0; i < this.BackgroundParticleList.Count; i++)
+			for (int i = 0; i < BackgroundParticleList.Count; i++)
 			{
-				this.BackgroundParticleList[i].Ctrl();
+				BackgroundParticleList[i].Ctrl();
 			}
-			this.BackgroundParticleList.Sort(depthComparer);
-			if (this.WarpEnabled)
+			BackgroundParticleList.Sort(depthComparer);
+			if (WarpEnabled)
 			{
-				if (this.WarpRadius < 128f)
+				if (WarpRadius < 128f)
 				{
-					this.WarpRadius += 4f;
+					WarpRadius += 4f;
 				}
 			}
-			else if (this.WarpRadius > 0f)
+			else if (WarpRadius > 0f)
 			{
-				this.WarpRadius -= 4f;
+				WarpRadius -= 4f;
 			}
 		}
 
 		private void SetParticleRenderPara()
 		{
-			this.DeviceMain.SetTransform(TransformState.View, Matrix.LookAtLH(new Vector3(0f, 0f, (float)(this.DeviceMain.Viewport.Height / 2)), new Vector3(0f, 0f, 0f), new Vector3(0f, -1f, 0f)));
-			this.DeviceMain.SetTransform(TransformState.Projection, Matrix.PerspectiveFovLH(1.5707964f, (float)this.DeviceMain.Viewport.Width / (float)this.DeviceMain.Viewport.Height, 1f, 1000f));
-			this.DeviceMain.SetRenderState(RenderState.ZEnable, false);
-			this.DeviceMain.SetRenderState(RenderState.CullMode, true);
-			this.DeviceMain.SetRenderState(RenderState.AlphaBlendEnable, true);
-			this.DeviceMain.SetRenderState<Blend>(RenderState.SourceBlend, Blend.SourceAlpha);
-			this.DeviceMain.SetRenderState(RenderState.FogEnable, false);
-			this.DeviceMain.SetTextureStageState(0, TextureStage.AlphaArg1, TextureArgument.Texture);
-			this.DeviceMain.SetTextureStageState(0, TextureStage.AlphaOperation, TextureOperation.Modulate);
-			this.DeviceMain.SetTextureStageState(0, TextureStage.AlphaArg2, TextureArgument.Diffuse);
-			this.DeviceMain.SetLight(0, this.light);
-			this.DeviceMain.SetRenderState(RenderState.Lighting, true);
-			this.DeviceMain.EnableLight(0, true);
-			this.DeviceMain.VertexDeclaration = this.vertexDecl;
-			this.DeviceMain.VertexFormat = TexturedVertex.Format;
+			DeviceMain.SetTransform(TransformState.View, Matrix.LookAtLH(new Vector3(0f, 0f, (float)(DeviceMain.Viewport.Height / 2)), new Vector3(0f, 0f, 0f), new Vector3(0f, -1f, 0f)));
+			DeviceMain.SetTransform(TransformState.Projection, Matrix.PerspectiveFovLH(1.5707964f, (float)DeviceMain.Viewport.Width / (float)DeviceMain.Viewport.Height, 1f, 1000f));
+			DeviceMain.SetRenderState(RenderState.ZEnable, false);
+			DeviceMain.SetRenderState(RenderState.CullMode, true);
+			DeviceMain.SetRenderState(RenderState.AlphaBlendEnable, true);
+			DeviceMain.SetRenderState<Blend>(RenderState.SourceBlend, Blend.SourceAlpha);
+			DeviceMain.SetRenderState(RenderState.FogEnable, false);
+			DeviceMain.SetTextureStageState(0, TextureStage.AlphaArg1, TextureArgument.Texture);
+			DeviceMain.SetTextureStageState(0, TextureStage.AlphaOperation, TextureOperation.Modulate);
+			DeviceMain.SetTextureStageState(0, TextureStage.AlphaArg2, TextureArgument.Diffuse);
+			DeviceMain.SetLight(0, light);
+			DeviceMain.SetRenderState(RenderState.Lighting, true);
+			DeviceMain.EnableLight(0, true);
+			DeviceMain.VertexDeclaration = vertexDecl;
+			DeviceMain.VertexFormat = TexturedVertex.Format;
 		}
 
 		public void Show()
 		{
-			this.StageData.ScreenTexMan.Begin();
-			Viewport viewport = this.StageData.DeviceMain.Viewport;
-			if (!this.StageData.BoundRect.Equals(new Rectangle(0, 0, 640, 480)))
+			StageData.ScreenTexMan.Begin();
+			Viewport viewport = StageData.DeviceMain.Viewport;
+			if (!StageData.BoundRect.Equals(new Rectangle(0, 0, 640, 480)))
 			{
-				this.DeviceMain.Viewport = new Viewport
+				DeviceMain.Viewport = new Viewport
 				{
-					X = this.StageData.BoundRect.Left - 10,
-					Y = this.StageData.BoundRect.Top - 10,
-					Width = this.StageData.BoundRect.Width + 20,
-					Height = this.StageData.BoundRect.Height + 20,
+					X = StageData.BoundRect.Left - 10,
+					Y = StageData.BoundRect.Top - 10,
+					Width = StageData.BoundRect.Width + 20,
+					Height = StageData.BoundRect.Height + 20,
 					MinZ = 0f,
 					MaxZ = 1f
 				};
 			}
-			if (this.Envi != null)
+			if (Envi != null)
 			{
-				this.Envi.SetRenderPara();
+				Envi.SetRenderPara();
 			}
-			if (this.Enabled3D)
+			if (Enabled3D)
 			{
-				for (int i = 0; i < this.BackgroundList.Count; i++)
+				for (int i = 0; i < BackgroundList.Count; i++)
 				{
-					this.BackgroundList[i].Show();
+					BackgroundList[i].Show();
 				}
 			}
-			this.SetParticleRenderPara();
+			SetParticleRenderPara();
 			string ModelName = null;
-			for (int i = 0; i < this.BackgroundParticleList.Count; i++)
+			for (int i = 0; i < BackgroundParticleList.Count; i++)
 			{
-				BaseParticle3D x = this.BackgroundParticleList[i];
+				BaseParticle3D x = BackgroundParticleList[i];
 				if (x.model != null)
 				{
 					if (ModelName != x.model.Name)
@@ -159,65 +159,65 @@ namespace Shooting
 					ModelName = x.model.Name;
 				}
 			}
-			this.DeviceMain.Viewport = viewport;
-			this.StageData.SpriteMain.Begin(SpriteFlags.AlphaBlend);
-			this.StageData.Background.Show(false);
-			this.StageData.SpriteMain.End();
-			this.StageData.SpriteMain.Begin(SpriteFlags.AlphaBlend);
-			this.DeviceMain.SetRenderState(RenderState.SourceBlend, 5);
-			this.DeviceMain.SetRenderState(RenderState.DestinationBlend, 2);
-			this.StageData.Background.Show(true);
-			this.StageData.SpriteMain.End();
-			this.StageData.ScreenTexMan.End();
-			if (this.StageData.Boss != null)
+			DeviceMain.Viewport = viewport;
+			StageData.SpriteMain.Begin(SpriteFlags.AlphaBlend);
+			StageData.Background.Show(false);
+			StageData.SpriteMain.End();
+			StageData.SpriteMain.Begin(SpriteFlags.AlphaBlend);
+			DeviceMain.SetRenderState(RenderState.SourceBlend, 5);
+			DeviceMain.SetRenderState(RenderState.DestinationBlend, 2);
+			StageData.Background.Show(true);
+			StageData.SpriteMain.End();
+			StageData.ScreenTexMan.End();
+			if (StageData.Boss != null)
 			{
-				this.StageData.SpriteMain.Begin(SpriteFlags.AlphaBlend);
-				this.DeviceMain.SetRenderState(RenderState.SourceBlend, 5);
-				this.DeviceMain.SetRenderState(RenderState.DestinationBlend, 2);
-				this.StageData.EffectMain = this.StageData.EffectDictionary["Warp"];
-				this.StageData.EffectMain.Technique = "technique1";
-				this.StageData.EffectMain.Begin();
-				this.StageData.EffectMain.SetValue<float>("X", this.StageData.Boss.Position.X / 640f);
-				this.StageData.EffectMain.SetValue<float>("Y", this.StageData.Boss.Position.Y / 480f);
-				this.StageData.EffectMain.SetValue<float>("Radius", this.WarpRadius / 640f);
-				this.StageData.EffectMain.SetValue<float>("Time", (float)this.StageData.TimeMain / 20f);
-				this.StageData.EffectMain.SetValue<int>("ColorKey", this.WarpColorKey);
-				this.StageData.EffectMain.BeginPass(0);
-				this.StageData.SpriteMain.Draw2D(this.StageData.ScreenTexMan.RenderTexture, new Point(0, 0), 0f, new PointF(0f, 0f), Color.White);
-				this.StageData.EffectMain.EndPass();
-				this.StageData.SpriteMain.End();
-				this.StageData.EffectMain.End();
+				StageData.SpriteMain.Begin(SpriteFlags.AlphaBlend);
+				DeviceMain.SetRenderState(RenderState.SourceBlend, 5);
+				DeviceMain.SetRenderState(RenderState.DestinationBlend, 2);
+				StageData.EffectMain = StageData.EffectDictionary["Warp"];
+				StageData.EffectMain.Technique = "technique1";
+				StageData.EffectMain.Begin();
+				StageData.EffectMain.SetValue<float>("X", StageData.Boss.Position.X / 640f);
+				StageData.EffectMain.SetValue<float>("Y", StageData.Boss.Position.Y / 480f);
+				StageData.EffectMain.SetValue<float>("Radius", WarpRadius / 640f);
+				StageData.EffectMain.SetValue<float>("Time", (float)StageData.TimeMain / 20f);
+				StageData.EffectMain.SetValue<int>("ColorKey", WarpColorKey);
+				StageData.EffectMain.BeginPass(0);
+				StageData.SpriteMain.Draw2D(StageData.ScreenTexMan.RenderTexture, new Point(0, 0), 0f, new PointF(0f, 0f), Color.White);
+				StageData.EffectMain.EndPass();
+				StageData.SpriteMain.End();
+				StageData.EffectMain.End();
 			}
 			else
 			{
-				this.StageData.SpriteMain.Begin(SpriteFlags.AlphaBlend);
-				this.DeviceMain.SetRenderState(RenderState.SourceBlend, 5);
-				this.DeviceMain.SetRenderState(RenderState.DestinationBlend, 2);
-				this.StageData.SpriteMain.Draw2D(this.StageData.ScreenTexMan.RenderTexture, new Point(0, 0), 0f, new PointF(0f, 0f), Color.White);
-				this.StageData.SpriteMain.End();
+				StageData.SpriteMain.Begin(SpriteFlags.AlphaBlend);
+				DeviceMain.SetRenderState(RenderState.SourceBlend, 5);
+				DeviceMain.SetRenderState(RenderState.DestinationBlend, 2);
+				StageData.SpriteMain.Draw2D(StageData.ScreenTexMan.RenderTexture, new Point(0, 0), 0f, new PointF(0f, 0f), Color.White);
+				StageData.SpriteMain.End();
 			}
 		}
 
 		public void Dispose()
 		{
-			this.BackgroundList.ForEach(delegate(BaseObject x)
+			BackgroundList.ForEach(delegate(BaseObject x)
 			{
 				x.Dispose();
 			});
-			this.BackgroundParticleList.ForEach(delegate(BaseParticle3D x)
+			BackgroundParticleList.ForEach(delegate(BaseParticle3D x)
 			{
 				x.Dispose();
 			});
-			if (this.vertexDecl != null)
+			if (vertexDecl != null)
 			{
-				this.vertexDecl.Dispose();
+				vertexDecl.Dispose();
 			}
 		}
 
 		public void Clear()
 		{
-			this.BackgroundList.Clear();
-			this.BackgroundParticleList.Clear();
+			BackgroundList.Clear();
+			BackgroundParticleList.Clear();
 		}
 
 		private Light light;

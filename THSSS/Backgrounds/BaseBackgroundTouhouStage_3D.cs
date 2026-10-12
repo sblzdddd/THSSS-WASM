@@ -10,23 +10,23 @@ namespace Shooting
 		{
 			get
 			{
-				return base.StageData.DeviceMain;
+				return StageData.DeviceMain;
 			}
 		}
 
 		public BaseBackgroundTouhouStage_3D(StageDataPackage StageData, string textureName)
 			: base(StageData, textureName, new PointF(0f, 0f), 0f, 0.0)
 		{
-			base.OriginalPosition = new PointF(0f, 0f);
-			base.Background3D.BackgroundList.Add(this);
-			this.vertexDecl = new VertexDeclaration(this.DeviceMain, TexturedVertex.VertexElements);
+			OriginalPosition = new PointF(0f, 0f);
+			Background3D.BackgroundList.Add(this);
+			vertexDecl = new VertexDeclaration(DeviceMain, TexturedVertex.VertexElements);
 		}
 
 		public void SetupMaterial()
 		{
-			this.material = default(Material);
-			this.material.Diffuse = new Color4(Color.FromArgb(base.TransparentValue, base.ColorValue));
-			this.material.Ambient = new Color4(Color.FromArgb(base.TransparentValue, base.ColorValue));
+			material = default(Material);
+			material.Diffuse = new Color4(Color.FromArgb(TransparentValue, ColorValue));
+			material.Ambient = new Color4(Color.FromArgb(TransparentValue, ColorValue));
 		}
 
 		public override bool OutBoundary()
@@ -40,27 +40,27 @@ namespace Shooting
 
 		public virtual void SetupMatrices()
 		{
-			this.DeviceMain.SetTransform(TransformState.World, Matrix.Identity);
+			DeviceMain.SetTransform(TransformState.World, Matrix.Identity);
 		}
 
 		public override void Show()
 		{
-			this.SetupVertex();
-			this.SetupMaterial();
-			this.SetupMatrices();
-			this.DeviceMain.Material = this.material;
-			this.DeviceMain.SetTexture(0, base.TxtureObject.TXTure);
-			this.DeviceMain.SetStreamSource(0, this.vertexBuffer, 0, TexturedVertex.SizeBytes);
-			this.DeviceMain.VertexDeclaration = this.vertexDecl;
-			this.DeviceMain.VertexFormat = TexturedVertex.Format;
+			SetupVertex();
+			SetupMaterial();
+			SetupMatrices();
+			DeviceMain.Material = material;
+			DeviceMain.SetTexture(0, TxtureObject.TXTure);
+			DeviceMain.SetStreamSource(0, vertexBuffer, 0, TexturedVertex.SizeBytes);
+			DeviceMain.VertexDeclaration = vertexDecl;
+			DeviceMain.VertexFormat = TexturedVertex.Format;
 		}
 
 		public override void Dispose()
 		{
-			if (this.vertexBuffer != null)
+			if (vertexBuffer != null)
 			{
-				this.vertexBuffer.Dispose();
-				this.vertexDecl.Dispose();
+				vertexBuffer.Dispose();
+				vertexDecl.Dispose();
 			}
 		}
 

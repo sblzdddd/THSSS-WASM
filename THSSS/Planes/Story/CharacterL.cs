@@ -7,21 +7,21 @@ namespace Shooting
 		public CharacterL(StageDataPackage StageData, string textureName)
 			: base(StageData, textureName)
 		{
-			base.Position = new PointF((float)(base.BoundRect.Left + 100), (float)(base.BoundRect.Top + 200));
+			Position = new PointF((float)(BoundRect.Left + 100), (float)(BoundRect.Top + 200));
 		}
 
 		public override void Move()
 		{
-			if (base.Active)
+			if (Active)
 			{
-				if (base.OriginalPosition.X < 150f)
+				if (OriginalPosition.X < 150f)
 				{
-					base.OriginalPosition = new PointF(base.OriginalPosition.X + 2f, base.OriginalPosition.Y);
+					OriginalPosition = new PointF(OriginalPosition.X + 2f, OriginalPosition.Y);
 				}
 			}
-			else if (base.OriginalPosition.X > 100f)
+			else if (OriginalPosition.X > 100f)
 			{
-				base.OriginalPosition = new PointF(base.OriginalPosition.X - 2f, base.OriginalPosition.Y);
+				OriginalPosition = new PointF(OriginalPosition.X - 2f, OriginalPosition.Y);
 			}
 		}
 	}

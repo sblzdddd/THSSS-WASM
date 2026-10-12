@@ -8,7 +8,7 @@ namespace Shooting
 		public SpellCardAttack(StageDataPackage StageData)
 			: base(StageData)
 		{
-			base.LifeTime = 2;
+			LifeTime = 2;
 			for (int i = 0; i < 10; i++)
 			{
 				for (int j = 0; j < 6; j++)
@@ -25,7 +25,7 @@ namespace Shooting
 					{
 						baseObject.Velocity *= -1f;
 					}
-					base.Background2.BackgroundList.Add(baseObject);
+					Background2.BackgroundList.Add(baseObject);
 				}
 			}
 		}

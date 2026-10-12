@@ -23,11 +23,11 @@ namespace Shooting
 
 		public BaseBossTouhou(StageDataPackage StageData)
 		{
-			base.StageData = StageData;
-			base.Boss = this;
-			base.AngleWithDirection = false;
-			base.Angle = 1.5707963267948966;
-			this.SetBossLifeLineTex();
+			this.StageData = StageData;
+			Boss = this;
+			AngleWithDirection = false;
+			Angle = 1.5707963267948966;
+			SetBossLifeLineTex();
 		}
 
 		public void SetBossLifeLineTex()
@@ -36,241 +36,241 @@ namespace Shooting
 
 		public void MoveToPoint(PointF destOriginalPosition)
 		{
-			float num = (float)base.GetDistance(destOriginalPosition);
-			if (num > Math.Abs(base.Velocity))
+			float num = (float)GetDistance(destOriginalPosition);
+			if (num > Math.Abs(Velocity))
 			{
-				base.Direction = base.GetDirection(destOriginalPosition);
-				base.Accelerate = -base.Velocity * base.Velocity / (2f * num);
-				if (base.Velocity < 0f)
+				Direction = GetDirection(destOriginalPosition);
+				Accelerate = -Velocity * Velocity / (2f * num);
+				if (Velocity < 0f)
 				{
-					base.Velocity = 0f;
+					Velocity = 0f;
 				}
 			}
 			else
 			{
-				base.Accelerate = 0f;
-				base.Velocity = 0f;
+				Accelerate = 0f;
+				Velocity = 0f;
 			}
 		}
 
 		public void MoveUpDown()
 		{
-			if (base.Velocity < 0.01f)
+			if (Velocity < 0.01f)
 			{
-				if (base.Time % 80 == 0)
+				if (Time % 80 == 0)
 				{
-					float num = base.DestPoint.Y;
+					float num = DestPoint.Y;
 					num += 10f;
-					base.Velocity = 0.5f;
-					base.DestPoint = new PointF(base.DestPoint.X, num);
+					Velocity = 0.5f;
+					DestPoint = new PointF(DestPoint.X, num);
 				}
-				else if (base.Time % 80 == 40)
+				else if (Time % 80 == 40)
 				{
-					float num = base.DestPoint.Y;
+					float num = DestPoint.Y;
 					num -= 10f;
-					base.Velocity = 0.5f;
-					base.DestPoint = new PointF(base.DestPoint.X, num);
+					Velocity = 0.5f;
+					DestPoint = new PointF(DestPoint.X, num);
 				}
 			}
 		}
 
 		public void MoveUpDown(int circle)
 		{
-			if (base.Velocity < 0.01f)
+			if (Velocity < 0.01f)
 			{
-				if (base.Time % circle == 0)
+				if (Time % circle == 0)
 				{
-					float num = base.DestPoint.Y;
+					float num = DestPoint.Y;
 					num += 10f;
-					base.Velocity = 0.5f;
-					base.DestPoint = new PointF(base.DestPoint.X, num);
+					Velocity = 0.5f;
+					DestPoint = new PointF(DestPoint.X, num);
 				}
-				else if (base.Time % circle == circle / 2)
+				else if (Time % circle == circle / 2)
 				{
-					float num = base.DestPoint.Y;
+					float num = DestPoint.Y;
 					num -= 10f;
-					base.Velocity = 0.5f;
-					base.DestPoint = new PointF(base.DestPoint.X, num);
+					Velocity = 0.5f;
+					DestPoint = new PointF(DestPoint.X, num);
 				}
 			}
 		}
 
 		public void RandomMove(int T, float velocity)
 		{
-			if (base.Time % T == 0)
+			if (Time % T == 0)
 			{
-				base.DestPoint = new Point(base.Ran.Next(100, base.BoundRect.Width - 100), base.Ran.Next(70, 200));
-				base.Velocity = velocity;
+				DestPoint = new Point(Ran.Next(100, BoundRect.Width - 100), Ran.Next(70, 200));
+				Velocity = velocity;
 			}
-			this.MoveToPoint(base.DestPoint);
+			MoveToPoint(DestPoint);
 		}
 
 		public void RandomMove(int T, float velocity, Rectangle RangeRect)
 		{
-			if (base.Time % T == 0)
+			if (Time % T == 0)
 			{
-				base.DestPoint = new Point(base.Ran.Next(RangeRect.Left, RangeRect.Right), base.Ran.Next(RangeRect.Top, RangeRect.Bottom));
-				base.Velocity = velocity;
+				DestPoint = new Point(Ran.Next(RangeRect.Left, RangeRect.Right), Ran.Next(RangeRect.Top, RangeRect.Bottom));
+				Velocity = velocity;
 			}
-			this.MoveToPoint(base.DestPoint);
+			MoveToPoint(DestPoint);
 		}
 
 		public void RandomMove(int T, int Dist, float Velocity, Rectangle RangeRect)
 		{
-			if (base.Time % T == 0)
+			if (Time % T == 0)
 			{
 				for (int i = 0; i < 300; i++)
 				{
-					double num = (double)base.Ran.Next(360) * 3.141592653589793 / 180.0;
-					float num2 = base.OriginalPosition.X + (float)((double)Dist * Math.Sin(num));
-					float num3 = base.OriginalPosition.Y + (float)((double)Dist * Math.Cos(num));
+					double num = (double)Ran.Next(360) * 3.141592653589793 / 180.0;
+					float num2 = OriginalPosition.X + (float)((double)Dist * Math.Sin(num));
+					float num3 = OriginalPosition.Y + (float)((double)Dist * Math.Cos(num));
 					if (num2 > (float)RangeRect.Left && num2 < (float)RangeRect.Right && num3 > (float)RangeRect.Top && num3 < (float)RangeRect.Bottom)
 					{
-						base.DestPoint = new PointF(num2, num3);
-						base.Velocity = Velocity;
+						DestPoint = new PointF(num2, num3);
+						this.Velocity = Velocity;
 						break;
 					}
 				}
 			}
-			this.MoveToPoint(base.DestPoint);
+			MoveToPoint(DestPoint);
 		}
 
 		public void RandomMove1(int T, float velocity)
 		{
-			if (base.Time % T == 0)
+			if (Time % T == 0)
 			{
-				if (base.OriginalPosition.X < (float)(base.BoundRect.Width / 2 - 50))
+				if (OriginalPosition.X < (float)(BoundRect.Width / 2 - 50))
 				{
-					base.DestPoint = new PointF((float)base.Ran.Next(base.BoundRect.Width / 2 + 50, base.BoundRect.Width - 110), (float)base.Ran.Next(base.BoundRect.Top + 100, base.BoundRect.Top + 150));
+					DestPoint = new PointF((float)Ran.Next(BoundRect.Width / 2 + 50, BoundRect.Width - 110), (float)Ran.Next(BoundRect.Top + 100, BoundRect.Top + 150));
 				}
-				else if (base.OriginalPosition.X > (float)(base.BoundRect.Width / 2 + 50))
+				else if (OriginalPosition.X > (float)(BoundRect.Width / 2 + 50))
 				{
-					base.DestPoint = new PointF((float)base.Ran.Next(110, base.BoundRect.Width / 2 - 50), (float)base.Ran.Next(base.BoundRect.Top + 100, base.BoundRect.Top + 150));
+					DestPoint = new PointF((float)Ran.Next(110, BoundRect.Width / 2 - 50), (float)Ran.Next(BoundRect.Top + 100, BoundRect.Top + 150));
 				}
-				else if (base.MyPlane.OriginalPosition.X < (float)(base.BoundRect.Width / 2))
+				else if (MyPlane.OriginalPosition.X < (float)(BoundRect.Width / 2))
 				{
-					base.DestPoint = new PointF((float)base.Ran.Next(110, base.BoundRect.Width / 2 - 50), (float)base.Ran.Next(base.BoundRect.Top + 100, base.BoundRect.Top + 150));
+					DestPoint = new PointF((float)Ran.Next(110, BoundRect.Width / 2 - 50), (float)Ran.Next(BoundRect.Top + 100, BoundRect.Top + 150));
 				}
 				else
 				{
-					base.DestPoint = new PointF((float)base.Ran.Next(base.BoundRect.Width / 2 + 50, base.BoundRect.Width - 110), (float)base.Ran.Next(base.BoundRect.Top + 100, base.BoundRect.Top + 150));
+					DestPoint = new PointF((float)Ran.Next(BoundRect.Width / 2 + 50, BoundRect.Width - 110), (float)Ran.Next(BoundRect.Top + 100, BoundRect.Top + 150));
 				}
-				base.Velocity = velocity;
+				Velocity = velocity;
 			}
-			this.MoveToPoint(base.DestPoint);
+			MoveToPoint(DestPoint);
 		}
 
 		public virtual void TextureCtrl()
 		{
-			int num = (base.Mirrored ? this.IndexY : (-this.IndexY));
-			if (this.OnAction > 0)
+			int num = (Mirrored ? IndexY : (-IndexY));
+			if (OnAction > 0)
 			{
-				this.IndexY = 2;
-				this.IndexX += 0.125f;
-				this.OnAction--;
+				IndexY = 2;
+				IndexX += 0.125f;
+				OnAction--;
 			}
-			else if (base.Vx < -0.05f)
+			else if (Vx < -0.05f)
 			{
-				base.Mirrored = true;
-				this.IndexY = 1;
-				if (base.Vx < -1f)
+				Mirrored = true;
+				IndexY = 1;
+				if (Vx < -1f)
 				{
-					if (this.IndexX < 2f)
+					if (IndexX < 2f)
 					{
-						this.IndexX += 0.125f;
+						IndexX += 0.125f;
 					}
 					else
 					{
-						this.IndexX = (float)(2 + base.Time % 16 / 8);
+						IndexX = (float)(2 + Time % 16 / 8);
 					}
 				}
-				else if (base.Vx < -0.5f)
+				else if (Vx < -0.5f)
 				{
-					this.IndexX = 1f;
+					IndexX = 1f;
 				}
 				else
 				{
-					this.IndexX = 0f;
+					IndexX = 0f;
 				}
 			}
-			else if (base.Vx > 0.05f)
+			else if (Vx > 0.05f)
 			{
-				base.Mirrored = false;
-				this.IndexY = 1;
-				if (base.Vx > 1f)
+				Mirrored = false;
+				IndexY = 1;
+				if (Vx > 1f)
 				{
-					if (this.IndexX < 2f)
+					if (IndexX < 2f)
 					{
-						this.IndexX += 0.125f;
+						IndexX += 0.125f;
 					}
 					else
 					{
-						this.IndexX = (float)(2 + base.Time % 16 / 8);
+						IndexX = (float)(2 + Time % 16 / 8);
 					}
 				}
-				else if (base.Vx > 0.5f)
+				else if (Vx > 0.5f)
 				{
-					this.IndexX = 1f;
+					IndexX = 1f;
 				}
 				else
 				{
-					this.IndexX = 0f;
+					IndexX = 0f;
 				}
 			}
 			else
 			{
-				base.Mirrored = false;
-				this.IndexY = 0;
-				this.IndexX = (float)(base.TimeMain % 32 / 8);
+				Mirrored = false;
+				IndexY = 0;
+				IndexX = (float)(TimeMain % 32 / 8);
 			}
-			if (num != (base.Mirrored ? this.IndexY : (-this.IndexY)))
+			if (num != (Mirrored ? IndexY : (-IndexY)))
 			{
-				this.IndexX = 0f;
+				IndexX = 0f;
 			}
-			if (this.IndexX > 3f)
+			if (IndexX > 3f)
 			{
-				this.IndexX = 3f;
+				IndexX = 3f;
 			}
-			base.TxtureObject = this.TxtureObjects[this.IndexY, (int)this.IndexX];
+			TxtureObject = TxtureObjects[IndexY, (int)IndexX];
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			this.Shoot();
-			this.TextureCtrl();
-			if (this.OutBoundary())
+			Shoot();
+			TextureCtrl();
+			if (OutBoundary())
 			{
-				base.Boss = null;
+				Boss = null;
 			}
 		}
 
 		public override bool OutBoundary()
 		{
-			return base.Time > base.LifeTime;
+			return Time > LifeTime;
 		}
 
 		public override void GiveItems()
 		{
-			if (base.MyPlane.Power < 400)
+			if (MyPlane.Power < 400)
 			{
 				for (int i = 0; i < 15; i++)
 				{
-					PointF pointF = new PointF(base.OriginalPosition.X + (float)base.Ran.Next(-49, 50), base.OriginalPosition.Y + (float)base.Ran.Next(-49, 50));
-					new PowerItem_Touhou(base.StageData, pointF);
+					PointF pointF = new PointF(OriginalPosition.X + (float)Ran.Next(-49, 50), OriginalPosition.Y + (float)Ran.Next(-49, 50));
+					new PowerItem_Touhou(StageData, pointF);
 				}
 				for (int i = 0; i < 15; i++)
 				{
-					PointF pointF = new PointF(base.OriginalPosition.X + (float)base.Ran.Next(-49, 50), base.OriginalPosition.Y + (float)base.Ran.Next(-49, 50));
-					new ScoreItem_Touhou(base.StageData, pointF);
+					PointF pointF = new PointF(OriginalPosition.X + (float)Ran.Next(-49, 50), OriginalPosition.Y + (float)Ran.Next(-49, 50));
+					new ScoreItem_Touhou(StageData, pointF);
 				}
 			}
 			else
 			{
 				for (int i = 0; i < 30; i++)
 				{
-					PointF pointF = new PointF(base.OriginalPosition.X + (float)base.Ran.Next(-49, 50), base.OriginalPosition.Y + (float)base.Ran.Next(-49, 50));
-					new ScoreItem_Touhou(base.StageData, pointF);
+					PointF pointF = new PointF(OriginalPosition.X + (float)Ran.Next(-49, 50), OriginalPosition.Y + (float)Ran.Next(-49, 50));
+					new ScoreItem_Touhou(StageData, pointF);
 				}
 			}
 		}
@@ -281,10 +281,10 @@ namespace Shooting
 			{
 				char[] array = new char[] { ',' };
 				string[] array2 = File.ReadAllLines(fileName, Encoding.Default);
-				this.ArmonArray = new float[array2.Length];
+				ArmonArray = new float[array2.Length];
 				for (int i = 0; i < array2.Length; i++)
 				{
-					this.ArmonArray[i] = float.Parse(array2[i]);
+					ArmonArray[i] = float.Parse(array2[i]);
 				}
 			}
 		}

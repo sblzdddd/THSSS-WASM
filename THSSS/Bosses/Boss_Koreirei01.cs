@@ -8,164 +8,164 @@ namespace Shooting
 			: base(StageData)
 		{
 			TextureObject[,] array = new TextureObject[3, 4];
-			array[0, 0] = base.TextureObjectDictionary["BossKoreirei-00"];
-			array[0, 1] = base.TextureObjectDictionary["BossKoreirei-01"];
-			array[0, 2] = base.TextureObjectDictionary["BossKoreirei-02"];
-			array[0, 3] = base.TextureObjectDictionary["BossKoreirei-03"];
-			array[1, 0] = base.TextureObjectDictionary["BossKoreirei-10"];
-			array[1, 1] = base.TextureObjectDictionary["BossKoreirei-11"];
-			array[1, 2] = base.TextureObjectDictionary["BossKoreirei-12"];
-			array[1, 3] = base.TextureObjectDictionary["BossKoreirei-13"];
-			array[2, 0] = base.TextureObjectDictionary["BossKoreirei-20"];
-			array[2, 1] = base.TextureObjectDictionary["BossKoreirei-21"];
-			array[2, 2] = base.TextureObjectDictionary["BossKoreirei-22"];
-			array[2, 3] = base.TextureObjectDictionary["BossKoreirei-23"];
-			base.TxtureObjects = array;
-			base.TxtureObject = base.TxtureObjects[0, 0];
-			base.OriginalPosition = new PointF(30f, -50f);
-			base.DestPoint = new Point(base.BoundRect.Width / 2, 120);
-			base.MaxHP = 10000;
-			base.HealthPoint = (float)base.MaxHP;
-			base.Life = 2;
-			base.Region = 20;
-			base.Velocity = 6f;
-			base.DirectionDegree = 90.0;
-			base.SpellTime = 1200;
-			base.LifeTime = 100000;
-			base.OnSpell = false;
-			base.SpellcardHP = 0;
-			base.SetBossLifeLineTex();
+			array[0, 0] = TextureObjectDictionary["BossKoreirei-00"];
+			array[0, 1] = TextureObjectDictionary["BossKoreirei-01"];
+			array[0, 2] = TextureObjectDictionary["BossKoreirei-02"];
+			array[0, 3] = TextureObjectDictionary["BossKoreirei-03"];
+			array[1, 0] = TextureObjectDictionary["BossKoreirei-10"];
+			array[1, 1] = TextureObjectDictionary["BossKoreirei-11"];
+			array[1, 2] = TextureObjectDictionary["BossKoreirei-12"];
+			array[1, 3] = TextureObjectDictionary["BossKoreirei-13"];
+			array[2, 0] = TextureObjectDictionary["BossKoreirei-20"];
+			array[2, 1] = TextureObjectDictionary["BossKoreirei-21"];
+			array[2, 2] = TextureObjectDictionary["BossKoreirei-22"];
+			array[2, 3] = TextureObjectDictionary["BossKoreirei-23"];
+			TxtureObjects = array;
+			TxtureObject = TxtureObjects[0, 0];
+			OriginalPosition = new PointF(30f, -50f);
+			DestPoint = new Point(BoundRect.Width / 2, 120);
+			MaxHP = 10000;
+			HealthPoint = (float)MaxHP;
+			Life = 2;
+			Region = 20;
+			Velocity = 6f;
+			DirectionDegree = 90.0;
+			SpellTime = 1200;
+			LifeTime = 100000;
+			OnSpell = false;
+			SpellcardHP = 0;
+			SetBossLifeLineTex();
 			new ItemGetter(StageData);
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			if (!base.OnSpell)
+			if (!OnSpell)
 			{
-				base.Armon = 0f;
+				Armon = 0f;
 			}
-			switch (base.Life)
+			switch (Life)
 			{
 			case 0:
-				base.Velocity = 0f;
-				base.DestPoint = new Point(base.Ran.Next(100, base.BoundRect.Width - 100), base.Ran.Next(70, 200));
+				Velocity = 0f;
+				DestPoint = new Point(Ran.Next(100, BoundRect.Width - 100), Ran.Next(70, 200));
 				break;
 			case 1:
-				this.Ctrl1();
+				Ctrl1();
 				break;
 			case 2:
-				this.Ctrl2();
+				Ctrl2();
 				break;
 			}
-			base.MoveToPoint(base.DestPoint);
-			if (!base.OnSpell)
+			MoveToPoint(DestPoint);
+			if (!OnSpell)
 			{
-				if (base.HealthPoint < (float)base.SpellcardHP || base.Time > base.SpellTime)
+				if (HealthPoint < (float)SpellcardHP || Time > SpellTime)
 				{
-					base.HealthPoint = (float)base.SpellcardHP;
-					base.Time = 0;
-					base.OnSpell = true;
-					new ShootingStarShard(base.StageData, new PointF((float)(base.BoundRect.Width / 2), 0f));
+					HealthPoint = (float)SpellcardHP;
+					Time = 0;
+					OnSpell = true;
+					new ShootingStarShard(StageData, new PointF((float)(BoundRect.Width / 2), 0f));
 				}
 			}
-			else if (base.HealthPoint <= 0f || base.Time > base.SpellTime)
+			else if (HealthPoint <= 0f || Time > SpellTime)
 			{
-				base.Life--;
-				base.OnAction = 0;
-				if (base.HealthPoint <= 0f && base.Life >= -1)
+				Life--;
+				OnAction = 0;
+				if (HealthPoint <= 0f && Life >= -1)
 				{
-					this.GiveItems();
-					new ShootingStarShard(base.StageData, new PointF((float)(base.BoundRect.Width / 2), 0f));
+					GiveItems();
+					new ShootingStarShard(StageData, new PointF((float)(BoundRect.Width / 2), 0f));
 				}
-				if (base.Life <= 0)
+				if (Life <= 0)
 				{
-					if (base.Life == 0)
+					if (Life == 0)
 					{
-						base.Velocity = 0f;
-						new BulletRemover2(base.StageData, base.OriginalPosition);
-						base.HealthPoint = 0f;
-						this.GiveEndEffect();
-						base.Life = -1;
+						Velocity = 0f;
+						new BulletRemover2(StageData, OriginalPosition);
+						HealthPoint = 0f;
+						GiveEndEffect();
+						Life = -1;
 					}
-					else if (base.Time == base.LifeTime - 100)
+					else if (Time == LifeTime - 100)
 					{
-						base.DestPoint = new Point(base.Ran.Next((int)base.OriginalPosition.X - 30, (int)base.OriginalPosition.X + 30), -200);
-						base.Velocity = 5f;
-						base.Background3D.WarpEnabled = false;
+						DestPoint = new Point(Ran.Next((int)OriginalPosition.X - 30, (int)OriginalPosition.X + 30), -200);
+						Velocity = 5f;
+						Background3D.WarpEnabled = false;
 					}
 				}
 				else
 				{
-					new BulletRemover2(base.StageData, base.OriginalPosition);
-					base.StageData.SoundPlay("se_tan00.wav");
-					base.HealthPoint = (float)base.MaxHP;
-					base.Time = 0;
-					base.OnSpell = false;
-					base.DestPoint = new Point(base.BoundRect.Width / 2, 100);
-					base.Velocity = 4f;
+					new BulletRemover2(StageData, OriginalPosition);
+					StageData.SoundPlay("se_tan00.wav");
+					HealthPoint = (float)MaxHP;
+					Time = 0;
+					OnSpell = false;
+					DestPoint = new Point(BoundRect.Width / 2, 100);
+					Velocity = 4f;
 				}
 			}
 		}
 
 		public override void GiveEndEffect()
 		{
-			new EndBoss_Touhou_Small(base.StageData, base.OriginalPosition, Color.Yellow, Color.OrangeRed);
-			new Background2DRemover(base.StageData);
-			base.Background3D.WarpEnabled = false;
-			new LifeItem_Touhou(base.StageData, base.OriginalPosition);
+			new EndBoss_Touhou_Small(StageData, OriginalPosition, Color.Yellow, Color.OrangeRed);
+			new Background2DRemover(StageData);
+			Background3D.WarpEnabled = false;
+			new LifeItem_Touhou(StageData, OriginalPosition);
 		}
 
 		private void Ctrl2()
 		{
-			if (!base.OnSpell)
+			if (!OnSpell)
 			{
-				if (base.Time == 1)
+				if (Time == 1)
 				{
-					new Background2DRemover(base.StageData);
-					base.DestPoint = new Point(base.BoundRect.Width / 2, 140);
+					new Background2DRemover(StageData);
+					DestPoint = new Point(BoundRect.Width / 2, 140);
 				}
 				else
 				{
-					base.RandomMove1(150, 4f);
+					RandomMove1(150, 4f);
 				}
-				if (base.Time == 90)
+				if (Time == 90)
 				{
-					base.OnSpell = true;
+					OnSpell = true;
 				}
 			}
-			else if (base.Time == 91)
+			else if (Time == 91)
 			{
-				new BulletRemover2(base.StageData, base.OriginalPosition);
-				base.Armon = 0.4f;
-				new SpellCard_SSS03_01(base.StageData);
+				new BulletRemover2(StageData, OriginalPosition);
+				Armon = 0.4f;
+				new SpellCard_SSS03_01(StageData);
 			}
 		}
 
 		private void Ctrl1()
 		{
-			if (!base.OnSpell)
+			if (!OnSpell)
 			{
-				if (base.Time == 1)
+				if (Time == 1)
 				{
-					new Background2DRemover(base.StageData);
-					base.DestPoint = new Point(base.BoundRect.Width / 2, 180);
+					new Background2DRemover(StageData);
+					DestPoint = new Point(BoundRect.Width / 2, 180);
 				}
 				else
 				{
-					base.RandomMove1(150, 4f);
+					RandomMove1(150, 4f);
 				}
-				if (base.Time == 100)
+				if (Time == 100)
 				{
-					base.OnSpell = true;
-					base.SpellTime = 2400;
+					OnSpell = true;
+					SpellTime = 2400;
 				}
 			}
-			else if (base.Time == 101)
+			else if (Time == 101)
 			{
-				new BulletRemover2(base.StageData, base.OriginalPosition);
-				base.Armon = 0.4f;
-				new SpellCard_SSS03_02(base.StageData);
+				new BulletRemover2(StageData, OriginalPosition);
+				Armon = 0.4f;
+				new SpellCard_SSS03_02(StageData);
 			}
 		}
 	}

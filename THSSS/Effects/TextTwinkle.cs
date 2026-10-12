@@ -13,32 +13,32 @@ namespace Shooting
 		public TextTwinkle(StageDataPackage StageData, string textureName, PointF Position, float Velocity, double Direction)
 			: base(StageData, textureName, Position, Velocity, Direction)
 		{
-			base.Active = false;
-			base.LifeTime = 150;
-			this.Circle = 30;
+			Active = false;
+			LifeTime = 150;
+			Circle = 30;
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			if (base.Time <= 1)
+			if (Time <= 1)
 			{
-				this.OriginalColor = base.ColorValue;
+				OriginalColor = ColorValue;
 			}
-			else if (base.Time < base.LifeTime * 3 / 5)
+			else if (Time < LifeTime * 3 / 5)
 			{
-				if (base.Time % this.Circle == 0)
+				if (Time % Circle == 0)
 				{
-					base.ColorValue = this.TwinkleColor;
+					ColorValue = TwinkleColor;
 				}
-				else if (base.Time % this.Circle == this.Circle / 2)
+				else if (Time % Circle == Circle / 2)
 				{
-					base.ColorValue = this.OriginalColor;
+					ColorValue = OriginalColor;
 				}
 			}
-			else if (base.LifeTime * 4 / 5 < base.Time && base.Time < base.LifeTime)
+			else if (LifeTime * 4 / 5 < Time && Time < LifeTime)
 			{
-				base.TransparentValueF -= (float)(base.MaxTransparent * 5 / base.LifeTime);
+				TransparentValueF -= (float)(MaxTransparent * 5 / LifeTime);
 			}
 		}
 	}

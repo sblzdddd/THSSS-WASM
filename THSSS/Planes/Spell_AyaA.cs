@@ -6,14 +6,14 @@ namespace Shooting
 	{
 		public Spell_AyaA(StageDataPackage StageData)
 		{
-			base.StageData = StageData;
-			base.OriginalPosition = base.MyPlane.OriginalPosition;
-			base.Damage = 10;
-			base.Region = 30;
-			base.LifeTime = 300;
-			base.Direction = 1.5707963267948966;
-			base.SpellList.Add(this);
-			new BackgroundBlack(StageData, base.Position);
+			this.StageData = StageData;
+			OriginalPosition = MyPlane.OriginalPosition;
+			Damage = 10;
+			Region = 30;
+			LifeTime = 300;
+			Direction = 1.5707963267948966;
+			SpellList.Add(this);
+			new BackgroundBlack(StageData, Position);
 			BackgroundMySC backgroundMySC = new BackgroundMySC(StageData, "76-4");
 			backgroundMySC.LifeTime = 350;
 			backgroundMySC.MaxTransparent = 180;
@@ -28,40 +28,40 @@ namespace Shooting
 			backgroundMySC2.ColorValue = Color.Green;
 			backgroundMySC2.AngularVelocityDegree = -0.5f;
 			backgroundMySC2.Active = true;
-			StageData.VibrateStart(base.LifeTime);
-			base.MyPlane.HighSpeed = 2f;
-			base.MyPlane.LowSpeed = 1f;
-			base.TransparentValueF = 0f;
-			base.TransparentVelocity = 4f;
-			base.ScaleLength = 0.2f;
-			base.ScaleVelocity = 0.05f;
-			base.MaxScale = 2f;
+			StageData.VibrateStart(LifeTime);
+			MyPlane.HighSpeed = 2f;
+			MyPlane.LowSpeed = 1f;
+			TransparentValueF = 0f;
+			TransparentVelocity = 4f;
+			ScaleLength = 0.2f;
+			ScaleVelocity = 0.05f;
+			MaxScale = 2f;
 		}
 
 		public override void Move()
 		{
-			base.OriginalPosition = base.MyPlane.OriginalPosition;
+			OriginalPosition = MyPlane.OriginalPosition;
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			if (base.Time < 16)
+			if (Time < 16)
 			{
-				base.TxtureObject = base.TextureObjectDictionary["wind" + string.Format("{0:00}", base.Time % 16 / 2)];
+				TxtureObject = TextureObjectDictionary["wind" + string.Format("{0:00}", Time % 16 / 2)];
 			}
-			else if (base.Time < 284)
+			else if (Time < 284)
 			{
-				base.TxtureObject = base.TextureObjectDictionary["wind" + string.Format("{0:00}", 7 + (base.Time - 16) % 36 / 2)];
+				TxtureObject = TextureObjectDictionary["wind" + string.Format("{0:00}", 7 + (Time - 16) % 36 / 2)];
 			}
 			else
 			{
-				base.TxtureObject = base.TextureObjectDictionary["wind" + string.Format("{0:00}", 25 + (base.Time - 300 + 16) % 16 / 2)];
+				TxtureObject = TextureObjectDictionary["wind" + string.Format("{0:00}", 25 + (Time - 300 + 16) % 16 / 2)];
 			}
-			base.TxtureObject.OffsetY = 100;
-			if (base.Time == 240)
+			TxtureObject.OffsetY = 100;
+			if (Time == 240)
 			{
-				base.TransparentVelocity = -4f;
+				TransparentVelocity = -4f;
 			}
 		}
 
@@ -70,72 +70,72 @@ namespace Shooting
 			bool flag = base.OutBoundary();
 			if (flag)
 			{
-				base.MyPlane.HighSpeed = 5f;
-				base.MyPlane.LowSpeed = 2f;
+				MyPlane.HighSpeed = 5f;
+				MyPlane.LowSpeed = 2f;
 			}
 			return flag;
 		}
 
 		public override bool HitCheck(BaseObject Target)
 		{
-			return Target.OriginalPosition.Y - base.OriginalPosition.Y < 2.8f * (Target.OriginalPosition.X - base.OriginalPosition.X) + 136f && Target.OriginalPosition.Y - base.OriginalPosition.Y < -2.8f * (Target.OriginalPosition.X - base.OriginalPosition.X) + 136f;
+			return Target.OriginalPosition.Y - OriginalPosition.Y < 2.8f * (Target.OriginalPosition.X - OriginalPosition.X) + 136f && Target.OriginalPosition.Y - OriginalPosition.Y < -2.8f * (Target.OriginalPosition.X - OriginalPosition.X) + 136f;
 		}
 
 		public override void HitCheckAll()
 		{
-			for (int i = base.BulletList.Count - 1; i >= 0; i--)
+			for (int i = BulletList.Count - 1; i >= 0; i--)
 			{
-				if (this.HitCheck(base.BulletList[i]))
+				if (HitCheck(BulletList[i]))
 				{
-					if (!base.BulletList[i].UnRemoveable)
+					if (!BulletList[i].UnRemoveable)
 					{
-						base.BulletList[i].GiveEndEffect();
-						base.BulletList[i].GiveItems();
-						base.BulletList.RemoveAt(i);
+						BulletList[i].GiveEndEffect();
+						BulletList[i].GiveItems();
+						BulletList.RemoveAt(i);
 					}
 				}
 			}
-			for (int i = base.EnemyPlaneList.Count - 1; i >= 0; i--)
+			for (int i = EnemyPlaneList.Count - 1; i >= 0; i--)
 			{
-				if (this.HitCheck(base.EnemyPlaneList[i]))
+				if (HitCheck(EnemyPlaneList[i]))
 				{
-					int num = base.Damage + (int)((400.0 - base.EnemyPlaneList[i].GetDistance(base.MyPlane)) / 50.0);
-					if (num < base.Damage)
+					int num = Damage + (int)((400.0 - EnemyPlaneList[i].GetDistance(MyPlane)) / 50.0);
+					if (num < Damage)
 					{
-						num = base.Damage;
+						num = Damage;
 					}
 					else if (num > 19)
 					{
 						num = 19;
 					}
-					base.EnemyPlaneList[i].HealthPoint -= (float)num;
-					if (base.EnemyPlaneList[i].HealthPoint <= 0f)
+					EnemyPlaneList[i].HealthPoint -= (float)num;
+					if (EnemyPlaneList[i].HealthPoint <= 0f)
 					{
-						base.EnemyPlaneList[i].GiveEndEffect();
-						base.EnemyPlaneList[i].GiveItems();
-						base.EnemyPlaneList.RemoveAt(i);
-						base.StageData.SoundPlay("se_enep00.wav");
+						EnemyPlaneList[i].GiveEndEffect();
+						EnemyPlaneList[i].GiveItems();
+						EnemyPlaneList.RemoveAt(i);
+						StageData.SoundPlay("se_enep00.wav");
 						break;
 					}
 				}
 			}
-			if (base.Boss != null)
+			if (Boss != null)
 			{
-				if (base.Boss.Time > base.Boss.UnmatchedTime && this.HitCheck(base.Boss))
+				if (Boss.Time > Boss.UnmatchedTime && HitCheck(Boss))
 				{
-					int num = base.Damage + (int)((400.0 - base.Boss.GetDistance(base.MyPlane)) / 40.0);
-					if (num < base.Damage)
+					int num = Damage + (int)((400.0 - Boss.GetDistance(MyPlane)) / 40.0);
+					if (num < Damage)
 					{
-						num = base.Damage;
+						num = Damage;
 					}
 					else if (num > 19)
 					{
 						num = 19;
 					}
-					base.Boss.HealthPoint -= (float)((int)((float)num * (1f - base.Boss.Armon)));
-					if (base.Boss.HealthPoint <= 200f)
+					Boss.HealthPoint -= (float)((int)((float)num * (1f - Boss.Armon)));
+					if (Boss.HealthPoint <= 200f)
 					{
-						base.StageData.SoundPlay("se_damage01.wav");
+						StageData.SoundPlay("se_damage01.wav");
 					}
 				}
 			}

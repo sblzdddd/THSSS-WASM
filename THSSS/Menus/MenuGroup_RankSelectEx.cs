@@ -8,16 +8,16 @@ namespace Shooting
 		public MenuGroup_RankSelectEx(StageDataPackage StageData)
 			: base(StageData, false)
 		{
-			base.MenuSelectIndex = 0;
-			base.MenuItemList = new List<BaseMenuItem>
+			MenuSelectIndex = 0;
+			MenuItemList = new List<BaseMenuItem>
 			{
 				new BaseMenuItem(StageData, "Menu_Extra")
 			};
-			int num = 200 + base.MenuSelectIndex * 150;
-			int num2 = 200 - base.MenuSelectIndex * 100;
+			int num = 200 + MenuSelectIndex * 150;
+			int num2 = 200 - MenuSelectIndex * 100;
 			int num3 = -200;
 			int num4 = 0;
-			foreach (BaseMenuItem baseMenuItem in base.MenuItemList)
+			foreach (BaseMenuItem baseMenuItem in MenuItemList)
 			{
 				baseMenuItem.Position = new PointF((float)(num + num3), 48f);
 				baseMenuItem.DestPoint = new PointF((float)num, (float)num2);
@@ -29,33 +29,33 @@ namespace Shooting
 				num3 -= 100;
 				num4++;
 			}
-			base.MenuItemList[base.MenuSelectIndex].Selected = true;
+			MenuItemList[MenuSelectIndex].Selected = true;
 		}
 
 		public override void SelectItemChanged()
 		{
-			if (base.MenuSelectIndex < 0)
+			if (MenuSelectIndex < 0)
 			{
-				base.MenuSelectIndex = 0;
+				MenuSelectIndex = 0;
 			}
-			else if (base.MenuSelectIndex > base.MenuItemList.Count - 1)
+			else if (MenuSelectIndex > MenuItemList.Count - 1)
 			{
-				base.MenuSelectIndex = base.MenuItemList.Count - 1;
+				MenuSelectIndex = MenuItemList.Count - 1;
 			}
-			base.LastSelectTime = base.TimeMain;
-			base.MenuItemList.ForEach(delegate(BaseMenuItem x)
+			LastSelectTime = TimeMain;
+			MenuItemList.ForEach(delegate(BaseMenuItem x)
 			{
 				x.Selected = false;
 			});
-			base.MenuItemList[base.MenuSelectIndex].Select();
+			MenuItemList[MenuSelectIndex].Select();
 		}
 
 		public override void ProcessZ()
 		{
-			base.StageData.StateSwitchData.SDPswitch.Difficulty = DifficultLevel.Extra;
-			base.StageData.MenuGroupList.Add(new MenuGroup_PlayerSelectEx(base.StageData)
+			StageData.StateSwitchData.SDPswitch.Difficulty = DifficultLevel.Extra;
+			StageData.MenuGroupList.Add(new MenuGroup_PlayerSelectEx(StageData)
 			{
-				OriginalPosition = base.OriginalPosition
+				OriginalPosition = OriginalPosition
 			});
 		}
 	}

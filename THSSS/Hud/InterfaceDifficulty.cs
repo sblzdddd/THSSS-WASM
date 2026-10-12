@@ -12,31 +12,31 @@ namespace Shooting
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			switch (base.StageData.Difficulty)
+			switch (StageData.Difficulty)
 			{
 			case DifficultLevel.Easy:
-				base.TxtureObject = base.TextureObjectDictionary["Easy"];
+				TxtureObject = TextureObjectDictionary["Easy"];
 				break;
 			case DifficultLevel.Normal:
-				base.TxtureObject = base.TextureObjectDictionary["Normal"];
+				TxtureObject = TextureObjectDictionary["Normal"];
 				break;
 			case DifficultLevel.Hard:
-				base.TxtureObject = base.TextureObjectDictionary["Hard"];
+				TxtureObject = TextureObjectDictionary["Hard"];
 				break;
 			case DifficultLevel.Lunatic:
-				base.TxtureObject = base.TextureObjectDictionary["Lunatic"];
+				TxtureObject = TextureObjectDictionary["Lunatic"];
 				break;
 			case DifficultLevel.Extra:
-				base.TxtureObject = base.TextureObjectDictionary["Extra"];
+				TxtureObject = TextureObjectDictionary["Extra"];
 				break;
 			}
 		}
 
 		public override void Show()
 		{
-			if (base.TxtureObject != null)
+			if (TxtureObject != null)
 			{
-				base.SpriteMain.Draw2D(base.TxtureObject, 1f, 0f, base.OriginalPosition, Color.FromArgb(base.TransparentValue, Color.White));
+				SpriteMain.Draw2D(TxtureObject, 1f, 0f, OriginalPosition, Color.FromArgb(TransparentValue, Color.White));
 			}
 		}
 	}

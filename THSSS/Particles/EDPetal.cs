@@ -11,34 +11,34 @@ namespace Shooting
 		public EDPetal(StageDataPackage StageData, string modelName, PointF OriginalPosition, float Velocity, double Direction)
 			: base(StageData, modelName, OriginalPosition, 0f, 1.5707963267948966)
 		{
-			base.OriginalPosition = OriginalPosition;
-			base.LifeTime = 300;
-			base.TransparentValueF = 0f;
-			base.TransparentVelocity = 10f;
-			base.Angle3D = 1.5707964f;
-			base.Depth = 1f;
-			base.Background3D.BackgroundParticleList.Add(this);
+			this.OriginalPosition = OriginalPosition;
+			LifeTime = 300;
+			TransparentValueF = 0f;
+			TransparentVelocity = 10f;
+			Angle3D = 1.5707964f;
+			Depth = 1f;
+			Background3D.BackgroundParticleList.Add(this);
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			if (base.Angle3D > 0f)
+			if (Angle3D > 0f)
 			{
-				base.Angle3D -= 0.034906585f;
+				Angle3D -= 0.034906585f;
 			}
-			if (this.DestAngleDegree - base.AngleDegree > 1.0)
+			if (DestAngleDegree - AngleDegree > 1.0)
 			{
-				base.AngleDegree += (this.DestAngleDegree - base.AngleDegree) / 8.0;
+				AngleDegree += (DestAngleDegree - AngleDegree) / 8.0;
 			}
 			else
 			{
-				base.AngleDegree = this.DestAngleDegree;
+				AngleDegree = DestAngleDegree;
 			}
-			base.RotatingAxis = new Vector3((float)Math.Cos(base.Angle), (float)Math.Sin(base.Angle), 0f);
-			if (base.Time == base.LifeTime - 22)
+			RotatingAxis = new Vector3((float)Math.Cos(Angle), (float)Math.Sin(Angle), 0f);
+			if (Time == LifeTime - 22)
 			{
-				base.TransparentVelocity = -12f;
+				TransparentVelocity = -12f;
 			}
 		}
 	}

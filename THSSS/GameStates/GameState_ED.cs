@@ -11,157 +11,157 @@ namespace Shooting
 		public GameState_ED(GlobalDataPackage GlobalData)
 			: base(GlobalData)
 		{
-			base.StageName = "All";
-			global::System.Drawing.Font font = new global::System.Drawing.Font("Arial", 14f * GlobalDataPackage.FontScale, FontStyle.Bold | FontStyle.Italic);
-			base.DXFont = new SlimDX.Direct3D9.Font(base.DeviceMain, font);
+			StageName = "All";
+			System.Drawing.Font font = new System.Drawing.Font("Arial", 14f * GlobalDataPackage.FontScale, FontStyle.Bold | FontStyle.Italic);
+			DXFont = new SlimDX.Direct3D9.Font(DeviceMain, font);
 		}
 
 		public override void UpdateData()
 		{
-			base.TimeMain++;
-			base.SoundPlayList.Clear();
-			if (base.StageData.Rep != null)
+			TimeMain++;
+			SoundPlayList.Clear();
+			if (StageData.Rep != null)
 			{
-				if (base.StageData.OnReplay)
+				if (StageData.OnReplay)
 				{
-					int num = base.StageData.Rep.ReadKey();
+					int num = StageData.Rep.ReadKey();
 					if (num == 57358)
 					{
-						num = base.StageData.Rep.ReadKey();
+						num = StageData.Rep.ReadKey();
 					}
 					if (num == 4080)
 					{
-						base.StateSwitchData = new StateSwitchDataPackage
+						StateSwitchData = new StateSwitchDataPackage
 						{
 							NextState = "GameOverMenu",
 							NeedInit = true,
-							SDPswitch = new StageDataPackage(base.GlobalData)
+							SDPswitch = new StageDataPackage(GlobalData)
 						};
-						base.GlobalData.LastState = this;
-						base.StageData.KClass.Hex2Key(0);
-						base.StageData.SoundPlay("se_pause.wav");
+						GlobalData.LastState = this;
+						StageData.KClass.Hex2Key(0);
+						StageData.SoundPlay("se_pause.wav");
 					}
 					else
 					{
-						base.StageData.KClass.Hex2Key(num);
+						StageData.KClass.Hex2Key(num);
 					}
 				}
 			}
-			base.Background3D.Ctrl();
-			base.Background.Ctrl();
-			base.Background2.Ctrl();
-			this.Drama();
-			if (base.Story != null)
+			Background3D.Ctrl();
+			Background.Ctrl();
+			Background2.Ctrl();
+			Drama();
+			if (Story != null)
 			{
-				base.Story.Ctrl();
+				Story.Ctrl();
 			}
-			for (int i = base.EnemyPlaneList.Count - 1; i >= 0; i--)
+			for (int i = EnemyPlaneList.Count - 1; i >= 0; i--)
 			{
-				base.EnemyPlaneList[i].Ctrl();
+				EnemyPlaneList[i].Ctrl();
 			}
-			for (int i = base.BulletList.Count - 1; i >= 0; i--)
+			for (int i = BulletList.Count - 1; i >= 0; i--)
 			{
-				base.BulletList[i].Ctrl();
+				BulletList[i].Ctrl();
 			}
-			for (int i = base.EffectList.Count - 1; i >= 0; i--)
+			for (int i = EffectList.Count - 1; i >= 0; i--)
 			{
-				base.EffectList[i].Ctrl();
+				EffectList[i].Ctrl();
 			}
-			base.Particle3D.Ctrl();
-			for (int i = base.InterfaceList.Count - 1; i >= 0; i--)
+			Particle3D.Ctrl();
+			for (int i = InterfaceList.Count - 1; i >= 0; i--)
 			{
-				base.InterfaceList[i].Ctrl();
+				InterfaceList[i].Ctrl();
 			}
-			base.StageData.Vibrate();
-			base.SoundPlayList.ForEach(delegate(XAudio2_Player x)
+			StageData.Vibrate();
+			SoundPlayList.ForEach(delegate(XAudio2_Player x)
 			{
 				x.Play();
 			});
-			if (base.TimeMain % 6 != 0 && base.KClass.Key_plus && base.MyPlane.Life >= 0 && base.StateSwitchData == null)
+			if (TimeMain % 6 != 0 && KClass.Key_plus && MyPlane.Life >= 0 && StateSwitchData == null)
 			{
-				this.UpdateData();
+				UpdateData();
 			}
-			base.GlobalData.LastState = this;
+			GlobalData.LastState = this;
 		}
 
 		public override void Init()
 		{
-			base.StageData.C_History = base.StageData.PData.C_History.Find(new Predicate<ClearHistory>(base.StageData.FindClear));
+			StageData.C_History = StageData.PData.C_History.Find(new Predicate<ClearHistory>(StageData.FindClear));
 		}
 
 		public void Drama()
 		{
-			if (base.TimeMain == 2)
+			if (TimeMain == 2)
 			{
-				if (base.StageData.C_History.PracticeLevel < 7)
+				if (StageData.C_History.PracticeLevel < 7)
 				{
-					base.StageData.C_History.PracticeLevel = 7;
+					StageData.C_History.PracticeLevel = 7;
 				}
-				this.StageFlag = false;
-				BackgroundTransitionIn backgroundTransitionIn = new BackgroundTransitionIn(base.StageData);
+				StageFlag = false;
+				BackgroundTransitionIn backgroundTransitionIn = new BackgroundTransitionIn(StageData);
 				backgroundTransitionIn.Delay = 0;
 				backgroundTransitionIn.LifeTime = 280;
-				base.BoundRect = new Rectangle(128, 0, 384, 480);
-				if (base.StageData.ContinueTimes == 0)
+				BoundRect = new Rectangle(128, 0, 384, 480);
+				if (StageData.ContinueTimes == 0)
 				{
-					base.StageData.ChangeBGM(".\\BGM\\ED.ogg", 0, 0, 0, 0, 0);
-					new Story_SSStaff(base.StageData);
+					StageData.ChangeBGM(".\\BGM\\ED.ogg", 0, 0, 0, 0, 0);
+					new Story_SSStaff(StageData);
 				}
-				base.StageData.CurrentStageName = "All";
-				base.StageData.RepInfo.LastStage = base.StageData.CurrentStageName;
-				base.StageData.C_History = base.StageData.PData.C_History.Find(new Predicate<ClearHistory>(base.StageData.FindClear));
-				base.StageData.C_History.ClearTimes++;
-				if (base.StageData.ContinueTimes == 0)
+				StageData.CurrentStageName = "All";
+				StageData.RepInfo.LastStage = StageData.CurrentStageName;
+				StageData.C_History = StageData.PData.C_History.Find(new Predicate<ClearHistory>(StageData.FindClear));
+				StageData.C_History.ClearTimes++;
+				if (StageData.ContinueTimes == 0)
 				{
-					base.StageData.C_History.NoContinueClearTimes++;
+					StageData.C_History.NoContinueClearTimes++;
 				}
-				base.StageData.S_History = base.StageData.PData.S_History.FindAll(new Predicate<ScoreHistory>(base.StageData.FindScore));
+				StageData.S_History = StageData.PData.S_History.FindAll(new Predicate<ScoreHistory>(StageData.FindScore));
 			}
-			if (base.TimeMain > 2)
+			if (TimeMain > 2)
 			{
-				if (base.Story == null && !this.StageFlag)
+				if (Story == null && !StageFlag)
 				{
-					this.StageFlag = true;
-					base.TimeMain = 3;
+					StageFlag = true;
+					TimeMain = 3;
 				}
 			}
-			if (base.Story == null)
+			if (Story == null)
 			{
-				if (base.TimeMain == 5)
+				if (TimeMain == 5)
 				{
-					base.StageData.ChangeBGM(".\\BGM\\Staff.ogg", 0, 0, 0, 0, 0);
+					StageData.ChangeBGM(".\\BGM\\Staff.ogg", 0, 0, 0, 0, 0);
 					string[] files = Directory.GetFiles(".\\CS\\Staff\\", "*.mbg");
 					foreach (string text in files)
 					{
-						CS_Data cs_Data = base.StageData.LoadCS(text);
-						CSEmitterController csemitterController = new CSEmitterController(base.StageData, cs_Data);
+						CS_Data cs_Data = StageData.LoadCS(text);
+						CSEmitterController csemitterController = new CSEmitterController(StageData, cs_Data);
 						csemitterController.OnRoad = true;
-						csemitterController.Time = base.TimeMain - 60;
+						csemitterController.Time = TimeMain - 60;
 					}
-					base.BoundRect = new Rectangle(128, 0, 640, 480);
+					BoundRect = new Rectangle(128, 0, 640, 480);
 				}
-				if (this.StageFlag && base.TimeMain > this.keyTime[0] && base.KClass.Key_Z)
+				if (StageFlag && TimeMain > keyTime[0] && KClass.Key_Z)
 				{
-					if (base.StageData.ContinueTimes == 0)
+					if (StageData.ContinueTimes == 0)
 					{
-						EndStage ed = new EndStage(base.StageData, "FinalReplaySaveMenu", true);
+						EndStage ed = new EndStage(StageData, "FinalReplaySaveMenu", true);
 						ed.CtrlCall = delegate(string x)
 						{
 							if (ed.Time == ed.LifeTime)
 							{
-								this.BoundRect = new Rectangle(0, 0, 640, 480);
+								BoundRect = new Rectangle(0, 0, 640, 480);
 							}
 						};
-						base.GlobalData.LastState = this;
-						if (base.StageData.C_History.PracticeLevel < 8)
+						GlobalData.LastState = this;
+						if (StageData.C_History.PracticeLevel < 8)
 						{
-							base.StageData.C_History.PracticeLevel = 8;
+							StageData.C_History.PracticeLevel = 8;
 						}
 					}
 					else
 					{
-						new EndStage(base.StageData, "MainMenu", true);
-						base.GlobalData.LastState = this;
+						new EndStage(StageData, "MainMenu", true);
+						GlobalData.LastState = this;
 					}
 				}
 			}
@@ -173,93 +173,93 @@ namespace Shooting
 
 		public override void Render()
 		{
-			base.GlobalData.ScreenTexMan.Begin();
-			base.Background3D.Show();
-			base.SpriteMain.Begin(SpriteFlags.AlphaBlend);
-			base.DeviceMain.SetRenderState(RenderState.SourceBlend, 5);
-			base.DeviceMain.SetRenderState(RenderState.DestinationBlend, 2);
-			base.Background2.Show(true);
-			base.SpriteMain.End();
-			base.SpriteMain.Begin(SpriteFlags.AlphaBlend);
-			base.Background2.Show(false);
-			base.SpriteMain.End();
-			base.SpriteMain.Begin(SpriteFlags.AlphaBlend | SpriteFlags.SortTexture);
-			base.DeviceMain.SetRenderState(RenderState.SourceBlend, 5);
-			base.DeviceMain.SetRenderState(RenderState.DestinationBlend, 2);
-			base.BulletList.ForEach(delegate(BaseBullet_Touhou x)
+			GlobalData.ScreenTexMan.Begin();
+			Background3D.Show();
+			SpriteMain.Begin(SpriteFlags.AlphaBlend);
+			DeviceMain.SetRenderState(RenderState.SourceBlend, 5);
+			DeviceMain.SetRenderState(RenderState.DestinationBlend, 2);
+			Background2.Show(true);
+			SpriteMain.End();
+			SpriteMain.Begin(SpriteFlags.AlphaBlend);
+			Background2.Show(false);
+			SpriteMain.End();
+			SpriteMain.Begin(SpriteFlags.AlphaBlend | SpriteFlags.SortTexture);
+			DeviceMain.SetRenderState(RenderState.SourceBlend, 5);
+			DeviceMain.SetRenderState(RenderState.DestinationBlend, 2);
+			BulletList.ForEach(delegate(BaseBullet_Touhou x)
 			{
 				if (x.Active)
 				{
 					x.Show();
 				}
 			});
-			base.EffectList.ForEach(delegate(BaseEffect x)
+			EffectList.ForEach(delegate(BaseEffect x)
 			{
 				if (x.Active)
 				{
 					x.Show();
 				}
 			});
-			base.SpriteMain.End();
-			base.SpriteMain.Begin(SpriteFlags.AlphaBlend);
-			base.BulletList.ForEach(delegate(BaseBullet_Touhou x)
+			SpriteMain.End();
+			SpriteMain.Begin(SpriteFlags.AlphaBlend);
+			BulletList.ForEach(delegate(BaseBullet_Touhou x)
 			{
 				if (!x.Active && x.Layer < 0)
 				{
 					x.Show();
 				}
 			});
-			base.BulletList.ForEach(delegate(BaseBullet_Touhou x)
+			BulletList.ForEach(delegate(BaseBullet_Touhou x)
 			{
 				if (!x.Active && x.Layer == 0)
 				{
 					x.Show();
 				}
 			});
-			base.BulletList.ForEach(delegate(BaseBullet_Touhou x)
+			BulletList.ForEach(delegate(BaseBullet_Touhou x)
 			{
 				if (!x.Active && x.Layer > 0)
 				{
 					x.Show();
 				}
 			});
-			base.EffectList.ForEach(delegate(BaseEffect x)
+			EffectList.ForEach(delegate(BaseEffect x)
 			{
 				if (!x.Active && x.Layer < 0)
 				{
 					x.Show();
 				}
 			});
-			base.EffectList.ForEach(delegate(BaseEffect x)
+			EffectList.ForEach(delegate(BaseEffect x)
 			{
 				if (!x.Active && x.Layer == 0)
 				{
 					x.Show();
 				}
 			});
-			base.EffectList.ForEach(delegate(BaseEffect x)
+			EffectList.ForEach(delegate(BaseEffect x)
 			{
 				if (!x.Active && x.Layer > 0)
 				{
 					x.Show();
 				}
 			});
-			if (base.Story != null)
+			if (Story != null)
 			{
-				base.Story.Show();
+				Story.Show();
 			}
-			base.SpriteMain.End();
-			base.Particle3D.Show();
-			base.GlobalData.ScreenTexMan.End();
-			base.SpriteMain.Begin(SpriteFlags.AlphaBlend);
-			base.GlobalData.EffectMain = base.GlobalData.EffectDictionary["Filter"];
-			base.GlobalData.EffectMain.Technique = "technique1";
-			base.GlobalData.EffectMain.Begin();
-			base.GlobalData.EffectMain.BeginPass(0);
-			base.GlobalData.SpriteMain.Draw2D(base.GlobalData.ScreenTexMan.RenderTexture, new Point(0, 0), 0f, new PointF(0f, 0f), Color.White);
-			base.SpriteMain.End();
-			base.GlobalData.EffectMain.EndPass();
-			base.GlobalData.EffectMain.End();
+			SpriteMain.End();
+			Particle3D.Show();
+			GlobalData.ScreenTexMan.End();
+			SpriteMain.Begin(SpriteFlags.AlphaBlend);
+			GlobalData.EffectMain = GlobalData.EffectDictionary["Filter"];
+			GlobalData.EffectMain.Technique = "technique1";
+			GlobalData.EffectMain.Begin();
+			GlobalData.EffectMain.BeginPass(0);
+			GlobalData.SpriteMain.Draw2D(GlobalData.ScreenTexMan.RenderTexture, new Point(0, 0), 0f, new PointF(0f, 0f), Color.White);
+			SpriteMain.End();
+			GlobalData.EffectMain.EndPass();
+			GlobalData.EffectMain.End();
 		}
 
 		private int testStartTime = 0;

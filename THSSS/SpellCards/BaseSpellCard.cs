@@ -17,78 +17,78 @@ namespace Shooting
 		public BaseSpellCard(StageDataPackage StageData)
 			: base(StageData)
 		{
-			if (base.Boss != null)
+			if (Boss != null)
 			{
-				this.BaseScore = 10000000L;
-				base.OriginalPosition = base.Boss.OriginalPosition;
-				this.SpellTime = base.Boss.SpellTime - base.Boss.Time;
-				base.Background3D.Enabled3D = false;
-				this.SC_Name = null;
+				BaseScore = 10000000L;
+				OriginalPosition = Boss.OriginalPosition;
+				SpellTime = Boss.SpellTime - Boss.Time;
+				Background3D.Enabled3D = false;
+				SC_Name = null;
 			}
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			if (base.Time == 1)
+			if (Time == 1)
 			{
-				this.SC_Data = base.StageData.PData.SC_History.Find(new Predicate<SpellCardHistory>(this.FindSC));
-				if (!base.StageData.OnReplay)
+				SC_Data = StageData.PData.SC_History.Find(new Predicate<SpellCardHistory>(FindSC));
+				if (!StageData.OnReplay)
 				{
-					this.SC_Data.History++;
+					SC_Data.History++;
 				}
 			}
-			if (base.KClass.Key_X && base.MyPlane.Spell > 0)
+			if (KClass.Key_X && MyPlane.Spell > 0)
 			{
-				this.Bombed = true;
+				Bombed = true;
 			}
-			if (base.MyPlane.Time <= 1)
+			if (MyPlane.Time <= 1)
 			{
-				this.Missed = true;
+				Missed = true;
 			}
-			if (base.Time > 210 && base.SpellList.Count > 0)
+			if (Time > 210 && SpellList.Count > 0)
 			{
-				this.Bombed = true;
+				Bombed = true;
 			}
-			long spellCardBonus = this.GetSpellCardBonus();
+			long spellCardBonus = GetSpellCardBonus();
 			if (spellCardBonus > 0L)
 			{
-				base.StageData.SCBstring = this.GetSpellCardBonus().ToString().PadRight(14, ' ') + (this.SC_Data.Recorded.ToString() + "/" + this.SC_Data.History.ToString()).PadLeft(6);
+				StageData.SCBstring = GetSpellCardBonus().ToString().PadRight(14, ' ') + (SC_Data.Recorded.ToString() + "/" + SC_Data.History.ToString()).PadLeft(6);
 			}
 			else
 			{
-				base.StageData.SCBstring = "Failed".PadRight(14, ' ') + (this.SC_Data.Recorded.ToString() + "/" + this.SC_Data.History.ToString()).PadLeft(6);
+				StageData.SCBstring = "Failed".PadRight(14, ' ') + (SC_Data.Recorded.ToString() + "/" + SC_Data.History.ToString()).PadLeft(6);
 			}
 		}
 
 		public override void GiveEndEffect()
 		{
-			if (!this.Bombed && !this.Missed)
+			if (!Bombed && !Missed)
 			{
-				if (base.Time < this.SpellTime)
+				if (Time < SpellTime)
 				{
-					base.StageData.SoundPlay("se_cardget.wav");
-					new SpellCardBonus(base.StageData, this.GetSpellCardBonus());
-					if (!base.StageData.OnReplay)
+					StageData.SoundPlay("se_cardget.wav");
+					new SpellCardBonus(StageData, GetSpellCardBonus());
+					if (!StageData.OnReplay)
 					{
-						this.SC_Data.Recorded++;
+						SC_Data.Recorded++;
 					}
 				}
 			}
-			base.Background3D.Enabled3D = true;
-			base.StageData.SCBstring = null;
+			Background3D.Enabled3D = true;
+			StageData.SCBstring = null;
 		}
 
 		public virtual long GetSpellCardBonus()
 		{
 			long num;
-			if (this.Bombed || this.Missed)
+			if (Bombed || Missed)
 			{
 				num = 0L;
 			}
 			else
 			{
-				long num2 = this.BaseScore - this.BaseScore * (long)base.Time / 2L / (long)this.SpellTime;
+				long num2 = BaseScore - BaseScore * (long)Time / 2L / (long)SpellTime;
 				num2 /= 10L;
 				num2 *= 10L;
 				num = num2;
@@ -98,7 +98,7 @@ namespace Shooting
 
 		public bool FindSC(SpellCardHistory SCH)
 		{
-			return SCH.Rank == base.Difficulty && SCH.MyPlaneFullName == base.MyPlane.FullName && SCH.Name == this.SC_Name;
+			return SCH.Rank == Difficulty && SCH.MyPlaneFullName == MyPlane.FullName && SCH.Name == SC_Name;
 		}
 
 		public SpellCardHistory SC_Data;

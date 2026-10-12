@@ -10,30 +10,30 @@ namespace Shooting
 		{
 			get
 			{
-				return base.StageData.DeviceMain;
+				return StageData.DeviceMain;
 			}
 		}
 
 		public BackgroundStage1_3D(StageDataPackage StageData)
 			: base(StageData, "Background_Stage1", new PointF(0f, 0f), 0f, 0.0)
 		{
-			base.Background3D.BackgroundList.Add(this);
-			this.vertexDecl = new VertexDeclaration(this.DeviceMain, TexturedVertex.VertexElements);
-			this.vertexBuffer = new VertexBuffer(this.DeviceMain, 4 * TexturedVertex.SizeBytes, Usage.WriteOnly, VertexFormat.None, Pool.Managed);
-			base.Velocity = 1f;
+			Background3D.BackgroundList.Add(this);
+			vertexDecl = new VertexDeclaration(DeviceMain, TexturedVertex.VertexElements);
+			vertexBuffer = new VertexBuffer(DeviceMain, 4 * TexturedVertex.SizeBytes, Usage.WriteOnly, VertexFormat.None, Pool.Managed);
+			Velocity = 1f;
 		}
 
 		public override void Ctrl()
 		{
-			base.Time++;
-			if (base.Time == 660)
+			Time++;
+			if (Time == 660)
 			{
-				base.Velocity = 5f;
+				Velocity = 5f;
 			}
-			this.deltaY += base.Velocity;
-			if (this.deltaY > 1000f)
+			deltaY += Velocity;
+			if (deltaY > 1000f)
 			{
-				this.deltaY = 0f;
+				deltaY = 0f;
 			}
 		}
 
@@ -44,7 +44,7 @@ namespace Shooting
 
 		private void SetupVertex()
 		{
-			DataStream dataStream = this.vertexBuffer.Lock(0, 0, LockFlags.None);
+			DataStream dataStream = vertexBuffer.Lock(0, 0, LockFlags.None);
 			dataStream.WriteRange<TexturedVertex>(new TexturedVertex[]
 			{
 				new TexturedVertex(new Vector3(-1000f, -4000f, 0f), new Vector2(0f, 4f)),
@@ -52,30 +52,30 @@ namespace Shooting
 				new TexturedVertex(new Vector3(-1000f, 0f, 0f), new Vector2(0f, 0f)),
 				new TexturedVertex(new Vector3(1000f, 0f, 0f), new Vector2(1f, 0f))
 			});
-			this.vertexBuffer.Unlock();
+			vertexBuffer.Unlock();
 		}
 
 		private void SetupMatrices()
 		{
-			this.DeviceMain.SetTransform(TransformState.World, Matrix.Identity);
-			this.DeviceMain.SetTransform(TransformState.View, Matrix.LookAtLH(new Vector3(0f, -1400f - this.deltaY, 150f), new Vector3(0f, -1500f - this.deltaY, 0f), new Vector3(0f, -1f, 0f)));
+			DeviceMain.SetTransform(TransformState.World, Matrix.Identity);
+			DeviceMain.SetTransform(TransformState.View, Matrix.LookAtLH(new Vector3(0f, -1400f - deltaY, 150f), new Vector3(0f, -1500f - deltaY, 0f), new Vector3(0f, -1f, 0f)));
 		}
 
 		public override void Show()
 		{
-			this.SetupVertex();
-			this.SetupMatrices();
-			this.DeviceMain.SetTexture(0, base.TxtureObject.TXTure);
-			this.DeviceMain.SetStreamSource(0, this.vertexBuffer, 0, TexturedVertex.SizeBytes);
-			this.DeviceMain.DrawPrimitives(PrimitiveType.TriangleStrip, 0, 2);
+			SetupVertex();
+			SetupMatrices();
+			DeviceMain.SetTexture(0, TxtureObject.TXTure);
+			DeviceMain.SetStreamSource(0, vertexBuffer, 0, TexturedVertex.SizeBytes);
+			DeviceMain.DrawPrimitives(PrimitiveType.TriangleStrip, 0, 2);
 		}
 
 		public override void Dispose()
 		{
-			if (this.vertexBuffer != null)
+			if (vertexBuffer != null)
 			{
-				this.vertexBuffer.Dispose();
-				this.vertexDecl.Dispose();
+				vertexBuffer.Dispose();
+				vertexDecl.Dispose();
 			}
 		}
 

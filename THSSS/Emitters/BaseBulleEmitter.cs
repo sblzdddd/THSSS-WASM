@@ -6,13 +6,13 @@ namespace Shooting
 	{
 		public BaseBulleEmitter(StageDataPackage StageData)
 		{
-			base.StageData = StageData;
-			base.OriginalPosition = new PointF(0f, 0f);
-			base.Velocity = 0f;
-			base.Direction = 0.0;
-			base.HealthPoint = 1000000f;
-			base.HitEnabled = false;
-			base.EnemyPlaneList.Add(this);
+			this.StageData = StageData;
+			OriginalPosition = new PointF(0f, 0f);
+			Velocity = 0f;
+			Direction = 0.0;
+			HealthPoint = 1000000f;
+			HitEnabled = false;
+			EnemyPlaneList.Add(this);
 		}
 
 		public override bool HitCheck(BaseObject MyPlane)

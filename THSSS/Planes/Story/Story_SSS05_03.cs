@@ -5,7 +5,7 @@
 		public Story_SSS05_03(StageDataPackage StageData)
 			: base(StageData)
 		{
-			string name = base.MyPlane.Name;
+			string name = MyPlane.Name;
 			if (name != null)
 			{
 				if (!(name == "Reimu"))
@@ -16,22 +16,22 @@
 						{
 							if (name == "Koishi")
 							{
-								this.LoadConversation(".\\Story\\5-3D.csv");
+								LoadConversation(".\\Story\\5-3D.csv");
 							}
 						}
 						else
 						{
-							this.LoadConversation(".\\Story\\5-3C.csv");
+							LoadConversation(".\\Story\\5-3C.csv");
 						}
 					}
 					else
 					{
-						this.LoadConversation(".\\Story\\5-3B.csv");
+						LoadConversation(".\\Story\\5-3B.csv");
 					}
 				}
 				else
 				{
-					this.LoadConversation2(".\\Story\\5-3A.csv");
+					LoadConversation2(".\\Story\\5-3A.csv");
 				}
 			}
 		}
@@ -39,12 +39,12 @@
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			if (base.Time == this.Conv.Count)
+			if (Time == Conv.Count)
 			{
-				this.SBox.Dispose();
-				base.Story = null;
-				new EndStage(base.StageData, "St6", false);
-				new ClearBonus(base.StageData, 50000000);
+				SBox.Dispose();
+				Story = null;
+				new EndStage(StageData, "St6", false);
+				new ClearBonus(StageData, 50000000);
 			}
 		}
 	}

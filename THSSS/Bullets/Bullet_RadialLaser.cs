@@ -20,98 +20,98 @@ namespace Shooting
 		public Bullet_RadialLaser(StageDataPackage StageData, PointF OriginalPosition, float Velocity, double Direction, byte ColorType, int Length, int Width)
 			: this(StageData, "Laser0_" + ColorType, OriginalPosition, Velocity, Direction, Length)
 		{
-			base.ColorType = ColorType;
-			base.Active = true;
-			base.Angle = 1.5707963267948966;
-			base.MaxScaleL = (float)Width / (float)base.TxtureObject.Height;
+			this.ColorType = ColorType;
+			Active = true;
+			Angle = 1.5707963267948966;
+			MaxScaleL = (float)Width / (float)TxtureObject.Height;
 		}
 
 		public Bullet_RadialLaser(StageDataPackage StageData, string textureName, PointF OriginalPosition, float Velocity, double Direction, int Length)
 			: base(StageData, textureName, OriginalPosition, Velocity, Direction)
 		{
-			base.UnRemoveable = true;
-			base.Region = 2;
-			base.ScaleVW = 0.5f;
-			base.MaxScaleW = (float)Length / (float)base.TxtureObject.Width;
-			base.ScaleWidth = base.MaxScaleW;
-			base.MaxScaleL = 1f;
-			base.ScaleLength = 0.2f;
-			this.UnmatchedTime = 60;
+			UnRemoveable = true;
+			Region = 2;
+			ScaleVW = 0.5f;
+			MaxScaleW = (float)Length / (float)TxtureObject.Width;
+			ScaleWidth = MaxScaleW;
+			MaxScaleL = 1f;
+			ScaleLength = 0.2f;
+			UnmatchedTime = 60;
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			if (base.Time == 1)
+			if (Time == 1)
 			{
-				this.beginEffect = new ParticleBeginBullet(base.StageData, base.Position, base.ColorType)
+				beginEffect = new ParticleBeginBullet(StageData, Position, ColorType)
 				{
-					Scale = base.MaxScaleW * 0.5f,
+					Scale = MaxScaleW * 0.5f,
 					Active = true,
-					LifeTime = base.LifeTime
+					LifeTime = LifeTime
 				};
-				this.beginEffect.SetBinding(this);
+				beginEffect.SetBinding(this);
 			}
-			if (base.Time == this.UnmatchedTime)
+			if (Time == UnmatchedTime)
 			{
-				base.ScaleVL = 0.1f;
+				ScaleVL = 0.1f;
 			}
-			if (base.Time == base.LifeTime - 8)
+			if (Time == LifeTime - 8)
 			{
-				base.TransparentVelocity = (float)(-(float)base.MaxTransparent / 8);
-				base.ScaleVL = -base.ScaleLength / 8f;
+				TransparentVelocity = (float)(-(float)MaxTransparent / 8);
+				ScaleVL = -ScaleLength / 8f;
 			}
-			if (base.Time % 8 == 0)
+			if (Time % 8 == 0)
 			{
-				base.Grazed = false;
+				Grazed = false;
 			}
 		}
 
 		public override bool OutBoundary()
 		{
-			return base.LifeTime != 0 && base.Time > base.LifeTime;
+			return LifeTime != 0 && Time > LifeTime;
 		}
 
 		public override bool HitCheck(BaseObject Target, float Radius)
 		{
 			bool flag;
-			if (base.Time < this.UnmatchedTime)
+			if (Time < UnmatchedTime)
 			{
 				flag = false;
 			}
 			else
 			{
-				double distance = base.GetDistance(Target);
-				double direction = base.GetDirection(Target);
-				double num = distance * Math.Cos((double)((float)(base.Direction - direction)));
-				double num2 = distance * Math.Sin((double)((float)(base.Direction - direction)));
-				double num3 = (double)(Radius * base.ScaleLength + (float)Target.Region * Target.Scale);
-				double num4 = (double)(((float)base.TxtureObject.Width + Radius) * base.ScaleWidth * 0.45f + (float)Target.Region * Target.Scale);
-				flag = num2 * num2 / num3 / num3 + (num - (double)((float)base.TxtureObject.Width * base.ScaleWidth / 2f)) * (num - (double)((float)base.TxtureObject.Width * base.ScaleWidth / 2f)) / num4 / num4 < 1.0;
+				double distance = GetDistance(Target);
+				double direction = GetDirection(Target);
+				double num = distance * Math.Cos((double)((float)(Direction - direction)));
+				double num2 = distance * Math.Sin((double)((float)(Direction - direction)));
+				double num3 = (double)(Radius * ScaleLength + (float)Target.Region * Target.Scale);
+				double num4 = (double)(((float)TxtureObject.Width + Radius) * ScaleWidth * 0.45f + (float)Target.Region * Target.Scale);
+				flag = num2 * num2 / num3 / num3 + (num - (double)((float)TxtureObject.Width * ScaleWidth / 2f)) * (num - (double)((float)TxtureObject.Width * ScaleWidth / 2f)) / num4 / num4 < 1.0;
 			}
 			return flag;
 		}
 
 		public override void GiveEndEffect()
 		{
-			this.beginEffect.LifeTime = this.beginEffect.Time + 1;
+			beginEffect.LifeTime = beginEffect.Time + 1;
 		}
 
 		public override void Show()
 		{
-			if (base.TxtureObject != null)
+			if (TxtureObject != null)
 			{
-				SizeF sizeF = new SizeF((float)base.TxtureObject.Width * base.ScaleWidth, (float)base.TxtureObject.Height * base.ScaleLength);
-				base.SpriteMain.Draw2D(base.TxtureObject.TXTure, base.TxtureObject.PosRect, sizeF, new PointF(0f, (float)(base.TxtureObject.Height / 2)), (float)(base.Direction - 1.5707963267948966 + base.Angle), base.Position, Color.FromArgb(base.TransparentValue, base.ColorValue));
+				SizeF sizeF = new SizeF((float)TxtureObject.Width * ScaleWidth, (float)TxtureObject.Height * ScaleLength);
+				SpriteMain.Draw2D(TxtureObject.TXTure, TxtureObject.PosRect, sizeF, new PointF(0f, (float)(TxtureObject.Height / 2)), (float)(Direction - 1.5707963267948966 + Angle), Position, Color.FromArgb(TransparentValue, ColorValue));
 			}
 		}
 
 		public override void ShowRegion()
 		{
-			PointF originalPosition = base.OriginalPosition;
-			base.OriginalPosition = new PointF(base.OriginalPosition.X + (float)base.TxtureObject.Width * base.ScaleWidth * 0.5f * (float)Math.Cos(base.Direction), base.OriginalPosition.Y + (float)base.TxtureObject.Width * base.ScaleWidth * 0.5f * (float)Math.Sin(base.Direction));
-			base.SpriteMain.Draw2D(base.TextureObjectDictionary["Region"], (float)base.TxtureObject.Width * 0.9f / (float)base.TextureObjectDictionary["Region"].Height * base.ScaleWidth, 2f * (float)base.Region / (float)base.TextureObjectDictionary["Region"].Width * base.ScaleLength, (float)(base.Direction - 1.5707963267948966 + base.Angle), base.Position, Color.Red, base.Mirrored);
-			base.OriginalPosition = originalPosition;
+			PointF originalPosition = OriginalPosition;
+			OriginalPosition = new PointF(OriginalPosition.X + (float)TxtureObject.Width * ScaleWidth * 0.5f * (float)Math.Cos(Direction), OriginalPosition.Y + (float)TxtureObject.Width * ScaleWidth * 0.5f * (float)Math.Sin(Direction));
+			SpriteMain.Draw2D(TextureObjectDictionary["Region"], (float)TxtureObject.Width * 0.9f / (float)TextureObjectDictionary["Region"].Height * ScaleWidth, 2f * (float)Region / (float)TextureObjectDictionary["Region"].Width * ScaleLength, (float)(Direction - 1.5707963267948966 + Angle), Position, Color.Red, Mirrored);
+			OriginalPosition = originalPosition;
 		}
 
 		private BaseEffect beginEffect;

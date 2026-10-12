@@ -8,131 +8,131 @@ namespace Shooting
 		public MyPlane_Reimu(StageDataPackage StageData, Point OriginalPosition)
 			: base(StageData, OriginalPosition, "Reimu")
 		{
-			base.WeaponType = "A";
-			base.SubPlaneList = new List<BaseSubPlane>
+			WeaponType = "A";
+			SubPlaneList = new List<BaseSubPlane>
 			{
-				new Shinmyoumaru(StageData, base.Position),
-				new SubPlane_Reimu(StageData, base.Position),
-				new SubPlane_Reimu(StageData, base.Position),
-				new SubPlane_Reimu(StageData, base.Position)
+				new Shinmyoumaru(StageData, Position),
+				new SubPlane_Reimu(StageData, Position),
+				new SubPlane_Reimu(StageData, Position),
+				new SubPlane_Reimu(StageData, Position)
 			};
-			base.HighSpeed = 4.5f;
-			base.LowSpeed = 2f;
+			HighSpeed = 4.5f;
+			LowSpeed = 2f;
 		}
 
 		public override void Shoot()
 		{
-			if (base.Time % 3 == 0)
+			if (Time % 3 == 0)
 			{
-				base.StageData.SoundPlay("se_plst00.wav", base.OriginalPosition.X / (float)base.BoundRect.Width);
-				float x = base.OriginalPosition.X;
-				float y = base.OriginalPosition.Y;
-				BaseMyBullet_Touhou baseMyBullet_Touhou = new BaseMyBullet_Touhou(base.StageData, "ReimuBullet", new PointF(x - 7f, y), 30f, -1.5707963267948966);
+				StageData.SoundPlay("se_plst00.wav", OriginalPosition.X / (float)BoundRect.Width);
+				float x = OriginalPosition.X;
+				float y = OriginalPosition.Y;
+				BaseMyBullet_Touhou baseMyBullet_Touhou = new BaseMyBullet_Touhou(StageData, "ReimuBullet", new PointF(x - 7f, y), 30f, -1.5707963267948966);
 				baseMyBullet_Touhou.Damage = 14;
-				BaseMyBullet_Touhou baseMyBullet_Touhou2 = new BaseMyBullet_Touhou(base.StageData, "ReimuBullet", new PointF(x + 7f, y), 30f, -1.5707963267948966);
+				BaseMyBullet_Touhou baseMyBullet_Touhou2 = new BaseMyBullet_Touhou(StageData, "ReimuBullet", new PointF(x + 7f, y), 30f, -1.5707963267948966);
 				baseMyBullet_Touhou2.Damage = 14;
 			}
-			if (base.Time % 4 == 0)
+			if (Time % 4 == 0)
 			{
-				for (int i = 0; i < base.PowerLevel; i++)
+				for (int i = 0; i < PowerLevel; i++)
 				{
-					base.SubPlaneList[i].Shoot();
+					SubPlaneList[i].Shoot();
 				}
 			}
 		}
 
 		public override void SpellShoot()
 		{
-			if (base.KClass.Key_Shift)
+			if (KClass.Key_Shift)
 			{
-				new Spell_Reimu(base.StageData);
+				new Spell_Reimu(StageData);
 			}
 			else
 			{
-				new Spell_Shinmyoumaru(base.StageData);
+				new Spell_Shinmyoumaru(StageData);
 			}
 		}
 
 		public override void SubPlaneCtrl()
 		{
-			if (base.KClass.Key_Shift)
+			if (KClass.Key_Shift)
 			{
-				switch (base.PowerLevel)
+				switch (PowerLevel)
 				{
 				case 1:
-					base.SubPlanePoint[0] = new PointF(base.OriginalPosition.X, base.OriginalPosition.Y - 70f);
-					base.SubPlaneList[0].ShootDirection = -1.5707963267948966;
+					SubPlanePoint[0] = new PointF(OriginalPosition.X, OriginalPosition.Y - 70f);
+					SubPlaneList[0].ShootDirection = -1.5707963267948966;
 					break;
 				case 2:
-					base.SubPlanePoint[0] = new PointF(base.OriginalPosition.X - 0f, base.OriginalPosition.Y - 70f);
-					base.SubPlanePoint[1] = new PointF(base.OriginalPosition.X + 0f, base.OriginalPosition.Y - 70f);
-					base.SubPlaneList[0].ShootDirection = -1.5707963267948966;
-					base.SubPlaneList[1].ShootDirection = -1.5707963267948966;
+					SubPlanePoint[0] = new PointF(OriginalPosition.X - 0f, OriginalPosition.Y - 70f);
+					SubPlanePoint[1] = new PointF(OriginalPosition.X + 0f, OriginalPosition.Y - 70f);
+					SubPlaneList[0].ShootDirection = -1.5707963267948966;
+					SubPlaneList[1].ShootDirection = -1.5707963267948966;
 					break;
 				case 3:
-					base.SubPlanePoint[0] = new PointF(base.OriginalPosition.X, base.OriginalPosition.Y - 70f);
-					base.SubPlanePoint[1] = new PointF(base.OriginalPosition.X - 24f, base.OriginalPosition.Y - 0f);
-					base.SubPlanePoint[2] = new PointF(base.OriginalPosition.X + 24f, base.OriginalPosition.Y - 0f);
-					base.SubPlaneList[0].ShootDirection = -1.5707963267948966;
-					base.SubPlaneList[1].ShootDirection = 4.756022211684548;
-					base.SubPlaneList[2].ShootDirection = 4.6687557490848315;
+					SubPlanePoint[0] = new PointF(OriginalPosition.X, OriginalPosition.Y - 70f);
+					SubPlanePoint[1] = new PointF(OriginalPosition.X - 24f, OriginalPosition.Y - 0f);
+					SubPlanePoint[2] = new PointF(OriginalPosition.X + 24f, OriginalPosition.Y - 0f);
+					SubPlaneList[0].ShootDirection = -1.5707963267948966;
+					SubPlaneList[1].ShootDirection = 4.756022211684548;
+					SubPlaneList[2].ShootDirection = 4.6687557490848315;
 					break;
 				case 4:
-					base.SubPlanePoint[0] = new PointF(base.OriginalPosition.X - 0f, base.OriginalPosition.Y - 70f);
-					base.SubPlanePoint[1] = new PointF(base.OriginalPosition.X + 0f, base.OriginalPosition.Y - 70f);
-					base.SubPlanePoint[2] = new PointF(base.OriginalPosition.X - 24f, base.OriginalPosition.Y - 0f);
-					base.SubPlanePoint[3] = new PointF(base.OriginalPosition.X + 24f, base.OriginalPosition.Y - 0f);
-					base.SubPlaneList[0].ShootDirection = -1.5707963267948966;
-					base.SubPlaneList[1].ShootDirection = -1.5707963267948966;
-					base.SubPlaneList[2].ShootDirection = 4.756022211684548;
-					base.SubPlaneList[3].ShootDirection = 4.6687557490848315;
+					SubPlanePoint[0] = new PointF(OriginalPosition.X - 0f, OriginalPosition.Y - 70f);
+					SubPlanePoint[1] = new PointF(OriginalPosition.X + 0f, OriginalPosition.Y - 70f);
+					SubPlanePoint[2] = new PointF(OriginalPosition.X - 24f, OriginalPosition.Y - 0f);
+					SubPlanePoint[3] = new PointF(OriginalPosition.X + 24f, OriginalPosition.Y - 0f);
+					SubPlaneList[0].ShootDirection = -1.5707963267948966;
+					SubPlaneList[1].ShootDirection = -1.5707963267948966;
+					SubPlaneList[2].ShootDirection = 4.756022211684548;
+					SubPlaneList[3].ShootDirection = 4.6687557490848315;
 					break;
 				}
 			}
 			else
 			{
-				switch (base.PowerLevel)
+				switch (PowerLevel)
 				{
 				case 1:
-					base.SubPlanePoint[0] = new PointF(base.OriginalPosition.X, base.OriginalPosition.Y - 48f);
-					base.SubPlaneList[0].ShootDirection = -1.5707963267948966;
+					SubPlanePoint[0] = new PointF(OriginalPosition.X, OriginalPosition.Y - 48f);
+					SubPlaneList[0].ShootDirection = -1.5707963267948966;
 					break;
 				case 2:
-					base.SubPlanePoint[0] = new PointF(base.OriginalPosition.X - 0f, base.OriginalPosition.Y - 48f);
-					base.SubPlanePoint[1] = new PointF(base.OriginalPosition.X + 0f, base.OriginalPosition.Y + 48f);
-					base.SubPlaneList[0].ShootDirection = -1.5707963267948966;
-					base.SubPlaneList[1].ShootDirection = -1.5707963267948966;
+					SubPlanePoint[0] = new PointF(OriginalPosition.X - 0f, OriginalPosition.Y - 48f);
+					SubPlanePoint[1] = new PointF(OriginalPosition.X + 0f, OriginalPosition.Y + 48f);
+					SubPlaneList[0].ShootDirection = -1.5707963267948966;
+					SubPlaneList[1].ShootDirection = -1.5707963267948966;
 					break;
 				case 3:
-					base.SubPlanePoint[0] = new PointF(base.OriginalPosition.X, base.OriginalPosition.Y - 48f);
-					base.SubPlanePoint[1] = new PointF(base.OriginalPosition.X - 48f, base.OriginalPosition.Y + 0f);
-					base.SubPlanePoint[2] = new PointF(base.OriginalPosition.X + 48f, base.OriginalPosition.Y + 0f);
-					base.SubPlaneList[0].ShootDirection = -1.5707963267948966;
-					base.SubPlaneList[1].ShootDirection = -1.5707963267948966;
-					base.SubPlaneList[2].ShootDirection = -1.5707963267948966;
+					SubPlanePoint[0] = new PointF(OriginalPosition.X, OriginalPosition.Y - 48f);
+					SubPlanePoint[1] = new PointF(OriginalPosition.X - 48f, OriginalPosition.Y + 0f);
+					SubPlanePoint[2] = new PointF(OriginalPosition.X + 48f, OriginalPosition.Y + 0f);
+					SubPlaneList[0].ShootDirection = -1.5707963267948966;
+					SubPlaneList[1].ShootDirection = -1.5707963267948966;
+					SubPlaneList[2].ShootDirection = -1.5707963267948966;
 					break;
 				case 4:
-					base.SubPlanePoint[0] = new PointF(base.OriginalPosition.X, base.OriginalPosition.Y - 48f);
-					base.SubPlanePoint[1] = new PointF(base.OriginalPosition.X, base.OriginalPosition.Y + 48f);
-					base.SubPlanePoint[2] = new PointF(base.OriginalPosition.X - 48f, base.OriginalPosition.Y + 0f);
-					base.SubPlanePoint[3] = new PointF(base.OriginalPosition.X + 48f, base.OriginalPosition.Y + 0f);
-					base.SubPlaneList[0].ShootDirection = -1.5707963267948966;
-					base.SubPlaneList[1].ShootDirection = -1.5707963267948966;
-					base.SubPlaneList[2].ShootDirection = -1.5707963267948966;
-					base.SubPlaneList[3].ShootDirection = -1.5707963267948966;
+					SubPlanePoint[0] = new PointF(OriginalPosition.X, OriginalPosition.Y - 48f);
+					SubPlanePoint[1] = new PointF(OriginalPosition.X, OriginalPosition.Y + 48f);
+					SubPlanePoint[2] = new PointF(OriginalPosition.X - 48f, OriginalPosition.Y + 0f);
+					SubPlanePoint[3] = new PointF(OriginalPosition.X + 48f, OriginalPosition.Y + 0f);
+					SubPlaneList[0].ShootDirection = -1.5707963267948966;
+					SubPlaneList[1].ShootDirection = -1.5707963267948966;
+					SubPlaneList[2].ShootDirection = -1.5707963267948966;
+					SubPlaneList[3].ShootDirection = -1.5707963267948966;
 					break;
 				}
 			}
-			for (int i = 0; i < base.PowerLevel; i++)
+			for (int i = 0; i < PowerLevel; i++)
 			{
-				base.SubPlaneList[i].Enabled = true;
-				base.SubPlaneList[i].DestPoint = base.SubPlanePoint[i];
-				base.SubPlaneList[i].Ctrl();
+				SubPlaneList[i].Enabled = true;
+				SubPlaneList[i].DestPoint = SubPlanePoint[i];
+				SubPlaneList[i].Ctrl();
 			}
-			for (int i = base.PowerLevel; i < base.SubPlaneList.Count; i++)
+			for (int i = PowerLevel; i < SubPlaneList.Count; i++)
 			{
-				base.SubPlaneList[i].Enabled = false;
-				base.SubPlaneList[i].Position = base.Position;
+				SubPlaneList[i].Enabled = false;
+				SubPlaneList[i].Position = Position;
 			}
 		}
 	}

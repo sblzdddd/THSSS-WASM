@@ -11,56 +11,56 @@ namespace Shooting
 
 		public DescriptionMenuItem(StageDataPackage StageData, string Name)
 		{
-			base.StageData = StageData;
-			base.Name = Name;
-			base.MaxVelocity = 100f;
-			base.Selected = false;
-			base.UnSelectVisible = true;
-			this.DefaultColor = Color.Gray;
+			this.StageData = StageData;
+			this.Name = Name;
+			MaxVelocity = 100f;
+			Selected = false;
+			UnSelectVisible = true;
+			DefaultColor = Color.Gray;
 		}
 
 		public override void Ctrl()
 		{
-			if (base.Enabled)
+			if (Enabled)
 			{
-				base.Time++;
-				this.Move();
-				base.Velocity += base.Accelerate;
-				base.TransparentValueF += base.TransparentVelocity;
-				if (base.Selected)
+				Time++;
+				Move();
+				Velocity += Accelerate;
+				TransparentValueF += TransparentVelocity;
+				if (Selected)
 				{
-					double num = 1.0 + Math.Sin((double)((float)base.Time / 6f));
-					base.ColorValue = Color.Yellow;
-					base.TransparentVelocity = 25f;
+					double num = 1.0 + Math.Sin((double)((float)Time / 6f));
+					ColorValue = Color.Yellow;
+					TransparentVelocity = 25f;
 				}
 				else
 				{
-					base.ColorValue = this.DefaultColor;
-					if (!base.UnSelectVisible)
+					ColorValue = DefaultColor;
+					if (!UnSelectVisible)
 					{
-						base.TransparentVelocity = -25f;
+						TransparentVelocity = -25f;
 					}
 				}
-				if (base.OnRemove)
+				if (OnRemove)
 				{
-					base.MaxTransparent -= 15;
+					MaxTransparent -= 15;
 				}
 			}
 		}
 
 		public override void Select()
 		{
-			base.Time = 1;
-			base.Selected = true;
-			base.VibrateTime = 0;
-			base.TwinkleTime = 0;
+			Time = 1;
+			Selected = true;
+			VibrateTime = 0;
+			TwinkleTime = 0;
 		}
 
 		public override void Click()
 		{
-			base.Time = 1;
-			base.VibrateTime = 0;
-			base.TwinkleTime = base.Time + 30;
+			Time = 1;
+			VibrateTime = 0;
+			TwinkleTime = Time + 30;
 		}
 
 		public void DrawText(string text, PointF Pos)
@@ -72,9 +72,9 @@ namespace Shooting
 			for (int i = 0; i < array.Length; i++)
 			{
 				PointF pointF = new PointF(Pos.X + 5f + (float)num, Pos.Y + 9f);
-				if (base.TextureObjectDictionary.ContainsKey(array[i].ToString()))
+				if (TextureObjectDictionary.ContainsKey(array[i].ToString()))
 				{
-					base.SpriteMain.Draw2D(base.TextureObjectDictionary[array[i].ToString()], 1f, 0f, pointF, Color.FromArgb(base.TransparentValue, base.ColorValue));
+					SpriteMain.Draw2D(TextureObjectDictionary[array[i].ToString()], 1f, 0f, pointF, Color.FromArgb(TransparentValue, ColorValue));
 				}
 				num += 11;
 				if (array[i] == '.')
@@ -86,7 +86,7 @@ namespace Shooting
 
 		public override void Show()
 		{
-			this.DrawText(base.Name + " " + this.Description, base.OriginalPosition);
+			DrawText(Name + " " + Description, OriginalPosition);
 		}
 	}
 }

@@ -31,102 +31,102 @@ namespace Shooting
 
 		public BaseMenuItem(StageDataPackage StageData, string textureName)
 		{
-			base.StageData = StageData;
-			base.TxtureObject = base.TextureObjectDictionary[textureName];
-			this.Name = textureName;
-			base.MaxVelocity = 10f;
-			this.UnSelectVisible = true;
-			this.Vibrateable = true;
-			this.Twinkleable = true;
-			this.Selected = false;
+			this.StageData = StageData;
+			TxtureObject = TextureObjectDictionary[textureName];
+			Name = textureName;
+			MaxVelocity = 10f;
+			UnSelectVisible = true;
+			Vibrateable = true;
+			Twinkleable = true;
+			Selected = false;
 		}
 
 		public override void Move()
 		{
-			float num = (float)base.GetDistance(base.DestPoint);
+			float num = (float)GetDistance(DestPoint);
 			if (num > 0f)
 			{
-				base.Velocity = (float)Math.Sqrt((double)num) / 1f;
+				Velocity = (float)Math.Sqrt((double)num) / 1f;
 			}
 			else
 			{
-				base.Velocity = 0f;
+				Velocity = 0f;
 			}
-			base.Direction = base.GetDirection(base.DestPoint);
+			Direction = GetDirection(DestPoint);
 			base.Move();
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			if (this.Selected)
+			if (Selected)
 			{
-				double num = 1.0 + Math.Sin((double)((float)base.Time / 5f));
-				if (!this.Twinkleable)
+				double num = 1.0 + Math.Sin((double)((float)Time / 5f));
+				if (!Twinkleable)
 				{
 					num = 2.0;
 				}
-				base.ColorValue = Color.FromArgb(220 + (int)(12.0 * num), 220 + (int)(12.0 * num), 220 + (int)(12.0 * num));
-				base.TransparentValueF = 255f;
+				ColorValue = Color.FromArgb(220 + (int)(12.0 * num), 220 + (int)(12.0 * num), 220 + (int)(12.0 * num));
+				TransparentValueF = 255f;
 			}
-			else if (!this.UnSelectVisible)
+			else if (!UnSelectVisible)
 			{
-				base.TransparentVelocity = -25f;
-			}
-			else
-			{
-				base.ColorValue = Color.FromArgb(150, 150, 150);
-				base.TransparentValueF = 255f;
-			}
-			if (base.Time < this.VibrateTime)
-			{
-				this.OffsetX = (float)base.Ran.Next(-2, 3);
-				this.OffsetY = (float)base.Ran.Next(-2, 3);
+				TransparentVelocity = -25f;
 			}
 			else
 			{
-				this.OffsetX = 0f;
-				this.OffsetY = 0f;
+				ColorValue = Color.FromArgb(150, 150, 150);
+				TransparentValueF = 255f;
 			}
-			if (base.Time < this.TwinkleTime)
+			if (Time < VibrateTime)
 			{
-				if (base.Time % 4 == 0)
+				OffsetX = (float)Ran.Next(-2, 3);
+				OffsetY = (float)Ran.Next(-2, 3);
+			}
+			else
+			{
+				OffsetX = 0f;
+				OffsetY = 0f;
+			}
+			if (Time < TwinkleTime)
+			{
+				if (Time % 4 == 0)
 				{
-					base.TransparentValueF = 255f;
+					TransparentValueF = 255f;
 				}
-				else if (base.Time % 4 == 2)
+				else if (Time % 4 == 2)
 				{
-					base.TransparentValueF = 0f;
+					TransparentValueF = 0f;
 				}
 			}
-			if (this.OnRemove)
+			if (OnRemove)
 			{
-				base.MaxTransparent -= 15;
+				MaxTransparent -= 15;
 			}
 		}
 
 		public virtual void Select()
 		{
-			base.Time = 0;
-			this.Selected = true;
-			if (this.Vibrateable)
+			Time = 0;
+			Selected = true;
+			if (Vibrateable)
 			{
-				this.VibrateTime = base.Time + 10;
+				VibrateTime = Time + 10;
 			}
-			this.TwinkleTime = 0;
+			TwinkleTime = 0;
 		}
 
 		public virtual void Click()
 		{
-			base.Time = 0;
-			this.VibrateTime = 0;
-			this.TwinkleTime = base.Time + 30;
+			Time = 0;
+			VibrateTime = 0;
+			TwinkleTime = Time + 30;
 		}
 
 		public override void Show()
 		{
-			SizeF sizeF = new SizeF((float)base.TxtureObject.Width * base.Scale, (float)base.TxtureObject.Height * base.Scale);
-			base.SpriteMain.Draw2D(base.TxtureObject.TXTure, base.TxtureObject.PosRect, sizeF, new PointF(0f, 0f), (float)base.Angle, new PointF(base.Position.X - this.OffsetX, base.Position.Y - this.OffsetY), Color.FromArgb(base.TransparentValue, base.ColorValue));
+			SizeF sizeF = new SizeF((float)TxtureObject.Width * Scale, (float)TxtureObject.Height * Scale);
+			SpriteMain.Draw2D(TxtureObject.TXTure, TxtureObject.PosRect, sizeF, new PointF(0f, 0f), (float)Angle, new PointF(Position.X - OffsetX, Position.Y - OffsetY), Color.FromArgb(TransparentValue, ColorValue));
 		}
 	}
 }

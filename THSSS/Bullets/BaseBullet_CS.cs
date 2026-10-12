@@ -9,26 +9,26 @@ namespace Shooting
 		{
 			get
 			{
-				return this.type;
+				return type;
 			}
 			set
 			{
-				this.type = value;
-				if (value >= 0 && value < this.BulletName.Length)
+				type = value;
+				if (value >= 0 && value < BulletName.Length)
 				{
-					string text = this.BulletName[this.type];
-					base.ColorType = this.BulletColorType[this.type];
+					string text = BulletName[type];
+					ColorType = BulletColorType[type];
 					if (text != null)
 					{
-						base.TxtureObject = base.TextureObjectDictionary[text];
-						base.GhostingColor = Color.White;
-						base.SizeValue = 32;
-						base.Region = 2;
-						base.SetRegion(text);
+						TxtureObject = TextureObjectDictionary[text];
+						GhostingColor = Color.White;
+						SizeValue = 32;
+						Region = 2;
+						SetRegion(text);
 					}
 					else
 					{
-						base.Region = -100;
+						Region = -100;
 					}
 				}
 			}
@@ -37,38 +37,38 @@ namespace Shooting
 		public BaseBullet_CS(StageDataPackage StageData)
 			: base(StageData)
 		{
-			base.EventGroupList = new List<EventGroup>();
-			base.EventsExecutionList = new List<Execution>();
+			EventGroupList = new List<EventGroup>();
+			EventsExecutionList = new List<Execution>();
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			if (this.Type == 181 || this.Type == 185)
+			if (Type == 181 || Type == 185)
 			{
-				base.TxtureObject = base.TextureObjectDictionary["bullet66_" + base.Time % 16 / 4];
+				TxtureObject = TextureObjectDictionary["bullet66_" + Time % 16 / 4];
 			}
-			else if (this.Type == 182)
+			else if (Type == 182)
 			{
-				base.TxtureObject = base.TextureObjectDictionary["bullet64_" + base.Time % 16 / 4];
+				TxtureObject = TextureObjectDictionary["bullet64_" + Time % 16 / 4];
 			}
-			else if (this.Type == 183)
+			else if (Type == 183)
 			{
-				base.TxtureObject = base.TextureObjectDictionary["bullet65_" + base.Time % 16 / 4];
+				TxtureObject = TextureObjectDictionary["bullet65_" + Time % 16 / 4];
 			}
-			else if (this.Type == 184)
+			else if (Type == 184)
 			{
-				base.TxtureObject = base.TextureObjectDictionary["bullet18-" + base.Time % 16 / 4];
+				TxtureObject = TextureObjectDictionary["bullet18-" + Time % 16 / 4];
 			}
 		}
 
 		public override void EventCtrl()
 		{
-			base.EventGroupList.ForEach(delegate(EventGroup a)
+			EventGroupList.ForEach(delegate(EventGroup a)
 			{
 				a.Update(this);
 			});
-			base.EventsExecutionList.ForEach(delegate(Execution a)
+			EventsExecutionList.ForEach(delegate(Execution a)
 			{
 				a.Update(this);
 			});

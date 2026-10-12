@@ -8,12 +8,12 @@ namespace Shooting
 		public BackgroundTouhouStage02_3D(StageDataPackage StageData)
 			: base(StageData, " ")
 		{
-			this.vertexBuffer = new VertexBuffer(base.DeviceMain, 14 * TexturedVertex.SizeBytes, Usage.WriteOnly, VertexFormat.None, Pool.Managed);
+			vertexBuffer = new VertexBuffer(DeviceMain, 14 * TexturedVertex.SizeBytes, Usage.WriteOnly, VertexFormat.None, Pool.Managed);
 		}
 
 		public override void SetupVertex()
 		{
-			DataStream dataStream = this.vertexBuffer.Lock(0, 0, LockFlags.Discard);
+			DataStream dataStream = vertexBuffer.Lock(0, 0, LockFlags.Discard);
 			dataStream.WriteRange<TexturedVertex>(new TexturedVertex[]
 			{
 				new TexturedVertex(new Vector3(-500f, 6000f, 0f), new Vector2(0f, 0f)),
@@ -31,13 +31,13 @@ namespace Shooting
 				new TexturedVertex(new Vector3(-500f, 0f, 0f), new Vector2(0f, 0f)),
 				new TexturedVertex(new Vector3(500f, 0f, 0f), new Vector2(1f, 0f))
 			});
-			this.vertexBuffer.Unlock();
+			vertexBuffer.Unlock();
 		}
 
 		public override void Show()
 		{
 			base.Show();
-			base.DeviceMain.DrawPrimitives(PrimitiveType.TriangleStrip, 0, 12);
+			DeviceMain.DrawPrimitives(PrimitiveType.TriangleStrip, 0, 12);
 		}
 	}
 }

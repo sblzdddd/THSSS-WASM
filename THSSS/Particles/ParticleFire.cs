@@ -9,23 +9,23 @@ namespace Shooting
 		public ParticleFire(StageDataPackage StageData, PointF Position, float Velocity, double Direcity)
 			: base(StageData, null, Position, Velocity, Direcity)
 		{
-			base.LifeTime = 31;
-			base.Time = base.Ran.Next(32);
+			LifeTime = 31;
+			Time = Ran.Next(32);
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			switch (this.ColorType)
+			switch (ColorType)
 			{
 			case 0:
-				base.TxtureObject = base.TextureObjectDictionary["FY_Particle0_" + (base.Time % 32 / 4).ToString()];
+				TxtureObject = TextureObjectDictionary["FY_Particle0_" + (Time % 32 / 4).ToString()];
 				break;
 			case 1:
-				base.TxtureObject = base.TextureObjectDictionary["FY_Particle1_" + (base.Time % 32 / 4).ToString()];
+				TxtureObject = TextureObjectDictionary["FY_Particle1_" + (Time % 32 / 4).ToString()];
 				break;
 			case 2:
-				base.TxtureObject = base.TextureObjectDictionary["FY_Particle2_" + (base.Time % 32 / 4).ToString()];
+				TxtureObject = TextureObjectDictionary["FY_Particle2_" + (Time % 32 / 4).ToString()];
 				break;
 			}
 		}

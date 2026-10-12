@@ -10,35 +10,35 @@ namespace Shooting
 		public MenuGroup_ReplayStageSelect(StageDataPackage StageData, PointF OriginalPosition, DescriptionMenuItem RepMenuItem)
 			: base(StageData)
 		{
-			this.RepIndex = RepMenuItem.Name;
-			base.MenuSelectIndex = 0;
-			base.MenuItemList = new List<BaseMenuItem>();
+			RepIndex = RepMenuItem.Name;
+			MenuSelectIndex = 0;
+			MenuItemList = new List<BaseMenuItem>();
 			for (int i = 0; i < 6; i++)
 			{
-				base.MenuItemList.Add(new DescriptionMenuItem(StageData, string.Format("Stage{0:00}", i + 1))
+				MenuItemList.Add(new DescriptionMenuItem(StageData, string.Format("Stage{0:00}", i + 1))
 				{
 					Description = "----------"
 				});
 			}
-			base.MenuItemList.Add(new DescriptionMenuItem(StageData, "StageEx")
+			MenuItemList.Add(new DescriptionMenuItem(StageData, "StageEx")
 			{
 				Description = "----------"
 			});
 			float num = OriginalPosition.X + 12f;
 			float num2 = OriginalPosition.Y + 12f;
-			foreach (BaseMenuItem baseMenuItem in base.MenuItemList)
+			foreach (BaseMenuItem baseMenuItem in MenuItemList)
 			{
 				baseMenuItem.Position = new PointF(num, OriginalPosition.Y + 10f);
 				baseMenuItem.DestPoint = new PointF(num, num2);
 				num2 += 17f;
 			}
-			string text = ".\\Replay\\thSSS_" + this.RepIndex + ".rpy";
+			string text = ".\\Replay\\thSSS_" + RepIndex + ".rpy";
 			if (File.Exists(text))
 			{
 				ReplayInfo replayInfo = Replay.ReadTitle(text);
 				if (replayInfo.StartStage == "StEx")
 				{
-					((DescriptionMenuItem)base.MenuItemList[6]).Description = replayInfo.MyPlaneData[1].Score.ToString().PadLeft(10);
+					((DescriptionMenuItem)MenuItemList[6]).Description = replayInfo.MyPlaneData[1].Score.ToString().PadLeft(10);
 				}
 				else
 				{
@@ -55,69 +55,69 @@ namespace Shooting
 					{
 						if (num3 - 1 + i < 6)
 						{
-							((DescriptionMenuItem)base.MenuItemList[num3 - 1 + i]).Description = replayInfo.MyPlaneData[i + 1].Score.ToString().PadLeft(10);
+							((DescriptionMenuItem)MenuItemList[num3 - 1 + i]).Description = replayInfo.MyPlaneData[i + 1].Score.ToString().PadLeft(10);
 						}
 					}
 				}
 			}
-			base.MenuItemList[base.MenuSelectIndex].Selected = true;
-			base.MenuTilte = new DescriptionMenuItem(StageData, this.RepIndex)
+			MenuItemList[MenuSelectIndex].Selected = true;
+			MenuTilte = new DescriptionMenuItem(StageData, RepIndex)
 			{
 				Description = RepMenuItem.Description,
 				OriginalPosition = RepMenuItem.OriginalPosition,
 				Selected = true
 			};
-			this.MenuTitlePos1 = new PointF(RepMenuItem.OriginalPosition.X, 16f);
-			this.MenuTitlePos2 = RepMenuItem.OriginalPosition;
-			base.TxtureObject = base.TextureObjectDictionary["MenuBackground"];
-			base.OriginalPosition = new PointF((float)(base.BoundRect.Width / 2), (float)(base.BoundRect.Height / 2));
-			base.AngleDegree = 90.0;
-			base.ColorValue = Color.SkyBlue;
+			MenuTitlePos1 = new PointF(RepMenuItem.OriginalPosition.X, 16f);
+			MenuTitlePos2 = RepMenuItem.OriginalPosition;
+			TxtureObject = TextureObjectDictionary["MenuBackground"];
+			this.OriginalPosition = new PointF((float)(BoundRect.Width / 2), (float)(BoundRect.Height / 2));
+			AngleDegree = 90.0;
+			ColorValue = Color.SkyBlue;
 		}
 
 		public override void ProcessKeys()
 		{
 			base.ProcessKeys();
-			if (base.KClass.Key_Z && this.LastZ == 0)
+			if (KClass.Key_Z && LastZ == 0)
 			{
-				base.MenuItemList[base.MenuSelectIndex].Click();
-				this.OnChangeMenu = base.TimeMain + 1;
+				MenuItemList[MenuSelectIndex].Click();
+				OnChangeMenu = TimeMain + 1;
 			}
-			if ((base.KClass.Key_X || base.KClass.Key_ESC) && this.LastX == 0)
+			if ((KClass.Key_X || KClass.Key_ESC) && LastX == 0)
 			{
-				this.OnRemoveMenu = base.TimeMain + 20;
-				base.TransparentVelocity = -15f;
-				foreach (BaseMenuItem baseMenuItem in base.MenuItemList)
+				OnRemoveMenu = TimeMain + 20;
+				TransparentVelocity = -15f;
+				foreach (BaseMenuItem baseMenuItem in MenuItemList)
 				{
-					baseMenuItem.DestPoint = new PointF(base.MenuItemList[0].OriginalPosition.X, base.MenuItemList[0].OriginalPosition.Y);
+					baseMenuItem.DestPoint = new PointF(MenuItemList[0].OriginalPosition.X, MenuItemList[0].OriginalPosition.Y);
 					baseMenuItem.OnRemove = true;
 				}
-				base.StageData.SoundPlay("se_cancel00.wav");
+				StageData.SoundPlay("se_cancel00.wav");
 			}
 		}
 
 		public override void ProcessZ()
 		{
-			if (((DescriptionMenuItem)base.MenuItemList[base.MenuSelectIndex]).Description != "----------")
+			if (((DescriptionMenuItem)MenuItemList[MenuSelectIndex]).Description != "----------")
 			{
-				base.StageData.SoundPlay("se_ok00.wav");
-				string text = ".\\Replay\\thSSS_" + this.RepIndex + ".rpy";
-				base.StageData.Rep.LoadRpy(text);
+				StageData.SoundPlay("se_ok00.wav");
+				string text = ".\\Replay\\thSSS_" + RepIndex + ".rpy";
+				StageData.Rep.LoadRpy(text);
 				ReplayInfo replayInfo = Replay.ReadTitle(text);
-				base.StageData.RepInfo = replayInfo;
+				StageData.RepInfo = replayInfo;
 				string text3;
-				if (base.MenuSelectIndex < 6)
+				if (MenuSelectIndex < 6)
 				{
 					if (replayInfo.StartStage.Contains("St"))
 					{
 						string text2 = "St";
-						int num = base.MenuSelectIndex + 1;
+						int num = MenuSelectIndex + 1;
 						text3 = text2 + num.ToString();
 					}
 					else
 					{
 						string text4 = "Bs";
-						int num = base.MenuSelectIndex + 1;
+						int num = MenuSelectIndex + 1;
 						text3 = text4 + num.ToString();
 					}
 				}
@@ -125,11 +125,11 @@ namespace Shooting
 				{
 					text3 = "StEx";
 				}
-				base.StageData.StateSwitchData = new StateSwitchDataPackage
+				StageData.StateSwitchData = new StateSwitchDataPackage
 				{
 					NextState = text3,
 					NeedInit = true,
-					SDPswitch = new StageDataPackage(base.StageData.GlobalData)
+					SDPswitch = new StageDataPackage(StageData.GlobalData)
 					{
 						OnReplay = true,
 						Difficulty = replayInfo.Rank
@@ -142,11 +142,11 @@ namespace Shooting
 				}
 				else if (replayInfo.StartStage.Contains("St"))
 				{
-					num2 = base.MenuSelectIndex - Convert.ToInt32(replayInfo.StartStage.Replace("St", "")) + 1;
+					num2 = MenuSelectIndex - Convert.ToInt32(replayInfo.StartStage.Replace("St", "")) + 1;
 				}
 				else
 				{
-					num2 = base.MenuSelectIndex - Convert.ToInt32(replayInfo.StartStage.Replace("Bs", "")) + 1;
+					num2 = MenuSelectIndex - Convert.ToInt32(replayInfo.StartStage.Replace("Bs", "")) + 1;
 				}
 				Point point = new Point(192, 398);
 				if (num2 >= 0)
@@ -163,16 +163,16 @@ namespace Shooting
 					{
 						if (text5 == "A")
 						{
-							baseMyPlane = new MyPlane_Aya(base.StageData.StateSwitchData.SDPswitch, point);
+							baseMyPlane = new MyPlane_Aya(StageData.StateSwitchData.SDPswitch, point);
 							goto IL_0336;
 						}
 						if (text5 == "B")
 						{
-							baseMyPlane = new MyPlane_AyaB(base.StageData.StateSwitchData.SDPswitch, point);
+							baseMyPlane = new MyPlane_AyaB(StageData.StateSwitchData.SDPswitch, point);
 							goto IL_0336;
 						}
 					}
-					baseMyPlane = new BaseMyPlane(base.StageData.StateSwitchData.SDPswitch, point);
+					baseMyPlane = new BaseMyPlane(StageData.StateSwitchData.SDPswitch, point);
 					IL_0336:
 					goto IL_0442;
 				case "Plane":
@@ -181,32 +181,32 @@ namespace Shooting
 					{
 						if (text5 == "A")
 						{
-							baseMyPlane = new BaseMyPlane(base.StageData.StateSwitchData.SDPswitch, point);
+							baseMyPlane = new BaseMyPlane(StageData.StateSwitchData.SDPswitch, point);
 							goto IL_03B6;
 						}
 						if (text5 == "B")
 						{
-							baseMyPlane = new MyPlane_PlaneB(base.StageData.StateSwitchData.SDPswitch, point);
+							baseMyPlane = new MyPlane_PlaneB(StageData.StateSwitchData.SDPswitch, point);
 							goto IL_03B6;
 						}
 					}
-					baseMyPlane = new BaseMyPlane(base.StageData.StateSwitchData.SDPswitch, point);
+					baseMyPlane = new BaseMyPlane(StageData.StateSwitchData.SDPswitch, point);
 					IL_03B6:
 					goto IL_0442;
 				case "Reimu":
-					baseMyPlane = new MyPlane_Reimu(base.StageData.StateSwitchData.SDPswitch, point);
+					baseMyPlane = new MyPlane_Reimu(StageData.StateSwitchData.SDPswitch, point);
 					goto IL_0442;
 				case "Sanae":
-					baseMyPlane = new MyPlane_Sanae(base.StageData.StateSwitchData.SDPswitch, point);
+					baseMyPlane = new MyPlane_Sanae(StageData.StateSwitchData.SDPswitch, point);
 					goto IL_0442;
 				case "Marisa":
-					baseMyPlane = new MyPlane_Marisa(base.StageData.StateSwitchData.SDPswitch, point);
+					baseMyPlane = new MyPlane_Marisa(StageData.StateSwitchData.SDPswitch, point);
 					goto IL_0442;
 				case "Koishi":
-					baseMyPlane = new MyPlane_Koishi(base.StageData.StateSwitchData.SDPswitch, point);
+					baseMyPlane = new MyPlane_Koishi(StageData.StateSwitchData.SDPswitch, point);
 					goto IL_0442;
 				}
-				baseMyPlane = new BaseMyPlane(base.StageData.StateSwitchData.SDPswitch, point);
+				baseMyPlane = new BaseMyPlane(StageData.StateSwitchData.SDPswitch, point);
 				IL_0442:
 				if (num2 >= 0)
 				{
@@ -223,10 +223,10 @@ namespace Shooting
 					baseMyPlane.HighItemScore = replayInfo.MyPlaneData[num2].HighItemScore;
 					baseMyPlane.Rate = replayInfo.MyPlaneData[num2].Rate;
 					baseMyPlane.LastColor = replayInfo.MyPlaneData[num2].LastColor;
-					base.StageData.Rep.DataPosition = replayInfo.MyPlaneData[num2].DataPosition;
+					StageData.Rep.DataPosition = replayInfo.MyPlaneData[num2].DataPosition;
 				}
-				base.StageData.StateSwitchData.SDPswitch.MyPlane = baseMyPlane;
-				base.StageData.StateSwitchData.SDPswitch.RepInfo = replayInfo;
+				StageData.StateSwitchData.SDPswitch.MyPlane = baseMyPlane;
+				StageData.StateSwitchData.SDPswitch.RepInfo = replayInfo;
 			}
 		}
 

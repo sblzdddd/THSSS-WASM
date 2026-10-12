@@ -7,37 +7,37 @@ namespace Shooting
 	{
 		public MP3_Player()
 		{
-			this.Volumn = 100;
+			Volumn = 100;
 		}
 
 		public string FileName
 		{
 			get
 			{
-				return this.mc.iName;
+				return mc.iName;
 			}
 			set
 			{
 				try
 				{
-					this.TemStr = "";
-					this.TemStr = this.TemStr.PadLeft(127, Convert.ToChar(" "));
-					this.Name = this.Name.PadLeft(260, Convert.ToChar(" "));
-					this.mc.iName = value;
-					this.ilong = APIClass.GetShortPathName(this.mc.iName, this.Name, this.Name.Length);
-					this.Name = this.GetCurrPath(this.Name);
-					this.Name = string.Concat(new object[]
+					TemStr = "";
+					TemStr = TemStr.PadLeft(127, Convert.ToChar(" "));
+					Name = Name.PadLeft(260, Convert.ToChar(" "));
+					mc.iName = value;
+					ilong = APIClass.GetShortPathName(mc.iName, Name, Name.Length);
+					Name = GetCurrPath(Name);
+					Name = string.Concat(new object[]
 					{
 						"open ",
 						Convert.ToChar(34),
-						this.Name,
+						Name,
 						Convert.ToChar(34),
 						" alias media"
 					});
-					this.ilong = APIClass.mciSendString("close all", this.TemStr, this.TemStr.Length, 0);
-					this.ilong = APIClass.mciSendString(this.Name, this.TemStr, this.TemStr.Length, 0);
-					this.ilong = APIClass.mciSendString("set media time format milliseconds", this.TemStr, this.TemStr.Length, 0);
-					this.mc.state = MP3_Player.State.mStop;
+					ilong = APIClass.mciSendString("close all", TemStr, TemStr.Length, 0);
+					ilong = APIClass.mciSendString(Name, TemStr, TemStr.Length, 0);
+					ilong = APIClass.mciSendString("set media time format milliseconds", TemStr, TemStr.Length, 0);
+					mc.state = State.mStop;
 				}
 				catch
 				{
@@ -47,61 +47,61 @@ namespace Shooting
 
 		public void Play()
 		{
-			this.TemStr = "";
-			this.TemStr = this.TemStr.PadLeft(127, Convert.ToChar(" "));
-			APIClass.mciSendString("play media", this.TemStr, this.TemStr.Length, 0);
-			this.mc.state = MP3_Player.State.mPlaying;
+			TemStr = "";
+			TemStr = TemStr.PadLeft(127, Convert.ToChar(" "));
+			APIClass.mciSendString("play media", TemStr, TemStr.Length, 0);
+			mc.state = State.mPlaying;
 		}
 
 		public void PlayRepeat()
 		{
-			this.TemStr = "";
-			this.TemStr = this.TemStr.PadLeft(127, Convert.ToChar(" "));
-			APIClass.mciSendString("play media repeat", this.TemStr, this.TemStr.Length, 0);
-			this.mc.state = MP3_Player.State.mPlaying;
+			TemStr = "";
+			TemStr = TemStr.PadLeft(127, Convert.ToChar(" "));
+			APIClass.mciSendString("play media repeat", TemStr, TemStr.Length, 0);
+			mc.state = State.mPlaying;
 		}
 
 		public void Stop()
 		{
-			this.TemStr = "";
-			this.TemStr = this.TemStr.PadLeft(128, Convert.ToChar(" "));
-			this.ilong = APIClass.mciSendString("close media", this.TemStr, 128, 0);
-			this.ilong = APIClass.mciSendString("close all", this.TemStr, 128, 0);
-			this.mc.state = MP3_Player.State.mStop;
+			TemStr = "";
+			TemStr = TemStr.PadLeft(128, Convert.ToChar(" "));
+			ilong = APIClass.mciSendString("close media", TemStr, 128, 0);
+			ilong = APIClass.mciSendString("close all", TemStr, 128, 0);
+			mc.state = State.mStop;
 		}
 
 		public void Puase()
 		{
-			this.TemStr = "";
-			this.TemStr = this.TemStr.PadLeft(128, Convert.ToChar(" "));
-			this.ilong = APIClass.mciSendString("pause media", this.TemStr, this.TemStr.Length, 0);
-			this.mc.state = MP3_Player.State.mPuase;
+			TemStr = "";
+			TemStr = TemStr.PadLeft(128, Convert.ToChar(" "));
+			ilong = APIClass.mciSendString("pause media", TemStr, TemStr.Length, 0);
+			mc.state = State.mPuase;
 		}
 
 		public void Resume()
 		{
-			if (this.mc.state == MP3_Player.State.mPuase)
+			if (mc.state == State.mPuase)
 			{
-				this.TemStr = "";
-				this.TemStr = this.TemStr.PadLeft(127, Convert.ToChar(" "));
-				this.ilong = APIClass.mciSendString("resume media", this.TemStr, this.TemStr.Length, 0);
-				this.mc.state = MP3_Player.State.mPlaying;
+				TemStr = "";
+				TemStr = TemStr.PadLeft(127, Convert.ToChar(" "));
+				ilong = APIClass.mciSendString("resume media", TemStr, TemStr.Length, 0);
+				mc.state = State.mPlaying;
 			}
 		}
 
 		public void SetStartEnd(int t1, int t2)
 		{
-			this.TemStr = "";
-			this.TemStr = this.TemStr.PadLeft(128, Convert.ToChar(" "));
+			TemStr = "";
+			TemStr = TemStr.PadLeft(128, Convert.ToChar(" "));
 			string text = t1.ToString();
 			string text2 = t2.ToString();
 			string text3 = string.Concat(new string[] { "play media from ", text, " to ", text2, " repeat" });
-			APIClass.mciSendString(text3, this.TemStr, this.TemStr.Length, 0);
+			APIClass.mciSendString(text3, TemStr, TemStr.Length, 0);
 		}
 
 		public void SetStartEnd(float t1, float t2)
 		{
-			this.SetStartEnd((int)t1 * 1000, (int)t2 * 1000);
+			SetStartEnd((int)t1 * 1000, (int)t2 * 1000);
 		}
 
 		private string GetCurrPath(string name)
@@ -124,18 +124,18 @@ namespace Shooting
 		{
 			get
 			{
-				this.durLength = "";
-				this.durLength = this.durLength.PadLeft(128, Convert.ToChar(" "));
-				APIClass.mciSendString("status media length", this.durLength, this.durLength.Length, 0);
-				this.durLength = this.durLength.Trim();
+				durLength = "";
+				durLength = durLength.PadLeft(128, Convert.ToChar(" "));
+				APIClass.mciSendString("status media length", durLength, durLength.Length, 0);
+				durLength = durLength.Trim();
 				int num;
-				if (this.durLength == "")
+				if (durLength == "")
 				{
 					num = 0;
 				}
 				else
 				{
-					num = (int)(Convert.ToDouble(this.durLength) / 1000.0);
+					num = (int)(Convert.ToDouble(durLength) / 1000.0);
 				}
 				return num;
 			}
@@ -145,11 +145,11 @@ namespace Shooting
 		{
 			get
 			{
-				this.durLength = "";
-				this.durLength = this.durLength.PadLeft(128, Convert.ToChar(" "));
-				APIClass.mciSendString("status media position", this.durLength, this.durLength.Length, 0);
-				this.mc.iPos = (int)Convert.ToDouble(this.durLength.Replace("\0", ""));
-				return this.mc.iPos;
+				durLength = "";
+				durLength = durLength.PadLeft(128, Convert.ToChar(" "));
+				APIClass.mciSendString("status media position", durLength, durLength.Length, 0);
+				mc.iPos = (int)Convert.ToDouble(durLength.Replace("\0", ""));
+				return mc.iPos;
 			}
 		}
 
@@ -157,25 +157,25 @@ namespace Shooting
 		{
 			get
 			{
-				return this.volumn;
+				return volumn;
 			}
 			set
 			{
 				if (value < 0)
 				{
-					this.volumn = 0;
+					volumn = 0;
 				}
 				else if (value > 100)
 				{
-					this.volumn = 100;
+					volumn = 100;
 				}
 				else
 				{
-					this.volumn = value;
+					volumn = value;
 				}
-				this.TemStr = "";
-				this.TemStr = this.TemStr.PadLeft(127, Convert.ToChar(" "));
-				APIClass.mciSendString("setaudio media volume to " + (value * 10).ToString(), this.TemStr, this.TemStr.Length, 0);
+				TemStr = "";
+				TemStr = TemStr.PadLeft(127, Convert.ToChar(" "));
+				APIClass.mciSendString("setaudio media volume to " + (value * 10).ToString(), TemStr, TemStr.Length, 0);
 			}
 		}
 
@@ -192,7 +192,7 @@ namespace Shooting
 
 		private int volumn;
 
-		public MP3_Player.structMCI mc = default(MP3_Player.structMCI);
+		public structMCI mc = default(structMCI);
 
 		public enum State
 		{
@@ -215,7 +215,7 @@ namespace Shooting
 
 			public string iName;
 
-			public MP3_Player.State state;
+			public State state;
 		}
 	}
 }

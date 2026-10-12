@@ -10,31 +10,31 @@ namespace Shooting
 
 		public BaseStory(StageDataPackage StageData)
 		{
-			base.StageData = StageData;
-			base.Story = this;
-			if (base.Boss != null)
+			this.StageData = StageData;
+			Story = this;
+			if (Boss != null)
 			{
-				base.Boss.Enabled = false;
+				Boss.Enabled = false;
 			}
 		}
 
 		public override void Ctrl()
 		{
-			if (base.KClass.Key_Z || base.KClass.Key_Ctrl)
+			if (KClass.Key_Z || KClass.Key_Ctrl)
 			{
-				if (!this.Z)
+				if (!Z)
 				{
-					base.Time++;
-					base.StageData.SoundPlay("se_plst00.wav");
+					Time++;
+					StageData.SoundPlay("se_plst00.wav");
 				}
-				if (!base.KClass.Key_Ctrl)
+				if (!KClass.Key_Ctrl)
 				{
-					this.Z = true;
+					Z = true;
 				}
 			}
 			else
 			{
-				this.Z = false;
+				Z = false;
 			}
 		}
 

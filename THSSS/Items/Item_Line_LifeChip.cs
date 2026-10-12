@@ -7,16 +7,16 @@ namespace Shooting
 		public Item_Line_LifeChip(StageDataPackage StageData, PointF OriginalPosition)
 			: base(StageData, OriginalPosition)
 		{
-			base.FontType = "ShardNum_";
-			this.Delta = 9;
+			FontType = "ShardNum_";
+			Delta = 9;
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			base.Value = 0;
-			base.Text = base.MyPlane.LifeChip.ToString() + "/" + base.MyPlane.nextLifeChip[base.MyPlane.LifeUpCount].ToString();
-			base.Text = base.Text.PadLeft(5, ' ');
+			Value = 0;
+			Text = MyPlane.LifeChip.ToString() + "/" + MyPlane.nextLifeChip[MyPlane.LifeUpCount].ToString();
+			Text = Text.PadLeft(5, ' ');
 		}
 	}
 }

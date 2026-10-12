@@ -25,19 +25,19 @@ namespace Shooting
 		{
 			get
 			{
-				float x = this.OriginalPosition.X;
-				float y = this.OriginalPosition.Y;
-				if (BaseObject.PresentLerp < 1f && this.hasPrev)
+				float x = OriginalPosition.X;
+				float y = OriginalPosition.Y;
+				if (PresentLerp < 1f && hasPrev)
 				{
-					float t = BaseObject.PresentLerp;
-					x = this.prevX + (x - this.prevX) * t;
-					y = this.prevY + (y - this.prevY) * t;
+					float t = PresentLerp;
+					x = prevX + (x - prevX) * t;
+					y = prevY + (y - prevY) * t;
 				}
-				return new PointF(x + (float)this.BoundRect.Left, y + (float)this.BoundRect.Top);
+				return new PointF(x + (float)BoundRect.Left, y + (float)BoundRect.Top);
 			}
 			set
 			{
-				this.OriginalPosition = new PointF(value.X - (float)this.BoundRect.Left, value.Y - (float)this.BoundRect.Top);
+				OriginalPosition = new PointF(value.X - (float)BoundRect.Left, value.Y - (float)BoundRect.Top);
 			}
 		}
 
@@ -49,21 +49,21 @@ namespace Shooting
 		{
 			get
 			{
-				return this.velocity;
+				return velocity;
 			}
 			set
 			{
-				if (value > this.MaxVelocity)
+				if (value > MaxVelocity)
 				{
-					this.velocity = this.MaxVelocity;
+					velocity = MaxVelocity;
 				}
-				else if (value < this.MinVelocity)
+				else if (value < MinVelocity)
 				{
-					this.velocity = this.minVelocity;
+					velocity = minVelocity;
 				}
 				else
 				{
-					this.velocity = value;
+					velocity = value;
 				}
 			}
 		}
@@ -72,11 +72,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.maxVelocity;
+				return maxVelocity;
 			}
 			set
 			{
-				this.maxVelocity = value;
+				maxVelocity = value;
 			}
 		}
 
@@ -84,11 +84,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.minVelocity;
+				return minVelocity;
 			}
 			set
 			{
-				this.minVelocity = value;
+				minVelocity = value;
 			}
 		}
 
@@ -96,13 +96,13 @@ namespace Shooting
 		{
 			get
 			{
-				return this.Velocity * (float)Math.Cos(this.Direction);
+				return Velocity * (float)Math.Cos(Direction);
 			}
 			set
 			{
-				float vy = this.Vy;
-				this.Velocity = (float)Math.Sqrt((double)(value * value + vy * vy));
-				this.Direction = ((this.Velocity == 0f) ? 0.0 : Math.Atan2((double)vy, (double)value));
+				float vy = Vy;
+				Velocity = (float)Math.Sqrt((double)(value * value + vy * vy));
+				Direction = ((Velocity == 0f) ? 0.0 : Math.Atan2((double)vy, (double)value));
 			}
 		}
 
@@ -110,13 +110,13 @@ namespace Shooting
 		{
 			get
 			{
-				return this.Velocity * (float)Math.Sin(this.Direction);
+				return Velocity * (float)Math.Sin(Direction);
 			}
 			set
 			{
-				float vx = this.Vx;
-				this.Velocity = (float)Math.Sqrt((double)(value * value + vx * vx));
-				this.Direction = ((this.Velocity == 0f) ? 0.0 : Math.Atan2((double)value, (double)vx));
+				float vx = Vx;
+				Velocity = (float)Math.Sqrt((double)(value * value + vx * vx));
+				Direction = ((Velocity == 0f) ? 0.0 : Math.Atan2((double)value, (double)vx));
 			}
 		}
 
@@ -124,7 +124,7 @@ namespace Shooting
 		{
 			get
 			{
-				return this.angle;
+				return angle;
 			}
 			set
 			{
@@ -136,7 +136,7 @@ namespace Shooting
 				{
 					value += 6.283185307179586;
 				}
-				this.angle = value;
+				angle = value;
 			}
 		}
 
@@ -144,11 +144,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.Angle / 3.141592653589793 * 180.0;
+				return Angle / 3.141592653589793 * 180.0;
 			}
 			set
 			{
-				this.Angle = value * 3.141592653589793 / 180.0;
+				Angle = value * 3.141592653589793 / 180.0;
 			}
 		}
 
@@ -156,7 +156,7 @@ namespace Shooting
 		{
 			get
 			{
-				return this.direction;
+				return direction;
 			}
 			set
 			{
@@ -168,14 +168,14 @@ namespace Shooting
 				{
 					value += 6.283185307179586;
 				}
-				if (this.dirReady && value == this.direction)
+				if (dirReady && value == direction)
 				{
 					return;
 				}
-				this.direction = value;
-				this.dirCos = MathF.Cos((float)value);
-				this.dirSin = MathF.Sin((float)value);
-				this.dirReady = true;
+				direction = value;
+				dirCos = MathF.Cos((float)value);
+				dirSin = MathF.Sin((float)value);
+				dirReady = true;
 			}
 		}
 
@@ -183,11 +183,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.Direction / 3.141592653589793 * 180.0;
+				return Direction / 3.141592653589793 * 180.0;
 			}
 			set
 			{
-				this.Direction = value * 3.141592653589793 / 180.0;
+				Direction = value * 3.141592653589793 / 180.0;
 			}
 		}
 
@@ -195,24 +195,24 @@ namespace Shooting
 		{
 			get
 			{
-				return this.scaleLength;
+				return scaleLength;
 			}
 			set
 			{
-				if (value > this.MaxScale)
+				if (value > MaxScale)
 				{
-					this.scaleLength = this.MaxScale;
-					this.scaleWidth = this.MaxScale;
+					scaleLength = MaxScale;
+					scaleWidth = MaxScale;
 				}
-				else if (value < this.MinScale)
+				else if (value < MinScale)
 				{
-					this.scaleLength = 0f;
-					this.scaleWidth = 0f;
+					scaleLength = 0f;
+					scaleWidth = 0f;
 				}
 				else
 				{
-					this.scaleLength = value;
-					this.scaleWidth = value;
+					scaleLength = value;
+					scaleWidth = value;
 				}
 			}
 		}
@@ -221,12 +221,12 @@ namespace Shooting
 		{
 			get
 			{
-				return this.maxScaleL;
+				return maxScaleL;
 			}
 			set
 			{
-				this.maxScaleL = value;
-				this.maxScaleW = value;
+				maxScaleL = value;
+				maxScaleW = value;
 			}
 		}
 
@@ -234,12 +234,12 @@ namespace Shooting
 		{
 			get
 			{
-				return this.minScaleL;
+				return minScaleL;
 			}
 			set
 			{
-				this.minScaleL = value;
-				this.minScaleW = value;
+				minScaleL = value;
+				minScaleW = value;
 			}
 		}
 
@@ -247,11 +247,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.maxScaleL;
+				return maxScaleL;
 			}
 			set
 			{
-				this.maxScaleL = value;
+				maxScaleL = value;
 			}
 		}
 
@@ -259,11 +259,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.maxScaleW;
+				return maxScaleW;
 			}
 			set
 			{
-				this.maxScaleW = value;
+				maxScaleW = value;
 			}
 		}
 
@@ -271,11 +271,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.minScaleL;
+				return minScaleL;
 			}
 			set
 			{
-				this.minScaleL = value;
+				minScaleL = value;
 			}
 		}
 
@@ -283,11 +283,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.minScaleW;
+				return minScaleW;
 			}
 			set
 			{
-				this.minScaleW = value;
+				minScaleW = value;
 			}
 		}
 
@@ -295,11 +295,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.scaleX;
+				return scaleX;
 			}
 			set
 			{
-				this.scaleX = value;
+				scaleX = value;
 			}
 		}
 
@@ -307,11 +307,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.scaleY;
+				return scaleY;
 			}
 			set
 			{
-				this.scaleY = value;
+				scaleY = value;
 			}
 		}
 
@@ -319,11 +319,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.enabled;
+				return enabled;
 			}
 			set
 			{
-				this.enabled = value;
+				enabled = value;
 			}
 		}
 
@@ -331,11 +331,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.hitEnabled;
+				return hitEnabled;
 			}
 			set
 			{
-				this.hitEnabled = value;
+				hitEnabled = value;
 			}
 		}
 
@@ -343,11 +343,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.shootEnabled;
+				return shootEnabled;
 			}
 			set
 			{
-				this.shootEnabled = value;
+				shootEnabled = value;
 			}
 		}
 
@@ -355,12 +355,12 @@ namespace Shooting
 		{
 			get
 			{
-				return this.region;
+				return region;
 			}
 			set
 			{
-				this.region = value;
-				this.outsideRegion = value;
+				region = value;
+				outsideRegion = value;
 			}
 		}
 
@@ -368,11 +368,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.outsideRegion;
+				return outsideRegion;
 			}
 			set
 			{
-				this.outsideRegion = value;
+				outsideRegion = value;
 			}
 		}
 
@@ -380,11 +380,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.damage;
+				return damage;
 			}
 			set
 			{
-				this.damage = value;
+				damage = value;
 			}
 		}
 
@@ -392,11 +392,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.healthPoint;
+				return healthPoint;
 			}
 			set
 			{
-				this.healthPoint = value;
+				healthPoint = value;
 			}
 		}
 
@@ -404,21 +404,21 @@ namespace Shooting
 		{
 			get
 			{
-				return this.scaleLength;
+				return scaleLength;
 			}
 			set
 			{
-				if (value > this.MaxScaleL)
+				if (value > MaxScaleL)
 				{
-					this.scaleLength = this.MaxScaleL;
+					scaleLength = MaxScaleL;
 				}
-				else if (value < this.MinScaleL)
+				else if (value < MinScaleL)
 				{
-					this.scaleLength = this.MinScaleL;
+					scaleLength = MinScaleL;
 				}
 				else
 				{
-					this.scaleLength = value;
+					scaleLength = value;
 				}
 			}
 		}
@@ -427,21 +427,21 @@ namespace Shooting
 		{
 			get
 			{
-				return this.scaleWidth;
+				return scaleWidth;
 			}
 			set
 			{
-				if (value > this.MaxScaleW)
+				if (value > MaxScaleW)
 				{
-					this.scaleWidth = this.MaxScaleW;
+					scaleWidth = MaxScaleW;
 				}
-				else if (value < this.MinScaleW)
+				else if (value < MinScaleW)
 				{
-					this.scaleWidth = this.MinScaleW;
+					scaleWidth = MinScaleW;
 				}
 				else
 				{
-					this.scaleWidth = value;
+					scaleWidth = value;
 				}
 			}
 		}
@@ -450,25 +450,25 @@ namespace Shooting
 		{
 			get
 			{
-				return this.maxTransparent;
+				return maxTransparent;
 			}
 			set
 			{
 				if (value < 0)
 				{
-					this.maxTransparent = 0;
+					maxTransparent = 0;
 				}
 				else if (value > 255)
 				{
-					this.maxTransparent = 255;
+					maxTransparent = 255;
 				}
 				else
 				{
-					this.maxTransparent = value;
+					maxTransparent = value;
 				}
-				if (this.transparentValue > (float)this.maxTransparent)
+				if (transparentValue > (float)maxTransparent)
 				{
-					this.transparentValue = (float)this.maxTransparent;
+					transparentValue = (float)maxTransparent;
 				}
 			}
 		}
@@ -477,21 +477,21 @@ namespace Shooting
 		{
 			get
 			{
-				return this.transparentValue;
+				return transparentValue;
 			}
 			set
 			{
 				if (value < 0f)
 				{
-					this.transparentValue = 0f;
+					transparentValue = 0f;
 				}
-				else if (value > (float)this.MaxTransparent)
+				else if (value > (float)MaxTransparent)
 				{
-					this.transparentValue = (float)this.MaxTransparent;
+					transparentValue = (float)MaxTransparent;
 				}
 				else
 				{
-					this.transparentValue = value;
+					transparentValue = value;
 				}
 			}
 		}
@@ -500,7 +500,7 @@ namespace Shooting
 		{
 			get
 			{
-				return (int)this.transparentValue;
+				return (int)transparentValue;
 			}
 		}
 
@@ -508,11 +508,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.colorValue;
+				return colorValue;
 			}
 			set
 			{
-				this.colorValue = value;
+				colorValue = value;
 			}
 		}
 
@@ -532,12 +532,12 @@ namespace Shooting
 		{
 			get
 			{
-				return this.ScaleVL;
+				return ScaleVL;
 			}
 			set
 			{
-				this.ScaleVL = value;
-				this.ScaleVW = value;
+				ScaleVL = value;
+				ScaleVW = value;
 			}
 		}
 
@@ -556,9 +556,9 @@ namespace Shooting
 			get
 			{
 				int num;
-				if (this.LastPoints != null)
+				if (LastPoints != null)
 				{
-					num = this.LastPoints.Length;
+					num = LastPoints.Length;
 				}
 				else
 				{
@@ -568,10 +568,10 @@ namespace Shooting
 			}
 			set
 			{
-				this.LastPoints = new PointF[value];
+				LastPoints = new PointF[value];
 				for (int i = 0; i < value; i++)
 				{
-					this.LastPoints[i] = this.OriginalPosition;
+					LastPoints[i] = OriginalPosition;
 				}
 			}
 		}
@@ -582,11 +582,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.angleWithDirection;
+				return angleWithDirection;
 			}
 			set
 			{
-				this.angleWithDirection = value;
+				angleWithDirection = value;
 			}
 		}
 
@@ -596,7 +596,7 @@ namespace Shooting
 		{
 			get
 			{
-				return this.StageData.SpriteMain;
+				return StageData.SpriteMain;
 			}
 		}
 
@@ -604,11 +604,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.StageData.BoundRect;
+				return StageData.BoundRect;
 			}
 			set
 			{
-				this.StageData.BoundRect = value;
+				StageData.BoundRect = value;
 			}
 		}
 
@@ -616,11 +616,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.StageData.TimeMain;
+				return StageData.TimeMain;
 			}
 			set
 			{
-				this.StageData.TimeMain = value;
+				StageData.TimeMain = value;
 			}
 		}
 
@@ -628,11 +628,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.StageData.MyPlane;
+				return StageData.MyPlane;
 			}
 			set
 			{
-				this.StageData.MyPlane = value;
+				StageData.MyPlane = value;
 			}
 		}
 
@@ -640,11 +640,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.StageData.BulletList;
+				return StageData.BulletList;
 			}
 			set
 			{
-				this.StageData.BulletList = value;
+				StageData.BulletList = value;
 			}
 		}
 
@@ -652,11 +652,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.StageData.MyBulletList;
+				return StageData.MyBulletList;
 			}
 			set
 			{
-				this.StageData.MyBulletList = value;
+				StageData.MyBulletList = value;
 			}
 		}
 
@@ -664,11 +664,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.StageData.SpellList;
+				return StageData.SpellList;
 			}
 			set
 			{
-				this.StageData.SpellList = value;
+				StageData.SpellList = value;
 			}
 		}
 
@@ -676,11 +676,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.StageData.EnemyPlaneList;
+				return StageData.EnemyPlaneList;
 			}
 			set
 			{
-				this.StageData.EnemyPlaneList = value;
+				StageData.EnemyPlaneList = value;
 			}
 		}
 
@@ -688,11 +688,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.StageData.EffectList;
+				return StageData.EffectList;
 			}
 			set
 			{
-				this.StageData.EffectList = value;
+				StageData.EffectList = value;
 			}
 		}
 
@@ -700,11 +700,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.StageData.ItemList;
+				return StageData.ItemList;
 			}
 			set
 			{
-				this.StageData.ItemList = value;
+				StageData.ItemList = value;
 			}
 		}
 
@@ -712,11 +712,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.StageData.Story;
+				return StageData.Story;
 			}
 			set
 			{
-				this.StageData.Story = value;
+				StageData.Story = value;
 			}
 		}
 
@@ -724,11 +724,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.StageData.Background;
+				return StageData.Background;
 			}
 			set
 			{
-				this.StageData.Background = value;
+				StageData.Background = value;
 			}
 		}
 
@@ -736,11 +736,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.StageData.Background2;
+				return StageData.Background2;
 			}
 			set
 			{
-				this.StageData.Background2 = value;
+				StageData.Background2 = value;
 			}
 		}
 
@@ -748,11 +748,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.StageData.Background3D;
+				return StageData.Background3D;
 			}
 			set
 			{
-				this.StageData.Background3D = value;
+				StageData.Background3D = value;
 			}
 		}
 
@@ -760,11 +760,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.StageData.Boss;
+				return StageData.Boss;
 			}
 			set
 			{
-				this.StageData.Boss = value;
+				StageData.Boss = value;
 			}
 		}
 
@@ -772,11 +772,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.StageData.SoundPlayList;
+				return StageData.SoundPlayList;
 			}
 			set
 			{
-				this.StageData.SoundPlayList = value;
+				StageData.SoundPlayList = value;
 			}
 		}
 
@@ -784,7 +784,7 @@ namespace Shooting
 		{
 			get
 			{
-				return this.StageData.TextureObjectDictionary;
+				return StageData.TextureObjectDictionary;
 			}
 		}
 
@@ -792,7 +792,7 @@ namespace Shooting
 		{
 			get
 			{
-				return this.StageData.BGM_Player;
+				return StageData.BGM_Player;
 			}
 		}
 
@@ -800,7 +800,7 @@ namespace Shooting
 		{
 			get
 			{
-				return this.StageData.KClass;
+				return StageData.KClass;
 			}
 		}
 
@@ -808,11 +808,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.StageData.Ran;
+				return StageData.Ran;
 			}
 			set
 			{
-				this.StageData.Ran = value;
+				StageData.Ran = value;
 			}
 		}
 
@@ -820,7 +820,7 @@ namespace Shooting
 		{
 			get
 			{
-				return this.StageData.Difficulty;
+				return StageData.Difficulty;
 			}
 		}
 
@@ -841,76 +841,76 @@ namespace Shooting
 			this.Direction = Direction;
 			if (textureName != null)
 			{
-				this.TxtureObject = this.TextureObjectDictionary[textureName];
+				TxtureObject = TextureObjectDictionary[textureName];
 			}
-			this.GhostingColor = Color.White;
+			GhostingColor = Color.White;
 		}
 
 		public virtual void Move()
 		{
-			if (this.DestPoint.X != 0f || this.DestPoint.Y != 0f)
+			if (DestPoint.X != 0f || DestPoint.Y != 0f)
 			{
-				this.MovePoint();
+				MovePoint();
 			}
-			if (!this.dirReady)
+			if (!dirReady)
 			{
-				this.dirCos = MathF.Cos((float)this.direction);
-				this.dirSin = MathF.Sin((float)this.direction);
-				this.dirReady = true;
+				dirCos = MathF.Cos((float)direction);
+				dirSin = MathF.Sin((float)direction);
+				dirReady = true;
 			}
-			this.OriginalPosition = new PointF(this.OriginalPosition.X + this.Velocity * this.dirCos * this.scaleX, this.OriginalPosition.Y + this.Velocity * this.dirSin * this.scaleY);
+			OriginalPosition = new PointF(OriginalPosition.X + Velocity * dirCos * scaleX, OriginalPosition.Y + Velocity * dirSin * scaleY);
 		}
 
 		public void MovePoint()
 		{
-			float num = (float)this.GetDistance(this.DestPoint);
-			if (num > Math.Abs(this.Velocity))
+			float num = (float)GetDistance(DestPoint);
+			if (num > Math.Abs(Velocity))
 			{
-				this.Direction = this.GetDirection(this.DestPoint);
-				this.Accelerate = -this.Velocity * this.Velocity / (2f * num);
-				if (this.Velocity < 0f)
+				Direction = GetDirection(DestPoint);
+				Accelerate = -Velocity * Velocity / (2f * num);
+				if (Velocity < 0f)
 				{
-					this.Velocity = 0f;
+					Velocity = 0f;
 				}
 			}
 			else
 			{
-				this.Accelerate = 0f;
-				this.Velocity = 0f;
+				Accelerate = 0f;
+				Velocity = 0f;
 			}
 		}
 
 		public virtual bool OutBoundary()
 		{
 			bool flag;
-			if (this.LifeTime != 0 && this.Time > this.LifeTime)
+			if (LifeTime != 0 && Time > LifeTime)
 			{
 				flag = true;
 			}
-			else if (this.Time < 100)
+			else if (Time < 100)
 			{
 				flag = false;
 			}
 			else
 			{
 				int num;
-				if ((float)this.OutsideRegion * this.Scale * 2f < 20f)
+				if ((float)OutsideRegion * Scale * 2f < 20f)
 				{
 					num = 20;
 				}
 				else
 				{
-					num = (int)((float)this.OutsideRegion * this.Scale * 2f);
+					num = (int)((float)OutsideRegion * Scale * 2f);
 				}
-				if ((float)(-(float)num) < this.OriginalPosition.X && this.OriginalPosition.X < (float)(this.BoundRect.Width + num) && (float)(-(float)num) < this.OriginalPosition.Y && this.OriginalPosition.Y < (float)(this.BoundRect.Height + num))
+				if ((float)(-(float)num) < OriginalPosition.X && OriginalPosition.X < (float)(BoundRect.Width + num) && (float)(-(float)num) < OriginalPosition.Y && OriginalPosition.Y < (float)(BoundRect.Height + num))
 				{
 					flag = false;
 				}
 				else
 				{
-					if (this.GhostingCount > 0)
+					if (GhostingCount > 0)
 					{
-						if ((float)(-(float)num) < this.LastPoints[this.GhostingCount - 1].X && this.LastPoints[this.GhostingCount - 1].X < (float)(this.BoundRect.Width + num) && (float)(-(float)num) < this.LastPoints[this.GhostingCount - 1].Y && this.LastPoints[this.GhostingCount - 1].Y < (float)(this.BoundRect.Height + num))
+						if ((float)(-(float)num) < LastPoints[GhostingCount - 1].X && LastPoints[GhostingCount - 1].X < (float)(BoundRect.Width + num) && (float)(-(float)num) < LastPoints[GhostingCount - 1].Y && LastPoints[GhostingCount - 1].Y < (float)(BoundRect.Height + num))
 						{
 							return false;
 						}
@@ -923,25 +923,25 @@ namespace Shooting
 
 		public virtual bool HitCheck(BaseObject Target)
 		{
-			return this.HitCheck(Target, (float)this.Region);
+			return HitCheck(Target, (float)Region);
 		}
 
 		public virtual bool HitCheck(BaseObject Target, float Radius)
 		{
 			bool flag;
-			if (this.Time < 9)
+			if (Time < 9)
 			{
 				flag = false;
 			}
 			else
 			{
-				if (this.ScaleLength == this.ScaleWidth)
+				if (ScaleLength == ScaleWidth)
 				{
-					float reach = Radius * this.Scale + (float)Target.Region * Target.Scale;
+					float reach = Radius * Scale + (float)Target.Region * Target.Scale;
 					if (reach > 0f)
 					{
-						float dx = this.OriginalPosition.X - Target.OriginalPosition.X;
-						float dy = this.OriginalPosition.Y - Target.OriginalPosition.Y;
+						float dx = OriginalPosition.X - Target.OriginalPosition.X;
+						float dy = OriginalPosition.Y - Target.OriginalPosition.Y;
 						if (dx * dx + dy * dy < reach * reach)
 						{
 							return true;
@@ -950,13 +950,13 @@ namespace Shooting
 				}
 				else
 				{
-					double num = (this.AngleWithDirection ? (this.Direction + this.Angle) : this.Angle);
-					double num2 = this.GetDistance(Target) + (double)((float)Target.Region * Target.Scale);
-					double num3 = this.GetDirection(Target);
+					double num = (AngleWithDirection ? (Direction + Angle) : Angle);
+					double num2 = GetDistance(Target) + (double)((float)Target.Region * Target.Scale);
+					double num3 = GetDirection(Target);
 					double num4 = num2 * Math.Cos((double)((float)(num - num3)));
 					double num5 = num2 * Math.Sin((double)((float)(num - num3)));
-					double num6 = (double)(Radius * this.ScaleWidth);
-					double num7 = (double)(Radius * this.ScaleLength);
+					double num6 = (double)(Radius * ScaleWidth);
+					double num7 = (double)(Radius * ScaleLength);
 					if (num5 * num5 / num6 / num6 + num4 * num4 / num7 / num7 < 1.0)
 					{
 						return true;
@@ -977,104 +977,104 @@ namespace Shooting
 
 		protected void PlaceAt(float x, float y)
 		{
-			if (this.hasPrev)
+			if (hasPrev)
 			{
-				this.prevX += x - this.OriginalPosition.X;
-				this.prevY += y - this.OriginalPosition.Y;
+				prevX += x - OriginalPosition.X;
+				prevY += y - OriginalPosition.Y;
 			}
-			this.OriginalPosition = new PointF(x, y);
+			OriginalPosition = new PointF(x, y);
 		}
 
 		public virtual void Ctrl()
 		{
-			this.prevX = this.OriginalPosition.X;
-			this.prevY = this.OriginalPosition.Y;
-			this.hasPrev = true;
-			if (this.Enabled)
+			prevX = OriginalPosition.X;
+			prevY = OriginalPosition.Y;
+			hasPrev = true;
+			if (Enabled)
 			{
-				this.Time++;
-				this.Move();
-				if (this.BindingObj != null)
+				Time++;
+				Move();
+				if (BindingObj != null)
 				{
-					if (this.LastBindingObj == null)
+					if (LastBindingObj == null)
 					{
-						this.LastBindingObj = new BaseObject();
-						this.LastBindingObj.StageData = this.StageData;
-						this.LastBindingObj.CopyPosition(this.BindingObj);
+						LastBindingObj = new BaseObject();
+						LastBindingObj.StageData = StageData;
+						LastBindingObj.CopyPosition(BindingObj);
 					}
-					double distance = this.GetDistance(this.LastBindingObj);
-					double num = this.GetDirection(this.LastBindingObj) + 3.141592653589793 + this.BindingObj.Angle - this.LastBindingObj.Angle;
-					this.Direction += this.BindingObj.Angle - this.LastBindingObj.Angle;
-					if (this.BindingObj.AngleWithDirection)
+					double distance = GetDistance(LastBindingObj);
+					double num = GetDirection(LastBindingObj) + 3.141592653589793 + BindingObj.Angle - LastBindingObj.Angle;
+					Direction += BindingObj.Angle - LastBindingObj.Angle;
+					if (BindingObj.AngleWithDirection)
 					{
-						num += this.BindingObj.Direction - this.LastBindingObj.Direction;
-						this.Direction += this.BindingObj.Direction - this.LastBindingObj.Direction;
+						num += BindingObj.Direction - LastBindingObj.Direction;
+						Direction += BindingObj.Direction - LastBindingObj.Direction;
 					}
-					this.OriginalPosition = new PointF(this.BindingObj.OriginalPosition.X + (float)(distance * Math.Cos(num)), this.BindingObj.OriginalPosition.Y + (float)(distance * Math.Sin(num)));
-					this.LastBindingObj.CopyPosition(this.BindingObj);
+					OriginalPosition = new PointF(BindingObj.OriginalPosition.X + (float)(distance * Math.Cos(num)), BindingObj.OriginalPosition.Y + (float)(distance * Math.Sin(num)));
+					LastBindingObj.CopyPosition(BindingObj);
 				}
-				if (this.Ax != 0f || this.Ay != 0f)
+				if (Ax != 0f || Ay != 0f)
 				{
-					float num2 = this.Velocity;
-					double num = this.Direction;
-					this.Velocity = (float)Math.Sqrt((double)(num2 * num2 + this.Ax * this.Ax + this.Ay * this.Ay) + (double)(2f * num2 * this.Ax) * Math.Cos(num) + (double)(2f * num2 * this.Ay) * Math.Sin(num));
-					this.Direction = Math.Atan2((double)num2 * Math.Sin(num) + (double)this.Ay, (double)num2 * Math.Cos(num) + (double)this.Ax);
+					float num2 = Velocity;
+					double num = Direction;
+					Velocity = (float)Math.Sqrt((double)(num2 * num2 + Ax * Ax + Ay * Ay) + (double)(2f * num2 * Ax) * Math.Cos(num) + (double)(2f * num2 * Ay) * Math.Sin(num));
+					Direction = Math.Atan2((double)num2 * Math.Sin(num) + (double)Ay, (double)num2 * Math.Cos(num) + (double)Ax);
 				}
-				this.Velocity += this.Accelerate;
-				if (this.AngularVelocityDegree != 0f)
+				Velocity += Accelerate;
+				if (AngularVelocityDegree != 0f)
 				{
-					this.AngleDegree += (double)this.AngularVelocityDegree;
+					AngleDegree += (double)AngularVelocityDegree;
 				}
-				if (this.DirectionVelocityDegree != 0f)
+				if (DirectionVelocityDegree != 0f)
 				{
-					this.DirectionDegree += (double)this.DirectionVelocityDegree;
+					DirectionDegree += (double)DirectionVelocityDegree;
 				}
-				this.TransparentValueF += this.TransparentVelocity;
-				this.ScaleLength += this.ScaleVL;
-				this.ScaleWidth += this.ScaleVW;
-				if (this.AccelerateDictionary.Count > 0 && this.AccelerateDictionary.ContainsKey(this.Time))
+				TransparentValueF += TransparentVelocity;
+				ScaleLength += ScaleVL;
+				ScaleWidth += ScaleVW;
+				if (AccelerateDictionary.Count > 0 && AccelerateDictionary.ContainsKey(Time))
 				{
-					this.Accelerate = this.AccelerateDictionary[this.Time];
+					Accelerate = AccelerateDictionary[Time];
 				}
-				if (this.VelocityDictionary.Count > 0 && this.VelocityDictionary.ContainsKey(this.Time))
+				if (VelocityDictionary.Count > 0 && VelocityDictionary.ContainsKey(Time))
 				{
-					this.Velocity = this.VelocityDictionary[this.Time];
+					Velocity = VelocityDictionary[Time];
 				}
-				if (this.DirectionVelocityDegreeDictionary.Count > 0 && this.DirectionVelocityDegreeDictionary.ContainsKey(this.Time))
+				if (DirectionVelocityDegreeDictionary.Count > 0 && DirectionVelocityDegreeDictionary.ContainsKey(Time))
 				{
-					this.DirectionVelocityDegree = this.DirectionVelocityDegreeDictionary[this.Time];
+					DirectionVelocityDegree = DirectionVelocityDegreeDictionary[Time];
 				}
-				if (this.DirectionDegreeDictionary.Count > 0 && this.DirectionDegreeDictionary.ContainsKey(this.Time))
+				if (DirectionDegreeDictionary.Count > 0 && DirectionDegreeDictionary.ContainsKey(Time))
 				{
-					this.DirectionDegree = (double)this.DirectionDegreeDictionary[this.Time];
+					DirectionDegree = (double)DirectionDegreeDictionary[Time];
 				}
-				if (this.DestPointDictionary.Count > 0 && this.DestPointDictionary.ContainsKey(this.Time))
+				if (DestPointDictionary.Count > 0 && DestPointDictionary.ContainsKey(Time))
 				{
-					this.DestPoint = this.DestPointDictionary[this.Time];
+					DestPoint = DestPointDictionary[Time];
 				}
-				if (this.TransparentVelocityDictionary.Count > 0 && this.TransparentVelocityDictionary.ContainsKey(this.Time))
+				if (TransparentVelocityDictionary.Count > 0 && TransparentVelocityDictionary.ContainsKey(Time))
 				{
-					this.TransparentVelocity = this.TransparentVelocityDictionary[this.Time];
+					TransparentVelocity = TransparentVelocityDictionary[Time];
 				}
-				if (this.ScaleWidthVelocityDictionary.Count > 0 && this.ScaleWidthVelocityDictionary.ContainsKey(this.Time))
+				if (ScaleWidthVelocityDictionary.Count > 0 && ScaleWidthVelocityDictionary.ContainsKey(Time))
 				{
-					this.ScaleVW = this.ScaleWidthVelocityDictionary[this.Time];
+					ScaleVW = ScaleWidthVelocityDictionary[Time];
 				}
-				if (this.ScaleLengthVelocityDictionary.Count > 0 && this.ScaleLengthVelocityDictionary.ContainsKey(this.Time))
+				if (ScaleLengthVelocityDictionary.Count > 0 && ScaleLengthVelocityDictionary.ContainsKey(Time))
 				{
-					this.ScaleVL = this.ScaleLengthVelocityDictionary[this.Time];
+					ScaleVL = ScaleLengthVelocityDictionary[Time];
 				}
-				if (this.CtrlCall != null)
+				if (CtrlCall != null)
 				{
-					this.CtrlCall(null);
+					CtrlCall(null);
 				}
-				if (this.GhostingCount > 0)
+				if (GhostingCount > 0)
 				{
-					for (int i = this.LastPoints.Length - 1; i > 0; i--)
+					for (int i = LastPoints.Length - 1; i > 0; i--)
 					{
-						this.LastPoints[i] = this.LastPoints[i - 1];
+						LastPoints[i] = LastPoints[i - 1];
 					}
-					this.LastPoints[0] = this.OriginalPosition;
+					LastPoints[0] = OriginalPosition;
 				}
 			}
 		}
@@ -1082,7 +1082,7 @@ namespace Shooting
 		public void SetBinding(BaseObject BindingObj)
 		{
 			this.BindingObj = BindingObj;
-			this.Ctrl();
+			Ctrl();
 		}
 
 		public virtual void GiveEndEffect()
@@ -1095,91 +1095,91 @@ namespace Shooting
 
 		public virtual void Show()
 		{
-			if (this.TxtureObject != null)
+			if (TxtureObject != null)
 			{
-				if (this.TransparentValue > 0)
+				if (TransparentValue > 0)
 				{
-					double num = (this.AngleWithDirection ? (this.Direction + this.Angle - 1.5707963267948966) : (this.Angle - 1.5707963267948966));
-					for (int i = this.GhostingCount - 1; i >= 0; i -= 2)
+					double num = (AngleWithDirection ? (Direction + Angle - 1.5707963267948966) : (Angle - 1.5707963267948966));
+					for (int i = GhostingCount - 1; i >= 0; i -= 2)
 					{
-						float num2 = 1f - 0.1f * (float)i / (float)this.LastPoints.Length;
-						PointF pointF = new PointF(this.LastPoints[i].X + (float)this.BoundRect.Left, this.LastPoints[i].Y + (float)this.BoundRect.Top);
-						this.SpriteMain.Draw2D(this.TxtureObject, this.ScaleWidth * num2, this.ScaleLength * num2, (float)num, pointF, Color.FromArgb(this.TransparentValue * (this.GhostingCount - i) / (this.GhostingCount + 1) / 4, this.GhostingColor), this.Mirrored);
+						float num2 = 1f - 0.1f * (float)i / (float)LastPoints.Length;
+						PointF pointF = new PointF(LastPoints[i].X + (float)BoundRect.Left, LastPoints[i].Y + (float)BoundRect.Top);
+						SpriteMain.Draw2D(TxtureObject, ScaleWidth * num2, ScaleLength * num2, (float)num, pointF, Color.FromArgb(TransparentValue * (GhostingCount - i) / (GhostingCount + 1) / 4, GhostingColor), Mirrored);
 					}
-					this.SpriteMain.Draw2D(this.TxtureObject, this.ScaleWidth, this.ScaleLength, (float)num, this.Position, Color.FromArgb(this.TransparentValue, this.ColorValue), this.Mirrored);
+					SpriteMain.Draw2D(TxtureObject, ScaleWidth, ScaleLength, (float)num, Position, Color.FromArgb(TransparentValue, ColorValue), Mirrored);
 				}
 			}
 		}
 
 		public virtual void ShowRegion()
 		{
-			if (this.Region >= 0)
+			if (Region >= 0)
 			{
-				double num = (this.AngleWithDirection ? (this.Direction + this.Angle - 1.5707963267948966) : (this.Angle - 1.5707963267948966));
-				this.SpriteMain.Draw2D(this.TextureObjectDictionary["Region"], 2f * (float)this.Region / (float)this.TextureObjectDictionary["Region"].Width * this.ScaleWidth, 2f * (float)this.Region / (float)this.TextureObjectDictionary["Region"].Height * this.ScaleLength, (float)num, this.Position, Color.White, this.Mirrored);
+				double num = (AngleWithDirection ? (Direction + Angle - 1.5707963267948966) : (Angle - 1.5707963267948966));
+				SpriteMain.Draw2D(TextureObjectDictionary["Region"], 2f * (float)Region / (float)TextureObjectDictionary["Region"].Width * ScaleWidth, 2f * (float)Region / (float)TextureObjectDictionary["Region"].Height * ScaleLength, (float)num, Position, Color.White, Mirrored);
 			}
 		}
 
 		public double GetDirection(BaseObject Target)
 		{
-			return this.GetDirection(Target.OriginalPosition);
+			return GetDirection(Target.OriginalPosition);
 		}
 
 		public double GetDirection(PointF TargetOriginalPosition)
 		{
-			return 3.141592653589793 + Math.Atan2((double)(this.OriginalPosition.Y - TargetOriginalPosition.Y), (double)(this.OriginalPosition.X - TargetOriginalPosition.X));
+			return 3.141592653589793 + Math.Atan2((double)(OriginalPosition.Y - TargetOriginalPosition.Y), (double)(OriginalPosition.X - TargetOriginalPosition.X));
 		}
 
 		public double GetDistance(BaseObject Target)
 		{
-			return this.GetDistance(Target.OriginalPosition);
+			return GetDistance(Target.OriginalPosition);
 		}
 
 		public double GetDistance(PointF TargetOriginalPosition)
 		{
-			return Math.Sqrt((double)((this.OriginalPosition.X - TargetOriginalPosition.X) * (this.OriginalPosition.X - TargetOriginalPosition.X) + (this.OriginalPosition.Y - TargetOriginalPosition.Y) * (this.OriginalPosition.Y - TargetOriginalPosition.Y)));
+			return Math.Sqrt((double)((OriginalPosition.X - TargetOriginalPosition.X) * (OriginalPosition.X - TargetOriginalPosition.X) + (OriginalPosition.Y - TargetOriginalPosition.Y) * (OriginalPosition.Y - TargetOriginalPosition.Y)));
 		}
 
 		public virtual void Copy(BaseObject b)
 		{
-			this.Time = b.Time;
-			this.TxtureObject = b.TxtureObject;
-			this.Active = b.Active;
-			this.Position = b.Position;
-			this.DestPoint = b.DestPoint;
-			this.Mirrored = b.Mirrored;
-			this.Velocity = b.Velocity;
-			this.Angle = b.Angle;
-			this.Direction = b.Direction;
-			this.Scale = b.Scale;
-			this.Enabled = b.Enabled;
-			this.HitEnabled = b.HitEnabled;
-			this.Region = b.Region;
-			this.Damage = b.Damage;
-			this.HealthPoint = b.HealthPoint;
-			this.ScaleLength = b.ScaleLength;
-			this.ScaleWidth = b.ScaleWidth;
-			this.MaxTransparent = b.MaxTransparent;
-			this.TransparentValueF = b.TransparentValueF;
-			this.ColorValue = b.ColorValue;
-			this.LifeTime = b.LifeTime;
-			this.Accelerate = b.Accelerate;
-			this.AngularVelocityDegree = b.AngularVelocityDegree;
-			this.DirectionVelocityDegree = b.DirectionVelocityDegree;
-			this.ScaleVelocity = b.ScaleVelocity;
-			this.TransparentVelocity = b.TransparentVelocity;
-			this.GhostingCount = b.GhostingCount;
-			this.GhostingColor = b.GhostingColor;
-			this.UnRemoveable = b.UnRemoveable;
-			this.AngleWithDirection = b.AngleWithDirection;
-			this.BindingObj = b.BindingObj;
+			Time = b.Time;
+			TxtureObject = b.TxtureObject;
+			Active = b.Active;
+			Position = b.Position;
+			DestPoint = b.DestPoint;
+			Mirrored = b.Mirrored;
+			Velocity = b.Velocity;
+			Angle = b.Angle;
+			Direction = b.Direction;
+			Scale = b.Scale;
+			Enabled = b.Enabled;
+			HitEnabled = b.HitEnabled;
+			Region = b.Region;
+			Damage = b.Damage;
+			HealthPoint = b.HealthPoint;
+			ScaleLength = b.ScaleLength;
+			ScaleWidth = b.ScaleWidth;
+			MaxTransparent = b.MaxTransparent;
+			TransparentValueF = b.TransparentValueF;
+			ColorValue = b.ColorValue;
+			LifeTime = b.LifeTime;
+			Accelerate = b.Accelerate;
+			AngularVelocityDegree = b.AngularVelocityDegree;
+			DirectionVelocityDegree = b.DirectionVelocityDegree;
+			ScaleVelocity = b.ScaleVelocity;
+			TransparentVelocity = b.TransparentVelocity;
+			GhostingCount = b.GhostingCount;
+			GhostingColor = b.GhostingColor;
+			UnRemoveable = b.UnRemoveable;
+			AngleWithDirection = b.AngleWithDirection;
+			BindingObj = b.BindingObj;
 		}
 
 		public virtual void CopyPosition(BaseObject b)
 		{
-			this.Angle = b.Angle;
-			this.Direction = b.Direction;
-			this.Position = b.Position;
+			Angle = b.Angle;
+			Direction = b.Direction;
+			Position = b.Position;
 		}
 
 		public object Clone(object Obj)
@@ -1208,8 +1208,8 @@ namespace Shooting
 
 		public virtual object Clone()
 		{
-			BaseObject baseObject = (BaseObject)base.MemberwiseClone();
-			baseObject.GhostingCount = this.GhostingCount;
+			BaseObject baseObject = (BaseObject)MemberwiseClone();
+			baseObject.GhostingCount = GhostingCount;
 			return baseObject;
 		}
 
@@ -1217,13 +1217,13 @@ namespace Shooting
 		{
 		}
 
-		[System.NonSerialized]
+		[NonSerialized]
 		private float prevX;
 
-		[System.NonSerialized]
+		[NonSerialized]
 		private float prevY;
 
-		[System.NonSerialized]
+		[NonSerialized]
 		private bool hasPrev;
 
 		private float velocity = 0f;
@@ -1300,7 +1300,7 @@ namespace Shooting
 
 		public Dictionary<int, float> ScaleLengthVelocityDictionary = new Dictionary<int, float>();
 
-		public BaseObject.CtrlActionCallBack CtrlCall;
+		public CtrlActionCallBack CtrlCall;
 
 		public delegate void CtrlActionCallBack(string s);
 	}

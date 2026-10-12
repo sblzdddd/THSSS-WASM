@@ -7,35 +7,35 @@ namespace Shooting.Planes.Story
 		public Story_SSS01_01D(StageDataPackage StageData)
 			: base(StageData)
 		{
-			this.LoadConversation(".\\Story\\1-1D.csv");
+			LoadConversation(".\\Story\\1-1D.csv");
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			if (base.Time == this.NameTime && this.LastTime < base.Time)
+			if (Time == NameTime && LastTime < Time)
 			{
-				this.LastTime = base.Time;
-				this.CharN = new CharacterName(base.StageData, "ename_Ami");
-				new StoryEmitterStar(base.StageData, this.CharN.Position, 0f, 0.0);
+				LastTime = Time;
+				CharN = new CharacterName(StageData, "ename_Ami");
+				new StoryEmitterStar(StageData, CharN.Position, 0f, 0.0);
 			}
-			if (base.Time == this.MusicTime && this.LastTime < base.Time)
+			if (Time == MusicTime && LastTime < Time)
 			{
-				this.LastTime = base.Time;
-				base.StageData.ChangeBGM(".\\BGM\\Boss01.ogg", 0, 0, 255, 754110, 3294270);
+				LastTime = Time;
+				StageData.ChangeBGM(".\\BGM\\Boss01.ogg", 0, 0, 255, 754110, 3294270);
 			}
-			if (base.Time == this.Conv.Count)
+			if (Time == Conv.Count)
 			{
-				MusicTitle musicTitle = new MusicTitle(base.StageData, "喧闹吧！在这不眠之夜", new Point(base.BoundRect.Width, base.BoundRect.Height - 16));
-				musicTitle.OriginalPosition = new PointF((float)base.BoundRect.Width, (float)(base.BoundRect.Height + 100));
+				MusicTitle musicTitle = new MusicTitle(StageData, "喧闹吧！在这不眠之夜", new Point(BoundRect.Width, BoundRect.Height - 16));
+				musicTitle.OriginalPosition = new PointF((float)BoundRect.Width, (float)(BoundRect.Height + 100));
 				musicTitle.Scale = 0.5f;
-				base.Boss.Enabled = true;
-				this.SBox.Dispose();
-				base.Story = null;
-				new EmitterBossFire(base.StageData, base.Boss.OriginalPosition, Color.FromArgb(40, 255, 20));
-				MagicCircle magicCircle = new MagicCircle(base.StageData, "MagicCircleSix");
+				Boss.Enabled = true;
+				SBox.Dispose();
+				Story = null;
+				new EmitterBossFire(StageData, Boss.OriginalPosition, Color.FromArgb(40, 255, 20));
+				MagicCircle magicCircle = new MagicCircle(StageData, "MagicCircleSix");
 				magicCircle.Scale = 1.5f;
-				base.Background3D.WarpEnabled = true;
+				Background3D.WarpEnabled = true;
 			}
 		}
 	}

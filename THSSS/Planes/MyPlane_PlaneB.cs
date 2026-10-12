@@ -8,35 +8,35 @@ namespace Shooting
 		public MyPlane_PlaneB(StageDataPackage StageData, Point OriginalPosition)
 			: base(StageData, OriginalPosition)
 		{
-			base.WeaponType = "B";
-			base.SubPlaneList = new List<BaseSubPlane>
+			WeaponType = "B";
+			SubPlaneList = new List<BaseSubPlane>
 			{
-				new SubPlane_PlaneB(StageData, base.Position),
-				new SubPlane_PlaneB(StageData, base.Position),
-				new SubPlane_PlaneB(StageData, base.Position),
-				new SubPlane_PlaneB(StageData, base.Position)
+				new SubPlane_PlaneB(StageData, Position),
+				new SubPlane_PlaneB(StageData, Position),
+				new SubPlane_PlaneB(StageData, Position),
+				new SubPlane_PlaneB(StageData, Position)
 			};
-			base.HighSpeed = 4.5f;
-			base.LowSpeed = 2f;
+			HighSpeed = 4.5f;
+			LowSpeed = 2f;
 		}
 
 		public override void Shoot()
 		{
-			if (base.SpellList.Count <= 0)
+			if (SpellList.Count <= 0)
 			{
-				if (base.Time % 3 == 0)
+				if (Time % 3 == 0)
 				{
-					base.StageData.SoundPlay("se_plst00.wav", base.OriginalPosition.X / (float)base.BoundRect.Width);
-					float x = base.Position.X;
-					float y = base.Position.Y;
-					new BaseMyBullet(base.StageData, "自机子弹", new PointF(x - 7f, y), 30f, -1.5707963267948966);
-					new BaseMyBullet(base.StageData, "自机子弹", new PointF(x + 7f, y), 30f, -1.5707963267948966);
+					StageData.SoundPlay("se_plst00.wav", OriginalPosition.X / (float)BoundRect.Width);
+					float x = Position.X;
+					float y = Position.Y;
+					new BaseMyBullet(StageData, "自机子弹", new PointF(x - 7f, y), 30f, -1.5707963267948966);
+					new BaseMyBullet(StageData, "自机子弹", new PointF(x + 7f, y), 30f, -1.5707963267948966);
 				}
-				if (base.Time % 5 == 0)
+				if (Time % 5 == 0)
 				{
-					for (int i = 0; i < base.PowerLevel; i++)
+					for (int i = 0; i < PowerLevel; i++)
 					{
-						base.SubPlaneList[i].Shoot();
+						SubPlaneList[i].Shoot();
 					}
 				}
 			}
@@ -44,69 +44,69 @@ namespace Shooting
 
 		public override void SpellShoot()
 		{
-			new Spell_PlaneB(base.StageData);
+			new Spell_PlaneB(StageData);
 		}
 
 		public override void SubPlaneCtrl()
 		{
-			if (base.KClass.Key_Shift)
+			if (KClass.Key_Shift)
 			{
-				switch (base.PowerLevel)
+				switch (PowerLevel)
 				{
 				case 1:
-					base.SubPlanePoint[0] = new PointF(base.OriginalPosition.X, base.OriginalPosition.Y - 30f);
+					SubPlanePoint[0] = new PointF(OriginalPosition.X, OriginalPosition.Y - 30f);
 					break;
 				case 2:
-					base.SubPlanePoint[0] = new PointF(base.OriginalPosition.X - 12f, base.OriginalPosition.Y - 30f);
-					base.SubPlanePoint[1] = new PointF(base.OriginalPosition.X + 12f, base.OriginalPosition.Y - 30f);
+					SubPlanePoint[0] = new PointF(OriginalPosition.X - 12f, OriginalPosition.Y - 30f);
+					SubPlanePoint[1] = new PointF(OriginalPosition.X + 12f, OriginalPosition.Y - 30f);
 					break;
 				case 3:
-					base.SubPlanePoint[0] = new PointF(base.OriginalPosition.X, base.OriginalPosition.Y - 30f);
-					base.SubPlanePoint[1] = new PointF(base.OriginalPosition.X + 15f, base.OriginalPosition.Y - 20f);
-					base.SubPlanePoint[2] = new PointF(base.OriginalPosition.X - 15f, base.OriginalPosition.Y - 20f);
+					SubPlanePoint[0] = new PointF(OriginalPosition.X, OriginalPosition.Y - 30f);
+					SubPlanePoint[1] = new PointF(OriginalPosition.X + 15f, OriginalPosition.Y - 20f);
+					SubPlanePoint[2] = new PointF(OriginalPosition.X - 15f, OriginalPosition.Y - 20f);
 					break;
 				case 4:
-					base.SubPlanePoint[0] = new PointF(base.OriginalPosition.X - 8f, base.OriginalPosition.Y - 35f);
-					base.SubPlanePoint[1] = new PointF(base.OriginalPosition.X + 8f, base.OriginalPosition.Y - 35f);
-					base.SubPlanePoint[2] = new PointF(base.OriginalPosition.X - 22f, base.OriginalPosition.Y - 25f);
-					base.SubPlanePoint[3] = new PointF(base.OriginalPosition.X + 22f, base.OriginalPosition.Y - 25f);
+					SubPlanePoint[0] = new PointF(OriginalPosition.X - 8f, OriginalPosition.Y - 35f);
+					SubPlanePoint[1] = new PointF(OriginalPosition.X + 8f, OriginalPosition.Y - 35f);
+					SubPlanePoint[2] = new PointF(OriginalPosition.X - 22f, OriginalPosition.Y - 25f);
+					SubPlanePoint[3] = new PointF(OriginalPosition.X + 22f, OriginalPosition.Y - 25f);
 					break;
 				}
 			}
 			else
 			{
-				switch (base.PowerLevel)
+				switch (PowerLevel)
 				{
 				case 1:
-					base.SubPlanePoint[0] = new PointF(base.OriginalPosition.X, base.OriginalPosition.Y - 40f);
+					SubPlanePoint[0] = new PointF(OriginalPosition.X, OriginalPosition.Y - 40f);
 					break;
 				case 2:
-					base.SubPlanePoint[0] = new PointF(base.OriginalPosition.X - 25f, base.OriginalPosition.Y - 20f);
-					base.SubPlanePoint[1] = new PointF(base.OriginalPosition.X + 25f, base.OriginalPosition.Y - 20f);
+					SubPlanePoint[0] = new PointF(OriginalPosition.X - 25f, OriginalPosition.Y - 20f);
+					SubPlanePoint[1] = new PointF(OriginalPosition.X + 25f, OriginalPosition.Y - 20f);
 					break;
 				case 3:
-					base.SubPlanePoint[0] = new PointF(base.OriginalPosition.X, base.OriginalPosition.Y - 40f);
-					base.SubPlanePoint[1] = new PointF(base.OriginalPosition.X + 30f, base.OriginalPosition.Y - 20f);
-					base.SubPlanePoint[2] = new PointF(base.OriginalPosition.X - 30f, base.OriginalPosition.Y - 20f);
+					SubPlanePoint[0] = new PointF(OriginalPosition.X, OriginalPosition.Y - 40f);
+					SubPlanePoint[1] = new PointF(OriginalPosition.X + 30f, OriginalPosition.Y - 20f);
+					SubPlanePoint[2] = new PointF(OriginalPosition.X - 30f, OriginalPosition.Y - 20f);
 					break;
 				case 4:
-					base.SubPlanePoint[0] = new PointF(base.OriginalPosition.X - 25f, base.OriginalPosition.Y - 0f);
-					base.SubPlanePoint[1] = new PointF(base.OriginalPosition.X + 25f, base.OriginalPosition.Y - 0f);
-					base.SubPlanePoint[2] = new PointF(base.OriginalPosition.X - 50f, base.OriginalPosition.Y + 5f);
-					base.SubPlanePoint[3] = new PointF(base.OriginalPosition.X + 50f, base.OriginalPosition.Y + 5f);
+					SubPlanePoint[0] = new PointF(OriginalPosition.X - 25f, OriginalPosition.Y - 0f);
+					SubPlanePoint[1] = new PointF(OriginalPosition.X + 25f, OriginalPosition.Y - 0f);
+					SubPlanePoint[2] = new PointF(OriginalPosition.X - 50f, OriginalPosition.Y + 5f);
+					SubPlanePoint[3] = new PointF(OriginalPosition.X + 50f, OriginalPosition.Y + 5f);
 					break;
 				}
 			}
-			for (int i = 0; i < base.PowerLevel; i++)
+			for (int i = 0; i < PowerLevel; i++)
 			{
-				base.SubPlaneList[i].Enabled = true;
-				base.SubPlaneList[i].DestPoint = base.SubPlanePoint[i];
-				base.SubPlaneList[i].Ctrl();
+				SubPlaneList[i].Enabled = true;
+				SubPlaneList[i].DestPoint = SubPlanePoint[i];
+				SubPlaneList[i].Ctrl();
 			}
-			for (int i = base.PowerLevel; i < base.SubPlaneList.Count; i++)
+			for (int i = PowerLevel; i < SubPlaneList.Count; i++)
 			{
-				base.SubPlaneList[i].Enabled = false;
-				base.SubPlaneList[i].Position = base.Position;
+				SubPlaneList[i].Enabled = false;
+				SubPlaneList[i].Position = Position;
 			}
 		}
 	}

@@ -5,17 +5,17 @@
 		public SpellDisable(StageDataPackage StageData)
 			: base(StageData)
 		{
-			this.spellenable = base.MyPlane.SpellEnabled;
-			base.LifeTime = 30;
-			base.MyPlane.SpellEnabled = false;
+			spellenable = MyPlane.SpellEnabled;
+			LifeTime = 30;
+			MyPlane.SpellEnabled = false;
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			if (base.Time == base.LifeTime)
+			if (Time == LifeTime)
 			{
-				base.MyPlane.SpellEnabled = this.spellenable;
+				MyPlane.SpellEnabled = spellenable;
 			}
 		}
 

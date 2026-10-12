@@ -7,29 +7,29 @@ namespace Shooting.Planes.Story
 		public Story_SSS02_02X(StageDataPackage StageData)
 			: base(StageData)
 		{
-			this.CharR = new CharacterR_Touhou(StageData, "FaceRakuki_lo")
+			CharR = new CharacterR_Touhou(StageData, "FaceRakuki_lo")
 			{
-				TxtureObject2 = base.TextureObjectDictionary[" "],
-				OriginalPosition = new PointF((float)(base.BoundRect.Width - 60), 380f)
+				TxtureObject2 = TextureObjectDictionary[" "],
+				OriginalPosition = new PointF((float)(BoundRect.Width - 60), 380f)
 			};
-			this.CharL = new CharacterL_Touhou(StageData, "Myplane")
+			CharL = new CharacterL_Touhou(StageData, "Myplane")
 			{
-				TxtureObject2 = base.TextureObjectDictionary["Myplane"]
+				TxtureObject2 = TextureObjectDictionary["Myplane"]
 			};
-			this.SBox = new StoryBox(StageData);
-			this.Conv.Add(new Conversation("。。。", false, true, "Myplane", "FaceRakuki_lo"));
-			this.Conv.Add(new Conversation("这是意外。", true, false, "Myplane", "FaceRakuki_lo"));
+			SBox = new StoryBox(StageData);
+			Conv.Add(new Conversation("。。。", false, true, "Myplane", "FaceRakuki_lo"));
+			Conv.Add(new Conversation("这是意外。", true, false, "Myplane", "FaceRakuki_lo"));
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			if (base.Time == this.Conv.Count)
+			if (Time == Conv.Count)
 			{
-				this.SBox.Dispose();
-				base.Story = null;
-				new EndStage(base.StageData, "St3", false);
-				new ClearBonus(base.StageData, 20000000);
+				SBox.Dispose();
+				Story = null;
+				new EndStage(StageData, "St3", false);
+				new ClearBonus(StageData, 20000000);
 			}
 		}
 	}

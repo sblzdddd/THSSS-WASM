@@ -20,7 +20,7 @@ namespace Shooting
 		{
 			get
 			{
-				return this.GlobalData.DeviceMain;
+				return GlobalData.DeviceMain;
 			}
 		}
 
@@ -28,11 +28,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.StageData.StateSwitchData;
+				return StageData.StateSwitchData;
 			}
 			set
 			{
-				this.StageData.StateSwitchData = value;
+				StageData.StateSwitchData = value;
 			}
 		}
 
@@ -40,7 +40,7 @@ namespace Shooting
 		{
 			get
 			{
-				return this.StageData.SpriteMain;
+				return StageData.SpriteMain;
 			}
 		}
 
@@ -50,11 +50,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.StageData.Background;
+				return StageData.Background;
 			}
 			set
 			{
-				this.StageData.Background = value;
+				StageData.Background = value;
 			}
 		}
 
@@ -62,11 +62,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.StageData.Background3D;
+				return StageData.Background3D;
 			}
 			set
 			{
-				this.StageData.Background3D = value;
+				StageData.Background3D = value;
 			}
 		}
 
@@ -74,11 +74,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.StageData.Particle3D;
+				return StageData.Particle3D;
 			}
 			set
 			{
-				this.StageData.Particle3D = value;
+				StageData.Particle3D = value;
 			}
 		}
 
@@ -89,92 +89,92 @@ namespace Shooting
 		public GameState_SplashScreen(GlobalDataPackage GlobalData)
 		{
 			this.GlobalData = GlobalData;
-			this.LoadTexture();
+			LoadTexture();
 		}
 
 		public void LoadTexture()
 		{
-			this.GlobalData.TextureObjectLoader(".\\Image\\NowLoading\\NowLoading.png");
-			this.GlobalData.TextureObjectLoader(".\\Image\\NowLoading\\NowLoading-0.png");
-			this.GlobalData.TextureObjectLoader(".\\Image\\NowLoading\\NowLoading-1.png");
-			this.GlobalData.TextureObjectLoader(".\\Image\\NowLoading\\Splash_Screen.png");
-			this.GlobalData.TextureObjectLoader(".\\Image\\NowLoading\\Star.png");
-			this.GlobalData.TextureObjectLoader(".\\Image\\NowLoading\\sssssstar.png");
-			this.GlobalData.TextureObjectLoader(".\\Image\\NowLoading\\back.png");
-			this.TxtureObject = this.GlobalData.TextureObjectDictionary["NowLoading-0"];
+			GlobalData.TextureObjectLoader(".\\Image\\NowLoading\\NowLoading.png");
+			GlobalData.TextureObjectLoader(".\\Image\\NowLoading\\NowLoading-0.png");
+			GlobalData.TextureObjectLoader(".\\Image\\NowLoading\\NowLoading-1.png");
+			GlobalData.TextureObjectLoader(".\\Image\\NowLoading\\Splash_Screen.png");
+			GlobalData.TextureObjectLoader(".\\Image\\NowLoading\\Star.png");
+			GlobalData.TextureObjectLoader(".\\Image\\NowLoading\\sssssstar.png");
+			GlobalData.TextureObjectLoader(".\\Image\\NowLoading\\back.png");
+			TxtureObject = GlobalData.TextureObjectDictionary["NowLoading-0"];
 		}
 
 		public virtual void Init()
 		{
-			if (this.StageData == null)
+			if (StageData == null)
 			{
-				this.StageData = new StageDataPackage(this.GlobalData);
+				StageData = new StageDataPackage(GlobalData);
 			}
-			this.Background = new BackgroundManager();
-			this.TimeMain = 0;
-			this.Background.Light = 0;
-			this.StageData.EffectList = new List<BaseEffect>();
-			this.StageData.BoundRect = new Rectangle(450, 390, 640, 480);
+			Background = new BackgroundManager();
+			TimeMain = 0;
+			Background.Light = 0;
+			StageData.EffectList = new List<BaseEffect>();
+			StageData.BoundRect = new Rectangle(450, 390, 640, 480);
 		}
 
 		public virtual void UpdateData()
 		{
-			this.TimeMain++;
-			if (this.TimeMain < 50)
+			TimeMain++;
+			if (TimeMain < 50)
 			{
-				this.Background.Light += 5;
+				Background.Light += 5;
 			}
-			else if (this.TimeMain > 60)
+			else if (TimeMain > 60)
 			{
-				if (this.TimeMain % 60 >= 30)
+				if (TimeMain % 60 >= 30)
 				{
-					this.Background.Light += 4;
+					Background.Light += 4;
 				}
-				else if (this.TimeMain % 60 < 30)
+				else if (TimeMain % 60 < 30)
 				{
-					this.Background.Light -= 4;
+					Background.Light -= 4;
 				}
 			}
-			if (this.Background.Light < 0)
+			if (Background.Light < 0)
 			{
-				this.Background.Light = 0;
+				Background.Light = 0;
 			}
-			else if (this.Background.Light > 255)
+			else if (Background.Light > 255)
 			{
-				this.Background.Light = 255;
+				Background.Light = 255;
 			}
-			if (this.TimeMain == 1)
+			if (TimeMain == 1)
 			{
-				BaseObject baseObject = new BaseObject(this.StageData, "Splash_Screen", new PointF(320f, 240f), 0f, 1.5707963267948966)
+				BaseObject baseObject = new BaseObject(StageData, "Splash_Screen", new PointF(320f, 240f), 0f, 1.5707963267948966)
 				{
 					OutsideRegion = 10000
 				};
-				this.Background.BackgroundList.Add(baseObject);
-				baseObject = new BaseObject(this.StageData, "sssssstar", new PointF(440f, 160f), 0f, 1.5707963267948966)
+				Background.BackgroundList.Add(baseObject);
+				baseObject = new BaseObject(StageData, "sssssstar", new PointF(440f, 160f), 0f, 1.5707963267948966)
 				{
 					DirectionVelocityDegree = 0.5f,
 					OutsideRegion = 10000
 				};
-				this.Background.BackgroundList.Add(baseObject);
-				baseObject = new BaseObject(this.StageData, "back", new PointF(320f, 240f), 0f, 1.5707963267948966)
+				Background.BackgroundList.Add(baseObject);
+				baseObject = new BaseObject(StageData, "back", new PointF(320f, 240f), 0f, 1.5707963267948966)
 				{
 					OutsideRegion = 10000
 				};
-				this.Background.BackgroundList.Add(baseObject);
+				Background.BackgroundList.Add(baseObject);
 			}
-			this.Background.Ctrl();
-			Particle particle = new Particle(this.StageData, "Star", new PointF((float)this.StageData.Ran.Next(this.StageData.BoundRect.Left - 50, this.StageData.BoundRect.Right), (float)this.StageData.Ran.Next(this.StageData.BoundRect.Top + 50, this.StageData.BoundRect.Top + 100)), (float)(this.StageData.Ran.Next(10, 20) / 10), -1.5707963267948966 - (double)((float)this.StageData.Ran.Next(1, 5) / 10f));
+			Background.Ctrl();
+			Particle particle = new Particle(StageData, "Star", new PointF((float)StageData.Ran.Next(StageData.BoundRect.Left - 50, StageData.BoundRect.Right), (float)StageData.Ran.Next(StageData.BoundRect.Top + 50, StageData.BoundRect.Top + 100)), (float)(StageData.Ran.Next(10, 20) / 10), -1.5707963267948966 - (double)((float)StageData.Ran.Next(1, 5) / 10f));
 			particle.Active = true;
-			particle.Scale = (float)this.StageData.Ran.Next(25, 70) / 100f;
+			particle.Scale = (float)StageData.Ran.Next(25, 70) / 100f;
 			particle.LifeTime = 70;
-			for (int i = this.StageData.EffectList.Count - 1; i >= 0; i--)
+			for (int i = StageData.EffectList.Count - 1; i >= 0; i--)
 			{
-				this.StageData.EffectList[i].Ctrl();
+				StageData.EffectList[i].Ctrl();
 			}
-			if (this.GlobalData.LoadingList.Count > 0)
+			if (GlobalData.LoadingList.Count > 0)
 			{
 #if BROWSER
-				Thsss.Browser.TexturePump.Advance(this.GlobalData);
+				Thsss.Browser.TexturePump.Advance(GlobalData);
 #else
 				this.GlobalData.TextureObjectLoader(this.GlobalData.LoadingList[0]);
 				this.GlobalData.LoadingList.RemoveAt(0);
@@ -184,28 +184,28 @@ namespace Shooting
 
 		public virtual void Render()
 		{
-			this.SpriteMain.Begin(SpriteFlags.AlphaBlend);
-			this.Background.Show(false);
-			this.StageData.EffectList.ForEach(delegate(BaseEffect x)
+			SpriteMain.Begin(SpriteFlags.AlphaBlend);
+			Background.Show(false);
+			StageData.EffectList.ForEach(delegate(BaseEffect x)
 			{
 				if (!x.Active)
 				{
 					x.Show();
 				}
 			});
-			this.SpriteMain.End();
-			this.SpriteMain.Begin(SpriteFlags.AlphaBlend);
-			this.DeviceMain.SetRenderState(RenderState.SourceBlend, 5);
-			this.DeviceMain.SetRenderState(RenderState.DestinationBlend, 2);
-			this.SpriteMain.Draw2D(this.TxtureObject, 1f, 0f, new Point(520, 432), this.Background.Light);
-			this.StageData.EffectList.ForEach(delegate(BaseEffect x)
+			SpriteMain.End();
+			SpriteMain.Begin(SpriteFlags.AlphaBlend);
+			DeviceMain.SetRenderState(RenderState.SourceBlend, 5);
+			DeviceMain.SetRenderState(RenderState.DestinationBlend, 2);
+			SpriteMain.Draw2D(TxtureObject, 1f, 0f, new Point(520, 432), Background.Light);
+			StageData.EffectList.ForEach(delegate(BaseEffect x)
 			{
 				if (x.Active)
 				{
 					x.Show();
 				}
 			});
-			this.SpriteMain.End();
+			SpriteMain.End();
 		}
 
 		public void BGM_ON()
@@ -222,9 +222,9 @@ namespace Shooting
 
 		public void Dispose()
 		{
-			if (this.StageData != null)
+			if (StageData != null)
 			{
-				this.StageData.Dispose();
+				StageData.Dispose();
 			}
 		}
 	}

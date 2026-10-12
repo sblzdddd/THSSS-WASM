@@ -17,26 +17,26 @@ namespace Shooting
 		public Bullet_Touhou_01(StageDataPackage StageData, string textureName, PointF OriginalPosition, float Velocity, double Direction, byte ColorType)
 			: base(StageData, textureName, OriginalPosition, Velocity, Direction, ColorType)
 		{
-			this.Velocity0 = Velocity;
+			Velocity0 = Velocity;
 		}
 
 		public override void Ctrl()
 		{
-			if (base.Time < this.Time1)
+			if (Time < Time1)
 			{
-				base.Accelerate = (this.Velocity1 - this.Velocity0) / (float)this.Time1;
+				Accelerate = (Velocity1 - Velocity0) / (float)Time1;
 			}
-			else if (this.Time1 == base.Time)
+			else if (Time1 == Time)
 			{
-				base.Accelerate = 0f;
+				Accelerate = 0f;
 			}
-			else if (this.Time1 < base.Time && base.Time < this.Time2)
+			else if (Time1 < Time && Time < Time2)
 			{
-				base.Accelerate = (this.Velocity2 - this.Velocity1) / (float)(this.Time2 - this.Time1);
+				Accelerate = (Velocity2 - Velocity1) / (float)(Time2 - Time1);
 			}
-			else if (this.Time2 == base.Time)
+			else if (Time2 == Time)
 			{
-				base.Accelerate = 0f;
+				Accelerate = 0f;
 			}
 			base.Ctrl();
 		}

@@ -17,13 +17,13 @@ namespace Shooting
 
 		public INI_RW(string INIPath)
 		{
-			this.inipath = INIPath;
+			inipath = INIPath;
 		}
 
 		public void IniWriteValue(string Section, string Key, string Value)
 		{
 #if BROWSER
-			INI_RW.WriteManaged(this.inipath, Section, Key, Value);
+			WriteManaged(inipath, Section, Key, Value);
 #else
 			INI_RW.WritePrivateProfileString(Section, Key, Value, this.inipath);
 #endif
@@ -32,7 +32,7 @@ namespace Shooting
 		public string IniReadValue(string Section, string Key)
 		{
 #if BROWSER
-			return INI_RW.ReadManaged(this.inipath, Section, Key);
+			return ReadManaged(inipath, Section, Key);
 #else
 			StringBuilder stringBuilder = new StringBuilder(500);
 			int privateProfileString = INI_RW.GetPrivateProfileString(Section, Key, "", stringBuilder, 500, this.inipath);
@@ -42,7 +42,7 @@ namespace Shooting
 
 		public bool ExistINIFile()
 		{
-			return File.Exists(this.inipath);
+			return File.Exists(inipath);
 		}
 
 		public string inipath;

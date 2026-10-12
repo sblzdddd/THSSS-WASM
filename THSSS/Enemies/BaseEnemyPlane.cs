@@ -11,8 +11,8 @@ namespace Shooting
 		public BaseEnemyPlane(StageDataPackage StageData, string textureName, PointF p, float v, double drctn)
 			: base(StageData, textureName, p, v, drctn)
 		{
-			base.Region = 4;
-			base.EnemyPlaneList.Add(this);
+			Region = 4;
+			EnemyPlaneList.Add(this);
 		}
 
 		public override void Shoot()
@@ -22,49 +22,49 @@ namespace Shooting
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			if (base.ShootEnabled)
+			if (ShootEnabled)
 			{
-				this.Shoot();
+				Shoot();
 			}
-			if (this.OutBoundary())
+			if (OutBoundary())
 			{
-				base.EnemyPlaneList.Remove(this);
+				EnemyPlaneList.Remove(this);
 			}
 		}
 
 		public override void HitCheckAll()
 		{
-			for (int i = base.MyBulletList.Count - 1; i >= 0; i--)
+			for (int i = MyBulletList.Count - 1; i >= 0; i--)
 			{
-				if (this.HitCheck(base.MyBulletList[i]))
+				if (HitCheck(MyBulletList[i]))
 				{
-					if (base.MyPlane.EnchantmentState == EnchantmentType.Red)
+					if (MyPlane.EnchantmentState == EnchantmentType.Red)
 					{
-						base.HealthPoint -= (float)base.MyBulletList[i].Damage * 1.25f;
+						HealthPoint -= (float)MyBulletList[i].Damage * 1.25f;
 					}
 					else
 					{
-						base.HealthPoint -= (float)base.MyBulletList[i].Damage;
+						HealthPoint -= (float)MyBulletList[i].Damage;
 					}
-					base.MyBulletList[i].GiveEndEffect();
-					base.MyBulletList.RemoveAt(i);
-					base.MyPlane.Score += 10L;
-					if (base.HealthPoint <= 0f)
+					MyBulletList[i].GiveEndEffect();
+					MyBulletList.RemoveAt(i);
+					MyPlane.Score += 10L;
+					if (HealthPoint <= 0f)
 					{
-						this.GiveEndEffect();
-						this.GiveItems();
-						base.EnemyPlaneList.Remove(this);
-						base.StageData.SoundPlay("se_enep00.wav", base.OriginalPosition.X / (float)base.BoundRect.Width);
+						GiveEndEffect();
+						GiveItems();
+						EnemyPlaneList.Remove(this);
+						StageData.SoundPlay("se_enep00.wav", OriginalPosition.X / (float)BoundRect.Width);
 						break;
 					}
-					base.StageData.SoundPlay("se_damage01.wav", base.OriginalPosition.X / (float)base.BoundRect.Width);
+					StageData.SoundPlay("se_damage01.wav", OriginalPosition.X / (float)BoundRect.Width);
 				}
 			}
-			if (base.MyPlane.HitEnabled)
+			if (MyPlane.HitEnabled)
 			{
-				if (this.HitCheck(base.MyPlane))
+				if (HitCheck(MyPlane))
 				{
-					base.MyPlane.PreMiss();
+					MyPlane.PreMiss();
 				}
 			}
 		}

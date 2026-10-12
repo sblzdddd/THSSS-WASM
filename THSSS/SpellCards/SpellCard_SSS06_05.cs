@@ -7,37 +7,37 @@ namespace Shooting
 		public SpellCard_SSS06_05(StageDataPackage StageData)
 			: base(StageData)
 		{
-			if (base.Difficulty < DifficultLevel.Hard)
+			if (Difficulty < DifficultLevel.Hard)
 			{
-				base.SC_Name = "「弹幕之海」";
+				SC_Name = "「弹幕之海」";
 			}
 			else
 			{
-				base.SC_Name = "「弹幕之海」";
+				SC_Name = "「弹幕之海」";
 			}
-			base.BaseScore = 35000000L;
-			base.Boss.DestPoint = new Point(base.BoundRect.Width / 2, 120);
-			base.Boss.Velocity = 4f;
-			base.Boss.SpellTime = base.Boss.Time + 3000 - 30;
+			BaseScore = 35000000L;
+			Boss.DestPoint = new Point(BoundRect.Width / 2, 120);
+			Boss.Velocity = 4f;
+			Boss.SpellTime = Boss.Time + 3000 - 30;
 			StageData.SoundPlay("se_cat00.wav");
 			new BackgroundBoss06(StageData);
-			new BulletTitle(StageData, base.SC_Name);
+			new BulletTitle(StageData, SC_Name);
 			new SpellCardAttack(StageData);
 			new FullPic3(StageData, "FaceTensei_ct3");
 		}
 
 		public override void Shoot()
 		{
-			base.Boss.Armon = base.Boss.ArmonArray[8];
-			base.Boss.HitEnabled = false;
-			if (base.Time > 100)
+			Boss.Armon = Boss.ArmonArray[8];
+			Boss.HitEnabled = false;
+			if (Time > 100)
 			{
-				base.Boss.MoveUpDown();
+				Boss.MoveUpDown();
 			}
-			if (base.Time == 150)
+			if (Time == 150)
 			{
 				string text;
-				switch (base.Difficulty)
+				switch (Difficulty)
 				{
 				case DifficultLevel.Easy:
 					text = ".\\CS\\St06\\关底Boss\\5符E.mbg";
@@ -55,15 +55,15 @@ namespace Shooting
 					text = ".\\CS\\St06\\关底Boss\\5符L.mbg";
 					break;
 				}
-				CS_Data cs_Data = base.StageData.LoadCS(text);
-				new CSEmitterController(base.StageData, cs_Data);
+				CS_Data cs_Data = StageData.LoadCS(text);
+				new CSEmitterController(StageData, cs_Data);
 			}
 		}
 
 		public override void GiveEndEffect()
 		{
 			base.GiveEndEffect();
-			base.Boss.HitEnabled = true;
+			Boss.HitEnabled = true;
 		}
 	}
 }

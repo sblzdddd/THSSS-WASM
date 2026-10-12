@@ -4,7 +4,7 @@
 	{
 		public BaseStoryItem(StageDataPackage StageData)
 		{
-			base.StageData = StageData;
+			this.StageData = StageData;
 		}
 	}
 }

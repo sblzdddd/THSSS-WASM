@@ -7,13 +7,13 @@ namespace Shooting
 		public EnemyPlane_TouhouNormal(StageDataPackage StageData, string EnemyName, PointF OriginalPosition, float Velocity, double Direction, byte ColorType)
 			: this(StageData, EnemyName, OriginalPosition, Velocity, Direction)
 		{
-			base.ColorType = ColorType;
+			this.ColorType = ColorType;
 		}
 
 		public EnemyPlane_TouhouNormal(StageDataPackage StageData, string EnemyName, PointF OriginalPosition, float Velocity, double Direction)
 			: base(StageData, null, OriginalPosition, Velocity, Direction)
 		{
-			base.TxtureObject = base.TextureObjectDictionary[EnemyName];
+			TxtureObject = TextureObjectDictionary[EnemyName];
 		}
 
 		public override void TextureCtrl()

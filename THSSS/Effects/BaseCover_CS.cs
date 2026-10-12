@@ -14,28 +14,28 @@ namespace Shooting
 
 		public BaseCover_CS(StageDataPackage StageData)
 		{
-			base.StageData = StageData;
-			base.EventGroupList = new List<EventGroup>();
-			base.EventsExecutionList = new List<Execution>();
-			this.SubEventGroupList = new List<EventGroup>();
-			base.HealthPoint = 1000000f;
-			base.HitEnabled = false;
-			base.Region = 1;
-			base.Angle = 1.5707963267948966;
+			this.StageData = StageData;
+			EventGroupList = new List<EventGroup>();
+			EventsExecutionList = new List<Execution>();
+			SubEventGroupList = new List<EventGroup>();
+			HealthPoint = 1000000f;
+			HitEnabled = false;
+			Region = 1;
+			Angle = 1.5707963267948966;
 		}
 
 		public override void Shoot()
 		{
-			base.AngleWithDirection = this.Roundness;
+			AngleWithDirection = Roundness;
 		}
 
 		public override void EventCtrl()
 		{
-			base.EventGroupList.ForEach(delegate(EventGroup a)
+			EventGroupList.ForEach(delegate(EventGroup a)
 			{
 				a.Update(this);
 			});
-			base.EventsExecutionList.ForEach(delegate(Execution a)
+			EventsExecutionList.ForEach(delegate(Execution a)
 			{
 				a.Update(this);
 			});
@@ -43,17 +43,17 @@ namespace Shooting
 
 		public override void HitCheckAll()
 		{
-			if (base.Time >= base.StartTime && base.Time <= base.StartTime + base.Duration)
+			if (Time >= StartTime && Time <= StartTime + Duration)
 			{
-				base.BulletList.ForEach(delegate(BaseBullet_Touhou b)
+				BulletList.ForEach(delegate(BaseBullet_Touhou b)
 				{
 					if (b.Cover)
 					{
-						if (this.Type == 0 || b.ID == this.CtrlID)
+						if (Type == 0 || b.ID == CtrlID)
 						{
-							if (this.HitCheck(b))
+							if (HitCheck(b))
 							{
-								this.SubEventGroupList.ForEach(delegate(EventGroup e)
+								SubEventGroupList.ForEach(delegate(EventGroup e)
 								{
 									e.Update(b);
 								});
@@ -67,24 +67,24 @@ namespace Shooting
 		public override bool HitCheck(BaseObject Target)
 		{
 			bool flag;
-			if (this.Roundness)
+			if (Roundness)
 			{
-				if (base.ScaleLength == base.ScaleWidth)
+				if (ScaleLength == ScaleWidth)
 				{
-					if (base.GetDistance(Target) - (double)Target.Region < (double)((float)base.Region * base.Scale))
+					if (GetDistance(Target) - (double)Target.Region < (double)((float)Region * Scale))
 					{
 						return true;
 					}
 				}
 				else
 				{
-					double num = (base.AngleWithDirection ? (base.Direction + base.Angle) : base.Angle);
-					double distance = base.GetDistance(Target);
-					double direction = base.GetDirection(Target);
+					double num = (AngleWithDirection ? (Direction + Angle) : Angle);
+					double distance = GetDistance(Target);
+					double direction = GetDirection(Target);
 					double num2 = distance * Math.Cos((double)((float)(num - direction)));
 					double num3 = distance * Math.Sin((double)((float)(num - direction)));
-					double num4 = (double)((float)base.Region * base.ScaleWidth);
-					double num5 = (double)((float)base.Region * base.ScaleLength);
+					double num4 = (double)((float)Region * ScaleWidth);
+					double num5 = (double)((float)Region * ScaleLength);
 					if (num3 * num3 / num4 / num4 + num2 * num2 / num5 / num5 < 1.0)
 					{
 						return true;
@@ -94,7 +94,7 @@ namespace Shooting
 			}
 			else
 			{
-				flag = Math.Abs(Target.OriginalPosition.X - base.OriginalPosition.X) < (float)base.Region * base.ScaleWidth && Math.Abs(Target.OriginalPosition.Y - base.OriginalPosition.Y) < (float)base.Region * base.ScaleLength;
+				flag = Math.Abs(Target.OriginalPosition.X - OriginalPosition.X) < (float)Region * ScaleWidth && Math.Abs(Target.OriginalPosition.Y - OriginalPosition.Y) < (float)Region * ScaleLength;
 			}
 			return flag;
 		}

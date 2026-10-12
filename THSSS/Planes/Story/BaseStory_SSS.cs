@@ -15,118 +15,118 @@ namespace Shooting.Planes.Story
 		public BaseStory_SSS(StageDataPackage StageData)
 			: base(StageData)
 		{
-			this.CharR = new CharacterR_Touhou(StageData, " ")
+			CharR = new CharacterR_Touhou(StageData, " ")
 			{
-				OriginalPosition = new PointF((float)(base.BoundRect.Width - 60), 380f)
+				OriginalPosition = new PointF((float)(BoundRect.Width - 60), 380f)
 			};
-			this.CharL = new CharacterL_Touhou(StageData, " ")
-			{
-				OriginalPosition = new PointF(70f, 380f)
-			};
-			this.CharL2 = new CharacterL_Touhou(StageData, " ")
+			CharL = new CharacterL_Touhou(StageData, " ")
 			{
 				OriginalPosition = new PointF(70f, 380f)
 			};
-			this.SBox = new StoryBox(StageData);
+			CharL2 = new CharacterL_Touhou(StageData, " ")
+			{
+				OriginalPosition = new PointF(70f, 380f)
+			};
+			SBox = new StoryBox(StageData);
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			this.CharL.Ctrl();
-			this.CharL2.Ctrl();
-			this.CharR.Ctrl();
-			this.SBox.Ctrl();
-			this.StoryEffectList.ForEach(delegate(BaseObject x)
+			CharL.Ctrl();
+			CharL2.Ctrl();
+			CharR.Ctrl();
+			SBox.Ctrl();
+			StoryEffectList.ForEach(delegate(BaseObject x)
 			{
 				x.Ctrl();
 				if (x.OutBoundary())
 				{
-					this.StoryEffectList.Remove(x);
+					StoryEffectList.Remove(x);
 				}
 			});
-			if (this.CharN != null)
+			if (CharN != null)
 			{
-				this.CharN.Ctrl();
+				CharN.Ctrl();
 			}
-			if (base.Time < this.Conv.Count)
+			if (Time < Conv.Count)
 			{
-				this.CharR.Active = this.Conv[base.Time].CharRAcitve;
-				this.CharL.Active = this.Conv[base.Time].CharLAcitve;
-				this.CharL2.Active = this.Conv[base.Time].CharL2Acitve;
-				if (this.Conv[base.Time].CharL != null)
+				CharR.Active = Conv[Time].CharRAcitve;
+				CharL.Active = Conv[Time].CharLAcitve;
+				CharL2.Active = Conv[Time].CharL2Acitve;
+				if (Conv[Time].CharL != null)
 				{
-					this.CharL.TxtureObject = base.TextureObjectDictionary[this.Conv[base.Time].CharL];
+					CharL.TxtureObject = TextureObjectDictionary[Conv[Time].CharL];
 				}
-				if (this.Conv[base.Time].CharL2 != null)
+				if (Conv[Time].CharL2 != null)
 				{
-					this.CharL2.TxtureObject = base.TextureObjectDictionary[this.Conv[base.Time].CharL2];
+					CharL2.TxtureObject = TextureObjectDictionary[Conv[Time].CharL2];
 				}
-				if (this.Conv[base.Time].CharR != null)
+				if (Conv[Time].CharR != null)
 				{
-					this.CharR.TxtureObject = base.TextureObjectDictionary[this.Conv[base.Time].CharR];
+					CharR.TxtureObject = TextureObjectDictionary[Conv[Time].CharR];
 				}
-				this.SBox.Text = this.Conv[base.Time].Text;
+				SBox.Text = Conv[Time].Text;
 			}
 		}
 
 		public override void Show()
 		{
-			if (this.CharR.Active)
+			if (CharR.Active)
 			{
-				if (this.CharL2.Active)
+				if (CharL2.Active)
 				{
-					this.CharL2.Show();
-					this.CharL.Show();
+					CharL2.Show();
+					CharL.Show();
 				}
 				else
 				{
-					this.CharL.Show();
-					this.CharL2.Show();
+					CharL.Show();
+					CharL2.Show();
 				}
-				this.CharR.Show();
+				CharR.Show();
 			}
 			else
 			{
-				this.CharR.Show();
-				if (this.CharL2.Active)
+				CharR.Show();
+				if (CharL2.Active)
 				{
-					this.CharL.Show();
-					this.CharL2.Show();
+					CharL.Show();
+					CharL2.Show();
 				}
 				else
 				{
-					this.CharL2.Show();
-					this.CharL.Show();
+					CharL2.Show();
+					CharL.Show();
 				}
 			}
-			this.SBox.Show();
-			if (this.CharN != null)
+			SBox.Show();
+			if (CharN != null)
 			{
-				this.CharN.Show();
+				CharN.Show();
 			}
-			if (this.StoryEffectList.Count > 0)
+			if (StoryEffectList.Count > 0)
 			{
-				this.StoryEffectList.ForEach(delegate(BaseObject x)
+				StoryEffectList.ForEach(delegate(BaseObject x)
 				{
 					if (!x.Active)
 					{
 						x.Show();
 					}
 				});
-				base.SpriteMain.End();
-				base.SpriteMain.Begin(SpriteFlags.AlphaBlend);
-				base.StageData.DeviceMain.SetRenderState(RenderState.SourceBlend, 5);
-				base.StageData.DeviceMain.SetRenderState(RenderState.DestinationBlend, 2);
-				this.StoryEffectList.ForEach(delegate(BaseObject x)
+				SpriteMain.End();
+				SpriteMain.Begin(SpriteFlags.AlphaBlend);
+				StageData.DeviceMain.SetRenderState(RenderState.SourceBlend, 5);
+				StageData.DeviceMain.SetRenderState(RenderState.DestinationBlend, 2);
+				StoryEffectList.ForEach(delegate(BaseObject x)
 				{
 					if (x.Active)
 					{
 						x.Show();
 					}
 				});
-				base.SpriteMain.End();
-				base.SpriteMain.Begin(SpriteFlags.AlphaBlend);
+				SpriteMain.End();
+				SpriteMain.Begin(SpriteFlags.AlphaBlend);
 			}
 		}
 
@@ -136,7 +136,7 @@ namespace Shooting.Planes.Story
 			{
 				char[] array = new char[] { ',' };
 				string[] array2 = File.ReadAllLines(fileName, Encoding.Default);
-				this.Conv.Clear();
+				Conv.Clear();
 				int num = 0;
 				foreach (string text in array2)
 				{
@@ -144,13 +144,13 @@ namespace Shooting.Planes.Story
 					if (num == 0)
 					{
 						num++;
-						this.NameTime = int.Parse(array4[0]);
-						this.MusicTime = int.Parse(array4[1]);
+						NameTime = int.Parse(array4[0]);
+						MusicTime = int.Parse(array4[1]);
 					}
 					else
 					{
 						Conversation conversation = new Conversation(array4[0], bool.Parse(array4[1]), bool.Parse(array4[2]), array4[3], array4[4]);
-						this.Conv.Add(conversation);
+						Conv.Add(conversation);
 					}
 				}
 			}
@@ -162,7 +162,7 @@ namespace Shooting.Planes.Story
 			{
 				char[] array = new char[] { ',' };
 				string[] array2 = File.ReadAllLines(fileName, Encoding.Default);
-				this.Conv.Clear();
+				Conv.Clear();
 				int num = 0;
 				foreach (string text in array2)
 				{
@@ -170,13 +170,13 @@ namespace Shooting.Planes.Story
 					if (num == 0)
 					{
 						num++;
-						this.NameTime = int.Parse(array4[0]);
-						this.MusicTime = int.Parse(array4[1]);
+						NameTime = int.Parse(array4[0]);
+						MusicTime = int.Parse(array4[1]);
 					}
 					else
 					{
 						Conversation conversation = new Conversation(array4[0], bool.Parse(array4[1]), array4[2], bool.Parse(array4[3]), array4[4], bool.Parse(array4[5]), array4[6]);
-						this.Conv.Add(conversation);
+						Conv.Add(conversation);
 					}
 				}
 			}

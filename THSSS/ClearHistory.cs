@@ -22,19 +22,19 @@ namespace Shooting
 		{
 			return string.Concat(new object[]
 			{
-				this.MyPlaneFullName,
+				MyPlaneFullName,
 				'\t',
-				((int)this.Rank).ToString(),
+				((int)Rank).ToString(),
 				'\t',
-				this.StartTimes.ToString(),
+				StartTimes.ToString(),
 				'\t',
-				this.PlayingTime.ToString(),
+				PlayingTime.ToString(),
 				'\t',
-				this.ClearTimes.ToString(),
+				ClearTimes.ToString(),
 				'\t',
-				this.NoContinueClearTimes.ToString(),
+				NoContinueClearTimes.ToString(),
 				'\t',
-				this.PracticeLevel.ToString(),
+				PracticeLevel.ToString(),
 				"\r\n"
 			});
 		}
@@ -43,13 +43,13 @@ namespace Shooting
 		{
 			char[] array = new char[] { '\t' };
 			string[] array2 = Data.Split(array);
-			this.MyPlaneFullName = array2[0];
-			this.Rank = (DifficultLevel)Convert.ToInt32(array2[1]);
-			this.StartTimes = Convert.ToInt32(array2[2]);
-			this.PlayingTime = (long)Convert.ToInt32(array2[3]);
-			this.ClearTimes = Convert.ToInt32(array2[4]);
-			this.NoContinueClearTimes = Convert.ToInt32(array2[5]);
-			this.PracticeLevel = Convert.ToInt32(array2[6]);
+			MyPlaneFullName = array2[0];
+			Rank = (DifficultLevel)Convert.ToInt32(array2[1]);
+			StartTimes = Convert.ToInt32(array2[2]);
+			PlayingTime = (long)Convert.ToInt32(array2[3]);
+			ClearTimes = Convert.ToInt32(array2[4]);
+			NoContinueClearTimes = Convert.ToInt32(array2[5]);
+			PracticeLevel = Convert.ToInt32(array2[6]);
 		}
 	}
 }

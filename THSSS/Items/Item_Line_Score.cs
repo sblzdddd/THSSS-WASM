@@ -9,34 +9,34 @@ namespace Shooting
 		public Item_Line_Score(StageDataPackage StageData, PointF OriginalPosition)
 			: base(StageData, OriginalPosition)
 		{
-			base.FontType = "ScoreNum_";
+			FontType = "ScoreNum_";
 		}
 
 		public override void Show()
 		{
-			base.MaxValue = 0;
-			base.Value = 0;
-			if (base.MyPlane.Score - this.scoreValue < 1000L)
+			MaxValue = 0;
+			Value = 0;
+			if (MyPlane.Score - scoreValue < 1000L)
 			{
-				this.scoreValue += 1000L;
+				scoreValue += 1000L;
 			}
 			else
 			{
-				this.scoreValue += (base.MyPlane.Score - this.scoreValue) / 5L;
+				scoreValue += (MyPlane.Score - scoreValue) / 5L;
 			}
-			if (this.scoreValue > base.MyPlane.Score)
+			if (scoreValue > MyPlane.Score)
 			{
-				this.scoreValue = base.MyPlane.Score;
+				scoreValue = MyPlane.Score;
 			}
-			if (this.scoreValue < 10000000000L)
+			if (scoreValue < 10000000000L)
 			{
-				base.Text = (10000000000L + this.scoreValue).ToString("N0");
-				base.Text = base.Text.Remove(0, 1).PadLeft(10, ' ');
+				Text = (10000000000L + scoreValue).ToString("N0");
+				Text = Text.Remove(0, 1).PadLeft(10, ' ');
 			}
 			else
 			{
-				base.Text = this.scoreValue.ToString("N0");
-				base.OriginalPosition = new PointF((float)(468 - this.Delta), base.OriginalPosition.Y);
+				Text = scoreValue.ToString("N0");
+				OriginalPosition = new PointF((float)(468 - Delta), OriginalPosition.Y);
 			}
 			base.Show();
 		}

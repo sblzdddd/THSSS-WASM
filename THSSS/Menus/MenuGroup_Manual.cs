@@ -8,8 +8,8 @@ namespace Shooting
 		public MenuGroup_Manual(StageDataPackage StageData)
 			: base(StageData)
 		{
-			base.MenuSelectIndex = 0;
-			base.MenuItemList = new List<BaseMenuItem>
+			MenuSelectIndex = 0;
+			MenuItemList = new List<BaseMenuItem>
 			{
 				new BaseMenuItem(StageData, "Menu_Manual01"),
 				new BaseMenuItem(StageData, "Menu_Manual02"),
@@ -20,14 +20,14 @@ namespace Shooting
 			};
 			int num = 20;
 			int num2 = 85;
-			foreach (BaseMenuItem baseMenuItem in base.MenuItemList)
+			foreach (BaseMenuItem baseMenuItem in MenuItemList)
 			{
 				baseMenuItem.Position = new PointF((float)num, 90f);
 				baseMenuItem.DestPoint = new PointF((float)num, (float)num2);
 				num2 += 30;
 			}
-			base.MenuItemList[base.MenuSelectIndex].Selected = true;
-			this.MenuItemListManual = new List<BaseMenuItem>
+			MenuItemList[MenuSelectIndex].Selected = true;
+			MenuItemListManual = new List<BaseMenuItem>
 			{
 				new BaseMenuItem(StageData, "Manual01"),
 				new BaseMenuItem(StageData, "Manual02"),
@@ -36,7 +36,7 @@ namespace Shooting
 				new BaseMenuItem(StageData, "Manual05"),
 				new BaseMenuItem(StageData, "Manual06")
 			};
-			foreach (BaseMenuItem baseMenuItem in this.MenuItemListManual)
+			foreach (BaseMenuItem baseMenuItem in MenuItemListManual)
 			{
 				baseMenuItem.Position = new PointF(0f, 0f);
 				baseMenuItem.DestPoint = new PointF(0f, 0f);
@@ -45,30 +45,30 @@ namespace Shooting
 				baseMenuItem.Twinkleable = false;
 				baseMenuItem.TransparentValueF = 0f;
 			}
-			this.MenuItemListManual[base.MenuSelectIndex].Selected = true;
-			base.TransparentValueF = 0f;
-			base.MaxTransparent = 255;
-			base.TransparentVelocity = 5f;
-			base.TxtureObject = base.TextureObjectDictionary["MenuBackground"];
-			base.OriginalPosition = new PointF((float)(base.BoundRect.Width / 2), (float)(base.BoundRect.Height / 2));
-			base.AngleDegree = 90.0;
-			base.ColorValue = Color.FromArgb(30, 110, 150);
+			MenuItemListManual[MenuSelectIndex].Selected = true;
+			TransparentValueF = 0f;
+			MaxTransparent = 255;
+			TransparentVelocity = 5f;
+			TxtureObject = TextureObjectDictionary["MenuBackground"];
+			OriginalPosition = new PointF((float)(BoundRect.Width / 2), (float)(BoundRect.Height / 2));
+			AngleDegree = 90.0;
+			ColorValue = Color.FromArgb(30, 110, 150);
 		}
 
 		public override void SelectItemChanged()
 		{
 			base.SelectItemChanged();
-			this.MenuItemListManual.ForEach(delegate(BaseMenuItem x)
+			MenuItemListManual.ForEach(delegate(BaseMenuItem x)
 			{
 				x.Selected = false;
 			});
-			this.MenuItemListManual[base.MenuSelectIndex].Select();
+			MenuItemListManual[MenuSelectIndex].Select();
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			this.MenuItemListManual.ForEach(delegate(BaseMenuItem x)
+			MenuItemListManual.ForEach(delegate(BaseMenuItem x)
 			{
 				x.Ctrl();
 			});
@@ -77,29 +77,29 @@ namespace Shooting
 		public override void ProcessKeys()
 		{
 			base.ProcessKeys();
-			if (base.KClass.Key_Z && this.LastZ == 0)
+			if (KClass.Key_Z && LastZ == 0)
 			{
 			}
-			if ((base.KClass.Key_X || base.KClass.Key_ESC) && this.LastX == 0)
+			if ((KClass.Key_X || KClass.Key_ESC) && LastX == 0)
 			{
-				this.OnRemoveMenu = base.TimeMain + 20;
-				base.TransparentVelocity = -15f;
-				foreach (BaseMenuItem baseMenuItem in base.MenuItemList)
+				OnRemoveMenu = TimeMain + 20;
+				TransparentVelocity = -15f;
+				foreach (BaseMenuItem baseMenuItem in MenuItemList)
 				{
 					baseMenuItem.OnRemove = true;
 				}
-				foreach (BaseMenuItem baseMenuItem in this.MenuItemListManual)
+				foreach (BaseMenuItem baseMenuItem in MenuItemListManual)
 				{
 					baseMenuItem.OnRemove = true;
 				}
-				base.StageData.SoundPlay("se_cancel00.wav");
+				StageData.SoundPlay("se_cancel00.wav");
 			}
 		}
 
 		public override void Show()
 		{
 			base.Show();
-			this.MenuItemListManual.ForEach(delegate(BaseMenuItem x)
+			MenuItemListManual.ForEach(delegate(BaseMenuItem x)
 			{
 				x.Show();
 			});

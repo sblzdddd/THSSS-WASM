@@ -7,16 +7,16 @@ namespace Shooting
 		public Item_Line_Gray(StageDataPackage StageData, PointF OriginalPosition)
 			: base(StageData, OriginalPosition)
 		{
-			base.FontType = "GrazeNum_";
+			FontType = "GrazeNum_";
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			base.MaxValue = 0;
-			base.Value = 0;
-			base.Text = base.MyPlane.Graze.ToString("N0");
-			base.Text = base.Text.PadLeft(11, ' ');
+			MaxValue = 0;
+			Value = 0;
+			Text = MyPlane.Graze.ToString("N0");
+			Text = Text.PadLeft(11, ' ');
 		}
 	}
 }

@@ -12,47 +12,47 @@ namespace Shooting
 		{
 			get
 			{
-				return this.ScreenTex[this.ScreenLevel].renderTexture;
+				return ScreenTex[ScreenLevel].renderTexture;
 			}
 		}
 
 		public ScreenTexManager(Device DeviceMain)
 		{
-			this.ScreenTex = new ScreenTexture[5];
-			for (int i = 0; i < this.ScreenTex.Length; i++)
+			ScreenTex = new ScreenTexture[5];
+			for (int i = 0; i < ScreenTex.Length; i++)
 			{
-				this.ScreenTex[i] = new ScreenTexture(DeviceMain, 640, 480);
+				ScreenTex[i] = new ScreenTexture(DeviceMain, 640, 480);
 			}
 		}
 
 		public void Begin()
 		{
-			this.ScreenTex[this.ScreenLevel++].Begin();
+			ScreenTex[ScreenLevel++].Begin();
 		}
 
 		public void End()
 		{
-			this.ScreenTex[--this.ScreenLevel].End();
+			ScreenTex[--ScreenLevel].End();
 		}
 
 		public void Reset()
 		{
-			for (int i = 0; i < this.ScreenTex.Length; i++)
+			for (int i = 0; i < ScreenTex.Length; i++)
 			{
-				if (this.ScreenTex[i] != null)
+				if (ScreenTex[i] != null)
 				{
-					this.ScreenTex[i].Reset();
+					ScreenTex[i].Reset();
 				}
 			}
 		}
 
 		public void Dispose()
 		{
-			for (int i = 0; i < this.ScreenTex.Length; i++)
+			for (int i = 0; i < ScreenTex.Length; i++)
 			{
-				if (this.ScreenTex[i] != null)
+				if (ScreenTex[i] != null)
 				{
-					this.ScreenTex[i].Dispose();
+					ScreenTex[i].Dispose();
 				}
 			}
 		}

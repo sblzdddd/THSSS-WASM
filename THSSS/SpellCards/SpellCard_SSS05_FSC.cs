@@ -7,34 +7,34 @@ namespace Shooting
 		public SpellCard_SSS05_FSC(StageDataPackage StageData)
 			: base(StageData)
 		{
-			if (base.Difficulty < DifficultLevel.Hard)
+			if (Difficulty < DifficultLevel.Hard)
 			{
-				base.SC_Name = "烈焰「焚秽净世」";
+				SC_Name = "烈焰「焚秽净世」";
 			}
 			else
 			{
-				base.SC_Name = "烈焰「焚秽净世」";
+				SC_Name = "烈焰「焚秽净世」";
 			}
-			base.Boss.DestPoint = new Point(base.BoundRect.Width / 2, 120);
-			base.Boss.Velocity = 4f;
+			Boss.DestPoint = new Point(BoundRect.Width / 2, 120);
+			Boss.Velocity = 4f;
 			StageData.SoundPlay("se_cat00.wav");
 			new BackgroundBoss05(StageData);
-			new BulletTitle(StageData, base.SC_Name);
+			new BulletTitle(StageData, SC_Name);
 			new SpellCardAttack(StageData);
 			new FullPic2(StageData, "FaceRakukun_ct");
 		}
 
 		public override void Shoot()
 		{
-			if (base.Time > 100)
+			if (Time > 100)
 			{
-				base.Boss.MoveUpDown();
-				base.Boss.Armon = base.Boss.ArmonArray[8];
+				Boss.MoveUpDown();
+				Boss.Armon = Boss.ArmonArray[8];
 			}
-			if (base.Time == 100)
+			if (Time == 100)
 			{
 				string text;
-				switch (base.Difficulty)
+				switch (Difficulty)
 				{
 				case DifficultLevel.Hard:
 					text = ".\\CS\\St05\\关底Boss\\FSC符H.mbg";
@@ -46,8 +46,8 @@ namespace Shooting
 					text = ".\\CS\\St05\\关底Boss\\FSC符L.mbg";
 					break;
 				}
-				CS_Data cs_Data = base.StageData.LoadCS(text);
-				new CSEmitterController(base.StageData, cs_Data);
+				CS_Data cs_Data = StageData.LoadCS(text);
+				new CSEmitterController(StageData, cs_Data);
 			}
 		}
 	}

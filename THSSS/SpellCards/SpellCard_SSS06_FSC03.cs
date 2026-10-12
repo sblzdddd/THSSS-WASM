@@ -7,27 +7,27 @@ namespace Shooting
 		public SpellCard_SSS06_FSC03(StageDataPackage StageData)
 			: base(StageData)
 		{
-			base.SC_Name = "第三个愿望「永生不灭」";
-			base.Boss.DestPoint = new Point(base.BoundRect.Width / 2, 120);
-			base.Boss.Velocity = 4f;
+			SC_Name = "第三个愿望「永生不灭」";
+			Boss.DestPoint = new Point(BoundRect.Width / 2, 120);
+			Boss.Velocity = 4f;
 			StageData.SoundPlay("se_cat00.wav");
 			new BackgroundBoss06(StageData);
-			new BulletTitle(StageData, base.SC_Name);
+			new BulletTitle(StageData, SC_Name);
 			new SpellCardAttack(StageData);
 			new FullPic3(StageData, "FaceTensei_ct3");
 		}
 
 		public override void Shoot()
 		{
-			if (base.Time > 100)
+			if (Time > 100)
 			{
-				base.Boss.MoveUpDown();
-				base.Boss.Armon = base.Boss.ArmonArray[12];
+				Boss.MoveUpDown();
+				Boss.Armon = Boss.ArmonArray[12];
 			}
-			if (base.Time == 100)
+			if (Time == 100)
 			{
 				string text;
-				switch (base.Difficulty)
+				switch (Difficulty)
 				{
 				case DifficultLevel.Hard:
 					text = ".\\CS\\St06\\关底Boss\\FSC3H.mbg";
@@ -39,33 +39,33 @@ namespace Shooting
 					text = ".\\CS\\St06\\关底Boss\\FSC3L.mbg";
 					break;
 				}
-				CS_Data cs_Data = base.StageData.LoadCS(text);
-				new CSEmitterController(base.StageData, cs_Data);
+				CS_Data cs_Data = StageData.LoadCS(text);
+				new CSEmitterController(StageData, cs_Data);
 			}
 		}
 
 		public override void GiveEndEffect()
 		{
-			if (!base.Bombed && !base.Missed)
+			if (!Bombed && !Missed)
 			{
-				if (base.Time >= base.SpellTime)
+				if (Time >= SpellTime)
 				{
-					base.StageData.SoundPlay("se_cardget.wav");
-					new SpellCardBonus(base.StageData, this.GetSpellCardBonus());
-					if (!base.StageData.OnReplay)
+					StageData.SoundPlay("se_cardget.wav");
+					new SpellCardBonus(StageData, GetSpellCardBonus());
+					if (!StageData.OnReplay)
 					{
-						this.SC_Data.Recorded++;
+						SC_Data.Recorded++;
 					}
 				}
 			}
-			base.Background3D.Enabled3D = true;
-			base.StageData.SCBstring = null;
+			Background3D.Enabled3D = true;
+			StageData.SCBstring = null;
 		}
 
 		public override long GetSpellCardBonus()
 		{
 			long num;
-			if (base.Bombed || base.Missed)
+			if (Bombed || Missed)
 			{
 				num = 0L;
 			}

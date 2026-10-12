@@ -7,16 +7,16 @@ namespace Shooting
 		public SpellCard_SSS01_FSC(StageDataPackage StageData)
 			: base(StageData)
 		{
-			if (base.Difficulty < DifficultLevel.Hard)
+			if (Difficulty < DifficultLevel.Hard)
 			{
-				base.SC_Name = "夜风「轮回的幸运之星」";
+				SC_Name = "夜风「轮回的幸运之星」";
 			}
 			else
 			{
-				base.SC_Name = "夜风「轮回的幸运之星」";
+				SC_Name = "夜风「轮回的幸运之星」";
 			}
-			base.Boss.DestPoint = new Point(base.BoundRect.Width / 2, 120);
-			base.Boss.Velocity = 4f;
+			Boss.DestPoint = new Point(BoundRect.Width / 2, 120);
+			Boss.Velocity = 4f;
 			StageData.SoundPlay("se_cat00.wav");
 			BackgroundMove2 backgroundMove = new BackgroundMove2(StageData, "Card01b");
 			backgroundMove.DirectionDegree = 270.0;
@@ -24,23 +24,23 @@ namespace Shooting
 			backgroundMove2.DirectionDegree = -80.0;
 			backgroundMove2.Length = 1024;
 			backgroundMove2.TransparentValueF = 80f;
-			new BulletTitle(StageData, base.SC_Name);
+			new BulletTitle(StageData, SC_Name);
 			new SpellCardAttack(StageData);
 			new FullPic2(StageData, "FaceAmi_ct");
 		}
 
 		public override void Shoot()
 		{
-			if (base.Time > 100)
+			if (Time > 100)
 			{
-				base.Boss.MoveUpDown();
-				base.Boss.Armon = 0f;
+				Boss.MoveUpDown();
+				Boss.Armon = 0f;
 			}
-			if (base.Time == 100)
+			if (Time == 100)
 			{
-				base.Boss.OnAction = 10000;
+				Boss.OnAction = 10000;
 				string text;
-				switch (base.Difficulty)
+				switch (Difficulty)
 				{
 				case DifficultLevel.Hard:
 					text = ".\\CS\\St01\\关底Boss\\FSC符H.mbg";
@@ -52,8 +52,8 @@ namespace Shooting
 					text = ".\\CS\\St01\\关底Boss\\FSC符L.mbg";
 					break;
 				}
-				CS_Data cs_Data = base.StageData.LoadCS(text);
-				new CSEmitterController(base.StageData, cs_Data);
+				CS_Data cs_Data = StageData.LoadCS(text);
+				new CSEmitterController(StageData, cs_Data);
 			}
 		}
 	}

@@ -10,13 +10,13 @@ namespace Shooting
 			{
 				using (ManagementObjectCollection instances = managementClass.GetInstances())
 				{
-					Dpi.PixelsPerXLogicalInch = 0;
-					Dpi.PixelsPerYLogicalInch = 0;
+					PixelsPerXLogicalInch = 0;
+					PixelsPerYLogicalInch = 0;
 					foreach (ManagementBaseObject managementBaseObject in instances)
 					{
 						ManagementObject managementObject = (ManagementObject)managementBaseObject;
-						Dpi.PixelsPerXLogicalInch = int.Parse(managementObject.Properties["PixelsPerXLogicalInch"].Value.ToString());
-						Dpi.PixelsPerYLogicalInch = int.Parse(managementObject.Properties["PixelsPerYLogicalInch"].Value.ToString());
+						PixelsPerXLogicalInch = int.Parse(managementObject.Properties["PixelsPerXLogicalInch"].Value.ToString());
+						PixelsPerYLogicalInch = int.Parse(managementObject.Properties["PixelsPerYLogicalInch"].Value.ToString());
 					}
 				}
 			}

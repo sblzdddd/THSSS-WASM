@@ -9,19 +9,19 @@ namespace Shooting
 		public Bullet_Touhou_01_04(StageDataPackage StageData, string textureName, PointF OriginalPosition, float Velocity, double Direction, byte ColorType)
 			: base(StageData, textureName, OriginalPosition, Velocity, Direction, ColorType)
 		{
-			base.LifeTime = 50;
+			LifeTime = 50;
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			if (base.Time == base.LifeTime)
+			if (Time == LifeTime)
 			{
-				byte colorType = base.ColorType;
-				int num = (int)(base.Difficulty + 4);
+				byte colorType = ColorType;
+				int num = (int)(Difficulty + 4);
 				float num2 = -0.5235988f;
 				float num3 = -2.0943952f;
-				switch (base.Difficulty)
+				switch (Difficulty)
 				{
 				case DifficultLevel.Easy:
 					num = 2;
@@ -42,13 +42,13 @@ namespace Shooting
 				float num4 = num3 / ((float)num - 1f);
 				for (int i = 0; i < num; i++)
 				{
-					BaseBullet_Touhou baseBullet_Touhou = new BaseBullet_Touhou(base.StageData, this.SubBulletName + colorType.ToString(), base.OriginalPosition, 2.5f, (double)num2, colorType);
+					BaseBullet_Touhou baseBullet_Touhou = new BaseBullet_Touhou(StageData, SubBulletName + colorType.ToString(), OriginalPosition, 2.5f, (double)num2, colorType);
 					baseBullet_Touhou.Ay = 0.08f;
 					baseBullet_Touhou.MaxVelocity = 2.5f;
 					num2 += num4;
 				}
-				base.StageData.SoundPlay("se_kira01.wav");
-				this.GiveEndEffect();
+				StageData.SoundPlay("se_kira01.wav");
+				GiveEndEffect();
 			}
 		}
 	}

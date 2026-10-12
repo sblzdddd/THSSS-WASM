@@ -5,18 +5,18 @@
 		public Story_SSS03_02A(StageDataPackage StageData)
 			: base(StageData)
 		{
-			this.LoadConversation2(".\\Story\\3-2A.csv");
+			LoadConversation2(".\\Story\\3-2A.csv");
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			if (base.Time == this.Conv.Count)
+			if (Time == Conv.Count)
 			{
-				this.SBox.Dispose();
-				base.Story = null;
-				new EndStage(base.StageData, "St4", false);
-				new ClearBonus(base.StageData, 30000000);
+				SBox.Dispose();
+				Story = null;
+				new EndStage(StageData, "St4", false);
+				new ClearBonus(StageData, 30000000);
 			}
 		}
 	}

@@ -8,13 +8,13 @@ namespace Shooting
 
 		public BaseInterface(StageDataPackage StageData, string textureName, PointF OriginalPosition)
 		{
-			base.StageData = StageData;
+			this.StageData = StageData;
 			if (textureName != null)
 			{
-				base.TxtureObject = base.TextureObjectDictionary[textureName];
+				TxtureObject = TextureObjectDictionary[textureName];
 			}
-			base.OriginalPosition = OriginalPosition;
-			base.TransparentVelocity = 10f;
+			this.OriginalPosition = OriginalPosition;
+			TransparentVelocity = 10f;
 		}
 
 		public BaseInterface()
@@ -24,15 +24,15 @@ namespace Shooting
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			if (base.Time <= this.Delay)
+			if (Time <= Delay)
 			{
-				base.TransparentValueF = 0f;
+				TransparentValueF = 0f;
 			}
 		}
 
 		public override void Show()
 		{
-			base.SpriteMain.Draw2D(base.TxtureObject, 1f, 0f, base.OriginalPosition, base.TxtureObject.LeftTop, Color.FromArgb(base.TransparentValue, base.ColorValue));
+			SpriteMain.Draw2D(TxtureObject, 1f, 0f, OriginalPosition, TxtureObject.LeftTop, Color.FromArgb(TransparentValue, ColorValue));
 		}
 	}
 }

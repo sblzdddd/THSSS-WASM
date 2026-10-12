@@ -7,17 +7,17 @@ namespace Shooting
 		public SpellItem_Touhou(StageDataPackage StageData, PointF p)
 			: base(StageData, "SpellItem", p)
 		{
-			base.Region = 10;
-			base.Scale = 1f;
+			Region = 10;
+			Scale = 1f;
 		}
 
 		public override void HitCheckAll()
 		{
 			base.HitCheckAll();
-			if (this.HitCheck(base.MyPlane))
+			if (HitCheck(MyPlane))
 			{
-				base.ItemList.Remove(this);
-				base.MyPlane.SpellExtand();
+				ItemList.Remove(this);
+				MyPlane.SpellExtand();
 			}
 		}
 

@@ -7,29 +7,29 @@ namespace Shooting
 	{
 		public BossMark(StageDataPackage StageData)
 		{
-			base.StageData = StageData;
-			base.TxtureObject = base.TextureObjectDictionary["BossMark"];
-			base.Position = new PointF((float)(base.BoundRect.Left + base.BoundRect.Width / 2), 472f);
-			base.AngleDegree = 90.0;
+			this.StageData = StageData;
+			TxtureObject = TextureObjectDictionary["BossMark"];
+			Position = new PointF((float)(BoundRect.Left + BoundRect.Width / 2), 472f);
+			AngleDegree = 90.0;
 		}
 
 		public override void Ctrl()
 		{
-			base.Time++;
-			if (base.Boss != null)
+			Time++;
+			if (Boss != null)
 			{
-				base.OriginalPosition = new PointF(base.Boss.OriginalPosition.X + (float)base.BoundRect.X, 472f);
-				base.TransparentValueF = (float)(150 + (int)(100.0 * Math.Sin((double)base.Time * 3.141592653589793 * 2.0 / 60.0)));
+				OriginalPosition = new PointF(Boss.OriginalPosition.X + (float)BoundRect.X, 472f);
+				TransparentValueF = (float)(150 + (int)(100.0 * Math.Sin((double)Time * 3.141592653589793 * 2.0 / 60.0)));
 			}
 		}
 
 		public override void Show()
 		{
-			if (base.Boss != null)
+			if (Boss != null)
 			{
-				if (base.TxtureObject != null)
+				if (TxtureObject != null)
 				{
-					base.SpriteMain.Draw2D(base.TxtureObject, base.ScaleWidth, base.ScaleLength, (float)(base.Direction - 1.5707963267948966 + base.Angle), base.OriginalPosition, Color.FromArgb(base.TransparentValue, base.ColorValue), base.Mirrored);
+					SpriteMain.Draw2D(TxtureObject, ScaleWidth, ScaleLength, (float)(Direction - 1.5707963267948966 + Angle), OriginalPosition, Color.FromArgb(TransparentValue, ColorValue), Mirrored);
 				}
 			}
 		}

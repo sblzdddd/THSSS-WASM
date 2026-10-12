@@ -8,43 +8,43 @@ namespace Shooting
 		public BulletPicEmitter01(StageDataPackage StageData, string BPicName, BaseObject Bullet, PointF OriginalPosition, double Direction, byte ColorType)
 			: base(StageData)
 		{
-			base.OriginalPosition = OriginalPosition;
-			this.BulletPic = StageData.GlobalData.BulletPicDictionary[BPicName];
+			this.OriginalPosition = OriginalPosition;
+			BulletPic = StageData.GlobalData.BulletPicDictionary[BPicName];
 			this.Bullet = Bullet;
 			this.ColorType = ColorType;
-			this.length = (int)Math.Sqrt((double)this.BulletPic.Length);
-			base.LifeTime = this.length * 2 + 10;
+			length = (int)Math.Sqrt((double)BulletPic.Length);
+			LifeTime = length * 2 + 10;
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			if (base.Time >= base.LifeTime)
+			if (Time >= LifeTime)
 			{
-				base.BulletList.ForEach(delegate(BaseBullet_Touhou x)
+				BulletList.ForEach(delegate(BaseBullet_Touhou x)
 				{
 					x.Enabled = true;
 				});
 			}
-			if (base.Time % 2 == 0)
+			if (Time % 2 == 0)
 			{
-				if (this.indexY < this.length)
+				if (indexY < length)
 				{
-					for (int i = 0; i < this.length; i++)
+					for (int i = 0; i < length; i++)
 					{
-						if (this.BulletPic[i, this.indexY])
+						if (BulletPic[i, indexY])
 						{
-							PointF pointF = new PointF(base.OriginalPosition.X + (float)(i - this.length / 2) * 5f, base.OriginalPosition.Y + (float)(this.indexY - this.length / 2) * 5f);
-							BaseBullet_Touhou baseBullet_Touhou = new BaseBullet_Touhou(base.StageData, null, pointF, 0f, 0.0);
-							baseBullet_Touhou.Copy(this.Bullet);
+							PointF pointF = new PointF(OriginalPosition.X + (float)(i - length / 2) * 5f, OriginalPosition.Y + (float)(indexY - length / 2) * 5f);
+							BaseBullet_Touhou baseBullet_Touhou = new BaseBullet_Touhou(StageData, null, pointF, 0f, 0.0);
+							baseBullet_Touhou.Copy(Bullet);
 							baseBullet_Touhou.OriginalPosition = pointF;
-							baseBullet_Touhou.Velocity = (float)baseBullet_Touhou.GetDistance(base.OriginalPosition) * 3f / (float)this.length;
-							baseBullet_Touhou.DirectionDegree = (double)base.Ran.Next(360);
+							baseBullet_Touhou.Velocity = (float)baseBullet_Touhou.GetDistance(OriginalPosition) * 3f / (float)length;
+							baseBullet_Touhou.DirectionDegree = (double)Ran.Next(360);
 							baseBullet_Touhou.Enabled = false;
-							base.StageData.SoundPlay("se_tan00a.wav");
+							StageData.SoundPlay("se_tan00a.wav");
 						}
 					}
-					this.indexY++;
+					indexY++;
 				}
 			}
 		}

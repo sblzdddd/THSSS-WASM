@@ -8,21 +8,21 @@ namespace Shooting
 		{
 			get
 			{
-				return this.vl;
+				return vl;
 			}
 			set
 			{
 				if (value < 0)
 				{
-					this.vl = 0;
+					vl = 0;
 				}
-				else if (value > this.MaxValue)
+				else if (value > MaxValue)
 				{
-					this.vl = this.MaxValue;
+					vl = MaxValue;
 				}
 				else
 				{
-					this.vl = value;
+					vl = value;
 				}
 			}
 		}
@@ -38,14 +38,14 @@ namespace Shooting
 		public Item_Line(StageDataPackage StageData, PointF OriginalPosition)
 			: base(StageData, "ItemLine", OriginalPosition)
 		{
-			this.MaxValue = 1;
-			base.TransparentValueF = 0f;
+			MaxValue = 1;
+			TransparentValueF = 0f;
 		}
 
 		public virtual void DrawText(Point Pos, float Scale, Color color)
 		{
 			int num = 0;
-			char[] array = this.Text.ToCharArray();
+			char[] array = Text.ToCharArray();
 			for (int i = 0; i < array.Length; i++)
 			{
 				if (array[i] == '.' || array[i] == ',')
@@ -62,9 +62,9 @@ namespace Shooting
 				PointF pointF = new PointF((float)(Pos.X + 5 + num), (float)(Pos.Y + 6));
 				if (array[i].ToString() != " ")
 				{
-					base.SpriteMain.Draw2D(base.TextureObjectDictionary[this.FontType + array[i].ToString()], Scale, 0f, pointF, Color.FromArgb(base.TransparentValue, color));
+					SpriteMain.Draw2D(TextureObjectDictionary[FontType + array[i].ToString()], Scale, 0f, pointF, Color.FromArgb(TransparentValue, color));
 				}
-				num += (int)((float)this.Delta * Scale);
+				num += (int)((float)Delta * Scale);
 				if (array[i] == '.' || array[i] == ',')
 				{
 					num -= (int)(3f * Scale);
@@ -74,18 +74,18 @@ namespace Shooting
 
 		public override void Show()
 		{
-			if (this.MaxValue != 0)
+			if (MaxValue != 0)
 			{
-				int num = base.TxtureObject.Width * this.Value / this.MaxValue;
+				int num = TxtureObject.Width * Value / MaxValue;
 				if (num > 0)
 				{
-					Size size = new Size(num, base.TxtureObject.Height);
+					Size size = new Size(num, TxtureObject.Height);
 					Rectangle rectangle = new Rectangle(new Point(0, 0), size);
-					base.SpriteMain.Draw2D(base.TxtureObject.TXTure, base.TxtureObject.PosRect, size, base.TxtureObject.LeftTop, 0f, base.OriginalPosition, Color.FromArgb(base.TransparentValue * 7 / 10, base.ColorValue));
+					SpriteMain.Draw2D(TxtureObject.TXTure, TxtureObject.PosRect, size, TxtureObject.LeftTop, 0f, OriginalPosition, Color.FromArgb(TransparentValue * 7 / 10, ColorValue));
 				}
 			}
-			Point point = new Point((int)base.OriginalPosition.X, (int)base.OriginalPosition.Y + 3);
-			this.DrawText(point, 1f, base.ColorValue);
+			Point point = new Point((int)OriginalPosition.X, (int)OriginalPosition.Y + 3);
+			DrawText(point, 1f, ColorValue);
 		}
 
 		private int vl = 0;

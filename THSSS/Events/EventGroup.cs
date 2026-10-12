@@ -60,17 +60,17 @@ namespace Shooting
 			array2[30] = 0f;
 			array2[31] = 0f;
 			array2[32] = 0f;
-			if (this.t < 1)
+			if (t < 1)
 			{
-				this.t = 1;
+				t = 1;
 			}
-			if ((CS_Emitter.Time - CS_Emitter.StartTime + 1) % this.t == 0)
+			if ((CS_Emitter.Time - CS_Emitter.StartTime + 1) % t == 0)
 			{
-				this.loop++;
+				loop++;
 			}
-			foreach (Event @event in this.EventList)
+			foreach (Event @event in EventList)
 			{
-				bool flag = this.CheckCondition(array, @event);
+				bool flag = CheckCondition(array, @event);
 				if (flag)
 				{
 					if (@event.special == 3)
@@ -85,7 +85,7 @@ namespace Shooting
 						}
 						if (@event.changevalue == 6 || @event.changevalue == 24)
 						{
-							@event.res = this.Twopointangle(CS_Emitter.OriginalPosition.X - 4f, CS_Emitter.OriginalPosition.Y + 16f, CS_Emitter.OriginalPosition.X, CS_Emitter.OriginalPosition.Y) * 180f / 3.1415927f;
+							@event.res = Twopointangle(CS_Emitter.OriginalPosition.X - 4f, CS_Emitter.OriginalPosition.Y + 16f, CS_Emitter.OriginalPosition.X, CS_Emitter.OriginalPosition.Y) * 180f / 3.1415927f;
 						}
 					}
 					else if (@event.special == 4)
@@ -100,7 +100,7 @@ namespace Shooting
 						}
 						if (@event.changevalue == 3 || @event.changevalue == 6 || @event.changevalue == 9 || @event.changevalue == 11 || @event.changevalue == 24)
 						{
-							@event.res = this.Twopointangle(CS_Emitter.MyPlane.OriginalPosition.X, CS_Emitter.MyPlane.OriginalPosition.Y, CS_Emitter.OriginalPosition.X, CS_Emitter.OriginalPosition.Y) * 180f / 3.1415927f;
+							@event.res = Twopointangle(CS_Emitter.MyPlane.OriginalPosition.X, CS_Emitter.MyPlane.OriginalPosition.Y, CS_Emitter.OriginalPosition.X, CS_Emitter.OriginalPosition.Y) * 180f / 3.1415927f;
 						}
 					}
 					if (@event.special != 1)
@@ -174,28 +174,28 @@ namespace Shooting
 			array2[18] = 0f;
 			array2[19] = 0f;
 			array2[20] = 0f;
-			if (this.t < 1)
+			if (t < 1)
 			{
-				this.t = 1;
+				t = 1;
 			}
-			if ((CS_Bullet.Time + 1) % this.t == 0)
+			if ((CS_Bullet.Time + 1) % t == 0)
 			{
-				this.loop++;
+				loop++;
 			}
-			foreach (Event @event in this.EventList)
+			foreach (Event @event in EventList)
 			{
 				if (@event.special2 == 1)
 				{
 					array[0] = (float)CS_Bullet.StageData.TimeMain;
 				}
-				bool flag = this.CheckCondition(array, @event);
+				bool flag = CheckCondition(array, @event);
 				if (flag)
 				{
 					if (@event.special == 4)
 					{
 						if (@event.changevalue == 10 || @event.changevalue == 12)
 						{
-							@event.res = this.Twopointangle(CS_Bullet.MyPlane.OriginalPosition.X, CS_Bullet.MyPlane.OriginalPosition.Y, CS_Bullet.OriginalPosition.X, CS_Bullet.OriginalPosition.Y) * 180f / 3.1415927f;
+							@event.res = Twopointangle(CS_Bullet.MyPlane.OriginalPosition.X, CS_Bullet.MyPlane.OriginalPosition.Y, CS_Bullet.OriginalPosition.X, CS_Bullet.OriginalPosition.Y) * 180f / 3.1415927f;
 						}
 					}
 					Execution execution = new Execution();
@@ -235,27 +235,27 @@ namespace Shooting
 			bool flag2 = false;
 			if (ev.opreator == ">")
 			{
-				flag = conditions[ev.contype] > float.Parse(ev.condition) + (float)(this.loop * this.addtime);
+				flag = conditions[ev.contype] > float.Parse(ev.condition) + (float)(loop * addtime);
 			}
 			else if (ev.opreator == "<")
 			{
-				flag = conditions[ev.contype] < float.Parse(ev.condition) + (float)(this.loop * this.addtime);
+				flag = conditions[ev.contype] < float.Parse(ev.condition) + (float)(loop * addtime);
 			}
 			else if (ev.opreator == "=")
 			{
-				flag = conditions[ev.contype] == float.Parse(ev.condition) + (float)(this.loop * this.addtime);
+				flag = conditions[ev.contype] == float.Parse(ev.condition) + (float)(loop * addtime);
 			}
 			if (ev.opreator2 == ">")
 			{
-				flag2 = conditions[ev.contype2] > float.Parse(ev.condition2) + (float)(this.loop * this.addtime);
+				flag2 = conditions[ev.contype2] > float.Parse(ev.condition2) + (float)(loop * addtime);
 			}
 			else if (ev.opreator2 == "<")
 			{
-				flag2 = conditions[ev.contype2] < float.Parse(ev.condition2) + (float)(this.loop * this.addtime);
+				flag2 = conditions[ev.contype2] < float.Parse(ev.condition2) + (float)(loop * addtime);
 			}
 			else if (ev.opreator2 == "=")
 			{
-				flag2 = conditions[ev.contype2] == float.Parse(ev.condition2) + (float)(this.loop * this.addtime);
+				flag2 = conditions[ev.contype2] == float.Parse(ev.condition2) + (float)(loop * addtime);
 			}
 			bool flag3;
 			if (ev.collector == "且")
@@ -293,9 +293,9 @@ namespace Shooting
 
 		public object Clone()
 		{
-			EventGroup ev = (EventGroup)base.MemberwiseClone();
+			EventGroup ev = (EventGroup)MemberwiseClone();
 			ev.EventList = new List<Event>();
-			this.EventList.ForEach(delegate(Event x)
+			EventList.ForEach(delegate(Event x)
 			{
 				ev.EventList.Add((Event)x.Clone());
 			});

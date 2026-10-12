@@ -8,13 +8,13 @@ namespace Shooting
 		public MenuGroup_ReplayLoader(StageDataPackage StageData, PointF OriginalPosition)
 			: base(StageData, OriginalPosition)
 		{
-			base.TransparentValueF = 0f;
-			base.TransparentVelocity = 5f;
-			base.TxtureObject = base.TextureObjectDictionary["MenuBackground"];
-			base.Scale = 0.625f;
-			base.OriginalPosition = new PointF((float)(base.BoundRect.Width / 2), (float)(base.BoundRect.Height / 2));
-			base.AngleDegree = 90.0;
-			base.ColorValue = Color.SkyBlue;
+			TransparentValueF = 0f;
+			TransparentVelocity = 5f;
+			TxtureObject = TextureObjectDictionary["MenuBackground"];
+			Scale = 0.625f;
+			this.OriginalPosition = new PointF((float)(BoundRect.Width / 2), (float)(BoundRect.Height / 2));
+			AngleDegree = 90.0;
+			ColorValue = Color.SkyBlue;
 		}
 
 		public override string SetDescroption(string fileName)
@@ -51,31 +51,31 @@ namespace Shooting
 
 		public override void ProcessKeys2()
 		{
-			if (base.KClass.Key_Z && this.LastZ == 0)
+			if (KClass.Key_Z && LastZ == 0)
 			{
-				base.MenuItemList[base.MenuSelectIndex].Click();
-				this.OnChangeMenu = base.TimeMain + 1;
+				MenuItemList[MenuSelectIndex].Click();
+				OnChangeMenu = TimeMain + 1;
 			}
-			if ((base.KClass.Key_X || base.KClass.Key_ESC) && this.LastX == 0)
+			if ((KClass.Key_X || KClass.Key_ESC) && LastX == 0)
 			{
-				this.OnRemoveMenu = base.TimeMain + 20;
-				base.TransparentVelocity = -15f;
-				foreach (BaseMenuItem baseMenuItem in base.MenuItemList)
+				OnRemoveMenu = TimeMain + 20;
+				TransparentVelocity = -15f;
+				foreach (BaseMenuItem baseMenuItem in MenuItemList)
 				{
-					baseMenuItem.DestPoint = new PointF(base.MenuItemList[0].OriginalPosition.X, base.MenuItemList[0].OriginalPosition.Y);
+					baseMenuItem.DestPoint = new PointF(MenuItemList[0].OriginalPosition.X, MenuItemList[0].OriginalPosition.Y);
 					baseMenuItem.OnRemove = true;
 				}
-				base.StageData.SoundPlay("se_cancel00.wav");
+				StageData.SoundPlay("se_cancel00.wav");
 			}
 		}
 
 		public override void ProcessZ()
 		{
-			string description = ((DescriptionMenuItem)base.MenuItemList[base.MenuSelectIndex]).Description;
+			string description = ((DescriptionMenuItem)MenuItemList[MenuSelectIndex]).Description;
 			if (description != "------- -------- ----- ------- ------- --- ----")
 			{
-				base.StageData.SoundPlay("se_ok00.wav");
-				base.StageData.MenuGroupList.Add(new MenuGroup_ReplayStageSelect(base.StageData, new PointF(200f, 150f), (DescriptionMenuItem)base.MenuItemList[base.MenuSelectIndex]));
+				StageData.SoundPlay("se_ok00.wav");
+				StageData.MenuGroupList.Add(new MenuGroup_ReplayStageSelect(StageData, new PointF(200f, 150f), (DescriptionMenuItem)MenuItemList[MenuSelectIndex]));
 			}
 		}
 

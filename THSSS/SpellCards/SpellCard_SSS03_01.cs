@@ -8,17 +8,17 @@ namespace Shooting
 		public SpellCard_SSS03_01(StageDataPackage StageData)
 			: base(StageData)
 		{
-			if (base.Difficulty < DifficultLevel.Hard)
+			if (Difficulty < DifficultLevel.Hard)
 			{
-				base.SC_Name = "火符「逼近的火焰」";
+				SC_Name = "火符「逼近的火焰」";
 			}
 			else
 			{
-				base.SC_Name = "火符「燃烧地狱火海」";
+				SC_Name = "火符「燃烧地狱火海」";
 			}
-			base.BaseScore = 20000000L;
-			base.Boss.DestPoint = new Point(base.BoundRect.Width / 2, 120);
-			base.Boss.Velocity = 4f;
+			BaseScore = 20000000L;
+			Boss.DestPoint = new Point(BoundRect.Width / 2, 120);
+			Boss.Velocity = 4f;
 			StageData.SoundPlay("se_cat00.wav");
 			BackgroundRotate backgroundRotate = new BackgroundRotate(StageData, "Card03b");
 			backgroundRotate.Scale = 1.3f;
@@ -48,7 +48,7 @@ namespace Shooting
 			backgroundRotate3.Scale = 0.7f;
 			backgroundRotate3.Active = true;
 			backgroundRotate3.AngularVelocityDegree = 0.2f;
-			new BulletTitle(StageData, base.SC_Name);
+			new BulletTitle(StageData, SC_Name);
 			new SpellCardAttack(StageData);
 			FullPic2 fullPic = new FullPic2(StageData, "FaceKoreirei_ct");
 			fullPic.Scale = 0.8f;
@@ -56,15 +56,15 @@ namespace Shooting
 
 		public override void Shoot()
 		{
-			base.Boss.Armon = 0.15f;
-			if (base.Time > 50)
+			Boss.Armon = 0.15f;
+			if (Time > 50)
 			{
-				base.Boss.RandomMove(150, 20, 2f, new Rectangle(base.BoundRect.Width / 2 - 45, 100, 90, 40));
+				Boss.RandomMove(150, 20, 2f, new Rectangle(BoundRect.Width / 2 - 45, 100, 90, 40));
 			}
-			if (base.Time == 100)
+			if (Time == 100)
 			{
 				string text;
-				switch (base.Difficulty)
+				switch (Difficulty)
 				{
 				case DifficultLevel.Easy:
 					text = ".\\CS\\St03\\道中Boss\\1符E.mbg";
@@ -82,8 +82,8 @@ namespace Shooting
 					text = ".\\CS\\St03\\道中Boss\\1符U.mbg";
 					break;
 				}
-				CS_Data cs_Data = base.StageData.LoadCS(text);
-				CSEmitterController csemitterController = new CSEmitterController(base.StageData, cs_Data);
+				CS_Data cs_Data = StageData.LoadCS(text);
+				CSEmitterController csemitterController = new CSEmitterController(StageData, cs_Data);
 				csemitterController.BossBinding = true;
 			}
 		}

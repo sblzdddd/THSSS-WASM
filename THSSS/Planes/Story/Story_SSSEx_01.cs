@@ -7,7 +7,7 @@ namespace Shooting.Planes.Story
 		public Story_SSSEx_01(StageDataPackage StageData)
 			: base(StageData)
 		{
-			string name = base.MyPlane.Name;
+			string name = MyPlane.Name;
 			if (name != null)
 			{
 				if (!(name == "Reimu"))
@@ -18,22 +18,22 @@ namespace Shooting.Planes.Story
 						{
 							if (name == "Koishi")
 							{
-								this.LoadConversation(".\\Story\\Ex-1D.csv");
+								LoadConversation(".\\Story\\Ex-1D.csv");
 							}
 						}
 						else
 						{
-							this.LoadConversation(".\\Story\\Ex-1C.csv");
+							LoadConversation(".\\Story\\Ex-1C.csv");
 						}
 					}
 					else
 					{
-						this.LoadConversation(".\\Story\\Ex-1B.csv");
+						LoadConversation(".\\Story\\Ex-1B.csv");
 					}
 				}
 				else
 				{
-					this.LoadConversation2(".\\Story\\Ex-1A.csv");
+					LoadConversation2(".\\Story\\Ex-1A.csv");
 				}
 			}
 		}
@@ -41,28 +41,28 @@ namespace Shooting.Planes.Story
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			if (base.Time == this.NameTime && this.LastTime < base.Time)
+			if (Time == NameTime && LastTime < Time)
 			{
-				this.CharN = new CharacterName(base.StageData, "ename_Rika");
-				this.LastTime = base.Time;
+				CharN = new CharacterName(StageData, "ename_Rika");
+				LastTime = Time;
 			}
-			else if (base.Time == this.MusicTime && this.LastTime < base.Time)
+			else if (Time == MusicTime && LastTime < Time)
 			{
-				base.StageData.ChangeBGM(".\\BGM\\BossEx.ogg", 0, 0, 255, 1125873, 10783332);
-				this.LastTime = base.Time;
+				StageData.ChangeBGM(".\\BGM\\BossEx.ogg", 0, 0, 255, 1125873, 10783332);
+				LastTime = Time;
 			}
-			if (base.Time == this.Conv.Count)
+			if (Time == Conv.Count)
 			{
-				MusicTitle musicTitle = new MusicTitle(base.StageData, "风中花，雪中月", new Point(base.BoundRect.Width, base.BoundRect.Height - 16));
-				musicTitle.OriginalPosition = new PointF((float)base.BoundRect.Width, (float)(base.BoundRect.Height + 100));
+				MusicTitle musicTitle = new MusicTitle(StageData, "风中花，雪中月", new Point(BoundRect.Width, BoundRect.Height - 16));
+				musicTitle.OriginalPosition = new PointF((float)BoundRect.Width, (float)(BoundRect.Height + 100));
 				musicTitle.Scale = 0.5f;
-				base.Boss.Enabled = true;
-				this.SBox.Dispose();
-				base.Story = null;
-				new EmitterBossFire(base.StageData, base.Boss.OriginalPosition, Color.Yellow);
-				MagicCircle magicCircle = new MagicCircle(base.StageData, "MagicCircleSix");
+				Boss.Enabled = true;
+				SBox.Dispose();
+				Story = null;
+				new EmitterBossFire(StageData, Boss.OriginalPosition, Color.Yellow);
+				MagicCircle magicCircle = new MagicCircle(StageData, "MagicCircleSix");
 				magicCircle.Scale = 1.5f;
-				base.Background3D.WarpEnabled = true;
+				Background3D.WarpEnabled = true;
 			}
 		}
 	}

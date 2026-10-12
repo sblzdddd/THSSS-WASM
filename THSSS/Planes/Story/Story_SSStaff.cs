@@ -5,7 +5,7 @@
 		public Story_SSStaff(StageDataPackage StageData)
 			: base(StageData)
 		{
-			string name = base.MyPlane.Name;
+			string name = MyPlane.Name;
 			if (name != null)
 			{
 				if (!(name == "Reimu"))
@@ -16,48 +16,48 @@
 						{
 							if (name == "Koishi")
 							{
-								this.LoadConversation(".\\Story\\Staff-1D.csv");
+								LoadConversation(".\\Story\\Staff-1D.csv");
 							}
 						}
 						else
 						{
-							this.LoadConversation(".\\Story\\Staff-1C.csv");
+							LoadConversation(".\\Story\\Staff-1C.csv");
 						}
 					}
 					else
 					{
-						this.LoadConversation(".\\Story\\Staff-1B.csv");
+						LoadConversation(".\\Story\\Staff-1B.csv");
 					}
 				}
 				else
 				{
-					this.LoadConversation(".\\Story\\Staff-1A.csv");
+					LoadConversation(".\\Story\\Staff-1A.csv");
 				}
 			}
-			this.SBox.MaxTransparent = 0;
-			this.Cg = new CG(StageData, null);
+			SBox.MaxTransparent = 0;
+			Cg = new CG(StageData, null);
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			this.CharL.TxtureObject = null;
-			this.CharR.TxtureObject = null;
-			this.Cg.Ctrl();
-			if (base.Time < this.Conv.Count)
+			CharL.TxtureObject = null;
+			CharR.TxtureObject = null;
+			Cg.Ctrl();
+			if (Time < Conv.Count)
 			{
-				this.Cg.TxtureObject = base.TextureObjectDictionary[this.Conv[base.Time].CharL];
+				Cg.TxtureObject = TextureObjectDictionary[Conv[Time].CharL];
 			}
-			if (base.Time == this.Conv.Count)
+			if (Time == Conv.Count)
 			{
-				this.SBox.Dispose();
-				base.Story = null;
+				SBox.Dispose();
+				Story = null;
 			}
 		}
 
 		public override void Show()
 		{
-			this.Cg.Show();
+			Cg.Show();
 			base.Show();
 		}
 

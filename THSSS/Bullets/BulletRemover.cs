@@ -7,37 +7,37 @@ namespace Shooting
 		public BulletRemover(StageDataPackage StageData, PointF OriginalPosition)
 			: base(StageData, null, new Point(0, 0), 0f, 1.5707963267948966)
 		{
-			base.OriginalPosition = OriginalPosition;
-			base.LifeTime = 30;
-			base.Region = 2;
+			this.OriginalPosition = OriginalPosition;
+			LifeTime = 30;
+			Region = 2;
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			base.Region += 20;
-			for (int i = base.BulletList.Count - 1; i >= 0; i--)
+			Region += 20;
+			for (int i = BulletList.Count - 1; i >= 0; i--)
 			{
-				if (this.HitCheck(base.BulletList[i], (float)base.Region))
+				if (HitCheck(BulletList[i], (float)Region))
 				{
-					if (!base.BulletList[i].UnRemoveable)
+					if (!BulletList[i].UnRemoveable)
 					{
-						base.BulletList[i].GiveEndEffect();
-						base.BulletList.RemoveAt(i);
+						BulletList[i].GiveEndEffect();
+						BulletList.RemoveAt(i);
 					}
 				}
 			}
-			for (int i = base.EnemyPlaneList.Count - 1; i >= 0; i--)
+			for (int i = EnemyPlaneList.Count - 1; i >= 0; i--)
 			{
-				if (this.HitCheck(base.EnemyPlaneList[i], (float)base.Region))
+				if (HitCheck(EnemyPlaneList[i], (float)Region))
 				{
-					base.EnemyPlaneList[i].HealthPoint -= 20f;
-					if (base.EnemyPlaneList[i].HealthPoint <= 0f)
+					EnemyPlaneList[i].HealthPoint -= 20f;
+					if (EnemyPlaneList[i].HealthPoint <= 0f)
 					{
-						base.EnemyPlaneList[i].GiveEndEffect();
-						base.EnemyPlaneList[i].GiveItems();
-						base.EnemyPlaneList.RemoveAt(i);
-						base.StageData.SoundPlay("se_enep00.wav");
+						EnemyPlaneList[i].GiveEndEffect();
+						EnemyPlaneList[i].GiveItems();
+						EnemyPlaneList.RemoveAt(i);
+						StageData.SoundPlay("se_enep00.wav");
 					}
 				}
 			}

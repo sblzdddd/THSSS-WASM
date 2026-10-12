@@ -11,7 +11,7 @@ namespace Shooting
 
 		public override void Shoot()
 		{
-			MarisaLaser marisaLaser = new MarisaLaser(base.StageData, "MarisaSubBullet00", base.OriginalPosition, -96f, base.ShootDirection)
+			MarisaLaser marisaLaser = new MarisaLaser(StageData, "MarisaSubBullet00", OriginalPosition, -96f, ShootDirection)
 			{
 				Angle = 1.5707963705062866,
 				Active = true
@@ -21,16 +21,16 @@ namespace Shooting
 
 		public override void Show()
 		{
-			if (base.Enabled)
+			if (Enabled)
 			{
-				if (base.TxtureObject != null)
+				if (TxtureObject != null)
 				{
-					double num = (double)(-(double)base.Time * 5 % 360) * 3.141592653589793 / 180.0;
-					if (base.MyPlane.Power >= 400)
+					double num = (double)(-(double)Time * 5 % 360) * 3.141592653589793 / 180.0;
+					if (MyPlane.Power >= 400)
 					{
-						base.SpriteMain.Draw2D(base.TxtureObject, 1.3f, 1.3f, -(float)num, base.Position, Color.FromArgb(150, base.ColorValue), base.Mirrored);
+						SpriteMain.Draw2D(TxtureObject, 1.3f, 1.3f, -(float)num, Position, Color.FromArgb(150, ColorValue), Mirrored);
 					}
-					base.SpriteMain.Draw2D(base.TxtureObject, base.ScaleWidth, base.ScaleLength, (float)num, base.Position, Color.FromArgb(base.TransparentValue, base.ColorValue), base.Mirrored);
+					SpriteMain.Draw2D(TxtureObject, ScaleWidth, ScaleLength, (float)num, Position, Color.FromArgb(TransparentValue, ColorValue), Mirrored);
 				}
 			}
 		}

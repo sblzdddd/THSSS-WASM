@@ -9,49 +9,49 @@ namespace Shooting
 		public CharacterR_Touhou(StageDataPackage StageData, string textureName)
 			: base(StageData)
 		{
-			base.OriginalPosition = new PointF((float)(base.BoundRect.Width - 70), 128f);
-			base.Velocity = 0f;
-			base.Direction = 0.0;
-			base.TxtureObject = base.TextureObjectDictionary[textureName];
-			base.Active = false;
-			base.TransparentValueF = 0f;
+			OriginalPosition = new PointF((float)(BoundRect.Width - 70), 128f);
+			Velocity = 0f;
+			Direction = 0.0;
+			TxtureObject = TextureObjectDictionary[textureName];
+			Active = false;
+			TransparentValueF = 0f;
 		}
 
 		public override void Move()
 		{
-			if (base.Active)
+			if (Active)
 			{
-				if (base.OriginalPosition.X > (float)(base.BoundRect.Width - 100))
+				if (OriginalPosition.X > (float)(BoundRect.Width - 100))
 				{
-					base.OriginalPosition = new PointF(base.OriginalPosition.X - 2f, base.OriginalPosition.Y);
+					OriginalPosition = new PointF(OriginalPosition.X - 2f, OriginalPosition.Y);
 				}
 			}
-			else if (base.OriginalPosition.X < (float)(base.BoundRect.Width - 70))
+			else if (OriginalPosition.X < (float)(BoundRect.Width - 70))
 			{
-				base.OriginalPosition = new PointF(base.OriginalPosition.X + 2f, base.OriginalPosition.Y);
+				OriginalPosition = new PointF(OriginalPosition.X + 2f, OriginalPosition.Y);
 			}
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			base.Angle = (double)(-(double)((float)(base.Direction - 1.5707963267948966)));
-			if (base.Active)
+			Angle = (double)(-(double)((float)(Direction - 1.5707963267948966)));
+			if (Active)
 			{
-				base.TransparentValueF += 10f;
-				base.ColorValue = Color.White;
+				TransparentValueF += 10f;
+				ColorValue = Color.White;
 			}
 			else
 			{
-				base.ColorValue = Color.Gray;
+				ColorValue = Color.Gray;
 			}
 		}
 
 		public override void Show()
 		{
-			if (this.TxtureObject2 != null)
+			if (TxtureObject2 != null)
 			{
-				base.SpriteMain.Draw2D(this.TxtureObject2, base.ScaleWidth, base.ScaleLength, (float)(base.Direction - 1.5707963267948966 + base.Angle), base.Position, Color.FromArgb(base.TransparentValue, base.ColorValue), base.Mirrored);
+				SpriteMain.Draw2D(TxtureObject2, ScaleWidth, ScaleLength, (float)(Direction - 1.5707963267948966 + Angle), Position, Color.FromArgb(TransparentValue, ColorValue), Mirrored);
 			}
 			base.Show();
 		}

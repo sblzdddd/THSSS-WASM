@@ -9,34 +9,34 @@ namespace Shooting
 		public Item_Line_HiScore(StageDataPackage StageData, PointF OriginalPosition)
 			: base(StageData, OriginalPosition)
 		{
-			base.FontType = "HiScoreNum_";
+			FontType = "HiScoreNum_";
 		}
 
 		public override void Show()
 		{
-			base.MaxValue = 0;
-			base.Value = 0;
-			if (base.MyPlane.HiScore - this.scoreValue < 1000L)
+			MaxValue = 0;
+			Value = 0;
+			if (MyPlane.HiScore - scoreValue < 1000L)
 			{
-				this.scoreValue += 1000L;
+				scoreValue += 1000L;
 			}
 			else
 			{
-				this.scoreValue += (base.MyPlane.HiScore - this.scoreValue) / 5L;
+				scoreValue += (MyPlane.HiScore - scoreValue) / 5L;
 			}
-			if (this.scoreValue > base.MyPlane.HiScore)
+			if (scoreValue > MyPlane.HiScore)
 			{
-				this.scoreValue = base.MyPlane.HiScore;
+				scoreValue = MyPlane.HiScore;
 			}
-			if (this.scoreValue < 10000000000L)
+			if (scoreValue < 10000000000L)
 			{
-				base.Text = (10000000000L + this.scoreValue).ToString("N0");
-				base.Text = base.Text.Remove(0, 1).PadLeft(10, ' ');
+				Text = (10000000000L + scoreValue).ToString("N0");
+				Text = Text.Remove(0, 1).PadLeft(10, ' ');
 			}
 			else
 			{
-				base.Text = this.scoreValue.ToString("N0");
-				base.OriginalPosition = new PointF((float)(468 - this.Delta), base.OriginalPosition.Y);
+				Text = scoreValue.ToString("N0");
+				OriginalPosition = new PointF((float)(468 - Delta), OriginalPosition.Y);
 			}
 			base.Show();
 		}

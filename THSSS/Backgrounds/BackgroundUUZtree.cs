@@ -7,20 +7,20 @@ namespace Shooting
 		public BackgroundUUZtree(StageDataPackage StageData, string textureName)
 			: base(StageData, textureName)
 		{
-			base.TransparentValueF = 150f;
+			TransparentValueF = 150f;
 		}
 
 		public override void Show()
 		{
-			base.SpriteMain.End();
-			base.SpriteMain.Begin(SpriteFlags.AlphaBlend);
-			base.StageData.DeviceMain.SetRenderState(RenderState.SourceBlend, 5);
-			base.StageData.DeviceMain.SetRenderState(RenderState.DestinationBlend, 2);
-			base.StageData.DeviceMain.SetRenderState<BlendOperation>(RenderState.BlendOperation, BlendOperation.ReverseSubtract);
+			SpriteMain.End();
+			SpriteMain.Begin(SpriteFlags.AlphaBlend);
+			StageData.DeviceMain.SetRenderState(RenderState.SourceBlend, 5);
+			StageData.DeviceMain.SetRenderState(RenderState.DestinationBlend, 2);
+			StageData.DeviceMain.SetRenderState<BlendOperation>(RenderState.BlendOperation, BlendOperation.ReverseSubtract);
 			base.Show();
 			base.Show();
-			base.SpriteMain.End();
-			base.SpriteMain.Begin(SpriteFlags.AlphaBlend);
+			SpriteMain.End();
+			SpriteMain.Begin(SpriteFlags.AlphaBlend);
 		}
 	}
 }

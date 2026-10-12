@@ -7,35 +7,35 @@ namespace Shooting
 		public SpellCard_SSS06_01(StageDataPackage StageData)
 			: base(StageData)
 		{
-			if (base.Difficulty < DifficultLevel.Hard)
+			if (Difficulty < DifficultLevel.Hard)
 			{
-				base.SC_Name = "许愿星「星火辉迹」";
+				SC_Name = "许愿星「星火辉迹」";
 			}
 			else
 			{
-				base.SC_Name = "许愿星「星火辉迹」";
+				SC_Name = "许愿星「星火辉迹」";
 			}
-			base.BaseScore = 35000000L;
-			base.Boss.DestPoint = new Point(base.BoundRect.Width / 2, 120);
-			base.Boss.Velocity = 4f;
+			BaseScore = 35000000L;
+			Boss.DestPoint = new Point(BoundRect.Width / 2, 120);
+			Boss.Velocity = 4f;
 			StageData.SoundPlay("se_cat00.wav");
 			new BackgroundBoss06(StageData);
-			new BulletTitle(StageData, base.SC_Name);
+			new BulletTitle(StageData, SC_Name);
 			new SpellCardAttack(StageData);
 			new FullPic3(StageData, "FaceTensei_ct1");
 		}
 
 		public override void Shoot()
 		{
-			base.Boss.Armon = base.Boss.ArmonArray[1];
-			if (base.Time > 100)
+			Boss.Armon = Boss.ArmonArray[1];
+			if (Time > 100)
 			{
-				base.Boss.MoveUpDown();
+				Boss.MoveUpDown();
 			}
-			if (base.Time == 150)
+			if (Time == 150)
 			{
 				string text;
-				switch (base.Difficulty)
+				switch (Difficulty)
 				{
 				case DifficultLevel.Easy:
 					text = ".\\CS\\St06\\关底Boss\\1符E.mbg";
@@ -53,8 +53,8 @@ namespace Shooting
 					text = ".\\CS\\St06\\关底Boss\\1符L.mbg";
 					break;
 				}
-				CS_Data cs_Data = base.StageData.LoadCS(text);
-				new CSEmitterController(base.StageData, cs_Data);
+				CS_Data cs_Data = StageData.LoadCS(text);
+				new CSEmitterController(StageData, cs_Data);
 			}
 		}
 	}

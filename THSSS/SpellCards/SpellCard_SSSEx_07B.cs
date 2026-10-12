@@ -7,12 +7,12 @@ namespace Shooting
 		public SpellCard_SSSEx_07B(StageDataPackage StageData)
 			: base(StageData)
 		{
-			base.SC_Name = "「雾隐流剑技 ～ 血染之樱」";
-			base.BaseScore = 40000000L;
-			base.Boss.DestPoint = new Point(base.BoundRect.Width / 2, 96);
-			base.Boss.Velocity = 4f;
+			SC_Name = "「雾隐流剑技 ～ 血染之樱」";
+			BaseScore = 40000000L;
+			Boss.DestPoint = new Point(BoundRect.Width / 2, 96);
+			Boss.Velocity = 4f;
 			StageData.SoundPlay("se_cat00.wav");
-			new BulletTitle(StageData, base.SC_Name);
+			new BulletTitle(StageData, SC_Name);
 			new SpellCardAttack(StageData);
 			new FullPic2(StageData, "FaceRika_ct1");
 			new BackgroundBossEx(StageData);
@@ -20,20 +20,20 @@ namespace Shooting
 
 		public override void Shoot()
 		{
-			base.Boss.Armon = base.Boss.ArmonArray[13];
-			if (base.Time > 100)
+			Boss.Armon = Boss.ArmonArray[13];
+			if (Time > 100)
 			{
-				if ((base.Time - 30) % 780 == 50)
+				if ((Time - 30) % 780 == 50)
 				{
-					base.Boss.DestPoint = new PointF(base.MyPlane.OriginalPosition.X, base.Boss.OriginalPosition.Y);
-					base.Boss.Velocity = 4f;
+					Boss.DestPoint = new PointF(MyPlane.OriginalPosition.X, Boss.OriginalPosition.Y);
+					Boss.Velocity = 4f;
 				}
 			}
-			if (base.Time == 100)
+			if (Time == 100)
 			{
 				string text = ".\\CS\\StEx\\关底Boss\\7符1.mbg";
-				CS_Data cs_Data = base.StageData.LoadCS(text);
-				new CSEmitterController(base.StageData, cs_Data);
+				CS_Data cs_Data = StageData.LoadCS(text);
+				new CSEmitterController(StageData, cs_Data);
 			}
 		}
 	}

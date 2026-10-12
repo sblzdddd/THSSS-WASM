@@ -24,21 +24,21 @@ namespace Shooting
 		{
 			return string.Concat(new object[]
 			{
-				this.MyPlaneFullName,
+				MyPlaneFullName,
 				'\t',
-				((int)this.Rank).ToString(),
+				((int)Rank).ToString(),
 				'\t',
-				this.PlayerName,
+				PlayerName,
 				'\t',
-				this.Score.ToString(),
+				Score.ToString(),
 				'\t',
-				this.Date,
+				Date,
 				'\t',
-				this.Time,
+				Time,
 				'\t',
-				this.Stage,
+				Stage,
 				'\t',
-				this.SlowRate,
+				SlowRate,
 				"\r\n"
 			});
 		}
@@ -47,37 +47,37 @@ namespace Shooting
 		{
 			return string.Concat(new string[]
 			{
-				this.PlayerName.PadRight(8),
-				this.Score.ToString().PadLeft(11),
-				this.Date.PadLeft(12),
-				this.Time.PadLeft(6),
-				this.Stage.PadLeft(4),
-				this.SlowRate.PadLeft(5)
+				PlayerName.PadRight(8),
+				Score.ToString().PadLeft(11),
+				Date.PadLeft(12),
+				Time.PadLeft(6),
+				Stage.PadLeft(4),
+				SlowRate.PadLeft(5)
 			});
 		}
 
 		public string Data2DrawStringSimple()
 		{
-			return this.PlayerName.PadRight(8) + this.Score.ToString().PadLeft(11) + this.Stage.PadLeft(5) + this.SlowRate.PadLeft(6);
+			return PlayerName.PadRight(8) + Score.ToString().PadLeft(11) + Stage.PadLeft(5) + SlowRate.PadLeft(6);
 		}
 
 		public void String2Data(string Data)
 		{
 			char[] array = new char[] { '\t' };
 			string[] array2 = Data.Split(array);
-			this.MyPlaneFullName = array2[0];
-			this.Rank = (DifficultLevel)Convert.ToInt32(array2[1]);
-			this.PlayerName = array2[2];
-			this.Score = Convert.ToInt64(array2[3]);
-			this.Date = array2[4];
-			this.Time = array2[5];
-			this.Stage = array2[6];
-			this.SlowRate = array2[7];
+			MyPlaneFullName = array2[0];
+			Rank = (DifficultLevel)Convert.ToInt32(array2[1]);
+			PlayerName = array2[2];
+			Score = Convert.ToInt64(array2[3]);
+			Date = array2[4];
+			Time = array2[5];
+			Stage = array2[6];
+			SlowRate = array2[7];
 		}
 
 		public void Copy(ScoreHistory SH)
 		{
-			this.String2Data(SH.Data2String().Replace("\r\n", string.Empty));
+			String2Data(SH.Data2String().Replace("\r\n", string.Empty));
 		}
 	}
 }

@@ -7,22 +7,22 @@ namespace Shooting
 		public StageTitle(StageDataPackage StageData, string TextureName)
 			: base(StageData, TextureName, new Point(0, 0), 0f, 1.5707963267948966)
 		{
-			base.OriginalPosition = new PointF((float)(base.BoundRect.Width / 2), (float)(base.BoundRect.Height / 2 - 80));
-			base.LifeTime = 200;
-			base.TransparentValueF = 0f;
-			base.Active = false;
+			OriginalPosition = new PointF((float)(BoundRect.Width / 2), (float)(BoundRect.Height / 2 - 80));
+			LifeTime = 200;
+			TransparentValueF = 0f;
+			Active = false;
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			if (base.Time < base.LifeTime / 3)
+			if (Time < LifeTime / 3)
 			{
-				base.TransparentValueF += (float)(base.MaxTransparent * 3 / base.LifeTime);
+				TransparentValueF += (float)(MaxTransparent * 3 / LifeTime);
 			}
-			else if (base.Time > base.LifeTime * 2 / 3)
+			else if (Time > LifeTime * 2 / 3)
 			{
-				base.TransparentValueF -= (float)(base.MaxTransparent * 3 / base.LifeTime);
+				TransparentValueF -= (float)(MaxTransparent * 3 / LifeTime);
 			}
 		}
 	}

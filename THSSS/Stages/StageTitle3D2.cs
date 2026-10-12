@@ -9,37 +9,37 @@ namespace Shooting
 		public StageTitle3D2(StageDataPackage StageData, string TextureName)
 			: base(StageData, TextureName)
 		{
-			base.OriginalPosition = new PointF((float)(base.BoundRect.Width / 2), (float)(base.BoundRect.Height / 2 - 80));
+			OriginalPosition = new PointF((float)(BoundRect.Width / 2), (float)(BoundRect.Height / 2 - 80));
 		}
 
 		public override void SetupVertex()
 		{
-			DataStream dataStream = this.vertexBuffer.Lock(0, 0, LockFlags.Discard);
-			float num = -base.TxtureObject.RotatingCenter.X;
-			float num2 = (float)base.TxtureObject.Width - base.TxtureObject.RotatingCenter.X;
-			float num3 = -base.TxtureObject.RotatingCenter.Y;
-			float num4 = (float)base.TxtureObject.Height - base.TxtureObject.RotatingCenter.Y;
-			float num5 = (float)base.TxtureObject.PosRect.X / (float)base.TxtureObject.SrcWidth;
-			float num6 = (float)(base.TxtureObject.PosRect.X + base.TxtureObject.Width) / (float)base.TxtureObject.SrcWidth;
-			float num7 = (float)base.TxtureObject.PosRect.Y / (float)base.TxtureObject.SrcHeight;
-			float num8 = (float)(base.TxtureObject.PosRect.Y + base.TxtureObject.Height) / (float)base.TxtureObject.SrcHeight;
-			TexturedColoredVertex[] array = new TexturedColoredVertex[2 * this.Length];
-			for (int i = 0; i < this.Length; i++)
+			DataStream dataStream = vertexBuffer.Lock(0, 0, LockFlags.Discard);
+			float num = -TxtureObject.RotatingCenter.X;
+			float num2 = (float)TxtureObject.Width - TxtureObject.RotatingCenter.X;
+			float num3 = -TxtureObject.RotatingCenter.Y;
+			float num4 = (float)TxtureObject.Height - TxtureObject.RotatingCenter.Y;
+			float num5 = (float)TxtureObject.PosRect.X / (float)TxtureObject.SrcWidth;
+			float num6 = (float)(TxtureObject.PosRect.X + TxtureObject.Width) / (float)TxtureObject.SrcWidth;
+			float num7 = (float)TxtureObject.PosRect.Y / (float)TxtureObject.SrcHeight;
+			float num8 = (float)(TxtureObject.PosRect.Y + TxtureObject.Height) / (float)TxtureObject.SrcHeight;
+			TexturedColoredVertex[] array = new TexturedColoredVertex[2 * Length];
+			for (int i = 0; i < Length; i++)
 			{
-				int num9 = -10 * i + base.Time * 3;
+				int num9 = -10 * i + Time * 3;
 				if (num9 < 0)
 				{
 					num9 = 0;
 				}
-				else if (num9 > base.TransparentValue)
+				else if (num9 > TransparentValue)
 				{
-					num9 = base.TransparentValue;
+					num9 = TransparentValue;
 				}
-				array[2 * i] = new TexturedColoredVertex(new Vector3(num + (num2 - num) * (float)i / (float)this.Length, num3, 0f), new Vector2(num5 + (num6 - num5) * (float)i / (float)this.Length, num7), Color.FromArgb(num9, base.ColorValue).ToArgb());
-				array[2 * i + 1] = new TexturedColoredVertex(new Vector3(num + (num2 - num) * (float)i / (float)this.Length, num4, 0f), new Vector2(num5 + (num6 - num5) * (float)i / (float)this.Length, num8), Color.FromArgb(num9, base.ColorValue).ToArgb());
+				array[2 * i] = new TexturedColoredVertex(new Vector3(num + (num2 - num) * (float)i / (float)Length, num3, 0f), new Vector2(num5 + (num6 - num5) * (float)i / (float)Length, num7), Color.FromArgb(num9, ColorValue).ToArgb());
+				array[2 * i + 1] = new TexturedColoredVertex(new Vector3(num + (num2 - num) * (float)i / (float)Length, num4, 0f), new Vector2(num5 + (num6 - num5) * (float)i / (float)Length, num8), Color.FromArgb(num9, ColorValue).ToArgb());
 			}
 			dataStream.WriteRange<TexturedColoredVertex>(array);
-			this.vertexBuffer.Unlock();
+			vertexBuffer.Unlock();
 		}
 	}
 }

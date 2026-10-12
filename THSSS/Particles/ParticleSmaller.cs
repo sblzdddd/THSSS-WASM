@@ -12,13 +12,13 @@ namespace Shooting
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			if (base.Time > 0)
+			if (Time > 0)
 			{
-				base.Scale -= 1f / (float)base.LifeTime;
+				Scale -= 1f / (float)LifeTime;
 			}
-			if (base.Scale < 0.2f)
+			if (Scale < 0.2f)
 			{
-				base.Scale = 0.2f;
+				Scale = 0.2f;
 			}
 		}
 	}

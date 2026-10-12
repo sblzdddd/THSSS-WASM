@@ -8,22 +8,22 @@ namespace Shooting
 			: base(StageData, textureName, OriginalPosition, Velocity, Direction)
 		{
 			StageData.Particle3D.ParticleList.Add(this);
-			base.Active = true;
-			base.MaxTransparent = 128;
-			base.TransparentValueF = 0f;
-			base.LifeTime = LifeTime;
+			Active = true;
+			MaxTransparent = 128;
+			TransparentValueF = 0f;
+			this.LifeTime = LifeTime;
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			if (0 < base.Time && base.Time < base.LifeTime / 3)
+			if (0 < Time && Time < LifeTime / 3)
 			{
-				base.TransparentValueF += (float)(base.MaxTransparent * 3 / base.LifeTime);
+				TransparentValueF += (float)(MaxTransparent * 3 / LifeTime);
 			}
-			else if (base.LifeTime * 2 / 3 < base.Time && base.Time < base.LifeTime)
+			else if (LifeTime * 2 / 3 < Time && Time < LifeTime)
 			{
-				base.TransparentValueF -= (float)(base.MaxTransparent * 3 / base.LifeTime);
+				TransparentValueF -= (float)(MaxTransparent * 3 / LifeTime);
 			}
 		}
 	}

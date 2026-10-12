@@ -7,18 +7,18 @@ namespace Shooting
 		public EndEnemy(StageDataPackage StageData, string textureName, PointF Position, float Velocity, double Direction)
 			: base(StageData)
 		{
-			base.Position = Position;
-			base.Velocity = Velocity;
-			base.Direction = Direction;
-			base.Active = true;
-			base.TransparentVelocity = -15f;
-			base.ScaleVelocity = 0.1f;
-			base.TxtureObject = base.TextureObjectDictionary[textureName];
+			this.Position = Position;
+			this.Velocity = Velocity;
+			this.Direction = Direction;
+			Active = true;
+			TransparentVelocity = -15f;
+			ScaleVelocity = 0.1f;
+			TxtureObject = TextureObjectDictionary[textureName];
 		}
 
 		public override bool OutBoundary()
 		{
-			return base.TransparentValueF <= 0f;
+			return TransparentValueF <= 0f;
 		}
 	}
 }

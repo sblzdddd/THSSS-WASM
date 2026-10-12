@@ -11,27 +11,27 @@ namespace Shooting
 		public ParticleEndAyaBullet(StageDataPackage StageData, string Name, PointF OriginalPosition, float Velocity, double Direction)
 			: base(StageData, null, OriginalPosition, Velocity, Direction)
 		{
-			base.OriginalPosition = OriginalPosition;
-			this.TxtureObjects = new TextureObject[]
+			this.OriginalPosition = OriginalPosition;
+			TxtureObjects = new TextureObject[]
 			{
-				base.TextureObjectDictionary[Name + "00"],
-				base.TextureObjectDictionary[Name + "01"],
-				base.TextureObjectDictionary[Name + "02"],
-				base.TextureObjectDictionary[Name + "03"]
+				TextureObjectDictionary[Name + "00"],
+				TextureObjectDictionary[Name + "01"],
+				TextureObjectDictionary[Name + "02"],
+				TextureObjectDictionary[Name + "03"]
 			};
-			base.TxtureObject = this.TxtureObjects[0];
-			base.LifeTime = 15;
-			base.Angle = 1.5707963705062866;
-			base.MaxTransparent = 80;
+			TxtureObject = TxtureObjects[0];
+			LifeTime = 15;
+			Angle = 1.5707963705062866;
+			MaxTransparent = 80;
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			this.IndexX = base.Time % 16 / 4;
-			base.TxtureObject = this.TxtureObjects[this.IndexX];
-			base.TransparentValueF -= (float)(base.MaxTransparent / base.LifeTime);
-			base.Scale += 0.1f;
+			IndexX = Time % 16 / 4;
+			TxtureObject = TxtureObjects[IndexX];
+			TransparentValueF -= (float)(MaxTransparent / LifeTime);
+			Scale += 0.1f;
 		}
 	}
 }

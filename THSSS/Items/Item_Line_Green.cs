@@ -7,16 +7,16 @@ namespace Shooting
 		public Item_Line_Green(StageDataPackage StageData, PointF OriginalPosition)
 			: base(StageData, OriginalPosition)
 		{
-			base.ColorValue = Color.FromArgb(177, 255, 191);
+			ColorValue = Color.FromArgb(177, 255, 191);
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			base.MaxValue = 3000;
-			base.Value = 0;
-			base.Text = base.MyPlane.StarPoint.ToString("N0");
-			base.Text = base.Text.PadLeft(11, ' ');
+			MaxValue = 3000;
+			Value = 0;
+			Text = MyPlane.StarPoint.ToString("N0");
+			Text = Text.PadLeft(11, ' ');
 		}
 	}
 }

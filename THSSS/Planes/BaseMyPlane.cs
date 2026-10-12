@@ -15,7 +15,7 @@ namespace Shooting
 		{
 			get
 			{
-				return this.Name + this.WeaponType;
+				return Name + WeaponType;
 			}
 		}
 
@@ -35,17 +35,17 @@ namespace Shooting
 		{
 			get
 			{
-				return this.life;
+				return life;
 			}
 			set
 			{
 				if (value > 8)
 				{
-					this.life = 8;
+					life = 8;
 				}
 				else
 				{
-					this.life = value;
+					life = value;
 				}
 			}
 		}
@@ -54,21 +54,21 @@ namespace Shooting
 		{
 			get
 			{
-				return this.spell;
+				return spell;
 			}
 			set
 			{
 				if (value > 8)
 				{
-					this.spell = 8;
+					spell = 8;
 				}
 				else if (value < 0)
 				{
-					this.spell = 0;
+					spell = 0;
 				}
 				else
 				{
-					this.spell = value;
+					spell = value;
 				}
 			}
 		}
@@ -77,16 +77,16 @@ namespace Shooting
 		{
 			get
 			{
-				return this.lifeChip;
+				return lifeChip;
 			}
 			set
 			{
-				this.lifeChip = value;
-				while (this.lifeChip >= this.nextLifeChip[this.lifeUpCount])
+				lifeChip = value;
+				while (lifeChip >= nextLifeChip[lifeUpCount])
 				{
-					this.Extend();
-					this.lifeChip -= this.nextLifeChip[this.lifeUpCount];
-					this.lifeUpCount++;
+					Extend();
+					lifeChip -= nextLifeChip[lifeUpCount];
+					lifeUpCount++;
 				}
 			}
 		}
@@ -95,15 +95,15 @@ namespace Shooting
 		{
 			get
 			{
-				return this.spellChip;
+				return spellChip;
 			}
 			set
 			{
-				this.spellChip = value;
-				while (this.spellChip >= this.nextSpellChip)
+				spellChip = value;
+				while (spellChip >= nextSpellChip)
 				{
-					this.SpellExtand();
-					this.spellChip -= this.nextSpellChip;
+					SpellExtand();
+					spellChip -= nextSpellChip;
 				}
 			}
 		}
@@ -112,21 +112,21 @@ namespace Shooting
 		{
 			get
 			{
-				return this.power;
+				return power;
 			}
 			set
 			{
 				if (value > 400)
 				{
-					this.power = 400;
+					power = 400;
 				}
 				else if (value < 100)
 				{
-					this.power = 100;
+					power = 100;
 				}
 				else
 				{
-					this.power = value;
+					power = value;
 				}
 			}
 		}
@@ -135,7 +135,7 @@ namespace Shooting
 		{
 			get
 			{
-				return this.power / 100;
+				return power / 100;
 			}
 		}
 
@@ -143,21 +143,21 @@ namespace Shooting
 		{
 			get
 			{
-				return this.score;
+				return score;
 			}
 			set
 			{
 				if (value > 9999999999L)
 				{
-					this.score = 9999999999L;
+					score = 9999999999L;
 				}
 				else if (value < 0L)
 				{
-					this.score = 0L;
+					score = 0L;
 				}
 				else
 				{
-					this.score = value;
+					score = value;
 				}
 			}
 		}
@@ -167,13 +167,13 @@ namespace Shooting
 			get
 			{
 				long num;
-				if (this.score > this.hiScore)
+				if (score > hiScore)
 				{
-					num = this.score;
+					num = score;
 				}
 				else
 				{
-					num = this.hiScore;
+					num = hiScore;
 				}
 				return num;
 			}
@@ -181,15 +181,15 @@ namespace Shooting
 			{
 				if (value > 9999999999L)
 				{
-					this.hiScore = 9999999999L;
+					hiScore = 9999999999L;
 				}
 				else if (value < 0L)
 				{
-					this.hiScore = 0L;
+					hiScore = 0L;
 				}
 				else
 				{
-					this.hiScore = value;
+					hiScore = value;
 				}
 			}
 		}
@@ -198,11 +198,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.bluePoint;
+				return bluePoint;
 			}
 			set
 			{
-				this.bluePoint = value;
+				bluePoint = value;
 			}
 		}
 
@@ -210,11 +210,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.greenPoint;
+				return greenPoint;
 			}
 			set
 			{
-				this.greenPoint = value;
+				greenPoint = value;
 			}
 		}
 
@@ -222,11 +222,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.nextBluePoint;
+				return nextBluePoint;
 			}
 			set
 			{
-				this.nextBluePoint = value;
+				nextBluePoint = value;
 			}
 		}
 
@@ -234,11 +234,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.nextGreenPoint;
+				return nextGreenPoint;
 			}
 			set
 			{
-				this.nextGreenPoint = value;
+				nextGreenPoint = value;
 			}
 		}
 
@@ -246,56 +246,56 @@ namespace Shooting
 		{
 			get
 			{
-				return this.starPoint;
+				return starPoint;
 			}
 			set
 			{
-				if (value >= this.maxStarPoint)
+				if (value >= maxStarPoint)
 				{
-					if (this.starPoint < this.maxStarPoint)
+					if (starPoint < maxStarPoint)
 					{
-						if (this.LastColor == EnchantmentType.Red)
+						if (LastColor == EnchantmentType.Red)
 						{
-							this.ChangeEnchantment(EnchantmentType.Red);
+							ChangeEnchantment(EnchantmentType.Red);
 						}
-						else if (this.LastColor == EnchantmentType.Blue)
+						else if (LastColor == EnchantmentType.Blue)
 						{
-							this.ChangeEnchantment(EnchantmentType.Blue);
+							ChangeEnchantment(EnchantmentType.Blue);
 						}
-						else if (this.LastColor == EnchantmentType.Green)
+						else if (LastColor == EnchantmentType.Green)
 						{
-							this.ChangeEnchantment(EnchantmentType.Green);
+							ChangeEnchantment(EnchantmentType.Green);
 						}
-						base.StageData.SoundPlay("se_focusrot.wav");
-						BaseBackground baseBackground = new BaseBackground(base.StageData, "pl02b", base.Position, 0f, 0.0);
+						StageData.SoundPlay("se_focusrot.wav");
+						BaseBackground baseBackground = new BaseBackground(StageData, "pl02b", Position, 0f, 0.0);
 						baseBackground.ScaleVelocity = 1f;
 						baseBackground.LifeTime = 26;
 						baseBackground.TransparentVelocity = -10f;
 						baseBackground.Active = false;
 						baseBackground.ColorValue = Color.Black;
-						BaseBackground baseBackground2 = new BaseBackground(base.StageData, "pl02b", base.Position, 0f, 0.0);
+						BaseBackground baseBackground2 = new BaseBackground(StageData, "pl02b", Position, 0f, 0.0);
 						baseBackground2.ScaleVelocity = 1f;
 						baseBackground2.LifeTime = 26;
 						baseBackground2.TransparentVelocity = -10f;
 						baseBackground2.Active = false;
 						baseBackground2.ColorValue = Color.Black;
-						BaseBackground baseBackground3 = new BaseBackground(base.StageData, "pl02b", base.Position, 0f, 0.0);
+						BaseBackground baseBackground3 = new BaseBackground(StageData, "pl02b", Position, 0f, 0.0);
 						baseBackground3.ScaleVelocity = 1f;
 						baseBackground3.LifeTime = 26;
 						baseBackground3.TransparentVelocity = -10f;
 						baseBackground3.Active = false;
 						baseBackground3.ColorValue = Color.Black;
-						new EnchantmentMagicCircle(base.StageData, base.OriginalPosition);
+						new EnchantmentMagicCircle(StageData, OriginalPosition);
 					}
-					this.starPoint = this.maxStarPoint;
+					starPoint = maxStarPoint;
 				}
 				else if (value < 0)
 				{
-					this.starPoint = 0;
+					starPoint = 0;
 				}
 				else
 				{
-					this.starPoint = value;
+					starPoint = value;
 				}
 			}
 		}
@@ -304,11 +304,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.enchantmentState;
+				return enchantmentState;
 			}
 			set
 			{
-				this.enchantmentState = value;
+				enchantmentState = value;
 			}
 		}
 
@@ -316,11 +316,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.lastColor;
+				return lastColor;
 			}
 			set
 			{
-				this.lastColor = value;
+				lastColor = value;
 			}
 		}
 
@@ -328,81 +328,81 @@ namespace Shooting
 		{
 			get
 			{
-				return this.enchantmentTime;
+				return enchantmentTime;
 			}
 			set
 			{
 				if (value > 0)
 				{
-					this.enchantmentTime = value;
+					enchantmentTime = value;
 				}
 				else
 				{
-					if (this.enchantmentTime > 0)
+					if (enchantmentTime > 0)
 					{
-						if (this.enchantmentTime == 1)
+						if (enchantmentTime == 1)
 						{
-							this.EnchantmentCount++;
-							this.Rate += 0.1f;
+							EnchantmentCount++;
+							Rate += 0.1f;
 							long num = 0L;
-							if (this.enchantmentState == EnchantmentType.Blue)
+							if (enchantmentState == EnchantmentType.Blue)
 							{
-								num = (long)(this.HighItemScore * 20);
+								num = (long)(HighItemScore * 20);
 							}
-							else if (this.enchantmentState == EnchantmentType.Green)
+							else if (enchantmentState == EnchantmentType.Green)
 							{
 								num = 1000000L;
 							}
-							else if (this.enchantmentState == EnchantmentType.Red)
+							else if (enchantmentState == EnchantmentType.Red)
 							{
 								num = 5120000L;
 							}
-							this.score += num;
-							new EnchantmentBonus(base.StageData, num);
-							base.StageData.SoundPlay("se_cardget.wav");
+							score += num;
+							new EnchantmentBonus(StageData, num);
+							StageData.SoundPlay("se_cardget.wav");
 						}
 						else
 						{
-							BaseEffect baseEffect = new BaseEffect(base.StageData, "pl02b", base.Position, 0f, 0.0);
+							BaseEffect baseEffect = new BaseEffect(StageData, "pl02b", Position, 0f, 0.0);
 							baseEffect.ScaleVelocity = 1f;
 							baseEffect.LifeTime = 26;
 							baseEffect.TransparentVelocity = -10f;
 							baseEffect.Active = false;
 							baseEffect.ColorValue = Color.Black;
-							BaseEffect baseEffect2 = new BaseEffect(base.StageData, "pl02b", base.Position, 0f, 0.0);
+							BaseEffect baseEffect2 = new BaseEffect(StageData, "pl02b", Position, 0f, 0.0);
 							baseEffect2.ScaleVelocity = 1f;
 							baseEffect2.LifeTime = 26;
 							baseEffect2.TransparentVelocity = -10f;
 							baseEffect2.Active = false;
 							baseEffect2.ColorValue = Color.Black;
-							BaseEffect baseEffect3 = new BaseEffect(base.StageData, "pl02b", base.Position, 0f, 0.0);
+							BaseEffect baseEffect3 = new BaseEffect(StageData, "pl02b", Position, 0f, 0.0);
 							baseEffect3.ScaleVelocity = 1f;
 							baseEffect3.LifeTime = 26;
 							baseEffect3.TransparentVelocity = -10f;
 							baseEffect3.Active = false;
 							baseEffect3.ColorValue = Color.Black;
 						}
-						if (this.enchantmentState == EnchantmentType.Green)
+						if (enchantmentState == EnchantmentType.Green)
 						{
-							base.Time = this.UnmatchedTime - 60;
-							this.DeadTime = -1;
-							new SpellDisable(base.StageData);
+							Time = UnmatchedTime - 60;
+							DeadTime = -1;
+							new SpellDisable(StageData);
 						}
-						this.StarPoint = 0;
-						base.StageData.SoundPlay("ice005.wav");
-						TextureObject textureObject = base.TextureObjectDictionary["White"];
+						StarPoint = 0;
+						StageData.SoundPlay("ice005.wav");
+						TextureObject textureObject = TextureObjectDictionary["White"];
 						int num2 = 16;
 						int num3 = 8;
 						Color color = Color.White;
-						if (this.enchantmentState == EnchantmentType.Blue)
+						if (enchantmentState == EnchantmentType.Blue)
 						{
 							color = Color.Blue;
 						}
-						else if (this.enchantmentState == EnchantmentType.Green)
+						else if (enchantmentState == EnchantmentType.Green)
 						{
 							color = Color.Green;
 						}
-						else if (this.enchantmentState == EnchantmentType.Red)
+						else if (enchantmentState == EnchantmentType.Red)
 						{
 							color = Color.Red;
 						}
@@ -410,48 +410,48 @@ namespace Shooting
 						{
 							for (int j = 0; j < num3; j++)
 							{
-								Model_Triangle model_Triangle = new Model_Triangle(base.StageData.DeviceMain, textureObject, i.ToString() + "_" + j.ToString(), new Vector2((float)i / (float)num2, (float)j / (float)num3), new Vector2((float)(i + 1) / (float)num2, (float)j / (float)num3), new Vector2((float)i / (float)num2, (float)(j + 1) / (float)num3), 640 / num2, 480 / num3);
+								Model_Triangle model_Triangle = new Model_Triangle(StageData.DeviceMain, textureObject, i.ToString() + "_" + j.ToString(), new Vector2((float)i / (float)num2, (float)j / (float)num3), new Vector2((float)(i + 1) / (float)num2, (float)j / (float)num3), new Vector2((float)i / (float)num2, (float)(j + 1) / (float)num3), 640 / num2, 480 / num3);
 								BaseParticle3D baseParticle3D = new BaseParticle3D();
-								baseParticle3D.StageData = base.StageData;
+								baseParticle3D.StageData = StageData;
 								baseParticle3D.Position = new PointF((float)(i * 640 / num2), (float)(j * 480 / num3));
 								baseParticle3D.model = model_Triangle;
-								baseParticle3D.Velocity = (float)base.Ran.Next(20) / 10f;
+								baseParticle3D.Velocity = (float)Ran.Next(20) / 10f;
 								baseParticle3D.LifeTime = 30;
-								baseParticle3D.DirectionDegree = (double)base.Ran.Next(360);
-								baseParticle3D.RotatingAxis = new Vector3((float)base.Ran.Next(-100, 100), (float)base.Ran.Next(-100, 100), (float)base.Ran.Next(-100, 100));
-								baseParticle3D.AngularVelocity3D = (float)base.Ran.Next(20) / 100f;
+								baseParticle3D.DirectionDegree = (double)Ran.Next(360);
+								baseParticle3D.RotatingAxis = new Vector3((float)Ran.Next(-100, 100), (float)Ran.Next(-100, 100), (float)Ran.Next(-100, 100));
+								baseParticle3D.AngularVelocity3D = (float)Ran.Next(20) / 100f;
 								baseParticle3D.TransparentVelocity = -6f;
 								baseParticle3D.ScaleVelocity = -0.005f;
 								baseParticle3D.ColorValue = color;
 								baseParticle3D.TransparentValueF = 150f;
-								base.StageData.Particle3D.ParticleList.Add(baseParticle3D);
+								StageData.Particle3D.ParticleList.Add(baseParticle3D);
 							}
 						}
 						for (int i = 0; i < num2; i++)
 						{
 							for (int j = 0; j < num3; j++)
 							{
-								Model_Triangle model_Triangle = new Model_Triangle(base.StageData.DeviceMain, textureObject, i.ToString() + "_" + j.ToString(), new Vector2((float)(i + 1) / (float)num2, (float)(j + 1) / (float)num3), new Vector2((float)i / (float)num2, (float)(j + 1) / (float)num3), new Vector2((float)(i + 1) / (float)num2, (float)j / (float)num3), 640 / num2, 480 / num3);
+								Model_Triangle model_Triangle = new Model_Triangle(StageData.DeviceMain, textureObject, i.ToString() + "_" + j.ToString(), new Vector2((float)(i + 1) / (float)num2, (float)(j + 1) / (float)num3), new Vector2((float)i / (float)num2, (float)(j + 1) / (float)num3), new Vector2((float)(i + 1) / (float)num2, (float)j / (float)num3), 640 / num2, 480 / num3);
 								BaseParticle3D baseParticle3D = new BaseParticle3D();
-								baseParticle3D.StageData = base.StageData;
+								baseParticle3D.StageData = StageData;
 								baseParticle3D.Position = new PointF((float)((i + 1) * 640 / num2), (float)((j + 1) * 480 / num3));
 								baseParticle3D.model = model_Triangle;
 								baseParticle3D.Angle = 3.141592653589793;
-								baseParticle3D.Velocity = (float)base.Ran.Next(20) / 10f;
+								baseParticle3D.Velocity = (float)Ran.Next(20) / 10f;
 								baseParticle3D.LifeTime = 30;
-								baseParticle3D.DirectionDegree = (double)base.Ran.Next(360);
-								baseParticle3D.RotatingAxis = new Vector3((float)base.Ran.Next(-100, 100), (float)base.Ran.Next(-100, 100), (float)base.Ran.Next(-100, 100));
-								baseParticle3D.AngularVelocity3D = (float)base.Ran.Next(20) / 100f;
+								baseParticle3D.DirectionDegree = (double)Ran.Next(360);
+								baseParticle3D.RotatingAxis = new Vector3((float)Ran.Next(-100, 100), (float)Ran.Next(-100, 100), (float)Ran.Next(-100, 100));
+								baseParticle3D.AngularVelocity3D = (float)Ran.Next(20) / 100f;
 								baseParticle3D.TransparentVelocity = -6f;
 								baseParticle3D.ScaleVelocity = -0.005f;
 								baseParticle3D.ColorValue = color;
 								baseParticle3D.TransparentValueF = 150f;
-								base.StageData.Particle3D.ParticleList.Add(baseParticle3D);
+								StageData.Particle3D.ParticleList.Add(baseParticle3D);
 							}
 						}
 					}
-					this.enchantmentTime = 0;
-					this.enchantmentState = EnchantmentType.None;
+					enchantmentTime = 0;
+					enchantmentState = EnchantmentType.None;
 				}
 			}
 		}
@@ -460,11 +460,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.enchantmentCount;
+				return enchantmentCount;
 			}
 			set
 			{
-				this.enchantmentCount = value;
+				enchantmentCount = value;
 			}
 		}
 
@@ -472,11 +472,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.enchantmentCountNeeded;
+				return enchantmentCountNeeded;
 			}
 			set
 			{
-				this.enchantmentCountNeeded = value;
+				enchantmentCountNeeded = value;
 			}
 		}
 
@@ -484,7 +484,7 @@ namespace Shooting
 		{
 			get
 			{
-				return this.EnchantmentCount >= this.EnchantmentCountNeeded && base.Difficulty > DifficultLevel.Normal;
+				return EnchantmentCount >= EnchantmentCountNeeded && Difficulty > DifficultLevel.Normal;
 			}
 		}
 
@@ -492,11 +492,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.rate;
+				return rate;
 			}
 			set
 			{
-				this.rate = value;
+				rate = value;
 			}
 		}
 
@@ -524,11 +524,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.lifeUpCount;
+				return lifeUpCount;
 			}
 			set
 			{
-				this.lifeUpCount = value;
+				lifeUpCount = value;
 			}
 		}
 
@@ -538,258 +538,258 @@ namespace Shooting
 
 		public BaseMyPlane(StageDataPackage StageData, Point Position)
 		{
-			base.StageData = StageData;
-			base.Position = Position;
-			this.TxtureObjects = new TextureObject[72];
+			this.StageData = StageData;
+			this.Position = Position;
+			TxtureObjects = new TextureObject[72];
 			for (int i = 0; i < 72; i++)
 			{
-				this.TxtureObjects[i] = base.TextureObjectDictionary["MyPlane" + i.ToString("D3")];
+				TxtureObjects[i] = TextureObjectDictionary["MyPlane" + i.ToString("D3")];
 			}
-			base.TxtureObject = this.TxtureObjects[0];
-			this.SubPlanePoint = new PointF[4];
-			this.HighSpeed = 4.5f;
-			this.LowSpeed = 2f;
-			base.Region = 1;
-			base.Time = this.UnmatchedTime;
-			this.DeadTime = -1;
-			this.SubPlaneList = new List<BaseSubPlane>
+			TxtureObject = TxtureObjects[0];
+			SubPlanePoint = new PointF[4];
+			HighSpeed = 4.5f;
+			LowSpeed = 2f;
+			Region = 1;
+			Time = UnmatchedTime;
+			DeadTime = -1;
+			SubPlaneList = new List<BaseSubPlane>
 			{
 				new BaseSubPlane(StageData, "MySubPlane", Position),
 				new BaseSubPlane(StageData, "MySubPlane", Position),
 				new BaseSubPlane(StageData, "MySubPlane", Position),
 				new BaseSubPlane(StageData, "MySubPlane", Position)
 			};
-			this.Name = "Plane";
-			this.WeaponType = "A";
-			this.SpellEnabled = true;
-			this.HighItemScore = 100000;
+			Name = "Plane";
+			WeaponType = "A";
+			SpellEnabled = true;
+			HighItemScore = 100000;
 		}
 
 		public virtual void Refresh()
 		{
-			base.Time = 300;
-			this.EnchantmentCount = 0;
-			this.SubPlaneList.ForEach(delegate(BaseSubPlane x)
+			Time = 300;
+			EnchantmentCount = 0;
+			SubPlaneList.ForEach(delegate(BaseSubPlane x)
 			{
 				x.Refresh();
 			});
-			this.SpellEnabled = true;
+			SpellEnabled = true;
 		}
 
 		public override void Move()
 		{
-			this.Vx = 0f;
-			this.Vy = 0f;
-			float num = base.OriginalPosition.X;
-			float num2 = base.OriginalPosition.Y;
-			this.SlowMove = base.KClass.Key_Shift;
-			if (!this.SlowMove)
+			Vx = 0f;
+			Vy = 0f;
+			float num = OriginalPosition.X;
+			float num2 = OriginalPosition.Y;
+			SlowMove = KClass.Key_Shift;
+			if (!SlowMove)
 			{
-				if (base.KClass.ArrowRight)
+				if (KClass.ArrowRight)
 				{
-					this.Vx += this.HighSpeed;
+					Vx += HighSpeed;
 				}
-				if (base.KClass.ArrowLeft)
+				if (KClass.ArrowLeft)
 				{
-					this.Vx -= this.HighSpeed;
+					Vx -= HighSpeed;
 				}
-				if (base.KClass.ArrowUp)
+				if (KClass.ArrowUp)
 				{
-					this.Vy += this.HighSpeed;
+					Vy += HighSpeed;
 				}
-				if (base.KClass.ArrowDown)
+				if (KClass.ArrowDown)
 				{
-					this.Vy -= this.HighSpeed;
+					Vy -= HighSpeed;
 				}
 			}
 			else
 			{
-				if (base.KClass.ArrowRight)
+				if (KClass.ArrowRight)
 				{
-					this.Vx += this.LowSpeed;
+					Vx += LowSpeed;
 				}
-				if (base.KClass.ArrowLeft)
+				if (KClass.ArrowLeft)
 				{
-					this.Vx -= this.LowSpeed;
+					Vx -= LowSpeed;
 				}
-				if (base.KClass.ArrowUp)
+				if (KClass.ArrowUp)
 				{
-					this.Vy += this.LowSpeed;
+					Vy += LowSpeed;
 				}
-				if (base.KClass.ArrowDown)
+				if (KClass.ArrowDown)
 				{
-					this.Vy -= this.LowSpeed;
+					Vy -= LowSpeed;
 				}
 			}
-			if (this.Vx != 0f && this.Vy != 0f)
+			if (Vx != 0f && Vy != 0f)
 			{
-				this.Vx = 0.71f * this.Vx;
-				this.Vy = 0.71f * this.Vy;
+				Vx = 0.71f * Vx;
+				Vy = 0.71f * Vy;
 			}
-			num += this.Vx;
-			num2 -= this.Vy;
-			if (num < (float)(base.TxtureObject.Width / 2 - 6))
+			num += Vx;
+			num2 -= Vy;
+			if (num < (float)(TxtureObject.Width / 2 - 6))
 			{
-				num = (float)(base.TxtureObject.Width / 2 - 6);
+				num = (float)(TxtureObject.Width / 2 - 6);
 			}
-			else if (num > (float)(base.BoundRect.Width - base.TxtureObject.Width / 2 + 6))
+			else if (num > (float)(BoundRect.Width - TxtureObject.Width / 2 + 6))
 			{
-				num = (float)(base.BoundRect.Width - base.TxtureObject.Width / 2 + 6);
+				num = (float)(BoundRect.Width - TxtureObject.Width / 2 + 6);
 			}
-			if (num2 < (float)(base.TxtureObject.Height / 2))
+			if (num2 < (float)(TxtureObject.Height / 2))
 			{
-				num2 = (float)(base.TxtureObject.Height / 2);
+				num2 = (float)(TxtureObject.Height / 2);
 			}
-			else if (num2 >= (float)(base.BoundRect.Height - base.TxtureObject.Height / 2 + 8))
+			else if (num2 >= (float)(BoundRect.Height - TxtureObject.Height / 2 + 8))
 			{
-				num2 = (float)(base.BoundRect.Height - base.TxtureObject.Height / 2 + 8);
+				num2 = (float)(BoundRect.Height - TxtureObject.Height / 2 + 8);
 			}
-			base.OriginalPosition = new PointF(num, num2);
+			OriginalPosition = new PointF(num, num2);
 		}
 
 		public virtual void SubPlaneCtrl()
 		{
-			if (base.KClass.Key_Shift)
+			if (KClass.Key_Shift)
 			{
-				switch (this.PowerLevel)
+				switch (PowerLevel)
 				{
 				case 1:
-					this.SubPlanePoint[0] = new PointF(base.OriginalPosition.X, base.OriginalPosition.Y - 30f);
+					SubPlanePoint[0] = new PointF(OriginalPosition.X, OriginalPosition.Y - 30f);
 					break;
 				case 2:
-					this.SubPlanePoint[0] = new PointF(base.OriginalPosition.X - 15f, base.OriginalPosition.Y - 30f);
-					this.SubPlanePoint[1] = new PointF(base.OriginalPosition.X + 15f, base.OriginalPosition.Y - 30f);
+					SubPlanePoint[0] = new PointF(OriginalPosition.X - 15f, OriginalPosition.Y - 30f);
+					SubPlanePoint[1] = new PointF(OriginalPosition.X + 15f, OriginalPosition.Y - 30f);
 					break;
 				case 3:
-					this.SubPlanePoint[0] = new PointF(base.OriginalPosition.X, base.OriginalPosition.Y - 30f);
-					this.SubPlanePoint[1] = new PointF(base.OriginalPosition.X + 20f, base.OriginalPosition.Y - 20f);
-					this.SubPlanePoint[2] = new PointF(base.OriginalPosition.X - 20f, base.OriginalPosition.Y - 20f);
+					SubPlanePoint[0] = new PointF(OriginalPosition.X, OriginalPosition.Y - 30f);
+					SubPlanePoint[1] = new PointF(OriginalPosition.X + 20f, OriginalPosition.Y - 20f);
+					SubPlanePoint[2] = new PointF(OriginalPosition.X - 20f, OriginalPosition.Y - 20f);
 					break;
 				case 4:
-					this.SubPlanePoint[0] = new PointF(base.OriginalPosition.X - 15f, base.OriginalPosition.Y - 40f);
-					this.SubPlanePoint[1] = new PointF(base.OriginalPosition.X + 15f, base.OriginalPosition.Y - 40f);
-					this.SubPlanePoint[2] = new PointF(base.OriginalPosition.X - 30f, base.OriginalPosition.Y - 30f);
-					this.SubPlanePoint[3] = new PointF(base.OriginalPosition.X + 30f, base.OriginalPosition.Y - 30f);
+					SubPlanePoint[0] = new PointF(OriginalPosition.X - 15f, OriginalPosition.Y - 40f);
+					SubPlanePoint[1] = new PointF(OriginalPosition.X + 15f, OriginalPosition.Y - 40f);
+					SubPlanePoint[2] = new PointF(OriginalPosition.X - 30f, OriginalPosition.Y - 30f);
+					SubPlanePoint[3] = new PointF(OriginalPosition.X + 30f, OriginalPosition.Y - 30f);
 					break;
 				}
 			}
 			else
 			{
-				switch (this.PowerLevel)
+				switch (PowerLevel)
 				{
 				case 1:
-					this.SubPlanePoint[0] = new PointF(base.OriginalPosition.X, base.OriginalPosition.Y - 40f);
+					SubPlanePoint[0] = new PointF(OriginalPosition.X, OriginalPosition.Y - 40f);
 					break;
 				case 2:
-					this.SubPlanePoint[0] = new PointF(base.OriginalPosition.X - 25f, base.OriginalPosition.Y - 20f);
-					this.SubPlanePoint[1] = new PointF(base.OriginalPosition.X + 25f, base.OriginalPosition.Y - 20f);
+					SubPlanePoint[0] = new PointF(OriginalPosition.X - 25f, OriginalPosition.Y - 20f);
+					SubPlanePoint[1] = new PointF(OriginalPosition.X + 25f, OriginalPosition.Y - 20f);
 					break;
 				case 3:
-					this.SubPlanePoint[0] = new PointF(base.OriginalPosition.X, base.OriginalPosition.Y - 40f);
-					this.SubPlanePoint[1] = new PointF(base.OriginalPosition.X + 30f, base.OriginalPosition.Y - 20f);
-					this.SubPlanePoint[2] = new PointF(base.OriginalPosition.X - 30f, base.OriginalPosition.Y - 20f);
+					SubPlanePoint[0] = new PointF(OriginalPosition.X, OriginalPosition.Y - 40f);
+					SubPlanePoint[1] = new PointF(OriginalPosition.X + 30f, OriginalPosition.Y - 20f);
+					SubPlanePoint[2] = new PointF(OriginalPosition.X - 30f, OriginalPosition.Y - 20f);
 					break;
 				case 4:
-					this.SubPlanePoint[0] = new PointF(base.OriginalPosition.X - 25f, base.OriginalPosition.Y - 0f);
-					this.SubPlanePoint[1] = new PointF(base.OriginalPosition.X + 25f, base.OriginalPosition.Y - 0f);
-					this.SubPlanePoint[2] = new PointF(base.OriginalPosition.X - 50f, base.OriginalPosition.Y + 5f);
-					this.SubPlanePoint[3] = new PointF(base.OriginalPosition.X + 50f, base.OriginalPosition.Y + 5f);
+					SubPlanePoint[0] = new PointF(OriginalPosition.X - 25f, OriginalPosition.Y - 0f);
+					SubPlanePoint[1] = new PointF(OriginalPosition.X + 25f, OriginalPosition.Y - 0f);
+					SubPlanePoint[2] = new PointF(OriginalPosition.X - 50f, OriginalPosition.Y + 5f);
+					SubPlanePoint[3] = new PointF(OriginalPosition.X + 50f, OriginalPosition.Y + 5f);
 					break;
 				}
 			}
-			for (int i = 0; i < this.PowerLevel; i++)
+			for (int i = 0; i < PowerLevel; i++)
 			{
-				this.SubPlaneList[i].Enabled = true;
-				this.SubPlaneList[i].DestPoint = this.SubPlanePoint[i];
-				this.SubPlaneList[i].Ctrl();
+				SubPlaneList[i].Enabled = true;
+				SubPlaneList[i].DestPoint = SubPlanePoint[i];
+				SubPlaneList[i].Ctrl();
 			}
-			for (int i = this.PowerLevel; i < this.SubPlaneList.Count; i++)
+			for (int i = PowerLevel; i < SubPlaneList.Count; i++)
 			{
-				this.SubPlaneList[i].Enabled = false;
-				this.SubPlaneList[i].Position = base.Position;
+				SubPlaneList[i].Enabled = false;
+				SubPlaneList[i].Position = Position;
 			}
 		}
 
 		public virtual void TextureCtrl()
 		{
-			if (this.Vx > 0.5f)
+			if (Vx > 0.5f)
 			{
-				if (this.SlowMove)
+				if (SlowMove)
 				{
-					this.OnRotate = false;
-					if (0 <= this.Angle3D && this.Angle3D < 30)
+					OnRotate = false;
+					if (0 <= Angle3D && Angle3D < 30)
 					{
-						this.Angle3D += 5;
+						Angle3D += 5;
 					}
-					else if (this.Angle3D < 0)
+					else if (Angle3D < 0)
 					{
-						this.Angle3D = 0;
+						Angle3D = 0;
 					}
 				}
-				else if (!this.OnRotate)
+				else if (!OnRotate)
 				{
-					if (0 <= this.Angle3D && this.Angle3D < 40)
+					if (0 <= Angle3D && Angle3D < 40)
 					{
-						this.Angle3D += 5;
+						Angle3D += 5;
 					}
-					else if (this.Angle3D < 0)
+					else if (Angle3D < 0)
 					{
-						this.OnRotate = true;
+						OnRotate = true;
 					}
 				}
 				else
 				{
-					this.Angle3D += 13;
+					Angle3D += 13;
 				}
 			}
-			else if (this.Vx < -0.5f)
+			else if (Vx < -0.5f)
 			{
-				if (this.SlowMove)
+				if (SlowMove)
 				{
-					this.OnRotate = false;
-					if (-30 < this.Angle3D && this.Angle3D <= 0)
+					OnRotate = false;
+					if (-30 < Angle3D && Angle3D <= 0)
 					{
-						this.Angle3D -= 5;
+						Angle3D -= 5;
 					}
-					else if (this.Angle3D > 0)
+					else if (Angle3D > 0)
 					{
-						this.Angle3D = 0;
+						Angle3D = 0;
 					}
 				}
-				else if (!this.OnRotate)
+				else if (!OnRotate)
 				{
-					if (-40 < this.Angle3D && this.Angle3D <= 0)
+					if (-40 < Angle3D && Angle3D <= 0)
 					{
-						this.Angle3D -= 5;
+						Angle3D -= 5;
 					}
-					else if (this.Angle3D > 0)
+					else if (Angle3D > 0)
 					{
-						this.OnRotate = true;
+						OnRotate = true;
 					}
 				}
 				else
 				{
-					this.Angle3D -= 13;
+					Angle3D -= 13;
 				}
 			}
 			else
 			{
-				this.Angle3D /= 2;
-				if (-10 < this.Angle3D && this.Angle3D < 10)
+				Angle3D /= 2;
+				if (-10 < Angle3D && Angle3D < 10)
 				{
-					this.Angle3D = 0;
-					this.OnRotate = false;
+					Angle3D = 0;
+					OnRotate = false;
 				}
 			}
-			if (this.Angle3D > 180)
+			if (Angle3D > 180)
 			{
-				this.Angle3D -= 360;
+				Angle3D -= 360;
 			}
-			else if (this.Angle3D < -180)
+			else if (Angle3D < -180)
 			{
-				this.Angle3D += 360;
+				Angle3D += 360;
 			}
-			int num = this.Angle3D / 5;
+			int num = Angle3D / 5;
 			if (num < 0)
 			{
 				num += 72;
@@ -798,50 +798,50 @@ namespace Shooting
 			{
 				num -= 72;
 			}
-			base.TxtureObject = this.TxtureObjects[num];
+			TxtureObject = TxtureObjects[num];
 		}
 
 		public override void Shoot()
 		{
-			if (base.Time % 3 == 0)
+			if (Time % 3 == 0)
 			{
-				base.StageData.SoundPlay("se_plst00.wav", base.OriginalPosition.X / (float)base.BoundRect.Width);
-				float x = base.Position.X;
-				float y = base.Position.Y;
+				StageData.SoundPlay("se_plst00.wav", OriginalPosition.X / (float)BoundRect.Width);
+				float x = Position.X;
+				float y = Position.Y;
 				float num = 7f;
-				num *= (float)Math.Cos((double)this.Angle3D * 3.141592653589793 / 180.0);
-				new BaseMyBullet(base.StageData, "自机子弹", new PointF(x - num, y), 30f, -1.5707963267948966);
-				new BaseMyBullet(base.StageData, "自机子弹", new PointF(x + num, y), 30f, -1.5707963267948966);
+				num *= (float)Math.Cos((double)Angle3D * 3.141592653589793 / 180.0);
+				new BaseMyBullet(StageData, "自机子弹", new PointF(x - num, y), 30f, -1.5707963267948966);
+				new BaseMyBullet(StageData, "自机子弹", new PointF(x + num, y), 30f, -1.5707963267948966);
 			}
-			if (base.Time % 5 == 0)
+			if (Time % 5 == 0)
 			{
-				for (int i = 0; i < this.PowerLevel; i++)
+				for (int i = 0; i < PowerLevel; i++)
 				{
-					this.SubPlaneList[i].Shoot();
+					SubPlaneList[i].Shoot();
 				}
 			}
 		}
 
 		public virtual void SpellShoot()
 		{
-			new Spell(base.StageData);
-			base.StageData.SoundPlay("se_nep00.wav");
+			new Spell(StageData);
+			StageData.SoundPlay("se_nep00.wav");
 		}
 
 		public virtual void PreMiss()
 		{
-			if (base.Time >= this.UnmatchedTime)
+			if (Time >= UnmatchedTime)
 			{
-				if (base.Time >= this.DeadTime)
+				if (Time >= DeadTime)
 				{
-					if (base.SpellList.Count == 0)
+					if (SpellList.Count == 0)
 					{
-						if (this.EnchantmentState == EnchantmentType.Green)
+						if (EnchantmentState == EnchantmentType.Green)
 						{
-							BulletRemover_Small bulletRemover_Small = new BulletRemover_Small(base.StageData, base.OriginalPosition);
+							BulletRemover_Small bulletRemover_Small = new BulletRemover_Small(StageData, OriginalPosition);
 							bulletRemover_Small.Region = 500;
-							this.ChangeEnchantment(EnchantmentType.None);
-							base.EnemyPlaneList.ForEach(delegate(BaseEnemyPlane x)
+							ChangeEnchantment(EnchantmentType.None);
+							EnemyPlaneList.ForEach(delegate(BaseEnemyPlane x)
 							{
 								if (x is BaseSpellCard)
 								{
@@ -851,9 +851,9 @@ namespace Shooting
 						}
 						else
 						{
-							new Emitter(base.StageData, base.MyPlane.Position);
-							base.StageData.SoundPlay("se_pldead00.wav", base.OriginalPosition.X / (float)base.BoundRect.Width);
-							this.DeadTime = base.Time + 20;
+							new Emitter(StageData, MyPlane.Position);
+							StageData.SoundPlay("se_pldead00.wav", OriginalPosition.X / (float)BoundRect.Width);
+							DeadTime = Time + 20;
 						}
 					}
 				}
@@ -862,56 +862,56 @@ namespace Shooting
 
 		public virtual void Miss()
 		{
-			if (this.EnchantmentState == EnchantmentType.Red || this.EnchantmentState == EnchantmentType.Blue)
+			if (EnchantmentState == EnchantmentType.Red || EnchantmentState == EnchantmentType.Blue)
 			{
-				this.ChangeEnchantment(EnchantmentType.None);
+				ChangeEnchantment(EnchantmentType.None);
 			}
-			new BulletRemover(base.StageData, base.OriginalPosition);
-			base.OriginalPosition = new PointF((float)(base.BoundRect.Width / 2), (float)(base.BoundRect.Height + 100));
-			this.Vx = 0f;
-			this.Vy = 0f;
-			this.Life--;
-			this.Power -= 16;
-			base.Time = 0;
-			this.DeadTime = -1;
+			new BulletRemover(StageData, OriginalPosition);
+			OriginalPosition = new PointF((float)(BoundRect.Width / 2), (float)(BoundRect.Height + 100));
+			Vx = 0f;
+			Vy = 0f;
+			Life--;
+			Power -= 16;
+			Time = 0;
+			DeadTime = -1;
 		}
 
 		public override void Ctrl()
 		{
-			if (base.Enabled)
+			if (Enabled)
 			{
-				base.Time++;
-				if (base.Time == this.DeadTime)
+				Time++;
+				if (Time == DeadTime)
 				{
-					this.Miss();
+					Miss();
 				}
-				else if (base.Time > this.DeadTime)
+				else if (Time > DeadTime)
 				{
-					if (base.Time == 1)
+					if (Time == 1)
 					{
-						if (this.Spell < 2)
+						if (Spell < 2)
 						{
-							this.Spell = 2;
+							Spell = 2;
 						}
 					}
-					if (base.Time > 70)
+					if (Time > 70)
 					{
-						this.Move();
+						Move();
 					}
 					else
 					{
-						base.DestPoint = new PointF((float)(base.BoundRect.Width / 2), (float)(base.BoundRect.Height - 30));
-						base.Velocity = 2f;
+						DestPoint = new PointF((float)(BoundRect.Width / 2), (float)(BoundRect.Height - 30));
+						Velocity = 2f;
 						base.Move();
-						this.TextureCtrl();
+						TextureCtrl();
 					}
-					this.TextureCtrl();
-					base.Direction += 0.019999999552965164;
-					this.SubPlaneCtrl();
-					this.EnchantmentTime--;
-					if (this.EnchantmentState == EnchantmentType.Blue)
+					TextureCtrl();
+					Direction += 0.019999999552965164;
+					SubPlaneCtrl();
+					EnchantmentTime--;
+					if (EnchantmentState == EnchantmentType.Blue)
 					{
-						base.ItemList.ForEach(delegate(BaseItem x)
+						ItemList.ForEach(delegate(BaseItem x)
 						{
 							if (!(x is ShootingStarShard))
 							{
@@ -921,23 +921,23 @@ namespace Shooting
 						});
 					}
 				}
-				if (base.Story == null && base.Time > 70)
+				if (Story == null && Time > 70)
 				{
-					if (base.KClass.Key_Z)
+					if (KClass.Key_Z)
 					{
-						if (base.TimeMain > 15)
+						if (TimeMain > 15)
 						{
-							this.Shoot();
+							Shoot();
 						}
 					}
-					if (base.KClass.Key_X && !this.lastX)
+					if (KClass.Key_X && !lastX)
 					{
-						if (this.EnchantmentState == EnchantmentType.Green)
+						if (EnchantmentState == EnchantmentType.Green)
 						{
-							BulletRemover_Small bulletRemover_Small = new BulletRemover_Small(base.StageData, base.OriginalPosition);
+							BulletRemover_Small bulletRemover_Small = new BulletRemover_Small(StageData, OriginalPosition);
 							bulletRemover_Small.Region = 500;
-							this.ChangeEnchantment(EnchantmentType.None);
-							base.EnemyPlaneList.ForEach(delegate(BaseEnemyPlane x)
+							ChangeEnchantment(EnchantmentType.None);
+							EnemyPlaneList.ForEach(delegate(BaseEnemyPlane x)
 							{
 								if (x is BaseSpellCard)
 								{
@@ -945,50 +945,50 @@ namespace Shooting
 								}
 							});
 						}
-						else if (this.Spell > 0 && base.SpellList.Count == 0 && base.Time > 30 && this.SpellEnabled)
+						else if (Spell > 0 && SpellList.Count == 0 && Time > 30 && SpellEnabled)
 						{
-							this.SpellShoot();
-							this.Spell--;
+							SpellShoot();
+							Spell--;
 						}
 					}
-					this.lastX = base.KClass.Key_X;
+					lastX = KClass.Key_X;
 				}
 			}
 		}
 
 		public void RetryClear()
 		{
-			this.EnchantmentTime = 0;
-			this.Life = 2;
-			this.Spell = 2;
-			this.Power = 400;
-			this.Score = (long)base.StageData.ContinueTimes;
-			this.Graze = 0;
-			this.HiScore = base.StageData.S_History[0].Score;
-			this.LifeChip = 0;
-			this.SpellChip = 0;
-			this.LifeUpCount = 0;
-			this.StarPoint = 0;
-			this.HighItemScore = 100000;
-			this.Rate = 0f;
-			this.LastColor = EnchantmentType.Green;
+			EnchantmentTime = 0;
+			Life = 2;
+			Spell = 2;
+			Power = 400;
+			Score = (long)StageData.ContinueTimes;
+			Graze = 0;
+			HiScore = StageData.S_History[0].Score;
+			LifeChip = 0;
+			SpellChip = 0;
+			LifeUpCount = 0;
+			StarPoint = 0;
+			HighItemScore = 100000;
+			Rate = 0f;
+			LastColor = EnchantmentType.Green;
 		}
 
 		public void Extend()
 		{
-			if (this.Life < 8)
+			if (Life < 8)
 			{
-				this.Life++;
+				Life++;
 			}
 			else
 			{
-				this.Spell++;
+				Spell++;
 			}
-			base.StageData.SoundPlay("se_extend.wav");
-			BaseEffect baseEffect = new BaseEffect(base.StageData, "Extend", new PointF(0f, 0f), 0f, 1.5707963267948966)
+			StageData.SoundPlay("se_extend.wav");
+			BaseEffect baseEffect = new BaseEffect(StageData, "Extend", new PointF(0f, 0f), 0f, 1.5707963267948966)
 			{
 				Active = false,
-				OriginalPosition = new PointF((float)(base.BoundRect.Width / 2), 112f),
+				OriginalPosition = new PointF((float)(BoundRect.Width / 2), 112f),
 				LifeTime = 90,
 				TransparentValueF = 0f,
 				Layer = 1
@@ -999,12 +999,12 @@ namespace Shooting
 
 		public void SpellExtand()
 		{
-			base.StageData.SoundPlay("se_cardget.wav");
-			this.Spell++;
-			BaseEffect baseEffect = new BaseEffect(base.StageData, "SpellExtend", new PointF(0f, 0f), 0f, 1.5707963267948966)
+			StageData.SoundPlay("se_cardget.wav");
+			Spell++;
+			BaseEffect baseEffect = new BaseEffect(StageData, "SpellExtend", new PointF(0f, 0f), 0f, 1.5707963267948966)
 			{
 				Active = false,
-				OriginalPosition = new PointF((float)(base.BoundRect.Width / 2), 80f),
+				OriginalPosition = new PointF((float)(BoundRect.Width / 2), 80f),
 				LifeTime = 90,
 				TransparentValueF = 0f,
 				Layer = 1
@@ -1018,43 +1018,43 @@ namespace Shooting
 			switch (EnchantmentState)
 			{
 			case EnchantmentType.None:
-				this.EnchantmentTime = 0;
+				EnchantmentTime = 0;
 				break;
 			case EnchantmentType.Red:
 				this.EnchantmentState = EnchantmentState;
-				this.EnchantmentTime = 600;
+				EnchantmentTime = 600;
 				break;
 			case EnchantmentType.Blue:
 				this.EnchantmentState = EnchantmentState;
-				this.EnchantmentTime = 600;
+				EnchantmentTime = 600;
 				break;
 			case EnchantmentType.Green:
 				this.EnchantmentState = EnchantmentState;
-				this.EnchantmentTime = 420;
+				EnchantmentTime = 420;
 				break;
 			default:
-				this.EnchantmentTime = 0;
+				EnchantmentTime = 0;
 				break;
 			}
 		}
 
 		public override void Show()
 		{
-			if (base.Time >= this.DeadTime)
+			if (Time >= DeadTime)
 			{
-				if (base.Time != 0)
+				if (Time != 0)
 				{
-					if (base.Time < this.UnmatchedTime && base.Time / 2 % 2 == 0)
+					if (Time < UnmatchedTime && Time / 2 % 2 == 0)
 					{
-						base.SpriteMain.Draw2D(base.TxtureObject, 1f, 0f, base.Position, Color.DarkBlue);
+						SpriteMain.Draw2D(TxtureObject, 1f, 0f, Position, Color.DarkBlue);
 					}
 					else
 					{
-						base.SpriteMain.Draw2D(base.TxtureObject, 1f, 0f, base.Position, Color.White);
+						SpriteMain.Draw2D(TxtureObject, 1f, 0f, Position, Color.White);
 					}
-					for (int i = 0; i < this.PowerLevel; i++)
+					for (int i = 0; i < PowerLevel; i++)
 					{
-						this.SubPlaneList[i].Show();
+						SubPlaneList[i].Show();
 					}
 				}
 			}
@@ -1062,9 +1062,9 @@ namespace Shooting
 
 		public virtual void ShowCenter()
 		{
-			if (this.SlowMove)
+			if (SlowMove)
 			{
-				base.SpriteMain.Draw2D(base.TextureObjectDictionary["MyPlaneCenter1"], 1f, (float)base.Direction * 4f, base.Position, Color.White);
+				SpriteMain.Draw2D(TextureObjectDictionary["MyPlaneCenter1"], 1f, (float)Direction * 4f, Position, Color.White);
 			}
 		}
 

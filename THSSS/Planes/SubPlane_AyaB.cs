@@ -16,15 +16,15 @@ namespace Shooting
 
 		public override void Shoot()
 		{
-			if (base.KClass.Key_Shift)
+			if (KClass.Key_Shift)
 			{
-				BaseMyBullet_Touhou baseMyBullet_Touhou = new BaseMyBullet_Touhou(base.StageData, "AyaBullet10", base.OriginalPosition, 12f, base.ShootDirection);
+				BaseMyBullet_Touhou baseMyBullet_Touhou = new BaseMyBullet_Touhou(StageData, "AyaBullet10", OriginalPosition, 12f, ShootDirection);
 				baseMyBullet_Touhou.Angle = 1.5707963705062866;
 				baseMyBullet_Touhou.Damage = 4;
 			}
 			else
 			{
-				BulletGuidance bulletGuidance = new BulletGuidance(base.StageData, "AyaBullet10", base.Position, 8f, base.ShootDirection);
+				BulletGuidance bulletGuidance = new BulletGuidance(StageData, "AyaBullet10", Position, 8f, ShootDirection);
 				bulletGuidance.TransparentValueF = 180f;
 				bulletGuidance.Angle = 1.5707963705062866;
 			}

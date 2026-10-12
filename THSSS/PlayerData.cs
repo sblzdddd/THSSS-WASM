@@ -27,16 +27,16 @@ namespace Shooting
 
 		public PlayerData()
 		{
-			this.CreatNewData();
+			CreatNewData();
 			if (!File.Exists("Score.dat"))
 			{
-				this.SaveData();
+				SaveData();
 			}
 			else
 			{
 				try
 				{
-					this.LoadData();
+					LoadData();
 				}
 				catch
 				{
@@ -47,9 +47,9 @@ namespace Shooting
 
 		private void CreatNewData()
 		{
-			this.PlayerName = "";
-			this.MusicState = new bool[15];
-			this.S_History = new List<ScoreHistory>();
+			PlayerName = "";
+			MusicState = new bool[15];
+			S_History = new List<ScoreHistory>();
 			for (int i = 0; i < 6; i++)
 			{
 				for (int j = 0; j < 10; j++)
@@ -89,11 +89,11 @@ namespace Shooting
 							Stage = "---",
 							SlowRate = "-.-%"
 						};
-						this.S_History.Add(scoreHistory);
+						S_History.Add(scoreHistory);
 					}
 				}
 			}
-			this.C_History = new List<ClearHistory>();
+			C_History = new List<ClearHistory>();
 			for (int i = 0; i < 6; i++)
 			{
 				for (int k = 0; k < 5; k++)
@@ -130,10 +130,10 @@ namespace Shooting
 						NoContinueClearTimes = 0,
 						PracticeLevel = 1
 					};
-					this.C_History.Add(clearHistory);
+					C_History.Add(clearHistory);
 				}
 			}
-			this.SC_History = new List<SpellCardHistory>();
+			SC_History = new List<SpellCardHistory>();
 			for (int k = 0; k < 5; k++)
 			{
 				int num = 1;
@@ -163,50 +163,50 @@ namespace Shooting
 				{
 					if (i < 2)
 					{
-						for (int j = 0; j < PlayerData.SCNameEN.Length; j++)
+						for (int j = 0; j < SCNameEN.Length; j++)
 						{
 							SpellCardHistory spellCardHistory = new SpellCardHistory
 							{
 								MyPlaneFullName = text,
 								Rank = (DifficultLevel)i,
-								Name = PlayerData.SCNameEN[j],
+								Name = SCNameEN[j],
 								Index = num++,
 								Recorded = 0,
 								History = 0
 							};
-							this.SC_History.Add(spellCardHistory);
+							SC_History.Add(spellCardHistory);
 						}
 					}
 					else if (i < 5)
 					{
-						for (int j = 0; j < PlayerData.SCNameHL.Length; j++)
+						for (int j = 0; j < SCNameHL.Length; j++)
 						{
 							SpellCardHistory spellCardHistory = new SpellCardHistory
 							{
 								MyPlaneFullName = text,
 								Rank = (DifficultLevel)i,
-								Name = PlayerData.SCNameHL[j],
+								Name = SCNameHL[j],
 								Index = num++,
 								Recorded = 0,
 								History = 0
 							};
-							this.SC_History.Add(spellCardHistory);
+							SC_History.Add(spellCardHistory);
 						}
 					}
 					else
 					{
-						for (int j = 0; j < PlayerData.SCNameEx.Length; j++)
+						for (int j = 0; j < SCNameEx.Length; j++)
 						{
 							SpellCardHistory spellCardHistory = new SpellCardHistory
 							{
 								MyPlaneFullName = text,
 								Rank = (DifficultLevel)i,
-								Name = PlayerData.SCNameEx[j],
+								Name = SCNameEx[j],
 								Index = num++,
 								Recorded = 0,
 								History = 0
 							};
-							this.SC_History.Add(spellCardHistory);
+							SC_History.Add(spellCardHistory);
 						}
 					}
 				}
@@ -215,24 +215,24 @@ namespace Shooting
 
 		public void SaveData()
 		{
-			this.ScoreFile = new FileStream("Score.dat", FileMode.Create);
+			ScoreFile = new FileStream("Score.dat", FileMode.Create);
 			StringBuilder score = new StringBuilder();
-			score.Append(this.PlayerName);
+			score.Append(PlayerName);
 			score.Append("\r\n");
-			this.SC_History.ForEach(delegate(SpellCardHistory x)
+			SC_History.ForEach(delegate(SpellCardHistory x)
 			{
 				score.Append(x.Data2String());
 			});
-			this.S_History.ForEach(delegate(ScoreHistory x)
+			S_History.ForEach(delegate(ScoreHistory x)
 			{
 				score.Append(x.Data2String());
 			});
-			this.C_History.ForEach(delegate(ClearHistory x)
+			C_History.ForEach(delegate(ClearHistory x)
 			{
 				score.Append(x.Data2String());
 			});
 			string tmp = Encryption.Encrypt(score.ToString());
-			StreamWriter streamWriter = new StreamWriter(this.ScoreFile);
+			StreamWriter streamWriter = new StreamWriter(ScoreFile);
 			streamWriter.Write(tmp);
 			streamWriter.Close();
 		}
@@ -244,29 +244,29 @@ namespace Shooting
 			array[0] = array[0].Replace("\r\n", "\n");
 			string[] stringList = array[0].Split(new char[] { '\n' });
 			int i = 0;
-			this.PlayerName = stringList[i++];
-			this.SC_History.ForEach(delegate(SpellCardHistory x)
+			PlayerName = stringList[i++];
+			SC_History.ForEach(delegate(SpellCardHistory x)
 			{
 				x.String2Data(stringList[i++]);
 			});
-			this.S_History.ForEach(delegate(ScoreHistory x)
+			S_History.ForEach(delegate(ScoreHistory x)
 			{
 				x.String2Data(stringList[i++]);
 			});
-			this.C_History.ForEach(delegate(ClearHistory x)
+			C_History.ForEach(delegate(ClearHistory x)
 			{
 				x.String2Data(stringList[i++]);
 			});
-			this.CheckEnable();
+			CheckEnable();
 		}
 
 		public void CheckEnable()
 		{
-			this.C_History.ForEach(delegate(ClearHistory x)
+			C_History.ForEach(delegate(ClearHistory x)
 			{
 				if (x.NoContinueClearTimes > 0)
 				{
-					this.ExtraEnabled = true;
+					ExtraEnabled = true;
 				}
 			});
 		}

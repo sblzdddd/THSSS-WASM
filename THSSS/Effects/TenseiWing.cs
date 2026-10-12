@@ -8,23 +8,23 @@ namespace Shooting
 		public TenseiWing(StageDataPackage StageData)
 			: base(StageData, null, PointF.Empty, 0f, 0.0)
 		{
-			if (base.Boss != null)
+			if (Boss != null)
 			{
-				base.OriginalPosition = base.Boss.OriginalPosition;
+				OriginalPosition = Boss.OriginalPosition;
 			}
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			if (base.Boss != null)
+			if (Boss != null)
 			{
-				base.OriginalPosition = base.Boss.OriginalPosition;
-				float num = 177f + 4f * (float)Math.Sin((double)((float)base.Time / 150f) * 3.141592653589793 * 2.0);
+				OriginalPosition = Boss.OriginalPosition;
+				float num = 177f + 4f * (float)Math.Sin((double)((float)Time / 150f) * 3.141592653589793 * 2.0);
 				num = num / 180f * 3.1415927f;
-				PointF pointF = new PointF(base.OriginalPosition.X - 4f, base.OriginalPosition.Y);
-				float num2 = 1f - 0.2f * (float)Math.Sin((double)((float)base.Time / 150f) * 3.141592653589793 * 2.0);
-				BaseObject baseObject = new BaseObject(base.StageData, "beike1", PointF.Empty, 1f, (double)num);
+				PointF pointF = new PointF(OriginalPosition.X - 4f, OriginalPosition.Y);
+				float num2 = 1f - 0.2f * (float)Math.Sin((double)((float)Time / 150f) * 3.141592653589793 * 2.0);
+				BaseObject baseObject = new BaseObject(StageData, "beike1", PointF.Empty, 1f, (double)num);
 				baseObject.OriginalPosition = pointF;
 				baseObject.LifeTime = 20;
 				baseObject.TransparentValueF = 30f;
@@ -35,12 +35,12 @@ namespace Shooting
 				baseObject.TransparentVelocity = -baseObject.TransparentValueF / (float)baseObject.LifeTime;
 				baseObject.ScaleVelocity = 0.3f / (float)baseObject.LifeTime;
 				baseObject.ScaleWidth = num2;
-				base.Background2.BackgroundList.Add(baseObject);
-				num = 3f - 4f * (float)Math.Sin((double)((float)base.Time / 150f) * 3.141592653589793 * 2.0);
+				Background2.BackgroundList.Add(baseObject);
+				num = 3f - 4f * (float)Math.Sin((double)((float)Time / 150f) * 3.141592653589793 * 2.0);
 				num = num / 180f * 3.1415927f;
-				pointF = new PointF(base.OriginalPosition.X + 4f, base.OriginalPosition.Y);
-				num2 = 1f - 0.2f * (float)Math.Sin((double)((float)base.Time / 150f) * 3.141592653589793 * 2.0);
-				baseObject = new BaseObject(base.StageData, "beike1", PointF.Empty, 1f, (double)num);
+				pointF = new PointF(OriginalPosition.X + 4f, OriginalPosition.Y);
+				num2 = 1f - 0.2f * (float)Math.Sin((double)((float)Time / 150f) * 3.141592653589793 * 2.0);
+				baseObject = new BaseObject(StageData, "beike1", PointF.Empty, 1f, (double)num);
 				baseObject.OriginalPosition = pointF;
 				baseObject.LifeTime = 20;
 				baseObject.TransparentValueF = 30f;
@@ -52,10 +52,10 @@ namespace Shooting
 				baseObject.ScaleVelocity = 0.3f / (float)baseObject.LifeTime;
 				baseObject.ScaleWidth = num2;
 				baseObject.Mirrored = true;
-				base.Background2.BackgroundList.Add(baseObject);
-				if (base.Boss.Life <= 0)
+				Background2.BackgroundList.Add(baseObject);
+				if (Boss.Life <= 0)
 				{
-					base.LifeTime = base.Time + 10;
+					LifeTime = Time + 10;
 				}
 			}
 		}

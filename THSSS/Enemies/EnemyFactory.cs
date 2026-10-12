@@ -7,25 +7,25 @@ namespace Shooting
 		public EnemyFactory(string EnemyName)
 		{
 			this.EnemyName = EnemyName;
-			if (this.ContainName(this.EnemyType0, EnemyName))
+			if (ContainName(EnemyType0, EnemyName))
 			{
-				this.EnemyType = 0;
+				EnemyType = 0;
 			}
-			else if (this.ContainName(this.EnemyType1, EnemyName))
+			else if (ContainName(EnemyType1, EnemyName))
 			{
-				this.EnemyType = 1;
+				EnemyType = 1;
 			}
-			else if (this.ContainName(this.EnemyType2, EnemyName))
+			else if (ContainName(EnemyType2, EnemyName))
 			{
-				this.EnemyType = 2;
+				EnemyType = 2;
 			}
-			else if (this.ContainName(this.EnemyType3, EnemyName))
+			else if (ContainName(EnemyType3, EnemyName))
 			{
-				this.EnemyType = 3;
+				EnemyType = 3;
 			}
-			else if (this.ContainName(this.EnemyType4, EnemyName))
+			else if (ContainName(EnemyType4, EnemyName))
 			{
-				this.EnemyType = 4;
+				EnemyType = 4;
 			}
 		}
 
@@ -44,48 +44,48 @@ namespace Shooting
 		public BaseEnemyPlane_Touhou GenerateEnemy(StageDataPackage StageData)
 		{
 			BaseEnemyPlane_Touhou baseEnemyPlane_Touhou;
-			switch (this.EnemyType)
+			switch (EnemyType)
 			{
 			case 0:
 			{
-				string text = this.EnemyName;
+				string text = EnemyName;
 				text = text.Replace("EnemyA", "");
 				text = text.Replace("EnemyB", "");
 				text = text.Replace("EnemyC", "");
-				this.ColorType = byte.Parse(text);
-				this.ColorType = (byte)((this.ColorType > 3) ? (this.ColorType - 4) : this.ColorType);
-				baseEnemyPlane_Touhou = new EnemyPlane_TouhouSmall(StageData, this.EnemyName, new PointF(0f, 0f), 0f, 0.0, this.ColorType);
-				if (this.BackFire)
+				ColorType = byte.Parse(text);
+				ColorType = (byte)((ColorType > 3) ? (ColorType - 4) : ColorType);
+				baseEnemyPlane_Touhou = new EnemyPlane_TouhouSmall(StageData, EnemyName, new PointF(0f, 0f), 0f, 0.0, ColorType);
+				if (BackFire)
 				{
 					((EnemyPlane_TouhouSmall)baseEnemyPlane_Touhou).SetBackFire();
 				}
 				break;
 			}
 			case 1:
-				baseEnemyPlane_Touhou = new EnemyPlane_TouhouBig(StageData, this.EnemyName, new PointF(0f, 0f), 0f, 0.0, this.ColorType);
+				baseEnemyPlane_Touhou = new EnemyPlane_TouhouBig(StageData, EnemyName, new PointF(0f, 0f), 0f, 0.0, ColorType);
 				break;
 			case 2:
-				this.ColorType = byte.Parse(this.EnemyName.Replace("EnemyGhost", ""));
-				baseEnemyPlane_Touhou = new EnemyPlane_TouhouGhost(StageData, new PointF(0f, 0f), 0f, 0.0, this.ColorType);
+				ColorType = byte.Parse(EnemyName.Replace("EnemyGhost", ""));
+				baseEnemyPlane_Touhou = new EnemyPlane_TouhouGhost(StageData, new PointF(0f, 0f), 0f, 0.0, ColorType);
 				break;
 			case 3:
-				this.ColorType = byte.Parse(this.EnemyName.Replace("EnemyMaoYu0", ""));
-				baseEnemyPlane_Touhou = new EnemyPlane_TouhouMaoYu(StageData, new PointF(0f, 0f), 0f, 0.0, this.ColorType);
+				ColorType = byte.Parse(EnemyName.Replace("EnemyMaoYu0", ""));
+				baseEnemyPlane_Touhou = new EnemyPlane_TouhouMaoYu(StageData, new PointF(0f, 0f), 0f, 0.0, ColorType);
 				break;
 			case 4:
-				this.ColorType = (byte)(int.Parse(this.EnemyName.Replace("EnemyYYY", "")) - 4);
-				baseEnemyPlane_Touhou = new EnemyPlane_TouhouYYY(StageData, new PointF(0f, 0f), 0f, 0.0, this.ColorType);
+				ColorType = (byte)(int.Parse(EnemyName.Replace("EnemyYYY", "")) - 4);
+				baseEnemyPlane_Touhou = new EnemyPlane_TouhouYYY(StageData, new PointF(0f, 0f), 0f, 0.0, ColorType);
 				break;
 			default:
-				baseEnemyPlane_Touhou = new EnemyPlane_TouhouNormal(StageData, this.EnemyName, new PointF(0f, 0f), 0f, 0.0, this.ColorType);
+				baseEnemyPlane_Touhou = new EnemyPlane_TouhouNormal(StageData, EnemyName, new PointF(0f, 0f), 0f, 0.0, ColorType);
 				break;
 			}
-			baseEnemyPlane_Touhou.HealthPoint = (float)this.HealthPoint;
-			baseEnemyPlane_Touhou.RedCount = this.RedCount;
-			baseEnemyPlane_Touhou.BlueCount = this.BlueCount;
-			baseEnemyPlane_Touhou.GreenCount = this.GreenCount;
-			baseEnemyPlane_Touhou.ClearRadius = this.ClearRadius;
-			baseEnemyPlane_Touhou.StarFall = this.StarFall;
+			baseEnemyPlane_Touhou.HealthPoint = (float)HealthPoint;
+			baseEnemyPlane_Touhou.RedCount = RedCount;
+			baseEnemyPlane_Touhou.BlueCount = BlueCount;
+			baseEnemyPlane_Touhou.GreenCount = GreenCount;
+			baseEnemyPlane_Touhou.ClearRadius = ClearRadius;
+			baseEnemyPlane_Touhou.StarFall = StarFall;
 			StageData.EnemyPlaneList.Remove(baseEnemyPlane_Touhou);
 			return baseEnemyPlane_Touhou;
 		}

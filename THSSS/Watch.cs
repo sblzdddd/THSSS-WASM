@@ -9,31 +9,31 @@ namespace Shooting
 
 		public void Start()
 		{
-			this.startTime = Stopwatch.GetTimestamp();
+			startTime = Stopwatch.GetTimestamp();
 		}
 
 		public float GetDuration()
 		{
 			float num;
-			if (this.startTime == 0L)
+			if (startTime == 0L)
 			{
 				num = 0f;
 			}
 			else
 			{
-				num = 1000f * (float)(Stopwatch.GetTimestamp() - this.startTime) / (float)Stopwatch.Frequency;
+				num = 1000f * (float)(Stopwatch.GetTimestamp() - startTime) / (float)Stopwatch.Frequency;
 			}
 			return num;
 		}
 
 		public void IncreaseOneFrame()
 		{
-			this.startTime += Stopwatch.Frequency / 60L;
+			startTime += Stopwatch.Frequency / 60L;
 		}
 
 		public void SleepTo(float Time)
 		{
-			Time -= this.GetDuration();
+			Time -= GetDuration();
 			if (Time > 0f)
 			{
 #if !BROWSER

@@ -7,58 +7,58 @@ namespace Shooting
 		public ShootingStarShard(StageDataPackage StageData, PointF OriginalPosition)
 			: base(StageData, "StarShardBS", OriginalPosition)
 		{
-			base.Region = 8;
-			base.AngularVelocity = 0f;
-			base.DirectionDegree += (double)((float)base.Ran.Next(-49, 50) / 10f);
-			base.TransparentValueF = 0f;
-			base.TransparentVelocity = 16f;
-			base.Active = true;
-			base.ColorValue = Color.Blue;
+			Region = 8;
+			AngularVelocity = 0f;
+			DirectionDegree += (double)((float)Ran.Next(-49, 50) / 10f);
+			TransparentValueF = 0f;
+			TransparentVelocity = 16f;
+			Active = true;
+			ColorValue = Color.Blue;
 		}
 
 		public override void HitCheckAll()
 		{
-			if (this.HitCheck(base.MyPlane, 48f))
+			if (HitCheck(MyPlane, 48f))
 			{
-				base.Obtain = true;
+				Obtain = true;
 			}
-			if (this.HitCheck(base.MyPlane))
+			if (HitCheck(MyPlane))
 			{
-				base.ItemList.Remove(this);
-				if (base.ColorValue == Color.Red)
+				ItemList.Remove(this);
+				if (ColorValue == Color.Red)
 				{
-					base.MyPlane.LastColor = EnchantmentType.Red;
+					MyPlane.LastColor = EnchantmentType.Red;
 				}
-				else if (base.ColorValue == Color.Blue)
+				else if (ColorValue == Color.Blue)
 				{
-					base.MyPlane.LastColor = EnchantmentType.Blue;
+					MyPlane.LastColor = EnchantmentType.Blue;
 				}
-				else if (base.ColorValue == Color.Green)
+				else if (ColorValue == Color.Green)
 				{
-					base.MyPlane.LastColor = EnchantmentType.Green;
+					MyPlane.LastColor = EnchantmentType.Green;
 				}
-				base.MyPlane.StarPoint += 800;
-				if (base.ColorValue == Color.Red)
+				MyPlane.StarPoint += 800;
+				if (ColorValue == Color.Red)
 				{
-					base.MyPlane.LifeChip++;
+					MyPlane.LifeChip++;
 				}
-				else if (base.ColorValue == Color.Blue)
+				else if (ColorValue == Color.Blue)
 				{
-					base.MyPlane.HighItemScore += 5000;
+					MyPlane.HighItemScore += 5000;
 				}
-				else if (base.ColorValue == Color.Green)
+				else if (ColorValue == Color.Green)
 				{
-					base.MyPlane.SpellChip++;
+					MyPlane.SpellChip++;
 				}
-				base.StageData.SoundPlay("se_item00.wav", base.OriginalPosition.X / (float)base.BoundRect.Width);
+				StageData.SoundPlay("se_item00.wav", OriginalPosition.X / (float)BoundRect.Width);
 				for (int i = 0; i < 50; i++)
 				{
 					string text = "光点";
-					ParticleSmaller particleSmaller = new ParticleSmaller(base.StageData, text, base.Position, (float)(base.Ran.Next(20, 200) / 10), (double)((float)base.Ran.Next(360) / 180f) * 3.141592653589793);
+					ParticleSmaller particleSmaller = new ParticleSmaller(StageData, text, Position, (float)(Ran.Next(20, 200) / 10), (double)((float)Ran.Next(360) / 180f) * 3.141592653589793);
 					particleSmaller.LifeTime = 20;
-					particleSmaller.Scale = (float)base.Ran.Next(100) / 100f;
+					particleSmaller.Scale = (float)Ran.Next(100) / 100f;
 					particleSmaller.TransparentValueF = 200f;
-					particleSmaller.ColorValue = base.ColorValue;
+					particleSmaller.ColorValue = ColorValue;
 				}
 			}
 		}
@@ -66,39 +66,39 @@ namespace Shooting
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			if (base.Time == 200)
+			if (Time == 200)
 			{
-				base.ColorValue = Color.Red;
-				base.TxtureObject = base.TextureObjectDictionary["StarShardRS"];
+				ColorValue = Color.Red;
+				TxtureObject = TextureObjectDictionary["StarShardRS"];
 			}
-			else if (base.Time == 300)
+			else if (Time == 300)
 			{
-				base.ColorValue = Color.Green;
-				base.TxtureObject = base.TextureObjectDictionary["StarShardGS"];
+				ColorValue = Color.Green;
+				TxtureObject = TextureObjectDictionary["StarShardGS"];
 			}
-			base.GhostingColor = base.ColorValue;
-			if (base.Time > 40)
+			GhostingColor = ColorValue;
+			if (Time > 40)
 			{
-				base.AngularVelocityDegree = 3f;
-				base.AngleDegree += (double)base.AngularVelocityDegree;
+				AngularVelocityDegree = 3f;
+				AngleDegree += (double)AngularVelocityDegree;
 			}
-			if (base.Time % 4 == 0)
+			if (Time % 4 == 0)
 			{
-				BaseEffect baseEffect = new BaseEffect(base.StageData, "StarShardW", base.Position, 0f, 0.0);
-				baseEffect.Angle = base.Angle;
+				BaseEffect baseEffect = new BaseEffect(StageData, "StarShardW", Position, 0f, 0.0);
+				baseEffect.Angle = Angle;
 				baseEffect.ScaleVelocity = -0.0125f;
 				baseEffect.TransparentVelocity = -3f;
 				baseEffect.LifeTime = 80;
-				baseEffect.ColorValue = base.ColorValue;
+				baseEffect.ColorValue = ColorValue;
 			}
 		}
 
 		public override void Show()
 		{
-			Color colorValue = base.ColorValue;
-			base.ColorValue = Color.White;
+			Color colorValue = ColorValue;
+			ColorValue = Color.White;
 			base.Show();
-			base.ColorValue = colorValue;
+			ColorValue = colorValue;
 		}
 	}
 }

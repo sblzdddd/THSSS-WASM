@@ -7,34 +7,34 @@ namespace Shooting
 	{
 		public MenuGroup_GameOver(StageDataPackage StageData)
 		{
-			base.StageData = StageData;
-			base.MenuSelectIndex = 0;
-			base.MenuItemList = new List<BaseMenuItem>();
+			this.StageData = StageData;
+			MenuSelectIndex = 0;
+			MenuItemList = new List<BaseMenuItem>();
 			if (!StageData.GlobalData.LastState.StageData.OnReplay)
 			{
-				base.MenuItemList.Add(new BaseMenuItem(StageData, "Menu_再试一次"));
+				MenuItemList.Add(new BaseMenuItem(StageData, "Menu_再试一次"));
 				if (StageData.GlobalData.LastState.StageData.ContinueTimes == 0)
 				{
-					base.MenuItemList.Add(new BaseMenuItem(StageData, "Menu_保存录像"));
+					MenuItemList.Add(new BaseMenuItem(StageData, "Menu_保存录像"));
 				}
 			}
 			else
 			{
 				StageData.OnReplay = false;
 			}
-			base.MenuItemList.Add(new BaseMenuItem(StageData, "Menu_返回主菜单"));
-			base.MenuItemList.Add(new BaseMenuItem(StageData, "Menu_从头开始"));
+			MenuItemList.Add(new BaseMenuItem(StageData, "Menu_返回主菜单"));
+			MenuItemList.Add(new BaseMenuItem(StageData, "Menu_从头开始"));
 			int num = 62;
 			int num2 = 300;
 			int num3 = -200;
-			foreach (BaseMenuItem baseMenuItem in base.MenuItemList)
+			foreach (BaseMenuItem baseMenuItem in MenuItemList)
 			{
 				baseMenuItem.DestPoint = new PointF((float)num, (float)num2);
 				baseMenuItem.Position = new PointF((float)(num + num3), 150f);
 				num2 += 30;
 				num3 -= 50;
 			}
-			base.MenuItemList[base.MenuSelectIndex].Selected = true;
+			MenuItemList[MenuSelectIndex].Selected = true;
 			BackgroundRotate backgroundRotate = new BackgroundRotate(StageData, "Menu_图案");
 			backgroundRotate.OriginalPosition = new PointF(120f, 340f);
 			backgroundRotate.Scale = 1f;
@@ -45,17 +45,17 @@ namespace Shooting
 		public override void ProcessKeys()
 		{
 			base.ProcessKeys();
-			if (base.KClass.Key_Z && this.LastZ == 0)
+			if (KClass.Key_Z && LastZ == 0)
 			{
-				base.MenuItemList[base.MenuSelectIndex].Click();
-				this.OnChangeMenu = base.TimeMain + 20;
-				base.StageData.SoundPlay("se_ok00.wav");
+				MenuItemList[MenuSelectIndex].Click();
+				OnChangeMenu = TimeMain + 20;
+				StageData.SoundPlay("se_ok00.wav");
 			}
 		}
 
 		public override void ProcessZ()
 		{
-			string text = base.MenuItemList[base.MenuSelectIndex].Name;
+			string text = MenuItemList[MenuSelectIndex].Name;
 			if (text != null)
 			{
 				if (!(text == "Menu_继续游戏"))
@@ -68,25 +68,25 @@ namespace Shooting
 							{
 								if (text == "Menu_返回主菜单")
 								{
-									base.StageData.StateSwitchData = new StateSwitchDataPackage
+									StageData.StateSwitchData = new StateSwitchDataPackage
 									{
 										NextState = "MainMenu",
 										NeedInit = true,
-										SDPswitch = new StageDataPackage(base.StageData.GlobalData)
+										SDPswitch = new StageDataPackage(StageData.GlobalData)
 									};
-									base.StageData.Rep.CloseRpy();
+									StageData.Rep.CloseRpy();
 								}
 							}
-							else if (base.StageData.GlobalData.LastState != null)
+							else if (StageData.GlobalData.LastState != null)
 							{
-								bool onReplay = base.StageData.GlobalData.LastState.StageData.OnReplay;
-								bool onPractice = base.StageData.GlobalData.LastState.StageData.OnPractice;
-								ReplayInfo repInfo = base.StageData.GlobalData.LastState.StageData.RepInfo;
-								base.StageData.StateSwitchData = new StateSwitchDataPackage
+								bool onReplay = StageData.GlobalData.LastState.StageData.OnReplay;
+								bool onPractice = StageData.GlobalData.LastState.StageData.OnPractice;
+								ReplayInfo repInfo = StageData.GlobalData.LastState.StageData.RepInfo;
+								StageData.StateSwitchData = new StateSwitchDataPackage
 								{
-									NextState = base.StageData.GlobalData.LastState.StageData.RepInfo.StartStage,
+									NextState = StageData.GlobalData.LastState.StageData.RepInfo.StartStage,
 									NeedInit = true,
-									SDPswitch = new StageDataPackage(base.StageData.GlobalData)
+									SDPswitch = new StageDataPackage(StageData.GlobalData)
 									{
 										Difficulty = repInfo.Rank,
 										OnReplay = onReplay
@@ -108,16 +108,16 @@ namespace Shooting
 									{
 										if (text == "A")
 										{
-											baseMyPlane = new MyPlane_Aya(base.StageData.StateSwitchData.SDPswitch, point);
+											baseMyPlane = new MyPlane_Aya(StageData.StateSwitchData.SDPswitch, point);
 											goto IL_040B;
 										}
 										if (text == "B")
 										{
-											baseMyPlane = new MyPlane_AyaB(base.StageData.StateSwitchData.SDPswitch, point);
+											baseMyPlane = new MyPlane_AyaB(StageData.StateSwitchData.SDPswitch, point);
 											goto IL_040B;
 										}
 									}
-									baseMyPlane = new MyPlane_Aya(base.StageData.StateSwitchData.SDPswitch, point);
+									baseMyPlane = new MyPlane_Aya(StageData.StateSwitchData.SDPswitch, point);
 									IL_040B:
 									goto IL_0517;
 								case "Plane":
@@ -126,32 +126,32 @@ namespace Shooting
 									{
 										if (text == "A")
 										{
-											baseMyPlane = new AutoPlane(base.StageData.StateSwitchData.SDPswitch, point);
+											baseMyPlane = new AutoPlane(StageData.StateSwitchData.SDPswitch, point);
 											goto IL_048B;
 										}
 										if (text == "B")
 										{
-											baseMyPlane = new MyPlane_PlaneB(base.StageData.StateSwitchData.SDPswitch, point);
+											baseMyPlane = new MyPlane_PlaneB(StageData.StateSwitchData.SDPswitch, point);
 											goto IL_048B;
 										}
 									}
-									baseMyPlane = new BaseMyPlane(base.StageData.StateSwitchData.SDPswitch, point);
+									baseMyPlane = new BaseMyPlane(StageData.StateSwitchData.SDPswitch, point);
 									IL_048B:
 									goto IL_0517;
 								case "Reimu":
-									baseMyPlane = new MyPlane_Reimu(base.StageData.StateSwitchData.SDPswitch, point);
+									baseMyPlane = new MyPlane_Reimu(StageData.StateSwitchData.SDPswitch, point);
 									goto IL_0517;
 								case "Sanae":
-									baseMyPlane = new MyPlane_Sanae(base.StageData.StateSwitchData.SDPswitch, point);
+									baseMyPlane = new MyPlane_Sanae(StageData.StateSwitchData.SDPswitch, point);
 									goto IL_0517;
 								case "Marisa":
-									baseMyPlane = new MyPlane_Marisa(base.StageData.StateSwitchData.SDPswitch, point);
+									baseMyPlane = new MyPlane_Marisa(StageData.StateSwitchData.SDPswitch, point);
 									goto IL_0517;
 								case "Koishi":
-									baseMyPlane = new MyPlane_Koishi(base.StageData.StateSwitchData.SDPswitch, point);
+									baseMyPlane = new MyPlane_Koishi(StageData.StateSwitchData.SDPswitch, point);
 									goto IL_0517;
 								}
-								baseMyPlane = new MyPlane_Aya(base.StageData.StateSwitchData.SDPswitch, point);
+								baseMyPlane = new MyPlane_Aya(StageData.StateSwitchData.SDPswitch, point);
 								IL_0517:
 								if (num >= 0)
 								{
@@ -160,55 +160,55 @@ namespace Shooting
 									baseMyPlane.Power = repInfo.MyPlaneData[num].Power;
 									baseMyPlane.Score = repInfo.MyPlaneData[num].Score;
 									baseMyPlane.OriginalPosition = new PointF(repInfo.MyPlaneData[num].PosX, repInfo.MyPlaneData[num].PosY);
-									base.StageData.Rep.DataPosition = repInfo.MyPlaneData[num].DataPosition;
+									StageData.Rep.DataPosition = repInfo.MyPlaneData[num].DataPosition;
 								}
-								base.StageData.StateSwitchData.SDPswitch.MyPlane = baseMyPlane;
-								base.StageData.StateSwitchData.SDPswitch.OnPractice = onPractice;
+								StageData.StateSwitchData.SDPswitch.MyPlane = baseMyPlane;
+								StageData.StateSwitchData.SDPswitch.OnPractice = onPractice;
 								if (!onReplay)
 								{
-									base.StageData.Rep.Dispose();
-									base.StageData.Rep.CreatRpy();
+									StageData.Rep.Dispose();
+									StageData.Rep.CreatRpy();
 								}
 								else
 								{
-									base.StageData.Rep.DataPosition = 0L;
+									StageData.Rep.DataPosition = 0L;
 								}
 								if (!onReplay)
 								{
-									base.StageData.StateSwitchData.SDPswitch.SetReplayInfo(base.StageData.StateSwitchData.NextState);
+									StageData.StateSwitchData.SDPswitch.SetReplayInfo(StageData.StateSwitchData.NextState);
 								}
 								else
 								{
-									base.StageData.StateSwitchData.SDPswitch.RepInfo = repInfo;
+									StageData.StateSwitchData.SDPswitch.RepInfo = repInfo;
 								}
 							}
 						}
 						else
 						{
-							base.StageData.MenuGroupList.Add(new MenuGroup_ReplaySaver(base.StageData, new PointF(36f, 16f)));
+							StageData.MenuGroupList.Add(new MenuGroup_ReplaySaver(StageData, new PointF(36f, 16f)));
 						}
 					}
-					else if (base.StageData.GlobalData.LastState != null)
+					else if (StageData.GlobalData.LastState != null)
 					{
-						base.StageData.GlobalData.LastState.StageData.ContinueTimes++;
-						base.StageData.GlobalData.LastState.StageData.MyPlane.RetryClear();
-						base.StageData.StateSwitchData = new StateSwitchDataPackage
+						StageData.GlobalData.LastState.StageData.ContinueTimes++;
+						StageData.GlobalData.LastState.StageData.MyPlane.RetryClear();
+						StageData.StateSwitchData = new StateSwitchDataPackage
 						{
-							NextState = base.StageData.GlobalData.LastState.StageName,
+							NextState = StageData.GlobalData.LastState.StageName,
 							NeedInit = false
 						};
-						base.StageData.Rep.Dispose();
-						base.StageData.Rep.CreatRpy();
+						StageData.Rep.Dispose();
+						StageData.Rep.CreatRpy();
 					}
 				}
 				else
 				{
-					base.StageData.StateSwitchData = new StateSwitchDataPackage
+					StageData.StateSwitchData = new StateSwitchDataPackage
 					{
-						NextState = base.StageData.GlobalData.LastState.StageName,
+						NextState = StageData.GlobalData.LastState.StageName,
 						NeedInit = false
 					};
-					((BaseGameState)base.StageData.GlobalData.LastState).TimeSycn();
+					((BaseGameState)StageData.GlobalData.LastState).TimeSycn();
 				}
 			}
 		}

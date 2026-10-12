@@ -5,14 +5,14 @@
 		public GameState_Boss03(GlobalDataPackage GlobalData)
 			: base(GlobalData)
 		{
-			base.StageName = "Bs3";
-			this.testStartTime = 7150;
+			StageName = "Bs3";
+			testStartTime = 7150;
 		}
 
 		public override void Drama()
 		{
 			base.Drama();
-			base.MyPlane.EnchantmentCount = base.MyPlane.EnchantmentCountNeeded;
+			MyPlane.EnchantmentCount = MyPlane.EnchantmentCountNeeded;
 		}
 	}
 }

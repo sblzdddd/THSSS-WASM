@@ -9,47 +9,47 @@ namespace Shooting
 		public GameState_SSS04(GlobalDataPackage GlobalData)
 			: base(GlobalData)
 		{
-			base.StageName = "St4";
+			StageName = "St4";
 		}
 
 		public override void Drama()
 		{
 			base.Drama();
 			int[] array = new int[] { 0, 0, 8850 };
-			if (base.TimeMain == 1)
+			if (TimeMain == 1)
 			{
-				switch (base.StageData.Difficulty)
+				switch (StageData.Difficulty)
 				{
 				case DifficultLevel.Hard:
-					base.MyPlane.EnchantmentCountNeeded = 8;
+					MyPlane.EnchantmentCountNeeded = 8;
 					break;
 				case DifficultLevel.Lunatic:
-					base.MyPlane.EnchantmentCountNeeded = 9;
+					MyPlane.EnchantmentCountNeeded = 9;
 					break;
 				}
 			}
-			if (base.TimeMain == 2)
+			if (TimeMain == 2)
 			{
-				if (base.StageData.C_History.PracticeLevel < 4)
+				if (StageData.C_History.PracticeLevel < 4)
 				{
-					base.StageData.C_History.PracticeLevel = 4;
+					StageData.C_History.PracticeLevel = 4;
 				}
-				base.StageData.ChangeBGM(".\\BGM\\Stage04.ogg", (this.testStartTime + 60) * 44100 / 60, 0, 255, 575990, 7775976);
-				MusicTitle musicTitle = new MusicTitle(base.StageData, "万花世界的光与影", new Point(base.BoundRect.Width, base.BoundRect.Height - 16));
-				musicTitle.OriginalPosition = new PointF((float)base.BoundRect.Width, (float)(base.BoundRect.Height + 100));
+				StageData.ChangeBGM(".\\BGM\\Stage04.ogg", (testStartTime + 60) * 44100 / 60, 0, 255, 575990, 7775976);
+				MusicTitle musicTitle = new MusicTitle(StageData, "万花世界的光与影", new Point(BoundRect.Width, BoundRect.Height - 16));
+				musicTitle.OriginalPosition = new PointF((float)BoundRect.Width, (float)(BoundRect.Height + 100));
 				musicTitle.Scale = 0.5f;
-				base.Background3D.Envi = new EnvironmentSSS04(base.StageData);
-				BackgroundTransitionIn backgroundTransitionIn = new BackgroundTransitionIn(base.StageData);
+				Background3D.Envi = new EnvironmentSSS04(StageData);
+				BackgroundTransitionIn backgroundTransitionIn = new BackgroundTransitionIn(StageData);
 				backgroundTransitionIn.Delay = 20;
 				backgroundTransitionIn.LifeTime = 150;
-				if (this.testStartTime > base.TimeMain)
+				if (testStartTime > TimeMain)
 				{
-					base.TimeMain = this.testStartTime;
+					TimeMain = testStartTime;
 				}
-				if (base.TimeMain < array[2])
+				if (TimeMain < array[2])
 				{
 					string[] array2;
-					switch (base.StageData.Difficulty)
+					switch (StageData.Difficulty)
 					{
 					case DifficultLevel.Easy:
 						array2 = Directory.GetFiles(".\\CS\\St04\\A\\E\\", "*.mbg");
@@ -69,25 +69,25 @@ namespace Shooting
 					}
 					foreach (string text in array2)
 					{
-						CS_Data cs_Data = base.StageData.LoadCS(text);
-						CSEmitterController csemitterController = new CSEmitterController(base.StageData, cs_Data);
+						CS_Data cs_Data = StageData.LoadCS(text);
+						CSEmitterController csemitterController = new CSEmitterController(StageData, cs_Data);
 						csemitterController.OnRoad = true;
-						csemitterController.Time = base.TimeMain - 60;
+						csemitterController.Time = TimeMain - 60;
 					}
 				}
 			}
-			if (array[2] - 130 == base.TimeMain)
+			if (array[2] - 130 == TimeMain)
 			{
-				BossStar bossStar = new BossStar(base.StageData, new PointF((float)(base.BoundRect.Width / 2), 150f));
+				BossStar bossStar = new BossStar(StageData, new PointF((float)(BoundRect.Width / 2), 150f));
 				bossStar.ColorType = 2;
 			}
-			else if (array[2] == base.TimeMain)
+			else if (array[2] == TimeMain)
 			{
-				base.StageData.RemoveBullets();
-				new Boss_Kage01(base.StageData);
-				new Story_SSS04_01(base.StageData);
-				base.Background3D.WarpEnabled = false;
-				base.Background3D.WarpColorKey = 0;
+				StageData.RemoveBullets();
+				new Boss_Kage01(StageData);
+				new Story_SSS04_01(StageData);
+				Background3D.WarpEnabled = false;
+				Background3D.WarpColorKey = 0;
 			}
 		}
 

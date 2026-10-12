@@ -8,213 +8,213 @@ namespace Shooting
 			: base(StageData)
 		{
 			TextureObject[,] array = new TextureObject[3, 4];
-			array[0, 0] = base.TextureObjectDictionary["BossSeiryuu-00"];
-			array[0, 1] = base.TextureObjectDictionary["BossSeiryuu-01"];
-			array[0, 2] = base.TextureObjectDictionary["BossSeiryuu-02"];
-			array[0, 3] = base.TextureObjectDictionary["BossSeiryuu-03"];
-			array[1, 0] = base.TextureObjectDictionary["BossSeiryuu-10"];
-			array[1, 1] = base.TextureObjectDictionary["BossSeiryuu-11"];
-			array[1, 2] = base.TextureObjectDictionary["BossSeiryuu-12"];
-			array[1, 3] = base.TextureObjectDictionary["BossSeiryuu-13"];
-			array[2, 0] = base.TextureObjectDictionary["BossSeiryuu-20"];
-			array[2, 1] = base.TextureObjectDictionary["BossSeiryuu-21"];
-			array[2, 2] = base.TextureObjectDictionary["BossSeiryuu-22"];
-			array[2, 3] = base.TextureObjectDictionary["BossSeiryuu-23"];
-			base.TxtureObjects = array;
-			base.TxtureObject = base.TxtureObjects[0, 0];
-			base.OriginalPosition = new PointF((float)(base.BoundRect.Width / 2), 150f);
-			base.DestPoint = new Point(base.BoundRect.Width / 2, 150);
-			base.MaxHP = 10000;
-			base.HealthPoint = (float)base.MaxHP;
-			base.Life = 3;
-			base.Region = 20;
-			base.Velocity = 4f;
-			base.DirectionDegree = 90.0;
-			base.SpellTime = 2400;
-			base.LifeTime = 100000;
-			base.OnSpell = false;
-			base.SetBossLifeLineTex();
+			array[0, 0] = TextureObjectDictionary["BossSeiryuu-00"];
+			array[0, 1] = TextureObjectDictionary["BossSeiryuu-01"];
+			array[0, 2] = TextureObjectDictionary["BossSeiryuu-02"];
+			array[0, 3] = TextureObjectDictionary["BossSeiryuu-03"];
+			array[1, 0] = TextureObjectDictionary["BossSeiryuu-10"];
+			array[1, 1] = TextureObjectDictionary["BossSeiryuu-11"];
+			array[1, 2] = TextureObjectDictionary["BossSeiryuu-12"];
+			array[1, 3] = TextureObjectDictionary["BossSeiryuu-13"];
+			array[2, 0] = TextureObjectDictionary["BossSeiryuu-20"];
+			array[2, 1] = TextureObjectDictionary["BossSeiryuu-21"];
+			array[2, 2] = TextureObjectDictionary["BossSeiryuu-22"];
+			array[2, 3] = TextureObjectDictionary["BossSeiryuu-23"];
+			TxtureObjects = array;
+			TxtureObject = TxtureObjects[0, 0];
+			OriginalPosition = new PointF((float)(BoundRect.Width / 2), 150f);
+			DestPoint = new Point(BoundRect.Width / 2, 150);
+			MaxHP = 10000;
+			HealthPoint = (float)MaxHP;
+			Life = 3;
+			Region = 20;
+			Velocity = 4f;
+			DirectionDegree = 90.0;
+			SpellTime = 2400;
+			LifeTime = 100000;
+			OnSpell = false;
+			SetBossLifeLineTex();
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			if (!base.OnSpell)
+			if (!OnSpell)
 			{
-				base.Armon = 0f;
+				Armon = 0f;
 			}
-			switch (base.Life)
+			switch (Life)
 			{
 			case 0:
-				base.Velocity = 0f;
-				base.DestPoint = new Point(base.Ran.Next(100, base.BoundRect.Width - 100), base.Ran.Next(70, 200));
+				Velocity = 0f;
+				DestPoint = new Point(Ran.Next(100, BoundRect.Width - 100), Ran.Next(70, 200));
 				break;
 			case 1:
-				this.Ctrl1();
+				Ctrl1();
 				break;
 			case 2:
-				this.Ctrl2();
+				Ctrl2();
 				break;
 			case 3:
-				this.Ctrl3();
+				Ctrl3();
 				break;
 			}
-			base.MoveToPoint(base.DestPoint);
-			if (!base.OnSpell)
+			MoveToPoint(DestPoint);
+			if (!OnSpell)
 			{
-				if (base.HealthPoint < (float)base.SpellcardHP || base.Time > base.SpellTime)
+				if (HealthPoint < (float)SpellcardHP || Time > SpellTime)
 				{
-					base.HealthPoint = (float)base.SpellcardHP;
-					base.Time = 0;
-					base.OnSpell = true;
-					new ShootingStarShard(base.StageData, new PointF((float)(base.BoundRect.Width / 2), 0f));
+					HealthPoint = (float)SpellcardHP;
+					Time = 0;
+					OnSpell = true;
+					new ShootingStarShard(StageData, new PointF((float)(BoundRect.Width / 2), 0f));
 				}
 			}
-			else if (base.HealthPoint <= 0f || base.Time > base.SpellTime)
+			else if (HealthPoint <= 0f || Time > SpellTime)
 			{
-				base.Life--;
-				if (base.HealthPoint <= 0f && base.Life >= -1)
+				Life--;
+				if (HealthPoint <= 0f && Life >= -1)
 				{
-					this.GiveItems();
-					new ShootingStarShard(base.StageData, new PointF((float)(base.BoundRect.Width / 2), 0f));
+					GiveItems();
+					new ShootingStarShard(StageData, new PointF((float)(BoundRect.Width / 2), 0f));
 				}
-				if (base.Life <= 0)
+				if (Life <= 0)
 				{
-					if (base.Life == 0)
+					if (Life == 0)
 					{
-						base.DestPoint = new Point(base.Ran.Next((int)base.OriginalPosition.X - 30, (int)base.OriginalPosition.X + 30), base.Ran.Next((int)base.OriginalPosition.Y + 30, (int)base.OriginalPosition.Y + 50));
-						base.Velocity = 0.5f;
-						new BulletRemover2(base.StageData, base.OriginalPosition);
-						base.HealthPoint = 0f;
-						this.GiveEndEffect();
-						base.Life = -1;
+						DestPoint = new Point(Ran.Next((int)OriginalPosition.X - 30, (int)OriginalPosition.X + 30), Ran.Next((int)OriginalPosition.Y + 30, (int)OriginalPosition.Y + 50));
+						Velocity = 0.5f;
+						new BulletRemover2(StageData, OriginalPosition);
+						HealthPoint = 0f;
+						GiveEndEffect();
+						Life = -1;
 					}
 				}
 				else
 				{
-					new BulletRemover2(base.StageData, base.OriginalPosition);
-					base.StageData.SoundPlay("se_tan00.wav");
-					base.HealthPoint = (float)base.MaxHP;
-					base.Time = 0;
-					base.OnSpell = false;
-					base.DestPoint = new Point(base.BoundRect.Width / 2, 120);
-					base.Velocity = 4f;
+					new BulletRemover2(StageData, OriginalPosition);
+					StageData.SoundPlay("se_tan00.wav");
+					HealthPoint = (float)MaxHP;
+					Time = 0;
+					OnSpell = false;
+					DestPoint = new Point(BoundRect.Width / 2, 120);
+					Velocity = 4f;
 				}
 			}
 		}
 
 		public override void TextureCtrl()
 		{
-			int num = (base.Mirrored ? base.IndexY : (-base.IndexY));
-			if (base.OnAction > 0)
+			int num = (Mirrored ? IndexY : (-IndexY));
+			if (OnAction > 0)
 			{
-				base.IndexY = 2;
-				base.IndexX += 0.125f;
-				base.OnAction--;
+				IndexY = 2;
+				IndexX += 0.125f;
+				OnAction--;
 			}
-			else if (base.Vx < -0.05f)
+			else if (Vx < -0.05f)
 			{
-				base.Mirrored = false;
-				base.IndexY = 1;
-				if (base.Vx < -1f)
+				Mirrored = false;
+				IndexY = 1;
+				if (Vx < -1f)
 				{
-					if (base.IndexX < 2f)
+					if (IndexX < 2f)
 					{
-						base.IndexX += 0.125f;
+						IndexX += 0.125f;
 					}
 					else
 					{
-						base.IndexX = (float)(2 + base.Time % 16 / 8);
+						IndexX = (float)(2 + Time % 16 / 8);
 					}
 				}
-				else if (base.Vx < -0.5f)
+				else if (Vx < -0.5f)
 				{
-					base.IndexX = 1f;
+					IndexX = 1f;
 				}
 				else
 				{
-					base.IndexX = 0f;
+					IndexX = 0f;
 				}
 			}
-			else if (base.Vx > 0.05f)
+			else if (Vx > 0.05f)
 			{
-				base.Mirrored = true;
-				base.IndexY = 1;
-				if (base.Vx > 1f)
+				Mirrored = true;
+				IndexY = 1;
+				if (Vx > 1f)
 				{
-					if (base.IndexX < 2f)
+					if (IndexX < 2f)
 					{
-						base.IndexX += 0.125f;
+						IndexX += 0.125f;
 					}
 					else
 					{
-						base.IndexX = (float)(2 + base.Time % 16 / 8);
+						IndexX = (float)(2 + Time % 16 / 8);
 					}
 				}
-				else if (base.Vx > 0.5f)
+				else if (Vx > 0.5f)
 				{
-					base.IndexX = 1f;
+					IndexX = 1f;
 				}
 				else
 				{
-					base.IndexX = 0f;
+					IndexX = 0f;
 				}
 			}
 			else
 			{
-				base.Mirrored = false;
-				base.IndexY = 0;
-				base.IndexX = (float)(base.TimeMain % 32 / 8);
+				Mirrored = false;
+				IndexY = 0;
+				IndexX = (float)(TimeMain % 32 / 8);
 			}
-			if (num != (base.Mirrored ? base.IndexY : (-base.IndexY)))
+			if (num != (Mirrored ? IndexY : (-IndexY)))
 			{
-				base.IndexX = 0f;
+				IndexX = 0f;
 			}
-			if (base.IndexX > 3f)
+			if (IndexX > 3f)
 			{
-				base.IndexX = 3f;
+				IndexX = 3f;
 			}
-			base.TxtureObject = base.TxtureObjects[base.IndexY, (int)base.IndexX];
+			TxtureObject = TxtureObjects[IndexY, (int)IndexX];
 		}
 
 		public override void GiveEndEffect()
 		{
-			base.TransparentValueF = 255f;
-			new Background2DRemover(base.StageData);
-			base.Background3D.WarpEnabled = false;
-			base.LifeTime = base.Time + 150;
-			base.Region = 0;
-			base.StageData.SoundPlay("se_tan01.wav");
-			if (base.MyPlane.FscEnabled)
+			TransparentValueF = 255f;
+			new Background2DRemover(StageData);
+			Background3D.WarpEnabled = false;
+			LifeTime = Time + 150;
+			Region = 0;
+			StageData.SoundPlay("se_tan01.wav");
+			if (MyPlane.FscEnabled)
 			{
-				base.LifeTime = base.Time + 50;
-				new EndBoss_FSC03(base.StageData, base.OriginalPosition, Color.ForestGreen, Color.Green);
+				LifeTime = Time + 50;
+				new EndBoss_FSC03(StageData, OriginalPosition, Color.ForestGreen, Color.Green);
 			}
 			else
 			{
-				base.LifeTime = base.Time + 150;
-				new EndBoss_Touhou03(base.StageData, base.OriginalPosition, Color.ForestGreen, Color.Green);
+				LifeTime = Time + 150;
+				new EndBoss_Touhou03(StageData, OriginalPosition, Color.ForestGreen, Color.Green);
 			}
 		}
 
 		private void Ctrl3()
 		{
-			if (!base.OnSpell)
+			if (!OnSpell)
 			{
-				base.Armon = 0.25f;
-				if (base.Time == 1)
+				Armon = 0.25f;
+				if (Time == 1)
 				{
-					new Background2DRemover(base.StageData);
-					base.DestPoint = new Point(base.BoundRect.Width / 2, 160);
+					new Background2DRemover(StageData);
+					DestPoint = new Point(BoundRect.Width / 2, 160);
 				}
-				else if (base.Time > 50)
+				else if (Time > 50)
 				{
-					base.RandomMove(206, 20, 2f, new Rectangle(base.BoundRect.Width / 2 - 45, 100, 90, 40));
+					RandomMove(206, 20, 2f, new Rectangle(BoundRect.Width / 2 - 45, 100, 90, 40));
 				}
-				if (base.Time == 60)
+				if (Time == 60)
 				{
 					string text;
-					switch (base.Difficulty)
+					switch (Difficulty)
 					{
 					case DifficultLevel.Easy:
 						text = ".\\CS\\St03\\关底Boss\\1非E.mbg";
@@ -232,36 +232,36 @@ namespace Shooting
 						text = ".\\CS\\St03\\关底Boss\\1非L.mbg";
 						break;
 					}
-					CS_Data cs_Data = base.StageData.LoadCS(text);
-					CSEmitterController csemitterController = new CSEmitterController(base.StageData, cs_Data);
+					CS_Data cs_Data = StageData.LoadCS(text);
+					CSEmitterController csemitterController = new CSEmitterController(StageData, cs_Data);
 					csemitterController.BossBinding = true;
 				}
 			}
-			else if (base.Time == 1)
+			else if (Time == 1)
 			{
-				new BulletRemover2(base.StageData, base.OriginalPosition);
-				new SpellCard_SSS03_03(base.StageData);
+				new BulletRemover2(StageData, OriginalPosition);
+				new SpellCard_SSS03_03(StageData);
 			}
 		}
 
 		private void Ctrl2()
 		{
-			if (!base.OnSpell)
+			if (!OnSpell)
 			{
-				base.Armon = 0.25f;
-				if (base.Time == 1)
+				Armon = 0.25f;
+				if (Time == 1)
 				{
-					new Background2DRemover(base.StageData);
-					base.DestPoint = new Point(base.BoundRect.Width / 2, 120);
+					new Background2DRemover(StageData);
+					DestPoint = new Point(BoundRect.Width / 2, 120);
 				}
-				else if (base.Time > 150)
+				else if (Time > 150)
 				{
-					base.RandomMove(206, 30, 2f, new Rectangle(base.BoundRect.Width / 2 - 60, 100, 120, 40));
+					RandomMove(206, 30, 2f, new Rectangle(BoundRect.Width / 2 - 60, 100, 120, 40));
 				}
-				if (base.Time == 160)
+				if (Time == 160)
 				{
 					string text;
-					switch (base.Difficulty)
+					switch (Difficulty)
 					{
 					case DifficultLevel.Easy:
 						text = ".\\CS\\St03\\关底Boss\\2非E.mbg";
@@ -279,36 +279,36 @@ namespace Shooting
 						text = ".\\CS\\St03\\关底Boss\\2非L.mbg";
 						break;
 					}
-					CS_Data cs_Data = base.StageData.LoadCS(text);
-					CSEmitterController csemitterController = new CSEmitterController(base.StageData, cs_Data);
+					CS_Data cs_Data = StageData.LoadCS(text);
+					CSEmitterController csemitterController = new CSEmitterController(StageData, cs_Data);
 					csemitterController.BossBinding = true;
 				}
 			}
-			else if (base.Time == 1)
+			else if (Time == 1)
 			{
-				new BulletRemover2(base.StageData, base.OriginalPosition);
-				new SpellCard_SSS03_04(base.StageData);
+				new BulletRemover2(StageData, OriginalPosition);
+				new SpellCard_SSS03_04(StageData);
 			}
 		}
 
 		private void Ctrl1()
 		{
-			if (!base.OnSpell)
+			if (!OnSpell)
 			{
-				base.Armon = 0.25f;
-				if (base.Time == 1)
+				Armon = 0.25f;
+				if (Time == 1)
 				{
-					new Background2DRemover(base.StageData);
-					base.DestPoint = new Point(base.BoundRect.Width / 2, 160);
+					new Background2DRemover(StageData);
+					DestPoint = new Point(BoundRect.Width / 2, 160);
 				}
-				else if (base.Time > 150)
+				else if (Time > 150)
 				{
-					base.RandomMove(206, 30, 2f, new Rectangle(base.BoundRect.Width / 2 - 60, 100, 120, 40));
+					RandomMove(206, 30, 2f, new Rectangle(BoundRect.Width / 2 - 60, 100, 120, 40));
 				}
-				if (base.Time == 160)
+				if (Time == 160)
 				{
 					string text;
-					switch (base.Difficulty)
+					switch (Difficulty)
 					{
 					case DifficultLevel.Easy:
 						text = ".\\CS\\St03\\关底Boss\\3非E.mbg";
@@ -326,15 +326,15 @@ namespace Shooting
 						text = ".\\CS\\St03\\关底Boss\\3非U.mbg";
 						break;
 					}
-					CS_Data cs_Data = base.StageData.LoadCS(text);
-					CSEmitterController csemitterController = new CSEmitterController(base.StageData, cs_Data);
+					CS_Data cs_Data = StageData.LoadCS(text);
+					CSEmitterController csemitterController = new CSEmitterController(StageData, cs_Data);
 					csemitterController.BossBinding = true;
 				}
 			}
-			else if (base.Time == 1)
+			else if (Time == 1)
 			{
-				new BulletRemover2(base.StageData, base.OriginalPosition);
-				new SpellCard_SSS03_05(base.StageData);
+				new BulletRemover2(StageData, OriginalPosition);
+				new SpellCard_SSS03_05(StageData);
 			}
 		}
 	}

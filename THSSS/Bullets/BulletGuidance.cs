@@ -10,37 +10,37 @@ namespace Shooting
 		public BulletGuidance(StageDataPackage StageData, string textureName, PointF Position, float Velocity, double Direction)
 			: base(StageData, textureName, Position, Velocity, Direction)
 		{
-			base.Damage = 3;
-			base.Region = 15;
-			base.LifeTime = 100;
-			base.MyBulletList.Add(this);
-			if (base.Boss != null)
+			Damage = 3;
+			Region = 15;
+			LifeTime = 100;
+			MyBulletList.Add(this);
+			if (Boss != null)
 			{
-				if (base.Boss.OriginalPosition.X > 0f && base.Boss.OriginalPosition.X < (float)base.BoundRect.Width && base.Boss.OriginalPosition.Y > 0f && base.Boss.OriginalPosition.Y < (float)base.BoundRect.Height)
+				if (Boss.OriginalPosition.X > 0f && Boss.OriginalPosition.X < (float)BoundRect.Width && Boss.OriginalPosition.Y > 0f && Boss.OriginalPosition.Y < (float)BoundRect.Height)
 				{
-					if (base.Boss.HitEnabled)
+					if (Boss.HitEnabled)
 					{
-						this.Target = base.Boss;
+						Target = Boss;
 					}
 				}
 			}
-			base.GhostingCount = 5;
+			GhostingCount = 5;
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			if (this.Target == null && !this.targetFlag)
+			if (Target == null && !targetFlag)
 			{
 				double dist = 300.0;
-				base.EnemyPlaneList.ForEach(delegate(BaseEnemyPlane x)
+				EnemyPlaneList.ForEach(delegate(BaseEnemyPlane x)
 				{
 					if (x.HitEnabled)
 					{
-						double distance = this.GetDistance(x);
+						double distance = GetDistance(x);
 						if (distance < dist)
 						{
-							this.Target = x;
+							Target = x;
 							dist = distance;
 						}
 					}
@@ -48,14 +48,14 @@ namespace Shooting
 			}
 			else
 			{
-				this.targetFlag = true;
+				targetFlag = true;
 			}
-			if (this.Target != null)
+			if (Target != null)
 			{
-				if (this.Target.HealthPoint > 0f)
+				if (Target.HealthPoint > 0f)
 				{
-					double num = base.GetDirection(this.Target);
-					double num2 = base.Direction;
+					double num = GetDirection(Target);
+					double num2 = Direction;
 					if (num > 3.141592653589793)
 					{
 						num -= 6.283185307179586;
@@ -69,52 +69,52 @@ namespace Shooting
 					{
 						num3 -= 6.283185307179586;
 					}
-					if (Math.Abs(num3) > 0.019999999552965164 && base.GetDistance(this.Target) > 50.0)
+					if (Math.Abs(num3) > 0.019999999552965164 && GetDistance(Target) > 50.0)
 					{
-						base.Direction += num3 / 5.0;
+						Direction += num3 / 5.0;
 					}
 					else
 					{
-						base.Direction += num3;
+						Direction += num3;
 					}
 				}
 				else
 				{
-					this.Target = null;
+					Target = null;
 				}
 			}
-			if (this.OutBoundary())
+			if (OutBoundary())
 			{
-				base.MyBulletList.Remove(this);
+				MyBulletList.Remove(this);
 			}
 		}
 
 		public override bool OutBoundary()
 		{
 			bool flag;
-			if (base.LifeTime != 0 && base.Time > base.LifeTime)
+			if (LifeTime != 0 && Time > LifeTime)
 			{
 				flag = true;
 			}
-			else if (base.Time < 10)
+			else if (Time < 10)
 			{
 				flag = false;
 			}
 			else
 			{
 				int num = 2;
-				flag = (float)(-(float)num) >= base.OriginalPosition.X || base.OriginalPosition.X >= (float)(base.BoundRect.Width + num) || (float)(-(float)num) >= base.OriginalPosition.Y || base.OriginalPosition.Y >= (float)(base.BoundRect.Height + num);
+				flag = (float)(-(float)num) >= OriginalPosition.X || OriginalPosition.X >= (float)(BoundRect.Width + num) || (float)(-(float)num) >= OriginalPosition.Y || OriginalPosition.Y >= (float)(BoundRect.Height + num);
 			}
 			return flag;
 		}
 
 		public override void GiveEndEffect()
 		{
-			ParticleBiger particleBiger = new ParticleBiger(base.StageData, null, base.Position, 2f, base.Direction);
+			ParticleBiger particleBiger = new ParticleBiger(StageData, null, Position, 2f, Direction);
 			particleBiger.Scale = 1.2f;
 			particleBiger.LifeTime = 15;
-			particleBiger.TxtureObject = base.TxtureObject;
-			particleBiger.Angle = base.Angle;
+			particleBiger.TxtureObject = TxtureObject;
+			particleBiger.Angle = Angle;
 		}
 
 		private bool targetFlag = false;

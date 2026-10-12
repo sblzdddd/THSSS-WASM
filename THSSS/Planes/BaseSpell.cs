@@ -8,79 +8,79 @@
 
 		public BaseSpell(StageDataPackage StageData)
 		{
-			base.StageData = StageData;
-			base.Position = base.MyPlane.Position;
-			base.Damage = 12;
-			base.LifeTime = 300;
-			base.SpellList.Add(this);
-			StageData.VibrateStart(base.LifeTime);
-			new BackgroundBlack(StageData, base.Position);
+			this.StageData = StageData;
+			Position = MyPlane.Position;
+			Damage = 12;
+			LifeTime = 300;
+			SpellList.Add(this);
+			StageData.VibrateStart(LifeTime);
+			new BackgroundBlack(StageData, Position);
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			if (base.Time < 30)
+			if (Time < 30)
 			{
-				for (int i = base.ItemList.Count - 1; i >= 0; i--)
+				for (int i = ItemList.Count - 1; i >= 0; i--)
 				{
-					if (this.HitCheck(base.ItemList[i]) && !(base.ItemList[i] is ShootingStarShard))
+					if (HitCheck(ItemList[i]) && !(ItemList[i] is ShootingStarShard))
 					{
-						base.ItemList[i].Obtain = true;
-						base.ItemList[i].Doubled = true;
+						ItemList[i].Obtain = true;
+						ItemList[i].Doubled = true;
 					}
 				}
 			}
-			base.MyPlane.DeadTime = -1;
-			if (this.OutBoundary())
+			MyPlane.DeadTime = -1;
+			if (OutBoundary())
 			{
-				base.SpellList.Remove(this);
-				base.MyPlane.Time = base.MyPlane.UnmatchedTime - 60;
+				SpellList.Remove(this);
+				MyPlane.Time = MyPlane.UnmatchedTime - 60;
 			}
 		}
 
 		public override bool OutBoundary()
 		{
-			return base.Time > base.LifeTime;
+			return Time > LifeTime;
 		}
 
 		public override void HitCheckAll()
 		{
-			for (int i = base.BulletList.Count - 1; i >= 0; i--)
+			for (int i = BulletList.Count - 1; i >= 0; i--)
 			{
-				if (this.HitCheck(base.BulletList[i]))
+				if (HitCheck(BulletList[i]))
 				{
-					if (!base.BulletList[i].UnRemoveable)
+					if (!BulletList[i].UnRemoveable)
 					{
-						base.BulletList[i].GiveEndEffect();
-						base.BulletList[i].GiveItems();
-						base.BulletList.RemoveAt(i);
+						BulletList[i].GiveEndEffect();
+						BulletList[i].GiveItems();
+						BulletList.RemoveAt(i);
 					}
 				}
 			}
-			for (int i = base.EnemyPlaneList.Count - 1; i >= 0; i--)
+			for (int i = EnemyPlaneList.Count - 1; i >= 0; i--)
 			{
-				if (this.HitCheck(base.EnemyPlaneList[i]))
+				if (HitCheck(EnemyPlaneList[i]))
 				{
-					base.EnemyPlaneList[i].HealthPoint -= (float)base.Damage;
-					if (base.EnemyPlaneList[i].HealthPoint <= 0f)
+					EnemyPlaneList[i].HealthPoint -= (float)Damage;
+					if (EnemyPlaneList[i].HealthPoint <= 0f)
 					{
-						base.EnemyPlaneList[i].GiveEndEffect();
-						base.EnemyPlaneList[i].GiveItems();
-						base.EnemyPlaneList.RemoveAt(i);
-						base.StageData.SoundPlay("se_enep00.wav");
+						EnemyPlaneList[i].GiveEndEffect();
+						EnemyPlaneList[i].GiveItems();
+						EnemyPlaneList.RemoveAt(i);
+						StageData.SoundPlay("se_enep00.wav");
 						break;
 					}
 				}
 			}
-			if (base.Boss != null)
+			if (Boss != null)
 			{
-				if (base.Boss.Time > base.Boss.UnmatchedTime && this.HitCheck(base.Boss))
+				if (Boss.Time > Boss.UnmatchedTime && HitCheck(Boss))
 				{
-					base.Boss.HealthPoint -= (float)((int)((float)base.Damage * (1f - base.Boss.Armon)));
-					if (base.Boss.HealthPoint <= 200f)
+					Boss.HealthPoint -= (float)((int)((float)Damage * (1f - Boss.Armon)));
+					if (Boss.HealthPoint <= 200f)
 					{
-						base.StageData.SoundPlay("se_damage01.wav");
+						StageData.SoundPlay("se_damage01.wav");
 					}
 				}
 			}

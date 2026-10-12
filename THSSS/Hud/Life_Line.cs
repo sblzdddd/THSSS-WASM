@@ -8,21 +8,21 @@ namespace Shooting
 		{
 			get
 			{
-				return this.life;
+				return life;
 			}
 			set
 			{
-				if (value > this.maxLife)
+				if (value > maxLife)
 				{
-					this.life = this.maxLife;
+					life = maxLife;
 				}
 				else if (value < 0)
 				{
-					this.life = 0;
+					life = 0;
 				}
 				else
 				{
-					this.life = value;
+					life = value;
 				}
 			}
 		}
@@ -35,16 +35,16 @@ namespace Shooting
 		public Life_Line(StageDataPackage StageData, TextureObject TxtureObject, PointF OriginalPosition)
 			: base(StageData, null, OriginalPosition)
 		{
-			base.TxtureObject = TxtureObject;
+			this.TxtureObject = TxtureObject;
 		}
 
 		public override void Show()
 		{
-			SizeF sizeF = new SizeF(this.size, this.size);
-			for (int i = 0; i < this.life; i++)
+			SizeF sizeF = new SizeF(size, size);
+			for (int i = 0; i < life; i++)
 			{
-				PointF pointF = new PointF(base.OriginalPosition.X + (float)i * this.size, base.OriginalPosition.Y);
-				base.SpriteMain.Draw2D(base.TxtureObject.TXTure, base.TxtureObject.PosRect, sizeF, new PointF(0f, 0f), 0f, pointF, Color.FromArgb(base.TransparentValue, Color.White));
+				PointF pointF = new PointF(OriginalPosition.X + (float)i * size, OriginalPosition.Y);
+				SpriteMain.Draw2D(TxtureObject.TXTure, TxtureObject.PosRect, sizeF, new PointF(0f, 0f), 0f, pointF, Color.FromArgb(TransparentValue, Color.White));
 			}
 		}
 

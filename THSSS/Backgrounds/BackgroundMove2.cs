@@ -7,57 +7,57 @@ namespace Shooting
 		public BackgroundMove2(StageDataPackage StageData, string textureName)
 			: base(StageData, textureName, new PointF(0f, 0f), 0f, 0.0)
 		{
-			base.Background.BackgroundList.Add(this);
-			base.OriginalPosition = new PointF((float)(base.BoundRect.Height / 2), (float)(base.BoundRect.Height / 2));
-			this.Length = base.BoundRect.Height * 2;
-			base.Velocity = 2f;
-			base.DirectionDegree = 225.0;
-			base.OutsideRegion = 10000;
+			Background.BackgroundList.Add(this);
+			OriginalPosition = new PointF((float)(BoundRect.Height / 2), (float)(BoundRect.Height / 2));
+			Length = BoundRect.Height * 2;
+			Velocity = 2f;
+			DirectionDegree = 225.0;
+			OutsideRegion = 10000;
 		}
 
 		public override void Ctrl()
 		{
-			base.Scale = (float)this.Length / (float)base.TxtureObject.Height;
-			this.Width = (float)base.TxtureObject.Width * base.Scale;
-			base.AngleDegree = -base.DirectionDegree + 90.0;
+			Scale = (float)Length / (float)TxtureObject.Height;
+			Width = (float)TxtureObject.Width * Scale;
+			AngleDegree = -DirectionDegree + 90.0;
 			base.Ctrl();
-			float num = base.OriginalPosition.X;
-			float num2 = base.OriginalPosition.Y;
-			if (base.OriginalPosition.X <= -this.Width / 2f)
+			float num = OriginalPosition.X;
+			float num2 = OriginalPosition.Y;
+			if (OriginalPosition.X <= -Width / 2f)
 			{
-				num = base.OriginalPosition.X + this.Width;
+				num = OriginalPosition.X + Width;
 			}
-			else if (base.OriginalPosition.X >= this.Width / 2f)
+			else if (OriginalPosition.X >= Width / 2f)
 			{
-				num = base.OriginalPosition.X - this.Width;
+				num = OriginalPosition.X - Width;
 			}
-			if (base.OriginalPosition.Y <= (float)(-(float)this.Length / 2))
+			if (OriginalPosition.Y <= (float)(-(float)Length / 2))
 			{
-				num2 = base.OriginalPosition.Y + (float)this.Length;
+				num2 = OriginalPosition.Y + (float)Length;
 			}
-			else if (base.OriginalPosition.Y >= (float)(this.Length / 2))
+			else if (OriginalPosition.Y >= (float)(Length / 2))
 			{
-				num2 = base.OriginalPosition.Y - (float)this.Length;
+				num2 = OriginalPosition.Y - (float)Length;
 			}
-			this.PlaceAt(num, num2);
+			PlaceAt(num, num2);
 		}
 
 		public override void Show()
 		{
-			float num = base.OriginalPosition.X;
-			float num2 = base.OriginalPosition.Y;
+			float num = OriginalPosition.X;
+			float num2 = OriginalPosition.Y;
 			base.Show();
-			num += this.Width;
-			this.PlaceAt(num, num2);
+			num += Width;
+			PlaceAt(num, num2);
 			base.Show();
-			num2 += (float)this.Length;
-			this.PlaceAt(num, num2);
+			num2 += (float)Length;
+			PlaceAt(num, num2);
 			base.Show();
-			num -= this.Width;
-			this.PlaceAt(num, num2);
+			num -= Width;
+			PlaceAt(num, num2);
 			base.Show();
-			num2 -= (float)this.Length;
-			this.PlaceAt(num, num2);
+			num2 -= (float)Length;
+			PlaceAt(num, num2);
 		}
 
 		public int Length;

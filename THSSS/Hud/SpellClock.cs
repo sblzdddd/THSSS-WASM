@@ -8,93 +8,93 @@ namespace Shooting
 		{
 			get
 			{
-				return this.timeRemaining;
+				return timeRemaining;
 			}
 			set
 			{
 				if (value < 0)
 				{
-					this.timeRemaining = 0;
+					timeRemaining = 0;
 				}
 				else if (value > 5940)
 				{
-					this.timeRemaining = 5940;
+					timeRemaining = 5940;
 				}
 				else
 				{
-					this.timeRemaining = value;
+					timeRemaining = value;
 				}
 			}
 		}
 
 		public SpellClock(StageDataPackage StageData)
 		{
-			base.StageData = StageData;
-			base.OriginalPosition = new PointF((float)(base.BoundRect.Left + 25), 40f);
+			this.StageData = StageData;
+			OriginalPosition = new PointF((float)(BoundRect.Left + 25), 40f);
 		}
 
 		public override void Ctrl()
 		{
-			if (base.Boss != null)
+			if (Boss != null)
 			{
 				base.Ctrl();
-				this.TimeRemaining = base.Boss.SpellTime - base.Boss.Time;
-				if (base.Boss.Life > 0)
+				TimeRemaining = Boss.SpellTime - Boss.Time;
+				if (Boss.Life > 0)
 				{
-					if (this.TimeRemaining <= 300)
+					if (TimeRemaining <= 300)
 					{
-						base.ColorValue = Color.FromArgb(255, 100, 100);
-						if (0 < this.TimeRemaining)
+						ColorValue = Color.FromArgb(255, 100, 100);
+						if (0 < TimeRemaining)
 						{
-							if (this.TimeRemaining % 60 == 0)
+							if (TimeRemaining % 60 == 0)
 							{
-								if (this.TimeRemaining <= 120)
+								if (TimeRemaining <= 120)
 								{
-									base.StageData.SoundPlay("se_timeout2.wav");
+									StageData.SoundPlay("se_timeout2.wav");
 								}
 								else
 								{
-									base.StageData.SoundPlay("se_timeout.wav");
+									StageData.SoundPlay("se_timeout.wav");
 								}
 							}
 						}
 					}
-					else if (this.TimeRemaining <= 600)
+					else if (TimeRemaining <= 600)
 					{
-						base.ColorValue = Color.FromArgb(255, 200, 200);
+						ColorValue = Color.FromArgb(255, 200, 200);
 					}
 					else
 					{
-						base.ColorValue = Color.White;
+						ColorValue = Color.White;
 					}
 				}
-				if (base.MyPlane.OriginalPosition.Y < 30f && base.MyPlane.OriginalPosition.X < base.OriginalPosition.X + 60f && base.MyPlane.OriginalPosition.X > base.OriginalPosition.X - 60f)
+				if (MyPlane.OriginalPosition.Y < 30f && MyPlane.OriginalPosition.X < OriginalPosition.X + 60f && MyPlane.OriginalPosition.X > OriginalPosition.X - 60f)
 				{
-					base.TransparentValueF -= 10f;
-					if (base.TransparentValueF < 50f)
+					TransparentValueF -= 10f;
+					if (TransparentValueF < 50f)
 					{
-						base.TransparentValueF = 50f;
+						TransparentValueF = 50f;
 					}
 				}
 				else
 				{
-					base.TransparentValueF += 10f;
+					TransparentValueF += 10f;
 				}
 			}
 		}
 
 		public override void Show()
 		{
-			if (base.Boss != null)
+			if (Boss != null)
 			{
-				if (base.Boss.Life > 0)
+				if (Boss.Life > 0)
 				{
-					base.SpriteMain.Draw2D(base.TextureObjectDictionary["球球"], 1f, 0f, base.OriginalPosition, Color.FromArgb(base.TransparentValue, Color.White));
+					SpriteMain.Draw2D(TextureObjectDictionary["球球"], 1f, 0f, OriginalPosition, Color.FromArgb(TransparentValue, Color.White));
 					string text = "tsnum";
 					int num = 3;
 					int num2 = 9;
 					int num3 = 0;
-					char[] array = ((float)this.TimeRemaining / 60f).ToString("F1").ToCharArray();
+					char[] array = ((float)TimeRemaining / 60f).ToString("F1").ToCharArray();
 					for (int i = array.Length - 1; i >= 0; i--)
 					{
 						if (array[i] == '.')
@@ -103,8 +103,8 @@ namespace Shooting
 							text = "tnum";
 							num3 = 4;
 						}
-						PointF pointF = new PointF(base.OriginalPosition.X + 18f - (float)((22 - num2) * (array.Length - 1 - i)) + (float)num3, base.OriginalPosition.Y + (float)num);
-						base.SpriteMain.Draw2D(base.TextureObjectDictionary[text + array[i].ToString()], base.Scale, 0f, pointF, Color.FromArgb(base.TransparentValue, base.ColorValue));
+						PointF pointF = new PointF(OriginalPosition.X + 18f - (float)((22 - num2) * (array.Length - 1 - i)) + (float)num3, OriginalPosition.Y + (float)num);
+						SpriteMain.Draw2D(TextureObjectDictionary[text + array[i].ToString()], Scale, 0f, pointF, Color.FromArgb(TransparentValue, ColorValue));
 						if (array[i] == '.')
 						{
 							num = 0;

@@ -13,8 +13,8 @@ namespace Shooting
 		public TexturedVertex(Vector3 position, Vector2 textureCoordinate)
 		{
 			this = default(TexturedVertex);
-			this.Position = position;
-			this.TextureCoordinate = textureCoordinate;
+			Position = position;
+			TextureCoordinate = textureCoordinate;
 		}
 
 		public static int SizeBytes

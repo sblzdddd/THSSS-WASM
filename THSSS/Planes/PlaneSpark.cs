@@ -7,37 +7,37 @@ namespace Shooting
 		public PlaneSpark(StageDataPackage StageData, string textureName, PointF OriginalPosition, float Velocity, double Direction)
 			: base(StageData, textureName, OriginalPosition, Velocity, Direction)
 		{
-			base.OriginalPosition = OriginalPosition;
-			base.ScaleWidth = 0.05f;
-			base.Active = true;
-			base.LifeTime = 300;
-			base.ColorValue = Color.FromArgb(85, 140, 255);
-			base.UnRemoveable = true;
-			base.Angle = 0.0;
-			base.ScaleVL = 0.1f;
-			base.ScaleVW = 0.1f;
+			this.OriginalPosition = OriginalPosition;
+			ScaleWidth = 0.05f;
+			Active = true;
+			LifeTime = 300;
+			ColorValue = Color.FromArgb(85, 140, 255);
+			UnRemoveable = true;
+			Angle = 0.0;
+			ScaleVL = 0.1f;
+			ScaleVW = 0.1f;
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			base.Region = (int)((float)base.TxtureObject.Width / 2f * 0.7f);
-			if (base.Time < base.LifeTime - 50)
+			Region = (int)((float)TxtureObject.Width / 2f * 0.7f);
+			if (Time < LifeTime - 50)
 			{
-				base.TransparentValueF = (float)(150 + base.Ran.Next(40));
+				TransparentValueF = (float)(150 + Ran.Next(40));
 			}
 			else
 			{
-				base.TransparentValueF = (float)((base.LifeTime - base.Time) * 2 - 20 + base.Ran.Next(40));
+				TransparentValueF = (float)((LifeTime - Time) * 2 - 20 + Ran.Next(40));
 			}
 		}
 
 		public override void Show()
 		{
-			if (base.TxtureObject != null)
+			if (TxtureObject != null)
 			{
-				SizeF sizeF = new SizeF((float)base.TxtureObject.Width * base.ScaleWidth, (float)base.TxtureObject.Height * base.ScaleLength);
-				base.SpriteMain.Draw2D(base.TxtureObject.TXTure, base.TxtureObject.PosRect, sizeF, new PointF((float)(base.TxtureObject.Width / 2), 0f), (float)(base.Direction - 1.5707963267948966 + base.Angle), base.Position, Color.FromArgb(base.TransparentValue, base.ColorValue));
+				SizeF sizeF = new SizeF((float)TxtureObject.Width * ScaleWidth, (float)TxtureObject.Height * ScaleLength);
+				SpriteMain.Draw2D(TxtureObject.TXTure, TxtureObject.PosRect, sizeF, new PointF((float)(TxtureObject.Width / 2), 0f), (float)(Direction - 1.5707963267948966 + Angle), Position, Color.FromArgb(TransparentValue, ColorValue));
 			}
 		}
 	}

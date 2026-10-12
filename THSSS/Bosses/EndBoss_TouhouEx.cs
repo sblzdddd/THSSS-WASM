@@ -13,9 +13,9 @@ namespace Shooting
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			if (base.Time == base.LifeTime)
+			if (Time == LifeTime)
 			{
-				new Story_SSSEx_02(base.StageData);
+				new Story_SSSEx_02(StageData);
 			}
 		}
 	}

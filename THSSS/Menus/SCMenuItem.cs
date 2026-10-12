@@ -12,9 +12,9 @@ namespace Shooting
 		public override void Show()
 		{
 			base.Show();
-			if (base.TxtureObject != null)
+			if (TxtureObject != null)
 			{
-				base.SpriteMain.Draw2D(base.TxtureObject, base.ScaleWidth, base.ScaleLength, 0f, new PointF(base.Position.X + (float)base.TxtureObject.Width * base.Scale / 2f + (float)this.OffX, base.Position.Y + (float)this.OffY + (float)base.TxtureObject.Height * base.Scale / 2f), Color.FromArgb(base.TransparentValue, base.ColorValue), base.Mirrored);
+				SpriteMain.Draw2D(TxtureObject, ScaleWidth, ScaleLength, 0f, new PointF(Position.X + (float)TxtureObject.Width * Scale / 2f + (float)OffX, Position.Y + (float)OffY + (float)TxtureObject.Height * Scale / 2f), Color.FromArgb(TransparentValue, ColorValue), Mirrored);
 			}
 		}
 

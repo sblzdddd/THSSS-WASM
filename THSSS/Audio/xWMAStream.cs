@@ -9,8 +9,8 @@ namespace Shooting
 	{
 		public xWMAStream(Stream stream)
 		{
-			this.dataStream = stream;
-			this.analyzeXWMAFileStream();
+			dataStream = stream;
+			analyzeXWMAFileStream();
 		}
 
 		public xWMAStream(string path)
@@ -19,35 +19,35 @@ namespace Shooting
 			{
 				throw new FileNotFoundException(path + " Not Found");
 			}
-			this.dataStream = new FileStream(path, FileMode.Open);
-			this.analyzeXWMAFileStream();
+			dataStream = new FileStream(path, FileMode.Open);
+			analyzeXWMAFileStream();
 		}
 
 		private void analyzeXWMAFileStream()
 		{
 			byte[] array = new byte[4];
-			this.dataStream.Seek(0L, SeekOrigin.Begin);
-			this.dataStream.Read(array, 0, 4);
+			dataStream.Seek(0L, SeekOrigin.Begin);
+			dataStream.Read(array, 0, 4);
 			if (Encoding.ASCII.GetString(array) != "RIFF")
 			{
 				throw new InvalidDataException("Invalid xWMA file.");
 			}
-			this.dataStream.Read(array, 0, 4);
+			dataStream.Read(array, 0, 4);
 			int num = BitConverter.ToInt32(array, 0);
-			if (this.dataStream.Length != (long)(num + 8))
+			if (dataStream.Length != (long)(num + 8))
 			{
 				throw new InvalidDataException("Invalid Format");
 			}
-			this.dataStream.Read(array, 0, 4);
+			dataStream.Read(array, 0, 4);
 			if (Encoding.ASCII.GetString(array) != "XWMA")
 			{
 				throw new InvalidDataException("Invalid xWMA file.");
 			}
-			long num2 = (long)this.dataStream.Read(array, 0, 4);
+			long num2 = (long)dataStream.Read(array, 0, 4);
 			while (num2 > 3L)
 			{
 				string @string = Encoding.ASCII.GetString(array);
-				this.dataStream.Read(array, 0, 4);
+				dataStream.Read(array, 0, 4);
 				num = BitConverter.ToInt32(array, 0);
 				string text = @string;
 				if (text == null)
@@ -62,9 +62,9 @@ namespace Shooting
 						{
 							goto IL_0407;
 						}
-						this.dataOffset = this.dataStream.Position;
-						this.dataSize = num;
-						this.dataStream.Seek((long)num, SeekOrigin.Current);
+						dataOffset = dataStream.Position;
+						dataSize = num;
+						dataStream.Seek((long)num, SeekOrigin.Current);
 					}
 					else
 					{
@@ -73,33 +73,33 @@ namespace Shooting
 							throw new InvalidDataException("Invalid Format.");
 						}
 						int num3 = num / 4;
-						this.decodedPacketCumulativeBytes = new int[num3];
+						decodedPacketCumulativeBytes = new int[num3];
 						for (int i = 0; i < num3; i++)
 						{
-							this.dataStream.Read(array, 0, 4);
-							this.decodedPacketCumulativeBytes[i] = BitConverter.ToInt32(array, 0);
+							dataStream.Read(array, 0, 4);
+							decodedPacketCumulativeBytes[i] = BitConverter.ToInt32(array, 0);
 						}
 					}
 				}
 				else
 				{
-					this.dataStream.Read(array, 0, 2);
+					dataStream.Read(array, 0, 2);
 					ushort num4 = BitConverter.ToUInt16(array, 0);
-					this.format = new WaveFormat();
-					this.dataStream.Read(array, 0, 2);
-					this.format.Channels = (short)BitConverter.ToUInt16(array, 0);
-					this.dataStream.Read(array, 0, 4);
-					this.format.SamplesPerSecond = BitConverter.ToInt32(array, 0);
-					this.dataStream.Read(array, 0, 4);
-					this.format.AverageBytesPerSecond = BitConverter.ToInt32(array, 0);
-					this.dataStream.Read(array, 0, 2);
-					this.format.BlockAlignment = BitConverter.ToInt16(array, 0);
-					this.dataStream.Read(array, 0, 2);
-					this.format.BitsPerSample = BitConverter.ToInt16(array, 0);
+					format = new WaveFormat();
+					dataStream.Read(array, 0, 2);
+					format.Channels = (short)BitConverter.ToUInt16(array, 0);
+					dataStream.Read(array, 0, 4);
+					format.SamplesPerSecond = BitConverter.ToInt32(array, 0);
+					dataStream.Read(array, 0, 4);
+					format.AverageBytesPerSecond = BitConverter.ToInt32(array, 0);
+					dataStream.Read(array, 0, 2);
+					format.BlockAlignment = BitConverter.ToInt16(array, 0);
+					dataStream.Read(array, 0, 2);
+					format.BitsPerSample = BitConverter.ToInt16(array, 0);
 					if (num4 == 353)
 					{
-						this.dataStream.Seek((long)(num - 16), SeekOrigin.Current);
-						this.format.FormatTag = WaveFormatTag.WMAudio2;
+						dataStream.Seek((long)(num - 16), SeekOrigin.Current);
+						format.FormatTag = WaveFormatTag.WMAudio2;
 					}
 					else
 					{
@@ -108,43 +108,43 @@ namespace Shooting
 							throw new InvalidDataException("Invalid xWMA file.");
 						}
 						WaveFormatExtensible waveFormatExtensible = new WaveFormatExtensible();
-						waveFormatExtensible.Channels = this.format.Channels;
-						waveFormatExtensible.SamplesPerSecond = this.format.SamplesPerSecond;
-						waveFormatExtensible.AverageBytesPerSecond = this.format.AverageBytesPerSecond;
-						waveFormatExtensible.BlockAlignment = this.format.BlockAlignment;
-						waveFormatExtensible.BitsPerSample = this.format.BitsPerSample;
-						this.dataStream.Read(array, 0, 2);
+						waveFormatExtensible.Channels = format.Channels;
+						waveFormatExtensible.SamplesPerSecond = format.SamplesPerSecond;
+						waveFormatExtensible.AverageBytesPerSecond = format.AverageBytesPerSecond;
+						waveFormatExtensible.BlockAlignment = format.BlockAlignment;
+						waveFormatExtensible.BitsPerSample = format.BitsPerSample;
+						dataStream.Read(array, 0, 2);
 						num = (int)BitConverter.ToInt16(array, 0);
 						if (num != 22)
 						{
 							throw new InvalidDataException("Invalid Format.");
 						}
-						this.dataStream.Read(array, 0, 2);
+						dataStream.Read(array, 0, 2);
 						waveFormatExtensible.ValidBitsPerSample = BitConverter.ToInt16(array, 0);
-						this.dataStream.Read(array, 0, 4);
+						dataStream.Read(array, 0, 4);
 						waveFormatExtensible.ChannelMask = (Speakers)BitConverter.ToUInt32(array, 0);
 						byte[] array2 = new byte[16];
-						this.dataStream.Read(array2, 0, 16);
+						dataStream.Read(array2, 0, 16);
 						waveFormatExtensible.SubFormat = new Guid(array2);
 						waveFormatExtensible.FormatTag = WaveFormatTag.Extensible;
-						this.format = waveFormatExtensible;
+						format = waveFormatExtensible;
 					}
 				}
 				IL_0418:
-				num2 = (long)this.dataStream.Read(array, 0, 4);
+				num2 = (long)dataStream.Read(array, 0, 4);
 				continue;
 				IL_0407:
-				this.dataStream.Seek((long)num, SeekOrigin.Current);
+				dataStream.Seek((long)num, SeekOrigin.Current);
 				goto IL_0418;
 			}
-			this.dataStream.Seek(this.dataOffset, SeekOrigin.Begin);
+			dataStream.Seek(dataOffset, SeekOrigin.Begin);
 		}
 
 		public int[] DecodedPacketCumulativeBytes
 		{
 			get
 			{
-				return this.decodedPacketCumulativeBytes;
+				return decodedPacketCumulativeBytes;
 			}
 		}
 
@@ -152,13 +152,13 @@ namespace Shooting
 		{
 			get
 			{
-				return this.format;
+				return format;
 			}
 		}
 
 		public override int Read(byte[] buffer, int offset, int count)
 		{
-			return this.dataStream.Read(buffer, offset, count);
+			return dataStream.Read(buffer, offset, count);
 		}
 
 		public override void Write(byte[] buffer, int offset, int count)
@@ -177,16 +177,16 @@ namespace Shooting
 			switch (origin)
 			{
 			case SeekOrigin.Begin:
-				num = this.dataOffset + offset;
+				num = dataOffset + offset;
 				break;
 			case SeekOrigin.Current:
 				num = offset;
 				break;
 			case SeekOrigin.End:
-				num = this.dataOffset;
+				num = dataOffset;
 				break;
 			}
-			return this.dataStream.Seek(num, origin) - this.dataOffset;
+			return dataStream.Seek(num, origin) - dataOffset;
 		}
 
 		public override void Flush()
@@ -197,13 +197,13 @@ namespace Shooting
 		public override int ReadByte()
 		{
 			int num;
-			if (this.dataStream.Position > this.dataOffset + (long)this.dataSize)
+			if (dataStream.Position > dataOffset + (long)dataSize)
 			{
 				num = -1;
 			}
 			else
 			{
-				num = this.dataStream.ReadByte();
+				num = dataStream.ReadByte();
 			}
 			return num;
 		}
@@ -215,12 +215,12 @@ namespace Shooting
 
 		public override void Close()
 		{
-			this.dataStream.Close();
+			dataStream.Close();
 		}
 
 		protected override void Dispose(bool disposing)
 		{
-			this.dataStream.Dispose();
+			dataStream.Dispose();
 		}
 
 		public override bool CanRead
@@ -251,11 +251,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.dataStream.Position - this.dataOffset;
+				return dataStream.Position - dataOffset;
 			}
 			set
 			{
-				this.Seek(value, SeekOrigin.Begin);
+				Seek(value, SeekOrigin.Begin);
 			}
 		}
 
@@ -263,7 +263,7 @@ namespace Shooting
 		{
 			get
 			{
-				return (long)this.dataSize;
+				return (long)dataSize;
 			}
 		}
 

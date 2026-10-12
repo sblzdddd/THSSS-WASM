@@ -6,9 +6,9 @@
 
 		public BaseMenu(GlobalDataPackage GlobalData)
 		{
-			base.Visible = false;
-			base.Enabled = false;
-			base.GlobalData = GlobalData;
+			Visible = false;
+			Enabled = false;
+			this.GlobalData = GlobalData;
 		}
 
 		public BaseMenu()
@@ -17,7 +17,7 @@
 
 		public override void Init()
 		{
-			this.MenuInit();
+			MenuInit();
 		}
 
 		public virtual void MenuInit()
@@ -27,24 +27,24 @@
 		public override void UpdateData()
 		{
 			base.UpdateData();
-			int count = base.StageData.MenuGroupList.Count;
+			int count = StageData.MenuGroupList.Count;
 			if (count > 0)
 			{
-				base.StageData.MenuGroupList[count - 1].MenuSelect();
+				StageData.MenuGroupList[count - 1].MenuSelect();
 			}
-			base.StageData.MenuGroupList.ForEach(delegate(BaseMenuGroup x)
+			StageData.MenuGroupList.ForEach(delegate(BaseMenuGroup x)
 			{
 				x.Ctrl();
 			});
-			base.Background3D.Ctrl();
-			base.Background.Ctrl();
-			base.Background2.Ctrl();
-			for (int i = base.EffectList.Count - 1; i >= 0; i--)
+			Background3D.Ctrl();
+			Background.Ctrl();
+			Background2.Ctrl();
+			for (int i = EffectList.Count - 1; i >= 0; i--)
 			{
-				base.EffectList[i].Ctrl();
+				EffectList[i].Ctrl();
 			}
-			base.Particle3D.Ctrl();
-			base.SoundPlayList.ForEach(delegate(XAudio2_Player x)
+			Particle3D.Ctrl();
+			SoundPlayList.ForEach(delegate(XAudio2_Player x)
 			{
 				x.Play();
 			});

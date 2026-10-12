@@ -23,17 +23,17 @@ namespace Shooting
 			: this(StageData, textureName, OriginalPosition, Velocity, Direction)
 		{
 			this.ColorType = ColorType;
-			base.BeginningEffect = true;
+			BeginningEffect = true;
 		}
 
 		public BaseBullet_Touhou(StageDataPackage StageData, string textureName, PointF OriginalPosition, float Velocity, double Direction)
 			: base(StageData, textureName, OriginalPosition, Velocity, Direction)
 		{
-			base.BulletList.Add(this);
-			base.OriginalPosition = OriginalPosition;
-			base.AngleDegree = 180.0;
-			this.SizeValue = 32;
-			this.SetRegion(textureName);
+			BulletList.Add(this);
+			this.OriginalPosition = OriginalPosition;
+			AngleDegree = 180.0;
+			SizeValue = 32;
+			SetRegion(textureName);
 		}
 
 		public void SetRegion(string textureName)
@@ -46,103 +46,103 @@ namespace Shooting
 				switch (text)
 				{
 				case "bullet0":
-					base.Region = 1;
+					Region = 1;
 					break;
 				case "bullet1":
-					base.Region = 1;
+					Region = 1;
 					break;
 				case "bullet2":
-					base.Region = 2;
+					Region = 2;
 					break;
 				case "bullet3":
-					base.Region = 2;
+					Region = 2;
 					break;
 				case "bullet4":
-					base.Region = 1;
+					Region = 1;
 					break;
 				case "bullet5":
-					base.Region = 1;
+					Region = 1;
 					break;
 				case "bullet6":
-					base.Region = 1;
+					Region = 1;
 					break;
 				case "bullet7":
-					base.Region = 1;
+					Region = 1;
 					break;
 				case "bullet8":
-					base.Region = 1;
+					Region = 1;
 					break;
 				case "bullet9":
-					base.Region = 1;
+					Region = 1;
 					break;
 				case "bullet10":
-					base.Region = 2;
+					Region = 2;
 					break;
 				case "bullet11":
-					base.Region = 2;
+					Region = 2;
 					break;
 				case "bullet12":
-					base.Region = 1;
+					Region = 1;
 					break;
 				case "bullet13":
-					base.Region = 3;
+					Region = 3;
 					break;
 				case "bullet15":
-					base.Region = 1;
+					Region = 1;
 					break;
 				case "bullet20":
-					base.Region = 6;
+					Region = 6;
 					break;
 				case "bullet21":
-					base.Region = 6;
+					Region = 6;
 					break;
 				case "bullet22":
-					base.Region = 3;
+					Region = 3;
 					break;
 				case "bullet23":
-					base.Region = 3;
+					Region = 3;
 					break;
 				case "bullet24":
-					base.Region = 3;
+					Region = 3;
 					break;
 				case "bullet26":
-					base.Region = 16;
-					base.AngularVelocityDegree = 10f;
-					base.Active = true;
-					this.SizeValue = 80;
-					base.OutsideRegion = 32;
+					Region = 16;
+					AngularVelocityDegree = 10f;
+					Active = true;
+					SizeValue = 80;
+					OutsideRegion = 32;
 					break;
 				case "bullet50":
-					base.Region = 12;
-					base.Active = true;
-					this.SizeValue = 64;
-					base.OutsideRegion = 64;
+					Region = 12;
+					Active = true;
+					SizeValue = 64;
+					OutsideRegion = 64;
 					break;
 				case "bullet40":
-					base.Region = 6;
-					this.SizeValue = 32;
-					base.OutsideRegion = 32;
+					Region = 6;
+					SizeValue = 32;
+					OutsideRegion = 32;
 					break;
 				case "bullet46":
-					base.Region = 1;
+					Region = 1;
 					break;
 				case "bullet61":
-					base.Region = 2;
+					Region = 2;
 					break;
 				case "bullet62":
-					base.Region = 3;
+					Region = 3;
 					break;
 				case "bullet64":
-					base.Region = 3;
+					Region = 3;
 					break;
 				case "bullet65":
-					base.Region = 3;
+					Region = 3;
 					break;
 				case "bullet66":
-					base.Region = 3;
+					Region = 3;
 					break;
 				case "bullet67":
-					base.Region = 3;
+					Region = 3;
 					break;
 				}
 			}
@@ -151,53 +151,53 @@ namespace Shooting
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			if (base.Time == 1 && base.BeginningEffect)
+			if (Time == 1 && BeginningEffect)
 			{
-				ParticleBeginBullet particleBeginBullet = new ParticleBeginBullet(base.StageData, base.Position, this.ColorType);
-				particleBeginBullet.Active = base.Active;
+				ParticleBeginBullet particleBeginBullet = new ParticleBeginBullet(StageData, Position, ColorType);
+				particleBeginBullet.Active = Active;
 			}
-			if (base.Time == base.LifeTime && base.EndingEffect)
+			if (Time == LifeTime && EndingEffect)
 			{
-				this.GiveEndEffect();
+				GiveEndEffect();
 			}
-			if (this.OutBoundary())
+			if (OutBoundary())
 			{
-				base.BulletList.Remove(this);
+				BulletList.Remove(this);
 			}
 		}
 
 		public override bool OutBoundary()
 		{
 			bool flag;
-			if (base.LifeTime != 0 && base.Time > base.LifeTime)
+			if (LifeTime != 0 && Time > LifeTime)
 			{
 				flag = true;
 			}
-			else if (this.Reflect <= 0)
+			else if (Reflect <= 0)
 			{
 				flag = base.OutBoundary();
 			}
 			else
 			{
-				if (base.OriginalPosition.X < 0f)
+				if (OriginalPosition.X < 0f)
 				{
-					this.Reflect -= 1;
-					base.Direction -= 2.0 * (base.Direction - 1.5707963267948966);
-					base.OriginalPosition = new PointF(-base.OriginalPosition.X, base.OriginalPosition.Y);
+					Reflect -= 1;
+					Direction -= 2.0 * (Direction - 1.5707963267948966);
+					OriginalPosition = new PointF(-OriginalPosition.X, OriginalPosition.Y);
 				}
-				else if (base.OriginalPosition.X >= (float)base.BoundRect.Width)
+				else if (OriginalPosition.X >= (float)BoundRect.Width)
 				{
-					this.Reflect -= 1;
-					base.Direction -= 2.0 * (base.Direction - 1.5707963267948966);
-					base.OriginalPosition = new PointF((float)(2 * base.BoundRect.Width) - base.OriginalPosition.X, base.OriginalPosition.Y);
+					Reflect -= 1;
+					Direction -= 2.0 * (Direction - 1.5707963267948966);
+					OriginalPosition = new PointF((float)(2 * BoundRect.Width) - OriginalPosition.X, OriginalPosition.Y);
 				}
-				if (base.OriginalPosition.Y < 20f)
+				if (OriginalPosition.Y < 20f)
 				{
-					if (this.Reflect > 0)
+					if (Reflect > 0)
 					{
-						this.Reflect -= 1;
-						base.Direction = -base.Direction;
-						base.OriginalPosition = new PointF(base.OriginalPosition.X, 20f - base.OriginalPosition.Y);
+						Reflect -= 1;
+						Direction = -Direction;
+						OriginalPosition = new PointF(OriginalPosition.X, 20f - OriginalPosition.Y);
 					}
 				}
 				flag = false;
@@ -207,27 +207,27 @@ namespace Shooting
 
 		public override void HitCheckAll()
 		{
-			if (base.MyPlane.HitEnabled)
+			if (MyPlane.HitEnabled)
 			{
-				if (this.HitCheck(base.MyPlane))
+				if (HitCheck(MyPlane))
 				{
-					base.MyPlane.PreMiss();
-					if (!base.UnRemoveable)
+					MyPlane.PreMiss();
+					if (!UnRemoveable)
 					{
-						this.GiveEndEffect();
-						base.BulletList.Remove(this);
+						GiveEndEffect();
+						BulletList.Remove(this);
 					}
 				}
-				else if (!this.Grazed && this.HitCheck(base.MyPlane, 24f / base.ScaleLength + (float)base.Region))
+				else if (!Grazed && HitCheck(MyPlane, 24f / ScaleLength + (float)Region))
 				{
-					this.Grazed = true;
-					base.MyPlane.Graze++;
-					if (base.MyPlane.Graze % 10 == 0)
+					Grazed = true;
+					MyPlane.Graze++;
+					if (MyPlane.Graze % 10 == 0)
 					{
-						base.MyPlane.HighItemScore += 10;
+						MyPlane.HighItemScore += 10;
 					}
-					base.StageData.SoundPlay("se_graze.wav");
-					BaseEffect baseEffect = new BaseEffect(base.StageData, "GrazeG", base.MyPlane.Position, 5f, base.Ran.NextDouble() * 3.141592653589793 * 2.0);
+					StageData.SoundPlay("se_graze.wav");
+					BaseEffect baseEffect = new BaseEffect(StageData, "GrazeG", MyPlane.Position, 5f, Ran.NextDouble() * 3.141592653589793 * 2.0);
 					baseEffect.Scale = 1f;
 					baseEffect.TransparentVelocity = -20f;
 					baseEffect.ScaleVelocity = -0.05f;
@@ -238,12 +238,12 @@ namespace Shooting
 
 		public override void GiveEndEffect()
 		{
-			new ParticleEndBullet(base.StageData, base.OriginalPosition, this.ColorType, this.SizeValue);
+			new ParticleEndBullet(StageData, OriginalPosition, ColorType, SizeValue);
 		}
 
 		public override void GiveItems()
 		{
-			new StarItem_Touhou(base.StageData, base.OriginalPosition);
+			new StarItem_Touhou(StageData, OriginalPosition);
 		}
 	}
 }

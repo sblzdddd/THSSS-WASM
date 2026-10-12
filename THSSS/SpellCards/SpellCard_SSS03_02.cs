@@ -8,17 +8,17 @@ namespace Shooting
 		public SpellCard_SSS03_02(StageDataPackage StageData)
 			: base(StageData)
 		{
-			if (base.Difficulty < DifficultLevel.Hard)
+			if (Difficulty < DifficultLevel.Hard)
 			{
-				base.SC_Name = "火光「火精灵之灾」";
+				SC_Name = "火光「火精灵之灾」";
 			}
 			else
 			{
-				base.SC_Name = "火光「午夜的大火灾」";
+				SC_Name = "火光「午夜的大火灾」";
 			}
-			base.BaseScore = 20000000L;
-			base.Boss.DestPoint = new Point(base.BoundRect.Width / 2, 120);
-			base.Boss.Velocity = 4f;
+			BaseScore = 20000000L;
+			Boss.DestPoint = new Point(BoundRect.Width / 2, 120);
+			Boss.Velocity = 4f;
 			StageData.SoundPlay("se_cat00.wav");
 			BackgroundRotate backgroundRotate = new BackgroundRotate(StageData, "Card03b");
 			backgroundRotate.Scale = 1.3f;
@@ -48,7 +48,7 @@ namespace Shooting
 			backgroundRotate3.Scale = 0.7f;
 			backgroundRotate3.Active = true;
 			backgroundRotate3.AngularVelocityDegree = 0.2f;
-			new BulletTitle(StageData, base.SC_Name);
+			new BulletTitle(StageData, SC_Name);
 			new SpellCardAttack(StageData);
 			FullPic2 fullPic = new FullPic2(StageData, "FaceKoreirei_ct");
 			fullPic.Scale = 0.8f;
@@ -56,16 +56,16 @@ namespace Shooting
 
 		public override void Shoot()
 		{
-			base.Boss.Armon = 0.25f;
-			if (base.Time > 100)
+			Boss.Armon = 0.25f;
+			if (Time > 100)
 			{
-				base.Boss.MoveUpDown();
+				Boss.MoveUpDown();
 			}
-			if (base.Time == 150)
+			if (Time == 150)
 			{
-				base.Boss.OnAction = 10000;
+				Boss.OnAction = 10000;
 				string text;
-				switch (base.Difficulty)
+				switch (Difficulty)
 				{
 				case DifficultLevel.Easy:
 					text = ".\\CS\\St03\\道中Boss\\2符E.mbg";
@@ -83,8 +83,8 @@ namespace Shooting
 					text = ".\\CS\\St03\\道中Boss\\2符U.mbg";
 					break;
 				}
-				CS_Data cs_Data = base.StageData.LoadCS(text);
-				new CSEmitterController(base.StageData, cs_Data);
+				CS_Data cs_Data = StageData.LoadCS(text);
+				new CSEmitterController(StageData, cs_Data);
 			}
 		}
 	}

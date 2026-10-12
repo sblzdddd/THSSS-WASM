@@ -9,22 +9,22 @@ namespace Shooting
 		public MenuGroup_PlayerData(StageDataPackage StageData)
 			: base(StageData)
 		{
-			base.TransparentValueF = 0f;
-			base.MaxTransparent = 255;
-			base.TransparentVelocity = 5f;
-			base.TxtureObject = base.TextureObjectDictionary["MenuBackground"];
-			base.OriginalPosition = new PointF((float)(base.BoundRect.Width / 2), (float)(base.BoundRect.Height / 2));
-			base.AngleDegree = 90.0;
-			base.ColorValue = Color.FromArgb(30, 110, 150);
-			this.MenuTitlePos1 = new PointF(140f, -30f);
-			this.MenuTitlePos2 = new PointF(140f, -150f);
-			base.MenuTilte = new BaseMenuItem(StageData, "MenuTitle_PlayerData")
+			TransparentValueF = 0f;
+			MaxTransparent = 255;
+			TransparentVelocity = 5f;
+			TxtureObject = TextureObjectDictionary["MenuBackground"];
+			OriginalPosition = new PointF((float)(BoundRect.Width / 2), (float)(BoundRect.Height / 2));
+			AngleDegree = 90.0;
+			ColorValue = Color.FromArgb(30, 110, 150);
+			MenuTitlePos1 = new PointF(140f, -30f);
+			MenuTitlePos2 = new PointF(140f, -150f);
+			MenuTilte = new BaseMenuItem(StageData, "MenuTitle_PlayerData")
 			{
-				Position = this.MenuTitlePos2
+				Position = MenuTitlePos2
 			};
-			this.ClearHistoryList = new List<BaseMenuItem>();
-			this.MenuPlaneSelectIndex = 0;
-			this.MenuItemListPlane = new List<BaseMenuItem>
+			ClearHistoryList = new List<BaseMenuItem>();
+			MenuPlaneSelectIndex = 0;
+			MenuItemListPlane = new List<BaseMenuItem>
 			{
 				new BaseMenuItem(StageData, "History_ReimuA"),
 				new BaseMenuItem(StageData, "History_MarisaA"),
@@ -34,16 +34,16 @@ namespace Shooting
 			int num = 90;
 			int num2 = 90;
 			int num3 = 0;
-			foreach (BaseMenuItem baseMenuItem in this.MenuItemListPlane)
+			foreach (BaseMenuItem baseMenuItem in MenuItemListPlane)
 			{
 				baseMenuItem.DestPoint = new PointF((float)num, (float)num2);
 				baseMenuItem.Position = new PointF((float)(num + num3), (float)num2);
 				baseMenuItem.UnSelectVisible = false;
 				baseMenuItem.Vibrateable = false;
 			}
-			this.MenuItemListPlane[base.MenuSelectIndex].Selected = true;
-			base.MenuSelectIndex = 0;
-			base.MenuItemList = new List<BaseMenuItem>
+			MenuItemListPlane[MenuSelectIndex].Selected = true;
+			MenuSelectIndex = 0;
+			MenuItemList = new List<BaseMenuItem>
 			{
 				new BaseMenuItem(StageData, "History_Easy"),
 				new BaseMenuItem(StageData, "History_Normal"),
@@ -54,30 +54,30 @@ namespace Shooting
 			num = 480;
 			num2 = 90;
 			num3 = 0;
-			foreach (BaseMenuItem baseMenuItem in base.MenuItemList)
+			foreach (BaseMenuItem baseMenuItem in MenuItemList)
 			{
 				baseMenuItem.DestPoint = new PointF((float)num, (float)num2);
 				baseMenuItem.Position = new PointF((float)(num + num3), (float)num2);
 				baseMenuItem.UnSelectVisible = false;
 				baseMenuItem.Vibrateable = false;
 			}
-			base.MenuItemList[base.MenuSelectIndex].Selected = true;
-			this.ScorePageList = new List<DescriptionMenuItem>();
-			this.AddNewScorePage();
+			MenuItemList[MenuSelectIndex].Selected = true;
+			ScorePageList = new List<DescriptionMenuItem>();
+			AddNewScorePage();
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			this.MenuItemListPlane.ForEach(delegate(BaseMenuItem x)
+			MenuItemListPlane.ForEach(delegate(BaseMenuItem x)
 			{
 				x.Ctrl();
 			});
-			this.ScorePageList.ForEach(delegate(DescriptionMenuItem x)
+			ScorePageList.ForEach(delegate(DescriptionMenuItem x)
 			{
 				x.Ctrl();
 			});
-			this.ClearHistoryList.ForEach(delegate(BaseMenuItem x)
+			ClearHistoryList.ForEach(delegate(BaseMenuItem x)
 			{
 				x.Ctrl();
 			});
@@ -86,86 +86,86 @@ namespace Shooting
 		public override void ProcessKeys()
 		{
 			base.ProcessKeys();
-			if (base.KClass.Key_Z && this.LastZ == 0)
+			if (KClass.Key_Z && LastZ == 0)
 			{
-				this.ScorePageIndex++;
-				int num = ((base.MenuSelectIndex == 2 || base.MenuSelectIndex == 3) ? 5 : 4);
-				if (this.ScorePageIndex > num)
+				ScorePageIndex++;
+				int num = ((MenuSelectIndex == 2 || MenuSelectIndex == 3) ? 5 : 4);
+				if (ScorePageIndex > num)
 				{
-					this.ScorePageIndex = 0;
+					ScorePageIndex = 0;
 				}
-				this.AddNewScorePage();
-				base.StageData.SoundPlay("se_ok00.wav");
+				AddNewScorePage();
+				StageData.SoundPlay("se_ok00.wav");
 			}
-			if ((base.KClass.Key_X || base.KClass.Key_ESC) && this.LastX == 0)
+			if ((KClass.Key_X || KClass.Key_ESC) && LastX == 0)
 			{
-				this.OnRemoveMenu = base.TimeMain + 20;
-				base.TransparentVelocity = -15f;
-				foreach (BaseMenuItem baseMenuItem in base.MenuItemList)
+				OnRemoveMenu = TimeMain + 20;
+				TransparentVelocity = -15f;
+				foreach (BaseMenuItem baseMenuItem in MenuItemList)
 				{
 					baseMenuItem.OnRemove = true;
 				}
-				foreach (BaseMenuItem baseMenuItem in this.MenuItemListPlane)
+				foreach (BaseMenuItem baseMenuItem in MenuItemListPlane)
 				{
 					baseMenuItem.OnRemove = true;
 				}
-				foreach (BaseMenuItem baseMenuItem in this.ScorePageList)
+				foreach (BaseMenuItem baseMenuItem in ScorePageList)
 				{
 					baseMenuItem.OnRemove = true;
 				}
-				foreach (BaseMenuItem baseMenuItem in this.ClearHistoryList)
+				foreach (BaseMenuItem baseMenuItem in ClearHistoryList)
 				{
 					baseMenuItem.OnRemove = true;
 				}
-				base.StageData.SoundPlay("se_cancel00.wav");
+				StageData.SoundPlay("se_cancel00.wav");
 			}
-			if (base.KClass.ArrowRight && (this.LastRight == 0 || this.LastRight > 30))
+			if (KClass.ArrowRight && (LastRight == 0 || LastRight > 30))
 			{
-				this.MenuPlaneSelectIndex++;
-				base.StageData.SoundPlay("se_select00.wav");
-				this.SelectItemChanged();
+				MenuPlaneSelectIndex++;
+				StageData.SoundPlay("se_select00.wav");
+				SelectItemChanged();
 			}
-			if (base.KClass.ArrowLeft && (this.LastLeft == 0 || this.LastLeft > 30))
+			if (KClass.ArrowLeft && (LastLeft == 0 || LastLeft > 30))
 			{
-				this.MenuPlaneSelectIndex--;
-				base.StageData.SoundPlay("se_select00.wav");
-				this.SelectItemChanged();
+				MenuPlaneSelectIndex--;
+				StageData.SoundPlay("se_select00.wav");
+				SelectItemChanged();
 			}
 		}
 
 		public override void SelectItemChanged()
 		{
 			base.SelectItemChanged();
-			if (this.MenuPlaneSelectIndex < 0)
+			if (MenuPlaneSelectIndex < 0)
 			{
-				this.MenuPlaneSelectIndex += this.MenuItemListPlane.Count;
+				MenuPlaneSelectIndex += MenuItemListPlane.Count;
 			}
-			else if (this.MenuPlaneSelectIndex > this.MenuItemListPlane.Count - 1)
+			else if (MenuPlaneSelectIndex > MenuItemListPlane.Count - 1)
 			{
-				this.MenuPlaneSelectIndex -= this.MenuItemListPlane.Count;
+				MenuPlaneSelectIndex -= MenuItemListPlane.Count;
 			}
-			this.MenuItemListPlane.ForEach(delegate(BaseMenuItem x)
+			MenuItemListPlane.ForEach(delegate(BaseMenuItem x)
 			{
 				x.Selected = false;
 			});
-			this.MenuItemListPlane[this.MenuPlaneSelectIndex].Select();
-			this.ScorePageIndex = 0;
-			this.AddNewScorePage();
+			MenuItemListPlane[MenuPlaneSelectIndex].Select();
+			ScorePageIndex = 0;
+			AddNewScorePage();
 		}
 
 		private void AddNewScorePage()
 		{
-			this.ScorePageList.Clear();
-			List<ScoreHistory> list = base.StageData.PData.S_History.FindAll(new Predicate<ScoreHistory>(this.FindScore));
-			List<SpellCardHistory> list2 = base.StageData.PData.SC_History.FindAll(new Predicate<SpellCardHistory>(this.FindSC));
-			List<ClearHistory> list3 = base.StageData.PData.C_History.FindAll(new Predicate<ClearHistory>(this.FindClear));
-			switch (this.ScorePageIndex)
+			ScorePageList.Clear();
+			List<ScoreHistory> list = StageData.PData.S_History.FindAll(new Predicate<ScoreHistory>(FindScore));
+			List<SpellCardHistory> list2 = StageData.PData.SC_History.FindAll(new Predicate<SpellCardHistory>(FindSC));
+			List<ClearHistory> list3 = StageData.PData.C_History.FindAll(new Predicate<ClearHistory>(FindClear));
+			switch (ScorePageIndex)
 			{
 			case 0:
 			{
 				for (int i = 0; i < list.Count; i++)
 				{
-					this.ScorePageList.Add(new DescriptionMenuItem(base.StageData, (i + 1).ToString().PadRight(2))
+					ScorePageList.Add(new DescriptionMenuItem(StageData, (i + 1).ToString().PadRight(2))
 					{
 						Description = list[i].Data2DrawString(),
 						DefaultColor = Color.FromArgb(230 - 15 * i, 230 - 12 * i, 255)
@@ -174,7 +174,7 @@ namespace Shooting
 				int num = 50;
 				int num2 = 130;
 				int num3 = 0;
-				foreach (BaseMenuItem baseMenuItem in this.ScorePageList)
+				foreach (BaseMenuItem baseMenuItem in ScorePageList)
 				{
 					baseMenuItem.DestPoint = new PointF((float)num, (float)num2);
 					baseMenuItem.Position = new PointF((float)(num + num3), 100f);
@@ -188,19 +188,19 @@ namespace Shooting
 				{
 					if (list2[i].History > 0)
 					{
-						this.ScorePageList.Add(new SCMenuItem(base.StageData, list2[i].Index.ToString().PadRight(3))
+						ScorePageList.Add(new SCMenuItem(StageData, list2[i].Index.ToString().PadRight(3))
 						{
 							Description = (list2[i].Recorded.ToString().PadLeft(2) + "/" + list2[i].History.ToString().PadLeft(2)).PadLeft(40),
-							TxtureObject = base.StageData.TextureObjectDictionary["欧" + list2[i].Name],
+							TxtureObject = StageData.TextureObjectDictionary["欧" + list2[i].Name],
 							DefaultColor = ((list2[i].Recorded > 0) ? Color.SkyBlue : Color.White)
 						});
 					}
 					else
 					{
-						this.ScorePageList.Add(new SCMenuItem(base.StageData, list2[i].Index.ToString().PadRight(3))
+						ScorePageList.Add(new SCMenuItem(StageData, list2[i].Index.ToString().PadRight(3))
 						{
 							Description = (list2[i].Recorded.ToString().PadLeft(2) + "/" + list2[i].History.ToString().PadLeft(2)).PadLeft(40),
-							TxtureObject = base.StageData.TextureObjectDictionary["???"],
+							TxtureObject = StageData.TextureObjectDictionary["???"],
 							DefaultColor = ((list2[i].Recorded > 0) ? Color.SkyBlue : Color.White)
 						});
 					}
@@ -208,7 +208,7 @@ namespace Shooting
 				int num = 80;
 				int num2 = 130;
 				int num3 = 0;
-				foreach (BaseMenuItem baseMenuItem in this.ScorePageList)
+				foreach (BaseMenuItem baseMenuItem in ScorePageList)
 				{
 					baseMenuItem.DestPoint = new PointF((float)num, (float)num2);
 					baseMenuItem.Position = new PointF((float)(num + num3), 100f);
@@ -222,19 +222,19 @@ namespace Shooting
 				{
 					if (list2[i].History > 0)
 					{
-						this.ScorePageList.Add(new SCMenuItem(base.StageData, list2[i].Index.ToString().PadRight(3))
+						ScorePageList.Add(new SCMenuItem(StageData, list2[i].Index.ToString().PadRight(3))
 						{
 							Description = (list2[i].Recorded.ToString().PadLeft(2) + "/" + list2[i].History.ToString().PadLeft(2)).PadLeft(40),
-							TxtureObject = base.StageData.TextureObjectDictionary["欧" + list2[i].Name],
+							TxtureObject = StageData.TextureObjectDictionary["欧" + list2[i].Name],
 							DefaultColor = ((list2[i].Recorded > 0) ? Color.SkyBlue : Color.White)
 						});
 					}
 					else
 					{
-						this.ScorePageList.Add(new SCMenuItem(base.StageData, list2[i].Index.ToString().PadRight(3))
+						ScorePageList.Add(new SCMenuItem(StageData, list2[i].Index.ToString().PadRight(3))
 						{
 							Description = (list2[i].Recorded.ToString().PadLeft(2) + "/" + list2[i].History.ToString().PadLeft(2)).PadLeft(40),
-							TxtureObject = base.StageData.TextureObjectDictionary["???"],
+							TxtureObject = StageData.TextureObjectDictionary["???"],
 							DefaultColor = ((list2[i].Recorded > 0) ? Color.SkyBlue : Color.White)
 						});
 					}
@@ -242,7 +242,7 @@ namespace Shooting
 				int num = 80;
 				int num2 = 130;
 				int num3 = 0;
-				foreach (BaseMenuItem baseMenuItem in this.ScorePageList)
+				foreach (BaseMenuItem baseMenuItem in ScorePageList)
 				{
 					baseMenuItem.DestPoint = new PointF((float)num, (float)num2);
 					baseMenuItem.Position = new PointF((float)(num + num3), 100f);
@@ -256,19 +256,19 @@ namespace Shooting
 				{
 					if (list2[i].History > 0)
 					{
-						this.ScorePageList.Add(new SCMenuItem(base.StageData, list2[i].Index.ToString().PadRight(3))
+						ScorePageList.Add(new SCMenuItem(StageData, list2[i].Index.ToString().PadRight(3))
 						{
 							Description = (list2[i].Recorded.ToString().PadLeft(2) + "/" + list2[i].History.ToString().PadLeft(2)).PadLeft(40),
-							TxtureObject = base.StageData.TextureObjectDictionary["欧" + list2[i].Name],
+							TxtureObject = StageData.TextureObjectDictionary["欧" + list2[i].Name],
 							DefaultColor = ((list2[i].Recorded > 0) ? Color.SkyBlue : Color.White)
 						});
 					}
 					else
 					{
-						this.ScorePageList.Add(new SCMenuItem(base.StageData, list2[i].Index.ToString().PadRight(3))
+						ScorePageList.Add(new SCMenuItem(StageData, list2[i].Index.ToString().PadRight(3))
 						{
 							Description = (list2[i].Recorded.ToString().PadLeft(2) + "/" + list2[i].History.ToString().PadLeft(2)).PadLeft(40),
-							TxtureObject = base.StageData.TextureObjectDictionary["???"],
+							TxtureObject = StageData.TextureObjectDictionary["???"],
 							DefaultColor = ((list2[i].Recorded > 0) ? Color.SkyBlue : Color.White)
 						});
 					}
@@ -276,7 +276,7 @@ namespace Shooting
 				int num = 80;
 				int num2 = 130;
 				int num3 = 0;
-				foreach (BaseMenuItem baseMenuItem in this.ScorePageList)
+				foreach (BaseMenuItem baseMenuItem in ScorePageList)
 				{
 					baseMenuItem.DestPoint = new PointF((float)num, (float)num2);
 					baseMenuItem.Position = new PointF((float)(num + num3), 100f);
@@ -290,19 +290,19 @@ namespace Shooting
 				{
 					if (list2[i].History > 0)
 					{
-						this.ScorePageList.Add(new SCMenuItem(base.StageData, list2[i].Index.ToString().PadRight(3))
+						ScorePageList.Add(new SCMenuItem(StageData, list2[i].Index.ToString().PadRight(3))
 						{
 							Description = (list2[i].Recorded.ToString().PadLeft(2) + "/" + list2[i].History.ToString().PadLeft(2)).PadLeft(40),
-							TxtureObject = base.StageData.TextureObjectDictionary["欧" + list2[i].Name],
+							TxtureObject = StageData.TextureObjectDictionary["欧" + list2[i].Name],
 							DefaultColor = ((list2[i].Recorded > 0) ? Color.SkyBlue : Color.White)
 						});
 					}
 					else
 					{
-						this.ScorePageList.Add(new SCMenuItem(base.StageData, list2[i].Index.ToString().PadRight(3))
+						ScorePageList.Add(new SCMenuItem(StageData, list2[i].Index.ToString().PadRight(3))
 						{
 							Description = (list2[i].Recorded.ToString().PadLeft(2) + "/" + list2[i].History.ToString().PadLeft(2)).PadLeft(40),
-							TxtureObject = base.StageData.TextureObjectDictionary["???"],
+							TxtureObject = StageData.TextureObjectDictionary["???"],
 							DefaultColor = ((list2[i].Recorded > 0) ? Color.SkyBlue : Color.White)
 						});
 					}
@@ -310,7 +310,7 @@ namespace Shooting
 				int num = 80;
 				int num2 = 130;
 				int num3 = 0;
-				foreach (BaseMenuItem baseMenuItem in this.ScorePageList)
+				foreach (BaseMenuItem baseMenuItem in ScorePageList)
 				{
 					baseMenuItem.DestPoint = new PointF((float)num, (float)num2);
 					baseMenuItem.Position = new PointF((float)(num + num3), 100f);
@@ -324,19 +324,19 @@ namespace Shooting
 				{
 					if (list2[i].History > 0)
 					{
-						this.ScorePageList.Add(new SCMenuItem(base.StageData, list2[i].Index.ToString().PadRight(3))
+						ScorePageList.Add(new SCMenuItem(StageData, list2[i].Index.ToString().PadRight(3))
 						{
 							Description = (list2[i].Recorded.ToString().PadLeft(2) + "/" + list2[i].History.ToString().PadLeft(2)).PadLeft(40),
-							TxtureObject = base.StageData.TextureObjectDictionary["欧" + list2[i].Name],
+							TxtureObject = StageData.TextureObjectDictionary["欧" + list2[i].Name],
 							DefaultColor = ((list2[i].Recorded > 0) ? Color.SkyBlue : Color.White)
 						});
 					}
 					else
 					{
-						this.ScorePageList.Add(new SCMenuItem(base.StageData, list2[i].Index.ToString().PadRight(3))
+						ScorePageList.Add(new SCMenuItem(StageData, list2[i].Index.ToString().PadRight(3))
 						{
 							Description = (list2[i].Recorded.ToString().PadLeft(2) + "/" + list2[i].History.ToString().PadLeft(2)).PadLeft(40),
-							TxtureObject = base.StageData.TextureObjectDictionary["???"],
+							TxtureObject = StageData.TextureObjectDictionary["???"],
 							DefaultColor = ((list2[i].Recorded > 0) ? Color.SkyBlue : Color.White)
 						});
 					}
@@ -344,7 +344,7 @@ namespace Shooting
 				int num = 80;
 				int num2 = 130;
 				int num3 = 0;
-				foreach (BaseMenuItem baseMenuItem in this.ScorePageList)
+				foreach (BaseMenuItem baseMenuItem in ScorePageList)
 				{
 					baseMenuItem.DestPoint = new PointF((float)num, (float)num2);
 					baseMenuItem.Position = new PointF((float)(num + num3), 100f);
@@ -355,15 +355,15 @@ namespace Shooting
 			}
 			int num4 = 215;
 			int num5 = 350;
-			this.ClearHistoryList = new List<BaseMenuItem>();
-			this.ClearHistoryList.Add(new SCMenuItem(base.StageData, "")
+			ClearHistoryList = new List<BaseMenuItem>();
+			ClearHistoryList.Add(new SCMenuItem(StageData, "")
 			{
 				OriginalPosition = new PointF((float)num4, (float)num5),
 				DestPoint = new PointF((float)num4, (float)num5),
 				Scale = 1f,
 				OffX = 0,
 				OffY = -5,
-				TxtureObject = base.StageData.TextureObjectDictionary["History_游戏次数"],
+				TxtureObject = StageData.TextureObjectDictionary["History_游戏次数"],
 				Description = list3[0].StartTimes.ToString().PadLeft(18, ' '),
 				DefaultColor = Color.FromArgb(230, 230, 255)
 			});
@@ -380,71 +380,71 @@ namespace Shooting
 				":",
 				num8.ToString("d2")
 			});
-			this.ClearHistoryList.Add(new SCMenuItem(base.StageData, "")
+			ClearHistoryList.Add(new SCMenuItem(StageData, "")
 			{
 				OriginalPosition = new PointF((float)num4, (float)num5),
 				DestPoint = new PointF((float)num4, (float)num5),
 				Scale = 1f,
 				OffX = 0,
 				OffY = -5,
-				TxtureObject = base.StageData.TextureObjectDictionary["History_游戏时间"],
+				TxtureObject = StageData.TextureObjectDictionary["History_游戏时间"],
 				Description = text.PadLeft(18, ' '),
 				DefaultColor = Color.FromArgb(230, 230, 255)
 			});
 			num5 += 24;
-			this.ClearHistoryList.Add(new SCMenuItem(base.StageData, "")
+			ClearHistoryList.Add(new SCMenuItem(StageData, "")
 			{
 				OriginalPosition = new PointF((float)num4, (float)num5),
 				DestPoint = new PointF((float)num4, (float)num5),
 				Scale = 1f,
 				OffX = 0,
 				OffY = -5,
-				TxtureObject = base.StageData.TextureObjectDictionary["History_通关次数"],
+				TxtureObject = StageData.TextureObjectDictionary["History_通关次数"],
 				Description = list3[0].ClearTimes.ToString().PadLeft(18, ' '),
 				DefaultColor = Color.FromArgb(230, 230, 255)
 			});
 			num5 += 24;
-			this.ClearHistoryList.Add(new SCMenuItem(base.StageData, "")
+			ClearHistoryList.Add(new SCMenuItem(StageData, "")
 			{
 				OriginalPosition = new PointF((float)num4, (float)num5),
 				DestPoint = new PointF((float)num4, (float)num5),
 				Scale = 1f,
 				OffX = 0,
 				OffY = -5,
-				TxtureObject = base.StageData.TextureObjectDictionary["History_无续关通关次数"],
+				TxtureObject = StageData.TextureObjectDictionary["History_无续关通关次数"],
 				Description = list3[0].NoContinueClearTimes.ToString().PadLeft(18, ' '),
 				DefaultColor = Color.FromArgb(230, 230, 255)
 			});
 			num5 += 24;
 			num4 -= 70;
-			this.ClearHistoryList.Add(new BaseMenuItem(base.StageData, "History_切换")
+			ClearHistoryList.Add(new BaseMenuItem(StageData, "History_切换")
 			{
 				OriginalPosition = new PointF((float)num4, (float)num5),
 				DestPoint = new PointF((float)num4, (float)num5),
 				Scale = 1f,
 				Selected = true
 			});
-			this.ClearHistoryList.Add(new BaseMenuItem(base.StageData, "History_Arrow")
+			ClearHistoryList.Add(new BaseMenuItem(StageData, "History_Arrow")
 			{
 				OriginalPosition = new PointF(70f, 95f),
 				DestPoint = new PointF(70f, 95f),
 				Selected = true
 			});
-			this.ClearHistoryList.Add(new BaseMenuItem(base.StageData, "History_Arrow")
+			ClearHistoryList.Add(new BaseMenuItem(StageData, "History_Arrow")
 			{
 				OriginalPosition = new PointF(322f, 112f),
 				DestPoint = new PointF(322f, 112f),
 				Selected = true,
 				AngleDegree = 180.0
 			});
-			this.ClearHistoryList.Add(new BaseMenuItem(base.StageData, "History_Arrow")
+			ClearHistoryList.Add(new BaseMenuItem(StageData, "History_Arrow")
 			{
 				OriginalPosition = new PointF(480f, 89f),
 				DestPoint = new PointF(480f, 89f),
 				Selected = true,
 				AngleDegree = 90.0
 			});
-			this.ClearHistoryList.Add(new BaseMenuItem(base.StageData, "History_Arrow")
+			ClearHistoryList.Add(new BaseMenuItem(StageData, "History_Arrow")
 			{
 				OriginalPosition = new PointF(464f, 119f),
 				DestPoint = new PointF(464f, 119f),
@@ -456,15 +456,15 @@ namespace Shooting
 		public override void Show()
 		{
 			base.Show();
-			this.MenuItemListPlane.ForEach(delegate(BaseMenuItem x)
+			MenuItemListPlane.ForEach(delegate(BaseMenuItem x)
 			{
 				x.Show();
 			});
-			this.ScorePageList.ForEach(delegate(DescriptionMenuItem x)
+			ScorePageList.ForEach(delegate(DescriptionMenuItem x)
 			{
 				x.Show();
 			});
-			this.ClearHistoryList.ForEach(delegate(BaseMenuItem x)
+			ClearHistoryList.ForEach(delegate(BaseMenuItem x)
 			{
 				x.Show();
 			});
@@ -472,17 +472,17 @@ namespace Shooting
 
 		public bool FindScore(ScoreHistory SH)
 		{
-			return SH.Rank.ToString() == base.MenuItemList[base.MenuSelectIndex].Name.Replace("History_", string.Empty) && SH.MyPlaneFullName == this.MenuItemListPlane[this.MenuPlaneSelectIndex].Name.Replace("History_", string.Empty);
+			return SH.Rank.ToString() == MenuItemList[MenuSelectIndex].Name.Replace("History_", string.Empty) && SH.MyPlaneFullName == MenuItemListPlane[MenuPlaneSelectIndex].Name.Replace("History_", string.Empty);
 		}
 
 		public bool FindClear(ClearHistory CH)
 		{
-			return CH.Rank.ToString() == base.MenuItemList[base.MenuSelectIndex].Name.Replace("History_", string.Empty) && CH.MyPlaneFullName == this.MenuItemListPlane[this.MenuPlaneSelectIndex].Name.Replace("History_", string.Empty);
+			return CH.Rank.ToString() == MenuItemList[MenuSelectIndex].Name.Replace("History_", string.Empty) && CH.MyPlaneFullName == MenuItemListPlane[MenuPlaneSelectIndex].Name.Replace("History_", string.Empty);
 		}
 
 		public bool FindSC(SpellCardHistory SCH)
 		{
-			return SCH.Rank.ToString() == base.MenuItemList[base.MenuSelectIndex].Name.Replace("History_", string.Empty) && SCH.MyPlaneFullName == this.MenuItemListPlane[this.MenuPlaneSelectIndex].Name.Replace("History_", string.Empty);
+			return SCH.Rank.ToString() == MenuItemList[MenuSelectIndex].Name.Replace("History_", string.Empty) && SCH.MyPlaneFullName == MenuItemListPlane[MenuPlaneSelectIndex].Name.Replace("History_", string.Empty);
 		}
 
 		private List<BaseMenuItem> MenuItemListPlane;

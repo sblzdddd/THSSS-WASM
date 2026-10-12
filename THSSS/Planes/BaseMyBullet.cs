@@ -7,28 +7,28 @@ namespace Shooting
 		public BaseMyBullet(StageDataPackage StageData, string textureName, PointF Position, float v, double drctn)
 			: base(StageData, textureName, Position, v, drctn)
 		{
-			base.Damage = 21;
-			base.Region = 15;
-			base.MyBulletList.Add(this);
+			Damage = 21;
+			Region = 15;
+			MyBulletList.Add(this);
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			if (this.OutBoundary())
+			if (OutBoundary())
 			{
-				base.MyBulletList.Remove(this);
+				MyBulletList.Remove(this);
 			}
 		}
 
 		public override void GiveEndEffect()
 		{
-			new Emitter2(base.StageData, base.Position);
-			ParticleBiger particleBiger = new ParticleBiger(base.StageData, null, base.Position, 3f, base.Direction);
+			new Emitter2(StageData, Position);
+			ParticleBiger particleBiger = new ParticleBiger(StageData, null, Position, 3f, Direction);
 			particleBiger.Scale = 1.2f;
 			particleBiger.LifeTime = 15;
-			particleBiger.TxtureObject = base.TxtureObject;
-			particleBiger.Angle = base.Angle;
+			particleBiger.TxtureObject = TxtureObject;
+			particleBiger.Angle = Angle;
 			particleBiger.MaxTransparent = 100;
 		}
 	}

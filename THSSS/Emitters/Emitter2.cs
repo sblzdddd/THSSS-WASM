@@ -7,10 +7,10 @@ namespace Shooting
 		public Emitter2(StageDataPackage StageData, PointF Position)
 			: base(StageData)
 		{
-			base.Position = Position;
-			base.Velocity = 0f;
-			base.Direction = 0.0;
-			base.LifeTime = 2;
+			this.Position = Position;
+			Velocity = 0f;
+			Direction = 0.0;
+			LifeTime = 2;
 		}
 
 		public override void Shoot()
@@ -18,8 +18,8 @@ namespace Shooting
 			int i = 0;
 			while (i < 1)
 			{
-				string text = ((base.MyPlane.Name == "Aya") ? "MyParticle" : "MyParticle01");
-				string name = base.MyPlane.Name;
+				string text = ((MyPlane.Name == "Aya") ? "MyParticle" : "MyParticle01");
+				string name = MyPlane.Name;
 				if (name == null)
 				{
 					goto IL_00A7;
@@ -59,9 +59,9 @@ namespace Shooting
 					text2 = "MyParticle";
 				}
 				IL_00AF:
-				ParticleSmaller particleSmaller = new ParticleSmaller(base.StageData, text2, base.Position, (float)(base.Ran.Next(100, 300) / 10), (double)((float)base.Ran.Next(0, 180) / 180f) * 3.141592653589793);
+				ParticleSmaller particleSmaller = new ParticleSmaller(StageData, text2, Position, (float)(Ran.Next(100, 300) / 10), (double)((float)Ran.Next(0, 180) / 180f) * 3.141592653589793);
 				particleSmaller.LifeTime = 10;
-				particleSmaller.Scale = (float)base.Ran.Next(60) / 100f;
+				particleSmaller.Scale = (float)Ran.Next(60) / 100f;
 				particleSmaller.TransparentValueF = 200f;
 				particleSmaller.Accelerate = -particleSmaller.Velocity / (float)particleSmaller.LifeTime;
 				i++;

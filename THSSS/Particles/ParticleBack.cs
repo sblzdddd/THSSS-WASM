@@ -8,28 +8,28 @@ namespace Shooting
 
 		public ParticleBack(StageDataPackage StageData, string textureName, PointF Position, float Velocity, double Diretion)
 		{
-			base.StageData = StageData;
-			base.Position = Position;
-			base.Velocity = Velocity;
-			base.Direction = Diretion;
-			base.TxtureObject = base.TextureObjectDictionary[textureName];
-			base.LifeTime = 200;
-			base.TransparentValueF = 0f;
-			this.AngularVelocity = 0.01f;
-			base.EffectList.Add(this);
+			this.StageData = StageData;
+			this.Position = Position;
+			this.Velocity = Velocity;
+			Direction = Diretion;
+			TxtureObject = TextureObjectDictionary[textureName];
+			LifeTime = 200;
+			TransparentValueF = 0f;
+			AngularVelocity = 0.01f;
+			EffectList.Add(this);
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			base.Angle += (double)this.AngularVelocity;
-			if (0 < base.Time && base.Time < base.LifeTime / 3)
+			Angle += (double)AngularVelocity;
+			if (0 < Time && Time < LifeTime / 3)
 			{
-				base.TransparentValueF += (float)(765 / base.LifeTime);
+				TransparentValueF += (float)(765 / LifeTime);
 			}
-			else if (base.LifeTime * 2 / 3 < base.Time && base.Time < base.LifeTime)
+			else if (LifeTime * 2 / 3 < Time && Time < LifeTime)
 			{
-				base.TransparentValueF -= (float)(255 / base.LifeTime * 3);
+				TransparentValueF -= (float)(255 / LifeTime * 3);
 			}
 		}
 	}

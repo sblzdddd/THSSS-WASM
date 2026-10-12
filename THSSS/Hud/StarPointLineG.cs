@@ -6,51 +6,51 @@ namespace Shooting
 	{
 		public StarPointLineG(StageDataPackage StageData, PointF OriginalPosition)
 		{
-			base.StageData = StageData;
-			base.OriginalPosition = OriginalPosition;
-			base.TransparentValueF = 0f;
-			base.TransparentVelocity = 10f;
-			this.type = "C";
+			this.StageData = StageData;
+			this.OriginalPosition = OriginalPosition;
+			TransparentValueF = 0f;
+			TransparentVelocity = 10f;
+			type = "C";
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			if (base.MyPlane.OriginalPosition.X < 100f && base.MyPlane.OriginalPosition.Y > (float)(base.BoundRect.Height - 140))
+			if (MyPlane.OriginalPosition.X < 100f && MyPlane.OriginalPosition.Y > (float)(BoundRect.Height - 140))
 			{
-				base.TransparentVelocity = -10f;
+				TransparentVelocity = -10f;
 			}
 			else
 			{
-				base.TransparentVelocity = 10f;
+				TransparentVelocity = 10f;
 			}
-			if (base.TransparentValue < 50)
+			if (TransparentValue < 50)
 			{
-				base.TransparentValueF = 50f;
+				TransparentValueF = 50f;
 			}
-			base.TxtureObject = base.TextureObjectDictionary["border" + this.type + "2"];
-			if (base.MyPlane.LastColor == EnchantmentType.Green && base.Story == null)
+			TxtureObject = TextureObjectDictionary["border" + type + "2"];
+			if (MyPlane.LastColor == EnchantmentType.Green && Story == null)
 			{
-				base.DestPoint = new PointF(66f, 404f);
+				DestPoint = new PointF(66f, 404f);
 			}
 			else
 			{
-				base.DestPoint = new PointF(-6f, 404f);
+				DestPoint = new PointF(-6f, 404f);
 			}
-			base.Velocity = 3f;
+			Velocity = 3f;
 		}
 
 		public override void Show()
 		{
-			if (base.TxtureObject != null)
+			if (TxtureObject != null)
 			{
-				base.SpriteMain.Draw2D(base.TextureObjectDictionary["border" + this.type + "1"], 1f, 0f, base.OriginalPosition, Color.FromArgb(base.TransparentValue, Color.White));
-				int num = base.TxtureObject.Height * base.MyPlane.StarPoint / base.MyPlane.maxStarPoint;
+				SpriteMain.Draw2D(TextureObjectDictionary["border" + type + "1"], 1f, 0f, OriginalPosition, Color.FromArgb(TransparentValue, Color.White));
+				int num = TxtureObject.Height * MyPlane.StarPoint / MyPlane.maxStarPoint;
 				num = ((num > 1) ? num : 1);
-				Size size = new Size(base.TxtureObject.Width, num);
-				Rectangle rectangle = new Rectangle(new Point(base.TxtureObject.PosRect.X, base.TxtureObject.PosRect.Y + base.TxtureObject.Height - num), size);
-				base.SpriteMain.Draw2D(base.TxtureObject.TXTure, rectangle, size, base.TxtureObject.RotatingCenter, 0f, new PointF(base.OriginalPosition.X, base.OriginalPosition.Y + (float)base.TxtureObject.Height - (float)num), Color.FromArgb(base.TransparentValue * 8 / 10, Color.White));
-				base.SpriteMain.Draw2D(base.TextureObjectDictionary["border" + this.type + "0"], 1f, 0f, base.OriginalPosition, Color.FromArgb(base.TransparentValue, Color.White));
+				Size size = new Size(TxtureObject.Width, num);
+				Rectangle rectangle = new Rectangle(new Point(TxtureObject.PosRect.X, TxtureObject.PosRect.Y + TxtureObject.Height - num), size);
+				SpriteMain.Draw2D(TxtureObject.TXTure, rectangle, size, TxtureObject.RotatingCenter, 0f, new PointF(OriginalPosition.X, OriginalPosition.Y + (float)TxtureObject.Height - (float)num), Color.FromArgb(TransparentValue * 8 / 10, Color.White));
+				SpriteMain.Draw2D(TextureObjectDictionary["border" + type + "0"], 1f, 0f, OriginalPosition, Color.FromArgb(TransparentValue, Color.White));
 			}
 		}
 

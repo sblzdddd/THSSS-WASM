@@ -7,15 +7,15 @@ namespace Shooting
 		public SpellCard_SSSEx_08(StageDataPackage StageData)
 			: base(StageData)
 		{
-			base.SC_Name = "仙境「风花雪月」";
-			base.BaseScore = 40000000L;
-			base.Boss.DestPoint = new Point(base.BoundRect.Width / 2, 120);
-			base.Boss.Velocity = 4f;
+			SC_Name = "仙境「风花雪月」";
+			BaseScore = 40000000L;
+			Boss.DestPoint = new Point(BoundRect.Width / 2, 120);
+			Boss.Velocity = 4f;
 			StageData.SoundPlay("se_cat00.wav");
-			new BulletTitle(StageData, base.SC_Name);
+			new BulletTitle(StageData, SC_Name);
 			new SpellCardAttack(StageData);
 			new BackgroundBossEx(StageData);
-			string name = base.MyPlane.Name;
+			string name = MyPlane.Name;
 			if (name != null)
 			{
 				if (name == "Reimu")
@@ -44,12 +44,12 @@ namespace Shooting
 
 		public override void Shoot()
 		{
-			base.Boss.Armon = base.Boss.ArmonArray[15];
-			if (base.Time == 100)
+			Boss.Armon = Boss.ArmonArray[15];
+			if (Time == 100)
 			{
 				string text = ".\\CS\\StEx\\关底Boss\\8符.mbg";
-				CS_Data cs_Data = base.StageData.LoadCS(text);
-				new CSEmitterController(base.StageData, cs_Data);
+				CS_Data cs_Data = StageData.LoadCS(text);
+				new CSEmitterController(StageData, cs_Data);
 			}
 		}
 	}

@@ -12,24 +12,24 @@ namespace Shooting
 
 		public BaseEffect(StageDataPackage StageData)
 		{
-			base.StageData = StageData;
-			base.EffectList.Add(this);
+			this.StageData = StageData;
+			EffectList.Add(this);
 		}
 
 		public BaseEffect(StageDataPackage StageData, string textureName, PointF Position, float Velocity, double Direction)
 			: base(StageData, textureName, Position, Velocity, Direction)
 		{
-			base.EffectList.Add(this);
-			base.Active = true;
+			EffectList.Add(this);
+			Active = true;
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			this.Shoot();
-			if (this.OutBoundary())
+			Shoot();
+			if (OutBoundary())
 			{
-				base.EffectList.Remove(this);
+				EffectList.Remove(this);
 			}
 		}
 

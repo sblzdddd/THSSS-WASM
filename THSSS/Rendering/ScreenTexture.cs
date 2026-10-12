@@ -26,7 +26,7 @@ namespace Shooting
 			this.DeviceMain = DeviceMain;
 			this.WindowWidth = WindowWidth;
 			this.WindowHeight = WindowHeight;
-			while (!this.SetupRenderTexture())
+			while (!SetupRenderTexture())
 			{
 			}
 		}
@@ -36,9 +36,9 @@ namespace Shooting
 			bool flag;
 			try
 			{
-				this.renderTexture = new Texture(this.DeviceMain, this.WindowWidth, this.WindowHeight, 1, Usage.RenderTarget, Format.X8R8G8B8, Pool.Default);
-				this.renderSurface = this.renderTexture.GetSurfaceLevel(0);
-				this.renderDepthStencilSurface = Surface.CreateDepthStencil(this.DeviceMain, this.WindowWidth, this.WindowHeight, Format.D16, MultisampleType.None, 0, true);
+				renderTexture = new Texture(DeviceMain, WindowWidth, WindowHeight, 1, Usage.RenderTarget, Format.X8R8G8B8, Pool.Default);
+				renderSurface = renderTexture.GetSurfaceLevel(0);
+				renderDepthStencilSurface = Surface.CreateDepthStencil(DeviceMain, WindowWidth, WindowHeight, Format.D16, MultisampleType.None, 0, true);
 				flag = true;
 			}
 			catch
@@ -50,45 +50,45 @@ namespace Shooting
 
 		public void Begin()
 		{
-			this.oldRenderSurface = this.DeviceMain.GetRenderTarget(0);
-			this.oldDepthStencilSurface = this.DeviceMain.DepthStencilSurface;
-			this.DeviceMain.SetRenderTarget(0, this.renderSurface);
-			this.DeviceMain.DepthStencilSurface = this.renderDepthStencilSurface;
-			this.DeviceMain.Clear(ClearFlags.ZBuffer | ClearFlags.Target, new Color4(0f, 0f, 0f, 0f), 1f, 0);
+			oldRenderSurface = DeviceMain.GetRenderTarget(0);
+			oldDepthStencilSurface = DeviceMain.DepthStencilSurface;
+			DeviceMain.SetRenderTarget(0, renderSurface);
+			DeviceMain.DepthStencilSurface = renderDepthStencilSurface;
+			DeviceMain.Clear(ClearFlags.ZBuffer | ClearFlags.Target, new Color4(0f, 0f, 0f, 0f), 1f, 0);
 		}
 
 		public void End()
 		{
-			this.DeviceMain.SetRenderTarget(0, this.oldRenderSurface);
-			this.DeviceMain.DepthStencilSurface = this.oldDepthStencilSurface;
+			DeviceMain.SetRenderTarget(0, oldRenderSurface);
+			DeviceMain.DepthStencilSurface = oldDepthStencilSurface;
 		}
 
 		public void Reset()
 		{
-			this.SetupRenderTexture();
+			SetupRenderTexture();
 		}
 
 		public void Dispose()
 		{
-			if (this.renderSurface != null)
+			if (renderSurface != null)
 			{
-				this.renderSurface.Dispose();
+				renderSurface.Dispose();
 			}
-			if (this.renderDepthStencilSurface != null)
+			if (renderDepthStencilSurface != null)
 			{
-				this.renderDepthStencilSurface.Dispose();
+				renderDepthStencilSurface.Dispose();
 			}
-			if (this.renderTexture != null)
+			if (renderTexture != null)
 			{
-				this.renderTexture.Dispose();
+				renderTexture.Dispose();
 			}
-			if (this.oldDepthStencilSurface != null)
+			if (oldDepthStencilSurface != null)
 			{
-				this.oldDepthStencilSurface.Dispose();
+				oldDepthStencilSurface.Dispose();
 			}
-			if (this.oldRenderSurface != null)
+			if (oldRenderSurface != null)
 			{
-				this.oldRenderSurface.Dispose();
+				oldRenderSurface.Dispose();
 			}
 		}
 	}

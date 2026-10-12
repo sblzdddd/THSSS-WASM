@@ -9,18 +9,18 @@ namespace Shooting
 			: base(StageData)
 		{
 			this.StageSelect = StageSelect;
-			base.MenuSelectIndex = 0;
+			MenuSelectIndex = 0;
 			if (PlaneType == 1)
 			{
-				base.MenuItemList = new List<BaseMenuItem>();
-				base.MenuItemList.Add(new CharacterMenuItem(StageData, "Weapon_PlaneA")
+				MenuItemList = new List<BaseMenuItem>();
+				MenuItemList.Add(new CharacterMenuItem(StageData, "Weapon_PlaneA")
 				{
 					Scale = 0.7f,
 					DestPoint1 = new PointF(270f, 150f),
 					DestPoint2 = new PointF(200f, 150f),
 					TransparentValueF = 0f
 				});
-				base.MenuItemList.Add(new CharacterMenuItem(StageData, "Weapon_PlaneB")
+				MenuItemList.Add(new CharacterMenuItem(StageData, "Weapon_PlaneB")
 				{
 					Scale = 0.7f,
 					DestPoint1 = new PointF(270f, 150f),
@@ -30,7 +30,7 @@ namespace Shooting
 			}
 			else
 			{
-				base.MenuItemList = new List<BaseMenuItem>
+				MenuItemList = new List<BaseMenuItem>
 				{
 					new CharacterMenuItem(StageData, "Weapon_AyaA")
 					{
@@ -41,102 +41,102 @@ namespace Shooting
 					}
 				};
 			}
-			base.MenuItemList[base.MenuSelectIndex].Selected = true;
-			this.MenuTitlePos1 = new PointF(280f, 30f);
-			this.MenuTitlePos2 = new PointF(280f, -100f);
-			base.MenuTilte = new BaseMenuItem(StageData, "MenuTitle_WeaponSelect")
+			MenuItemList[MenuSelectIndex].Selected = true;
+			MenuTitlePos1 = new PointF(280f, 30f);
+			MenuTitlePos2 = new PointF(280f, -100f);
+			MenuTilte = new BaseMenuItem(StageData, "MenuTitle_WeaponSelect")
 			{
-				Position = this.MenuTitlePos2
+				Position = MenuTitlePos2
 			};
-			base.TransparentValueF = 0f;
-			base.MaxTransparent = 255;
-			base.TransparentVelocity = 5f;
-			base.OriginalPosition = new PointF((float)(base.BoundRect.Width / 2), (float)(base.BoundRect.Height / 2));
-			base.AngleDegree = 90.0;
+			TransparentValueF = 0f;
+			MaxTransparent = 255;
+			TransparentVelocity = 5f;
+			OriginalPosition = new PointF((float)(BoundRect.Width / 2), (float)(BoundRect.Height / 2));
+			AngleDegree = 90.0;
 		}
 
 		public override void ProcessKeys()
 		{
-			if (base.KClass.ArrowLeft && this.LastLeft == 0)
+			if (KClass.ArrowLeft && LastLeft == 0)
 			{
-				base.MenuSelectIndex++;
-				base.StageData.SoundPlay("se_select00.wav");
-				this.SelectItemChanged();
+				MenuSelectIndex++;
+				StageData.SoundPlay("se_select00.wav");
+				SelectItemChanged();
 			}
-			if (base.KClass.ArrowRight && this.LastRight == 0)
+			if (KClass.ArrowRight && LastRight == 0)
 			{
-				base.MenuSelectIndex--;
-				base.StageData.SoundPlay("se_select00.wav");
-				this.SelectItemChanged();
+				MenuSelectIndex--;
+				StageData.SoundPlay("se_select00.wav");
+				SelectItemChanged();
 			}
-			if (base.KClass.Key_Z && this.LastZ == 0)
+			if (KClass.Key_Z && LastZ == 0)
 			{
-				base.MenuItemList[base.MenuSelectIndex].Click();
-				this.OnChangeMenu = base.TimeMain + 20;
-				base.StageData.SoundPlay("se_ok00.wav");
+				MenuItemList[MenuSelectIndex].Click();
+				OnChangeMenu = TimeMain + 20;
+				StageData.SoundPlay("se_ok00.wav");
 			}
-			if ((base.KClass.Key_X || base.KClass.Key_ESC) && this.LastX == 0)
+			if ((KClass.Key_X || KClass.Key_ESC) && LastX == 0)
 			{
-				this.OnRemoveMenu = base.TimeMain + 20;
-				base.TransparentVelocity = -15f;
-				foreach (BaseMenuItem baseMenuItem in base.MenuItemList)
+				OnRemoveMenu = TimeMain + 20;
+				TransparentVelocity = -15f;
+				foreach (BaseMenuItem baseMenuItem in MenuItemList)
 				{
 					baseMenuItem.Selected = false;
 					baseMenuItem.OnRemove = true;
 				}
-				base.StageData.SoundPlay("se_cancel00.wav");
+				StageData.SoundPlay("se_cancel00.wav");
 			}
 		}
 
 		public override void ProcessZ()
 		{
 			Point point = new Point(192, 398);
-			string name = base.MenuItemList[base.MenuSelectIndex].Name;
+			string name = MenuItemList[MenuSelectIndex].Name;
 			if (name != null)
 			{
 				if (name == "Weapon_AyaA")
 				{
-					base.StageData.StateSwitchData.SDPswitch.MyPlane = new MyPlane_Aya(base.StageData.StateSwitchData.SDPswitch, point);
+					StageData.StateSwitchData.SDPswitch.MyPlane = new MyPlane_Aya(StageData.StateSwitchData.SDPswitch, point);
 					goto IL_0158;
 				}
 				if (name == "Weapon_AyaB")
 				{
-					base.StageData.StateSwitchData.SDPswitch.MyPlane = new MyPlane_AyaB(base.StageData.StateSwitchData.SDPswitch, point);
+					StageData.StateSwitchData.SDPswitch.MyPlane = new MyPlane_AyaB(StageData.StateSwitchData.SDPswitch, point);
 					goto IL_0158;
 				}
 				if (name == "Weapon_PlaneA")
 				{
-					base.StageData.StateSwitchData.SDPswitch.MyPlane = new AutoPlane(base.StageData.StateSwitchData.SDPswitch, point);
+					StageData.StateSwitchData.SDPswitch.MyPlane = new AutoPlane(StageData.StateSwitchData.SDPswitch, point);
 					goto IL_0158;
 				}
 				if (name == "Weapon_PlaneB")
 				{
-					base.StageData.StateSwitchData.SDPswitch.MyPlane = new MyPlane_PlaneB(base.StageData.StateSwitchData.SDPswitch, point);
+					StageData.StateSwitchData.SDPswitch.MyPlane = new MyPlane_PlaneB(StageData.StateSwitchData.SDPswitch, point);
 					goto IL_0158;
 				}
 			}
-			base.StageData.StateSwitchData = new StateSwitchDataPackage
+			StageData.StateSwitchData = new StateSwitchDataPackage
 			{
 				NextState = "此功能尚未开通",
 				NeedInit = true,
-				SDPswitch = base.StageData
+				SDPswitch = StageData
 			};
 			IL_0158:
-			if (!this.StageSelect)
+			if (!StageSelect)
 			{
-				base.StageData.Rep.CreatRpy();
-				base.StageData.StateSwitchData.NextState = "St1";
-				base.StageData.StateSwitchData.SDPswitch.SetReplayInfo(base.StageData.StateSwitchData.NextState);
+				StageData.Rep.CreatRpy();
+				StageData.StateSwitchData.NextState = "St1";
+				StageData.StateSwitchData.SDPswitch.SetReplayInfo(StageData.StateSwitchData.NextState);
 			}
 			else
 			{
-				base.StageData.MenuGroupList.Add(new MenuGroup_StageSelect(base.StageData));
+				StageData.MenuGroupList.Add(new MenuGroup_StageSelect(StageData));
 			}
 		}
 
 		public override void Show()
 		{
-			if (base.StageData.MenuGroupList[base.StageData.MenuGroupList.Count - 1] == this)
+			if (StageData.MenuGroupList[StageData.MenuGroupList.Count - 1] == this)
 			{
 				base.Show();
 			}

@@ -8,17 +8,17 @@ namespace Shooting
 		public SpellCard_SSS02_03(StageDataPackage StageData)
 			: base(StageData)
 		{
-			if (base.Difficulty < DifficultLevel.Hard)
+			if (Difficulty < DifficultLevel.Hard)
 			{
-				base.SC_Name = "使魔「自动狩猎装置」";
+				SC_Name = "使魔「自动狩猎装置」";
 			}
 			else
 			{
-				base.SC_Name = "魔狩「星夜的狩猎舞曲」";
+				SC_Name = "魔狩「星夜的狩猎舞曲」";
 			}
-			base.BaseScore = 15000000L;
-			base.Boss.DestPoint = new Point(base.BoundRect.Width / 2, 120);
-			base.Boss.Velocity = 4f;
+			BaseScore = 15000000L;
+			Boss.DestPoint = new Point(BoundRect.Width / 2, 120);
+			Boss.Velocity = 4f;
 			StageData.SoundPlay("se_cat00.wav");
 			BackgroundRotate backgroundRotate = new BackgroundRotate(StageData, "Card02b");
 			backgroundRotate.Scale = 1.3f;
@@ -47,22 +47,22 @@ namespace Shooting
 			backgroundRotate2.Scale = 0.7f;
 			backgroundRotate2.Active = true;
 			backgroundRotate2.AngularVelocityDegree = 0.2f;
-			new BulletTitle(StageData, base.SC_Name);
+			new BulletTitle(StageData, SC_Name);
 			new SpellCardAttack(StageData);
 			new FullPic2(StageData, "FaceRakuki_ct");
 		}
 
 		public override void Shoot()
 		{
-			base.Boss.Armon = 0.8f;
-			if (base.Time > 100)
+			Boss.Armon = 0.8f;
+			if (Time > 100)
 			{
-				base.Boss.RandomMove1(180, 1.2f);
+				Boss.RandomMove1(180, 1.2f);
 			}
-			if (base.Time == 150)
+			if (Time == 150)
 			{
 				string text;
-				switch (base.Difficulty)
+				switch (Difficulty)
 				{
 				case DifficultLevel.Easy:
 					text = ".\\CS\\St02\\关底Boss\\2符E.mbg";
@@ -80,8 +80,8 @@ namespace Shooting
 					text = ".\\CS\\St02\\关底Boss\\2符L.mbg";
 					break;
 				}
-				CS_Data cs_Data = base.StageData.LoadCS(text);
-				new CSEmitterController(base.StageData, cs_Data);
+				CS_Data cs_Data = StageData.LoadCS(text);
+				new CSEmitterController(StageData, cs_Data);
 			}
 		}
 	}

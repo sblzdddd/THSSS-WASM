@@ -7,54 +7,54 @@ namespace Shooting
 		public BulletTitle(StageDataPackage StageData, string textureName)
 			: this(StageData, textureName, new Point(0, 0))
 		{
-			base.DestPoint = new Point(base.BoundRect.Width - 10, 20);
+			DestPoint = new Point(BoundRect.Width - 10, 20);
 		}
 
 		public BulletTitle(StageDataPackage StageData, string textureName, Point DestPoint)
 			: base(StageData, textureName, DestPoint)
 		{
-			base.Layer = 1;
+			Layer = 1;
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			if (base.Time > 200)
+			if (Time > 200)
 			{
-				if (base.Boss != null)
+				if (Boss != null)
 				{
-					if (base.Boss.OnSpell && base.Boss.HealthPoint > 0f)
+					if (Boss.OnSpell && Boss.HealthPoint > 0f)
 					{
-						base.LifeTime++;
+						LifeTime++;
 					}
 				}
 			}
-			if (base.MyPlane.OriginalPosition.Y < base.OriginalPosition.Y + (float)base.TxtureObject.Height + 16f && base.MyPlane.OriginalPosition.X > base.OriginalPosition.X - (float)base.TxtureObject.Width && base.MyPlane.OriginalPosition.X < base.OriginalPosition.X)
+			if (MyPlane.OriginalPosition.Y < OriginalPosition.Y + (float)TxtureObject.Height + 16f && MyPlane.OriginalPosition.X > OriginalPosition.X - (float)TxtureObject.Width && MyPlane.OriginalPosition.X < OriginalPosition.X)
 			{
-				base.TransparentValueF -= 10f;
-				if (base.TransparentValueF < 50f)
+				TransparentValueF -= 10f;
+				if (TransparentValueF < 50f)
 				{
-					base.TransparentValueF = 50f;
+					TransparentValueF = 50f;
 				}
 			}
-			else if (base.Boss != null && base.Time > 100)
+			else if (Boss != null && Time > 100)
 			{
-				if (base.Boss.OriginalPosition.Y < base.OriginalPosition.Y + (float)base.TxtureObject.Height + 16f && base.Boss.OriginalPosition.Y > 0f && base.Boss.OriginalPosition.X > base.OriginalPosition.X - (float)base.TxtureObject.Width && base.Boss.OriginalPosition.X < base.OriginalPosition.X)
+				if (Boss.OriginalPosition.Y < OriginalPosition.Y + (float)TxtureObject.Height + 16f && Boss.OriginalPosition.Y > 0f && Boss.OriginalPosition.X > OriginalPosition.X - (float)TxtureObject.Width && Boss.OriginalPosition.X < OriginalPosition.X)
 				{
-					base.TransparentValueF -= 10f;
-					if (base.TransparentValueF < 50f)
+					TransparentValueF -= 10f;
+					if (TransparentValueF < 50f)
 					{
-						base.TransparentValueF = 50f;
+						TransparentValueF = 50f;
 					}
 				}
 				else
 				{
-					base.TransparentValueF += 10f;
+					TransparentValueF += 10f;
 				}
 			}
 			else
 			{
-				base.TransparentValueF += 10f;
+				TransparentValueF += 10f;
 			}
 		}
 
@@ -76,7 +76,7 @@ namespace Shooting
 					num -= (int)(5f * Scale);
 				}
 				PointF pointF = new PointF((float)(Pos.X + 5 + num), (float)(Pos.Y + 9));
-				base.SpriteMain.Draw2D(base.TextureObjectDictionary[array[i].ToString() ?? ""], Scale, 0f, pointF, Color.FromArgb(base.TransparentValue, Color.White));
+				SpriteMain.Draw2D(TextureObjectDictionary[array[i].ToString() ?? ""], Scale, 0f, pointF, Color.FromArgb(TransparentValue, Color.White));
 				num += (int)(14f * Scale);
 				if (array[i] == '.' || array[i] == ',')
 				{
@@ -87,12 +87,12 @@ namespace Shooting
 
 		public override void Show()
 		{
-			TextureObject textureObject = base.StageData.TextureObjectDictionary["tiaotiao2"];
-			base.SpriteMain.Draw2D(textureObject.TXTure, textureObject.PosRect, new SizeF((float)textureObject.Width * base.Scale, (float)textureObject.Height * base.Scale), textureObject.RightTop, 0f, new PointF(base.Position.X, base.Position.Y - 16f), Color.FromArgb(base.TransparentValue, Color.White));
+			TextureObject textureObject = StageData.TextureObjectDictionary["tiaotiao2"];
+			SpriteMain.Draw2D(textureObject.TXTure, textureObject.PosRect, new SizeF((float)textureObject.Width * Scale, (float)textureObject.Height * Scale), textureObject.RightTop, 0f, new PointF(Position.X, Position.Y - 16f), Color.FromArgb(TransparentValue, Color.White));
 			base.Show();
-			if (base.StageData.SCBstring != null)
+			if (StageData.SCBstring != null)
 			{
-				this.DrawText(base.StageData.SCBstring, new Point(240, 68), 0.6f);
+				DrawText(StageData.SCBstring, new Point(240, 68), 0.6f);
 			}
 		}
 	}

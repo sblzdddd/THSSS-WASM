@@ -7,7 +7,7 @@ namespace Shooting.Planes.Story
 		public Story_SSS05_01(StageDataPackage StageData)
 			: base(StageData)
 		{
-			string name = base.MyPlane.Name;
+			string name = MyPlane.Name;
 			if (name != null)
 			{
 				if (!(name == "Reimu"))
@@ -18,52 +18,52 @@ namespace Shooting.Planes.Story
 						{
 							if (name == "Koishi")
 							{
-								this.LoadConversation(".\\Story\\5-1D.csv");
+								LoadConversation(".\\Story\\5-1D.csv");
 							}
 						}
 						else
 						{
-							this.LoadConversation(".\\Story\\5-1C.csv");
+							LoadConversation(".\\Story\\5-1C.csv");
 						}
 					}
 					else
 					{
-						this.LoadConversation(".\\Story\\5-1B.csv");
+						LoadConversation(".\\Story\\5-1B.csv");
 					}
 				}
 				else
 				{
-					this.LoadConversation2(".\\Story\\5-1A.csv");
+					LoadConversation2(".\\Story\\5-1A.csv");
 				}
 			}
 		}
 
 		public override void Ctrl()
 		{
-			this.tCount++;
-			if (base.Time < this.tCount / this.circle)
+			tCount++;
+			if (Time < tCount / circle)
 			{
-				base.Time++;
+				Time++;
 			}
 			base.Ctrl();
-			if (base.Time == this.NameTime && this.LastTime < base.Time)
+			if (Time == NameTime && LastTime < Time)
 			{
-				this.LastTime = base.Time;
+				LastTime = Time;
 			}
-			else if (base.Time == this.MusicTime && this.LastTime < base.Time)
+			else if (Time == MusicTime && LastTime < Time)
 			{
-				this.LastTime = base.Time;
+				LastTime = Time;
 			}
-			if (base.Time == this.Conv.Count)
+			if (Time == Conv.Count)
 			{
-				base.Boss.Enabled = true;
-				this.SBox.Dispose();
-				base.Story = null;
-				new EmitterBossFire(base.StageData, base.Boss.OriginalPosition, Color.FromArgb(144, 255, 120));
-				MagicCircle magicCircle = new MagicCircle(base.StageData, "MagicCircleSix");
+				Boss.Enabled = true;
+				SBox.Dispose();
+				Story = null;
+				new EmitterBossFire(StageData, Boss.OriginalPosition, Color.FromArgb(144, 255, 120));
+				MagicCircle magicCircle = new MagicCircle(StageData, "MagicCircleSix");
 				magicCircle.Scale = 1.5f;
-				base.Background3D.WarpColorKey = 2;
-				base.Background3D.WarpEnabled = true;
+				Background3D.WarpColorKey = 2;
+				Background3D.WarpEnabled = true;
 			}
 		}
 

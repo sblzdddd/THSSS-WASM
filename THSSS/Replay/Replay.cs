@@ -14,11 +14,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.ReplayData.Position;
+				return ReplayData.Position;
 			}
 			set
 			{
-				this.ReplayData.Position = value;
+				ReplayData.Position = value;
 			}
 		}
 
@@ -26,7 +26,7 @@ namespace Shooting
 		{
 			get
 			{
-				return this.ReplayData.CanRead;
+				return ReplayData.CanRead;
 			}
 		}
 
@@ -89,29 +89,29 @@ namespace Shooting
 		public void WriteKey(int KeyValue)
 		{
 			byte b = (byte)(KeyValue & 255);
-			this.ReplayData.WriteByte(b);
+			ReplayData.WriteByte(b);
 			b = (byte)(KeyValue >> 8);
 			b &= byte.MaxValue;
-			this.ReplayData.WriteByte(b);
+			ReplayData.WriteByte(b);
 		}
 
 		public int ReadKey()
 		{
-			int num = this.ReplayData.ReadByte();
-			return num + (this.ReplayData.ReadByte() << 8);
+			int num = ReplayData.ReadByte();
+			return num + (ReplayData.ReadByte() << 8);
 		}
 
 		public void CreatRpy()
 		{
-			this.ReplayData = new FileStream(".\\Replay\\AutoSave.rpy", FileMode.Create);
+			ReplayData = new FileStream(".\\Replay\\AutoSave.rpy", FileMode.Create);
 		}
 
 		public void SaveRpy(string fileName, ReplayInfo repInfo)
 		{
-			if (this.ReplayData.CanRead)
+			if (ReplayData.CanRead)
 			{
-				this.ReplayData.WriteByte(240);
-				this.ReplayData.WriteByte(15);
+				ReplayData.WriteByte(240);
+				ReplayData.WriteByte(15);
 				string tmp = null;
 				tmp += "\r\n";
 				tmp += "ReplayInformation";
@@ -175,10 +175,10 @@ namespace Shooting
 					array[29] = x.DataPosition.ToString();
 					tmp = string.Concat(array);
 				});
-				StreamWriter streamWriter = new StreamWriter(this.ReplayData);
+				StreamWriter streamWriter = new StreamWriter(ReplayData);
 				streamWriter.Write(tmp);
 				streamWriter.Close();
-				this.ReplayData.Close();
+				ReplayData.Close();
 			}
 			if (fileName != ".\\Replay\\AutoSave.rpy")
 			{
@@ -188,31 +188,31 @@ namespace Shooting
 
 		public void LoadRpy(string fileName)
 		{
-			this.FileName = fileName;
+			FileName = fileName;
 			FileInfo fileInfo = new FileInfo(fileName);
-			this.ReplayData = fileInfo.OpenRead();
+			ReplayData = fileInfo.OpenRead();
 		}
 
 		public void ReloadRpy()
 		{
-			FileInfo fileInfo = new FileInfo(this.FileName);
-			this.ReplayData = fileInfo.OpenRead();
+			FileInfo fileInfo = new FileInfo(FileName);
+			ReplayData = fileInfo.OpenRead();
 		}
 
 		public void CloseRpy()
 		{
-			if (this.ReplayData != null)
+			if (ReplayData != null)
 			{
-				this.ReplayData.Close();
+				ReplayData.Close();
 			}
 		}
 
 		public void Dispose()
 		{
-			if (this.ReplayData != null)
+			if (ReplayData != null)
 			{
-				this.ReplayData.Close();
-				this.ReplayData.Dispose();
+				ReplayData.Close();
+				ReplayData.Dispose();
 			}
 		}
 	}

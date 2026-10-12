@@ -9,18 +9,18 @@ namespace Shooting
 		{
 			get
 			{
-				return this.type;
+				return type;
 			}
 			set
 			{
-				this.type = value;
+				type = value;
 				if (value >= 0 && value < 16)
 				{
-					base.ColorType = this.BulletColorType[value];
-					base.TxtureObject = base.TextureObjectDictionary["Laser0_" + base.ColorType];
-					base.GhostingColor = Color.White;
-					base.SizeValue = 32;
-					base.Region = 3;
+					ColorType = BulletColorType[value];
+					TxtureObject = TextureObjectDictionary["Laser0_" + ColorType];
+					GhostingColor = Color.White;
+					SizeValue = 32;
+					Region = 3;
 				}
 			}
 		}
@@ -28,20 +28,20 @@ namespace Shooting
 		public BaseRadialLaser_CS(StageDataPackage StageData)
 			: base(StageData)
 		{
-			base.Active = true;
-			base.UnmatchedTime = 60;
-			base.UnRemoveable = true;
-			base.EventGroupList = new List<EventGroup>();
-			base.EventsExecutionList = new List<Execution>();
+			Active = true;
+			UnmatchedTime = 60;
+			UnRemoveable = true;
+			EventGroupList = new List<EventGroup>();
+			EventsExecutionList = new List<Execution>();
 		}
 
 		public override void EventCtrl()
 		{
-			base.EventGroupList.ForEach(delegate(EventGroup a)
+			EventGroupList.ForEach(delegate(EventGroup a)
 			{
 				a.Update(this);
 			});
-			base.EventsExecutionList.ForEach(delegate(Execution a)
+			EventsExecutionList.ForEach(delegate(Execution a)
 			{
 				a.Update(this);
 			});

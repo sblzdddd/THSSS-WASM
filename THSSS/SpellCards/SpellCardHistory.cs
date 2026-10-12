@@ -20,15 +20,15 @@ namespace Shooting
 		{
 			return string.Concat(new object[]
 			{
-				this.Index.ToString(),
+				Index.ToString(),
 				'\t',
-				this.MyPlaneFullName,
+				MyPlaneFullName,
 				'\t',
-				((int)this.Rank).ToString(),
+				((int)Rank).ToString(),
 				'\t',
-				this.Recorded.ToString(),
+				Recorded.ToString(),
 				'\t',
-				this.History.ToString(),
+				History.ToString(),
 				"\r\n"
 			});
 		}
@@ -37,11 +37,11 @@ namespace Shooting
 		{
 			char[] array = new char[] { '\t' };
 			string[] array2 = Data.Split(array);
-			this.Index = Convert.ToInt32(array2[0]);
-			this.MyPlaneFullName = array2[1];
-			this.Rank = (DifficultLevel)Convert.ToInt32(array2[2]);
-			this.Recorded = Convert.ToInt32(array2[3]);
-			this.History = Convert.ToInt32(array2[4]);
+			Index = Convert.ToInt32(array2[0]);
+			MyPlaneFullName = array2[1];
+			Rank = (DifficultLevel)Convert.ToInt32(array2[2]);
+			Recorded = Convert.ToInt32(array2[3]);
+			History = Convert.ToInt32(array2[4]);
 		}
 	}
 }

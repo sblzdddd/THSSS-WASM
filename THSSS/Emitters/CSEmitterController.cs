@@ -14,32 +14,32 @@ namespace Shooting
 			: base(StageData)
 		{
 			this.CSData = CSData;
-			this.BaseOriginalPosition = new PointF((float)(base.BoundRect.Width / 2), 130f);
+			BaseOriginalPosition = new PointF((float)(BoundRect.Width / 2), 130f);
 		}
 
 		public override void Shoot()
 		{
-			if (base.Time >= this.CSData.TimeTotal)
+			if (Time >= CSData.TimeTotal)
 			{
-				base.Time -= this.CSData.TimeTotal;
+				Time -= CSData.TimeTotal;
 			}
-			if (!this.OnRoad || base.Boss == null)
+			if (!OnRoad || Boss == null)
 			{
-				this.CSData.EmitterList.ForEach(delegate(BaseEmitter_CS em)
+				CSData.EmitterList.ForEach(delegate(BaseEmitter_CS em)
 				{
 					if (em.BindingID == -1)
 					{
-						if (em.StartTime == base.Time)
+						if (em.StartTime == Time)
 						{
 							BaseEmitter_CS baseEmitter_CS = (BaseEmitter_CS)em.Clone();
-							if (this.BossBinding && base.Boss != null)
+							if (BossBinding && Boss != null)
 							{
-								baseEmitter_CS.OriginalPosition = new PointF(baseEmitter_CS.OriginalPosition.X + base.Boss.OriginalPosition.X - this.BaseOriginalPosition.X, baseEmitter_CS.OriginalPosition.Y + base.Boss.OriginalPosition.Y - this.BaseOriginalPosition.Y);
+								baseEmitter_CS.OriginalPosition = new PointF(baseEmitter_CS.OriginalPosition.X + Boss.OriginalPosition.X - BaseOriginalPosition.X, baseEmitter_CS.OriginalPosition.Y + Boss.OriginalPosition.Y - BaseOriginalPosition.Y);
 								baseEmitter_CS.EmitPoint = new PointF(-99998f, -99998f);
-								baseEmitter_CS.SetBinding(base.Boss);
+								baseEmitter_CS.SetBinding(Boss);
 							}
-							baseEmitter_CS.Time = base.Time;
-							base.StageData.EnemyPlaneList.Add(baseEmitter_CS);
+							baseEmitter_CS.Time = Time;
+							StageData.EnemyPlaneList.Add(baseEmitter_CS);
 						}
 					}
 				});

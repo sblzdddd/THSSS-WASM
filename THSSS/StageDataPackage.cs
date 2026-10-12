@@ -22,7 +22,7 @@ namespace Shooting
 		{
 			get
 			{
-				return this.GlobalData.DeviceMain;
+				return GlobalData.DeviceMain;
 			}
 		}
 
@@ -30,7 +30,7 @@ namespace Shooting
 		{
 			get
 			{
-				return this.GlobalData.ModelDictionary;
+				return GlobalData.ModelDictionary;
 			}
 		}
 
@@ -38,7 +38,7 @@ namespace Shooting
 		{
 			get
 			{
-				return this.GlobalData.TextureObjectDictionary;
+				return GlobalData.TextureObjectDictionary;
 			}
 		}
 
@@ -46,7 +46,7 @@ namespace Shooting
 		{
 			get
 			{
-				return this.GlobalData.SoundDictionary;
+				return GlobalData.SoundDictionary;
 			}
 		}
 
@@ -54,11 +54,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.GlobalData.BGM_Player;
+				return GlobalData.BGM_Player;
 			}
 			set
 			{
-				this.GlobalData.BGM_Player = value;
+				GlobalData.BGM_Player = value;
 			}
 		}
 
@@ -66,7 +66,7 @@ namespace Shooting
 		{
 			get
 			{
-				return this.GlobalData.KClass;
+				return GlobalData.KClass;
 			}
 		}
 
@@ -74,7 +74,7 @@ namespace Shooting
 		{
 			get
 			{
-				return this.GlobalData.SpriteMain;
+				return GlobalData.SpriteMain;
 			}
 		}
 
@@ -82,7 +82,7 @@ namespace Shooting
 		{
 			get
 			{
-				return this.GlobalData.Rep;
+				return GlobalData.Rep;
 			}
 		}
 
@@ -90,7 +90,7 @@ namespace Shooting
 		{
 			get
 			{
-				return this.GlobalData.ScreenTexMan;
+				return GlobalData.ScreenTexMan;
 			}
 		}
 
@@ -98,11 +98,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.GlobalData.EffectMain;
+				return GlobalData.EffectMain;
 			}
 			set
 			{
-				this.GlobalData.EffectMain = value;
+				GlobalData.EffectMain = value;
 			}
 		}
 
@@ -110,7 +110,7 @@ namespace Shooting
 		{
 			get
 			{
-				return this.GlobalData.EffectDictionary;
+				return GlobalData.EffectDictionary;
 			}
 		}
 
@@ -118,11 +118,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.GlobalData.PData;
+				return GlobalData.PData;
 			}
 			set
 			{
-				this.GlobalData.PData = value;
+				GlobalData.PData = value;
 			}
 		}
 
@@ -130,8 +130,8 @@ namespace Shooting
 		{
 			get
 			{
-				float num = 60f * (float)this.RealTimeTotal / (float)Stopwatch.Frequency;
-				num = (num - (float)this.TimeTotal) * 100f / num;
+				float num = 60f * (float)RealTimeTotal / (float)Stopwatch.Frequency;
+				num = (num - (float)TimeTotal) * 100f / num;
 				return ((num < 0f) ? 0f : num).ToString("F1") + "%";
 			}
 		}
@@ -139,114 +139,114 @@ namespace Shooting
 		public StageDataPackage(GlobalDataPackage GlobalData)
 		{
 			this.GlobalData = GlobalData;
-			this.Init();
+			Init();
 		}
 
 		public void Init()
 		{
-			this.BoundRect = new Rectangle(0, 0, 640, 480);
-			this.BulletList = new List<BaseBullet_Touhou>();
-			this.EnemyPlaneList = new List<BaseEnemyPlane>();
-			this.MyBulletList = new List<BaseObject>();
-			this.SpellList = new List<BaseObject>();
-			this.EffectList = new List<BaseEffect>();
-			this.ItemList = new List<BaseItem>();
-			this.InterfaceList = new List<BaseObject>();
-			this.SoundPlayList = new List<XAudio2_Player>();
-			this.Background = new BackgroundManager();
-			this.Background2 = new BackgroundManager();
-			this.Background3D = new BackgroundManager3D(this);
-			this.Particle3D = new ParticleManager3D(this);
-			this.MenuGroupList = new List<BaseMenuGroup>();
-			this.TimeMain = 0;
-			this.RepInfo = new ReplayInfo();
+			BoundRect = new Rectangle(0, 0, 640, 480);
+			BulletList = new List<BaseBullet_Touhou>();
+			EnemyPlaneList = new List<BaseEnemyPlane>();
+			MyBulletList = new List<BaseObject>();
+			SpellList = new List<BaseObject>();
+			EffectList = new List<BaseEffect>();
+			ItemList = new List<BaseItem>();
+			InterfaceList = new List<BaseObject>();
+			SoundPlayList = new List<XAudio2_Player>();
+			Background = new BackgroundManager();
+			Background2 = new BackgroundManager();
+			Background3D = new BackgroundManager3D(this);
+			Particle3D = new ParticleManager3D(this);
+			MenuGroupList = new List<BaseMenuGroup>();
+			TimeMain = 0;
+			RepInfo = new ReplayInfo();
 		}
 
 		public void Vibrate()
 		{
-			if (this.VibrateTime > this.TimeMain)
+			if (VibrateTime > TimeMain)
 			{
 				int num;
-				if (this.VibrateTime - this.TimeMain < 20)
+				if (VibrateTime - TimeMain < 20)
 				{
-					num = (this.VibrateTime - this.TimeMain) / 2;
+					num = (VibrateTime - TimeMain) / 2;
 				}
 				else
 				{
 					num = 10;
 				}
-				int num2 = this.Ran.Next(num) - num / 2;
-				int num3 = this.Ran.Next(num) - num / 2;
-				this.BoundRect = new Rectangle(this.VibrateRectSave.X + num2, this.VibrateRectSave.Y + num3, this.VibrateRectSave.Width, this.VibrateRectSave.Height);
+				int num2 = Ran.Next(num) - num / 2;
+				int num3 = Ran.Next(num) - num / 2;
+				BoundRect = new Rectangle(VibrateRectSave.X + num2, VibrateRectSave.Y + num3, VibrateRectSave.Width, VibrateRectSave.Height);
 			}
-			else if (this.VibrateTime == this.TimeMain)
+			else if (VibrateTime == TimeMain)
 			{
-				this.BoundRect = this.VibrateRectSave;
+				BoundRect = VibrateRectSave;
 			}
 		}
 
 		public void VibrateStart(int CuntinueTime)
 		{
-			if (this.VibrateTime < this.TimeMain)
+			if (VibrateTime < TimeMain)
 			{
-				this.VibrateRectSave = this.BoundRect;
+				VibrateRectSave = BoundRect;
 			}
-			this.VibrateTime = this.TimeMain + CuntinueTime;
+			VibrateTime = TimeMain + CuntinueTime;
 		}
 
 		public void VibrateStop()
 		{
-			if (this.VibrateTime >= this.TimeMain)
+			if (VibrateTime >= TimeMain)
 			{
-				this.VibrateTime = -1;
-				this.BoundRect = this.VibrateRectSave;
+				VibrateTime = -1;
+				BoundRect = VibrateRectSave;
 			}
 		}
 
 		public void RemoveBullets()
 		{
-			foreach (BaseBullet_Touhou baseBullet_Touhou in this.BulletList)
+			foreach (BaseBullet_Touhou baseBullet_Touhou in BulletList)
 			{
 				baseBullet_Touhou.GiveEndEffect();
 			}
-			this.BulletList.Clear();
-			foreach (BaseEnemyPlane baseEnemyPlane in this.EnemyPlaneList)
+			BulletList.Clear();
+			foreach (BaseEnemyPlane baseEnemyPlane in EnemyPlaneList)
 			{
 				baseEnemyPlane.GiveEndEffect();
 				if (baseEnemyPlane.TxtureObject != null)
 				{
-					this.SoundPlay("se_enep00.wav");
+					SoundPlay("se_enep00.wav");
 				}
 			}
-			this.EnemyPlaneList.Clear();
-			foreach (BaseObject baseObject in this.MyBulletList)
+			EnemyPlaneList.Clear();
+			foreach (BaseObject baseObject in MyBulletList)
 			{
 				ParticleSmaller particleSmaller = new ParticleSmaller(this, "光点", baseObject.Position, baseObject.Velocity, baseObject.Direction);
 				particleSmaller.LifeTime = 30;
 				particleSmaller.Scale = 0.5f;
 			}
-			this.MyBulletList.Clear();
+			MyBulletList.Clear();
 		}
 
 		public void SoundPlay(string MusicName)
 		{
-			this.SoundPlay(MusicName, 0.5f);
+			SoundPlay(MusicName, 0.5f);
 		}
 
 		public void SoundPlay(string MusicName, float VoicePos)
 		{
 			if (MusicName != null)
 			{
-				if (this.SoundDictionary.ContainsKey(MusicName))
+				if (SoundDictionary.ContainsKey(MusicName))
 				{
-					if (!this.SoundPlayList.Contains(this.SoundDictionary[MusicName]))
+					if (!SoundPlayList.Contains(SoundDictionary[MusicName]))
 					{
-						this.SoundDictionary[MusicName].VoicePos = VoicePos;
-						this.SoundPlayList.Add(this.SoundDictionary[MusicName]);
+						SoundDictionary[MusicName].VoicePos = VoicePos;
+						SoundPlayList.Add(SoundDictionary[MusicName]);
 					}
 					else
 					{
-						this.SoundDictionary[MusicName].VoicePos = (VoicePos + this.SoundDictionary[MusicName].VoicePos) / 2f;
+						SoundDictionary[MusicName].VoicePos = (VoicePos + SoundDictionary[MusicName].VoicePos) / 2f;
 					}
 				}
 			}
@@ -254,76 +254,76 @@ namespace Shooting
 
 		public void ChangeBGM(string MusicName, int PlayBegin, int PlayLength, int LoopCount, int LoopBegin, int LoopEnd)
 		{
-			int bgmvolume = this.GlobalData.BGMVolume;
-			this.BGM_Player.FileName = MusicName;
-			this.BGM_Player.Volume = bgmvolume;
-			this.BGM_Player.PlayRepeat(PlayBegin, PlayLength, LoopCount, LoopBegin, LoopEnd);
+			int bgmvolume = GlobalData.BGMVolume;
+			BGM_Player.FileName = MusicName;
+			BGM_Player.Volume = bgmvolume;
+			BGM_Player.PlayRepeat(PlayBegin, PlayLength, LoopCount, LoopBegin, LoopEnd);
 		}
 
 		public void ChangeBGM(string MusicName, bool Repeat)
 		{
 			if (Repeat)
 			{
-				this.ChangeBGM(MusicName, 0, 0, 255, 0, 0);
+				ChangeBGM(MusicName, 0, 0, 255, 0, 0);
 			}
 			else
 			{
-				this.ChangeBGM(MusicName, 0, 0, 0, 0, 0);
+				ChangeBGM(MusicName, 0, 0, 0, 0, 0);
 			}
 		}
 
 		public void SetReplayInfo(string StartStage)
 		{
-			this.RepInfo.MyPlaneName = this.MyPlane.Name;
-			this.RepInfo.Rank = this.Difficulty;
-			this.RepInfo.WeaponType = this.MyPlane.WeaponType;
-			this.RepInfo.StartStage = StartStage;
-			this.SetReplayStageInfo();
+			RepInfo.MyPlaneName = MyPlane.Name;
+			RepInfo.Rank = Difficulty;
+			RepInfo.WeaponType = MyPlane.WeaponType;
+			RepInfo.StartStage = StartStage;
+			SetReplayStageInfo();
 		}
 
 		public void SetReplayStageInfo()
 		{
-			if (!this.OnReplay)
+			if (!OnReplay)
 			{
-				if (this.RepInfo.MyPlaneData.Count > 0)
+				if (RepInfo.MyPlaneData.Count > 0)
 				{
-					if (this.RepInfo.MyPlaneData[this.RepInfo.MyPlaneData.Count - 1].DataPosition + 2L == this.Rep.DataPosition)
+					if (RepInfo.MyPlaneData[RepInfo.MyPlaneData.Count - 1].DataPosition + 2L == Rep.DataPosition)
 					{
 						return;
 					}
 				}
-				this.RepInfo.LastStage = this.CurrentStageName;
-				this.RepInfo.SlowRate = this.SlowRate;
-				this.RepInfo.MyPlaneData.Add(new MyPlaneInfo
+				RepInfo.LastStage = CurrentStageName;
+				RepInfo.SlowRate = SlowRate;
+				RepInfo.MyPlaneData.Add(new MyPlaneInfo
 				{
-					Score = this.MyPlane.Score,
-					Life = this.MyPlane.Life,
-					Spell = this.MyPlane.Spell,
-					Power = this.MyPlane.Power,
-					Graze = this.MyPlane.Graze,
-					PosX = this.MyPlane.OriginalPosition.X,
-					PosY = this.MyPlane.OriginalPosition.Y,
-					LifeChip = this.MyPlane.LifeChip,
-					SpellChip = this.MyPlane.SpellChip,
-					LifeUpCount = this.MyPlane.LifeUpCount,
-					StarPoint = this.MyPlane.StarPoint,
-					HighItemScore = this.MyPlane.HighItemScore,
-					Rate = this.MyPlane.Rate,
-					LastColor = this.MyPlane.LastColor,
-					DataPosition = this.Rep.DataPosition
+					Score = MyPlane.Score,
+					Life = MyPlane.Life,
+					Spell = MyPlane.Spell,
+					Power = MyPlane.Power,
+					Graze = MyPlane.Graze,
+					PosX = MyPlane.OriginalPosition.X,
+					PosY = MyPlane.OriginalPosition.Y,
+					LifeChip = MyPlane.LifeChip,
+					SpellChip = MyPlane.SpellChip,
+					LifeUpCount = MyPlane.LifeUpCount,
+					StarPoint = MyPlane.StarPoint,
+					HighItemScore = MyPlane.HighItemScore,
+					Rate = MyPlane.Rate,
+					LastColor = MyPlane.LastColor,
+					DataPosition = Rep.DataPosition
 				});
-				this.Rep.WriteKey(57358);
+				Rep.WriteKey(57358);
 			}
 		}
 
 		public bool FindScore(ScoreHistory SH)
 		{
-			return SH.Rank == this.Difficulty && SH.MyPlaneFullName == this.MyPlane.FullName;
+			return SH.Rank == Difficulty && SH.MyPlaneFullName == MyPlane.FullName;
 		}
 
 		public bool FindClear(ClearHistory CH)
 		{
-			return CH.Rank == this.Difficulty && CH.MyPlaneFullName == this.MyPlane.FullName;
+			return CH.Rank == Difficulty && CH.MyPlaneFullName == MyPlane.FullName;
 		}
 
 		public void PreLoadCS(string Path)
@@ -334,26 +334,26 @@ namespace Shooting
 				FileInfo fileInfo = new FileInfo(text);
 				CS_Data cs_Data = new CS_Data(text);
 				cs_Data.String2Data(this);
-				this.CS_Cathe.Add(text, cs_Data);
+				CS_Cathe.Add(text, cs_Data);
 			}
 			string[] directories = Directory.GetDirectories(Path);
 			foreach (string text in directories)
 			{
-				this.PreLoadCS(text);
+				PreLoadCS(text);
 			}
 		}
 
 		public void ClearCSCathe()
 		{
-			this.CS_Cathe.Clear();
+			CS_Cathe.Clear();
 		}
 
 		public CS_Data LoadCS(string FileName)
 		{
 			CS_Data cs_Data;
-			if (this.CS_Cathe.ContainsKey(FileName))
+			if (CS_Cathe.ContainsKey(FileName))
 			{
-				cs_Data = this.CS_Cathe[FileName];
+				cs_Data = CS_Cathe[FileName];
 			}
 			else
 			{
@@ -364,7 +364,7 @@ namespace Shooting
 			return cs_Data;
 		}
 
-		public Texture DrawString(string text, global::System.Drawing.Font font, Brush brush, int width, int height)
+		public Texture DrawString(string text, System.Drawing.Font font, Brush brush, int width, int height)
 		{
 #if BROWSER
 			return TextTextures.Get(text, font, brush, width, height);
@@ -389,17 +389,17 @@ namespace Shooting
 
 		public void Dispose()
 		{
-			if (this.Background3D != null)
+			if (Background3D != null)
 			{
-				this.Background3D.Dispose();
+				Background3D.Dispose();
 			}
-			if (this.Particle3D != null)
+			if (Particle3D != null)
 			{
-				this.Particle3D.Dispose();
+				Particle3D.Dispose();
 			}
-			if (this.Rep != null)
+			if (Rep != null)
 			{
-				this.Rep.Dispose();
+				Rep.Dispose();
 			}
 		}
 

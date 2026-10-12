@@ -10,22 +10,22 @@ namespace Shooting
 
 		public BaseBackground(StageDataPackage StageData)
 		{
-			base.StageData = StageData;
-			base.Background.BackgroundList.Add(this);
+			this.StageData = StageData;
+			Background.BackgroundList.Add(this);
 		}
 
 		public BaseBackground(StageDataPackage StageData, string textureName, PointF Position, float Velocity, double Direction)
 			: base(StageData, textureName, Position, Velocity, Direction)
 		{
-			base.Background.BackgroundList.Add(this);
+			Background.BackgroundList.Add(this);
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			if (this.OutBoundary())
+			if (OutBoundary())
 			{
-				base.Background.BackgroundList.Remove(this);
+				Background.BackgroundList.Remove(this);
 			}
 		}
 

@@ -7,30 +7,30 @@ namespace Shooting
 		public ScoreItem_Touhou2(StageDataPackage StageData, PointF OriginalPosition)
 			: base(StageData, "Item-7", OriginalPosition)
 		{
-			base.Region = 5;
-			base.AngularVelocity = 0f;
-			base.DirectionDegree += (double)((float)base.Ran.Next(-49, 50) / 10f);
-			base.MaxTransparent = 80;
-			base.TransparentValueF = 0f;
-			base.TransparentVelocity = 16f;
-			base.Active = true;
+			Region = 5;
+			AngularVelocity = 0f;
+			DirectionDegree += (double)((float)Ran.Next(-49, 50) / 10f);
+			MaxTransparent = 80;
+			TransparentValueF = 0f;
+			TransparentVelocity = 16f;
+			Active = true;
 		}
 
 		public override void HitCheckAll()
 		{
-			if (this.HitCheck(base.MyPlane))
+			if (HitCheck(MyPlane))
 			{
-				base.ItemList.Remove(this);
-				base.StageData.SoundPlay("se_item00.wav", base.OriginalPosition.X / (float)base.BoundRect.Width);
+				ItemList.Remove(this);
+				StageData.SoundPlay("se_item00.wav", OriginalPosition.X / (float)BoundRect.Width);
 			}
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			if (base.Time == 40)
+			if (Time == 40)
 			{
-				base.Obtain = true;
+				Obtain = true;
 			}
 		}
 	}

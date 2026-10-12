@@ -13,48 +13,48 @@ namespace Shooting
 			{
 				try
 				{
-					this.joystick = new Joystick(directInput, deviceInstance.InstanceGuid);
-					this.joystick.SetCooperativeLevel(handle, CooperativeLevel.Foreground | CooperativeLevel.Exclusive);
+					joystick = new Joystick(directInput, deviceInstance.InstanceGuid);
+					joystick.SetCooperativeLevel(handle, CooperativeLevel.Foreground | CooperativeLevel.Exclusive);
 					break;
 				}
 				catch (DirectInputException)
 				{
 				}
 			}
-			if (this.joystick != null)
+			if (joystick != null)
 			{
-				foreach (DeviceObjectInstance deviceObjectInstance in this.joystick.GetObjects())
+				foreach (DeviceObjectInstance deviceObjectInstance in joystick.GetObjects())
 				{
 					if ((deviceObjectInstance.ObjectType & ObjectDeviceType.Axis) != ObjectDeviceType.All)
 					{
-						this.joystick.GetObjectPropertiesById((int)deviceObjectInstance.ObjectType).SetRange(-1000, 1000);
+						joystick.GetObjectPropertiesById((int)deviceObjectInstance.ObjectType).SetRange(-1000, 1000);
 					}
 				}
-				this.joystick.Acquire();
+				joystick.Acquire();
 			}
 		}
 
 		public void UpdateInput(ref KeyClass KClass)
 		{
-			if (this.joystick != null)
+			if (joystick != null)
 			{
-				if (!this.joystick.Acquire().IsFailure)
+				if (!joystick.Acquire().IsFailure)
 				{
-					if (!this.joystick.Poll().IsFailure)
+					if (!joystick.Poll().IsFailure)
 					{
-						this.lastJoystickState = this.currentJoystickState;
-						this.currentJoystickState = this.joystick.GetCurrentState();
+						lastJoystickState = currentJoystickState;
+						currentJoystickState = joystick.GetCurrentState();
 						if (!Result.Last.IsFailure)
 						{
-							KClass.ArrowLeft = this.currentJoystickState.X < -600;
-							KClass.ArrowRight = this.currentJoystickState.X > 600;
-							KClass.ArrowUp = this.currentJoystickState.Y < -600;
-							KClass.ArrowDown = this.currentJoystickState.Y > 600;
-							KClass.Key_Shift = this.currentJoystickState.IsPressed(MapJoyStick.Slow);
-							KClass.Key_Z = this.currentJoystickState.IsPressed(MapJoyStick.Shoot);
-							KClass.Key_X = this.currentJoystickState.IsPressed(MapJoyStick.Bomb);
-							KClass.Key_Ctrl = this.currentJoystickState.IsPressed(MapJoyStick.Skip);
-							KClass.Key_ESC = this.currentJoystickState.IsPressed(MapJoyStick.Pause);
+							KClass.ArrowLeft = currentJoystickState.X < -600;
+							KClass.ArrowRight = currentJoystickState.X > 600;
+							KClass.ArrowUp = currentJoystickState.Y < -600;
+							KClass.ArrowDown = currentJoystickState.Y > 600;
+							KClass.Key_Shift = currentJoystickState.IsPressed(MapJoyStick.Slow);
+							KClass.Key_Z = currentJoystickState.IsPressed(MapJoyStick.Shoot);
+							KClass.Key_X = currentJoystickState.IsPressed(MapJoyStick.Bomb);
+							KClass.Key_Ctrl = currentJoystickState.IsPressed(MapJoyStick.Skip);
+							KClass.Key_ESC = currentJoystickState.IsPressed(MapJoyStick.Pause);
 							KClass.Key_plus |= KClass.Key_Ctrl;
 							KClass.Key_minus |= KClass.Key_Shift;
 						}
@@ -65,12 +65,12 @@ namespace Shooting
 
 		public void Dispose()
 		{
-			if (this.joystick != null)
+			if (joystick != null)
 			{
-				this.joystick.Unacquire();
-				this.joystick.Dispose();
+				joystick.Unacquire();
+				joystick.Dispose();
 			}
-			this.joystick = null;
+			joystick = null;
 		}
 
 		private Joystick joystick;

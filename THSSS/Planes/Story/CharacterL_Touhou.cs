@@ -7,21 +7,21 @@ namespace Shooting
 		public CharacterL_Touhou(StageDataPackage StageData, string textureName)
 			: base(StageData, textureName)
 		{
-			base.OriginalPosition = new PointF(70f, 128f);
+			OriginalPosition = new PointF(70f, 128f);
 		}
 
 		public override void Move()
 		{
-			if (base.Active)
+			if (Active)
 			{
-				if (base.OriginalPosition.X < 100f)
+				if (OriginalPosition.X < 100f)
 				{
-					base.OriginalPosition = new PointF(base.OriginalPosition.X + 2f, base.OriginalPosition.Y);
+					OriginalPosition = new PointF(OriginalPosition.X + 2f, OriginalPosition.Y);
 				}
 			}
-			else if (base.OriginalPosition.X > 70f)
+			else if (OriginalPosition.X > 70f)
 			{
-				base.OriginalPosition = new PointF(base.OriginalPosition.X - 2f, base.OriginalPosition.Y);
+				OriginalPosition = new PointF(OriginalPosition.X - 2f, OriginalPosition.Y);
 			}
 		}
 	}

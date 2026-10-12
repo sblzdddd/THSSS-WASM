@@ -5,47 +5,47 @@
 		public int Key2Hex()
 		{
 			int num = 0;
-			if (this.ArrowUp)
+			if (ArrowUp)
 			{
 				num++;
 			}
 			num <<= 1;
-			if (this.ArrowDown)
+			if (ArrowDown)
 			{
 				num++;
 			}
 			num <<= 1;
-			if (this.ArrowLeft)
+			if (ArrowLeft)
 			{
 				num++;
 			}
 			num <<= 1;
-			if (this.ArrowRight)
+			if (ArrowRight)
 			{
 				num++;
 			}
 			num <<= 1;
-			if (this.Key_Shift)
+			if (Key_Shift)
 			{
 				num++;
 			}
 			num <<= 1;
-			if (this.Key_Z)
+			if (Key_Z)
 			{
 				num++;
 			}
 			num <<= 1;
-			if (this.Key_X)
+			if (Key_X)
 			{
 				num++;
 			}
 			num <<= 1;
-			if (this.Key_C)
+			if (Key_C)
 			{
 				num++;
 			}
 			num <<= 1;
-			if (this.Key_Ctrl)
+			if (Key_Ctrl)
 			{
 				num++;
 			}
@@ -56,23 +56,23 @@
 		public void Hex2Key(int keyValue)
 		{
 			keyValue >>= 7;
-			this.Key_Ctrl = keyValue % 2 == 1;
+			Key_Ctrl = keyValue % 2 == 1;
 			keyValue >>= 1;
-			this.Key_C = keyValue % 2 == 1;
+			Key_C = keyValue % 2 == 1;
 			keyValue >>= 1;
-			this.Key_X = keyValue % 2 == 1;
+			Key_X = keyValue % 2 == 1;
 			keyValue >>= 1;
-			this.Key_Z = keyValue % 2 == 1;
+			Key_Z = keyValue % 2 == 1;
 			keyValue >>= 1;
-			this.Key_Shift = keyValue % 2 == 1;
+			Key_Shift = keyValue % 2 == 1;
 			keyValue >>= 1;
-			this.ArrowRight = keyValue % 2 == 1;
+			ArrowRight = keyValue % 2 == 1;
 			keyValue >>= 1;
-			this.ArrowLeft = keyValue % 2 == 1;
+			ArrowLeft = keyValue % 2 == 1;
 			keyValue >>= 1;
-			this.ArrowDown = keyValue % 2 == 1;
+			ArrowDown = keyValue % 2 == 1;
 			keyValue >>= 1;
-			this.ArrowUp = keyValue % 2 == 1;
+			ArrowUp = keyValue % 2 == 1;
 			keyValue >>= 1;
 		}
 

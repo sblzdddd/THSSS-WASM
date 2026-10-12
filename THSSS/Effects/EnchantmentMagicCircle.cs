@@ -7,37 +7,37 @@ namespace Shooting
 		public EnchantmentMagicCircle(StageDataPackage StageData, PointF OriginalPosition)
 			: base(StageData, null, new Point(0, 0), 0f, 1.5707963267948966)
 		{
-			base.OriginalPosition = OriginalPosition;
-			switch (base.MyPlane.EnchantmentState)
+			this.OriginalPosition = OriginalPosition;
+			switch (MyPlane.EnchantmentState)
 			{
 			case EnchantmentType.Red:
-				base.TxtureObject = base.TextureObjectDictionary["MC-R"];
+				TxtureObject = TextureObjectDictionary["MC-R"];
 				break;
 			case EnchantmentType.Blue:
-				base.TxtureObject = base.TextureObjectDictionary["MC-B"];
+				TxtureObject = TextureObjectDictionary["MC-B"];
 				break;
 			case EnchantmentType.Green:
-				base.TxtureObject = base.TextureObjectDictionary["MC-G"];
+				TxtureObject = TextureObjectDictionary["MC-G"];
 				break;
 			}
-			base.LifeTime = base.MyPlane.EnchantmentTime;
-			base.TransparentValueF = 0f;
-			base.TransparentVelocity = 20f;
-			base.MaxTransparent = 160;
-			base.AngularVelocityDegree = 5f;
-			base.Active = true;
+			LifeTime = MyPlane.EnchantmentTime;
+			TransparentValueF = 0f;
+			TransparentVelocity = 20f;
+			MaxTransparent = 160;
+			AngularVelocityDegree = 5f;
+			Active = true;
 		}
 
 		public override bool OutBoundary()
 		{
-			return (base.LifeTime != 0 && base.Time > base.LifeTime) || base.MyPlane.EnchantmentState == EnchantmentType.None;
+			return (LifeTime != 0 && Time > LifeTime) || MyPlane.EnchantmentState == EnchantmentType.None;
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			base.OriginalPosition = base.MyPlane.OriginalPosition;
-			base.Scale = 0.2f + (float)base.MyPlane.EnchantmentTime * 1.5f / (float)base.LifeTime;
+			OriginalPosition = MyPlane.OriginalPosition;
+			Scale = 0.2f + (float)MyPlane.EnchantmentTime * 1.5f / (float)LifeTime;
 		}
 	}
 }

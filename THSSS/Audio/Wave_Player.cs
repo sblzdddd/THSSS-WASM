@@ -10,25 +10,25 @@ namespace Shooting
 		{
 			get
 			{
-				return this.fileName[(int)this.AudioIndex];
+				return fileName[(int)AudioIndex];
 			}
 			set
 			{
-				if (this.fileName[(int)(1 - this.AudioIndex)] == value)
+				if (fileName[(int)(1 - AudioIndex)] == value)
 				{
-					this.AudioIndex = (byte)(1 - this.AudioIndex);
+					AudioIndex = (byte)(1 - AudioIndex);
 				}
 				else
 				{
 					int num = 100;
-					this.fileName[(int)this.AudioIndex] = value;
-					if (this.x2p[(int)this.AudioIndex] != null)
+					fileName[(int)AudioIndex] = value;
+					if (x2p[(int)AudioIndex] != null)
 					{
-						num = this.x2p[(int)this.AudioIndex].Volume;
-						this.x2p[(int)this.AudioIndex].Dispose();
+						num = x2p[(int)AudioIndex].Volume;
+						x2p[(int)AudioIndex].Dispose();
 					}
-					this.x2p[(int)this.AudioIndex] = new XAudio2_PlayerV2(this.fileName[(int)this.AudioIndex], this.device);
-					this.x2p[(int)this.AudioIndex].Volume = num;
+					x2p[(int)AudioIndex] = new XAudio2_PlayerV2(fileName[(int)AudioIndex], device);
+					x2p[(int)AudioIndex].Volume = num;
 				}
 			}
 		}
@@ -37,7 +37,7 @@ namespace Shooting
 		{
 			get
 			{
-				return this.x2p[(int)this.AudioIndex].Position;
+				return x2p[(int)AudioIndex].Position;
 			}
 		}
 
@@ -46,9 +46,9 @@ namespace Shooting
 			get
 			{
 				int num;
-				if (this.x2p[(int)this.AudioIndex] != null)
+				if (x2p[(int)AudioIndex] != null)
 				{
-					num = this.x2p[(int)this.AudioIndex].Volume;
+					num = x2p[(int)AudioIndex].Volume;
 				}
 				else
 				{
@@ -58,85 +58,85 @@ namespace Shooting
 			}
 			set
 			{
-				if (this.x2p[(int)this.AudioIndex] != null)
+				if (x2p[(int)AudioIndex] != null)
 				{
-					this.x2p[(int)this.AudioIndex].Volume = value;
+					x2p[(int)AudioIndex].Volume = value;
 				}
 			}
 		}
 
 		public Wave_Player(XAudio2 device)
 		{
-			this.Volume = 100;
+			Volume = 100;
 			this.device = device;
 		}
 
 		public void Play()
 		{
-			this.x2p[(int)this.AudioIndex].Play();
+			x2p[(int)AudioIndex].Play();
 		}
 
 		public void PlayRepeat()
 		{
-			this.x2p[(int)this.AudioIndex].SetLoop(0, 0);
-			this.x2p[(int)this.AudioIndex].Play();
+			x2p[(int)AudioIndex].SetLoop(0, 0);
+			x2p[(int)AudioIndex].Play();
 		}
 
 		public void PlayRepeat(int LoopBegin, int LoopEnd)
 		{
-			this.PlayRepeat(0, 0, 255, LoopBegin, LoopEnd);
+			PlayRepeat(0, 0, 255, LoopBegin, LoopEnd);
 		}
 
 		public void PlayRepeat(int PlayBegin, int PlayLength, int LoopCount, int LoopBegin, int LoopEnd)
 		{
-			this.x2p[(int)this.AudioIndex].Stop();
-			this.x2p[(int)this.AudioIndex].SetLoop(PlayBegin, PlayLength, LoopCount, LoopBegin, LoopEnd);
-			this.x2p[(int)this.AudioIndex].Play();
+			x2p[(int)AudioIndex].Stop();
+			x2p[(int)AudioIndex].SetLoop(PlayBegin, PlayLength, LoopCount, LoopBegin, LoopEnd);
+			x2p[(int)AudioIndex].Play();
 		}
 
 		public void Stop()
 		{
-			if (this.x2p[(int)this.AudioIndex] != null)
+			if (x2p[(int)AudioIndex] != null)
 			{
-				this.x2p[(int)this.AudioIndex].Stop();
+				x2p[(int)AudioIndex].Stop();
 			}
 		}
 
 		public void Puase()
 		{
-			this.OnPause = true;
-			this.Stop();
+			OnPause = true;
+			Stop();
 		}
 
 		public void Resume()
 		{
-			this.OnPause = false;
-			this.x2p[(int)this.AudioIndex].Resume();
+			OnPause = false;
+			x2p[(int)AudioIndex].Resume();
 		}
 
 		public void PreLoad(string FileName)
 		{
 			this.FileName = FileName;
-			this.x2p[(int)this.AudioIndex].Reset();
+			x2p[(int)AudioIndex].Reset();
 		}
 
 		public void FilterON()
 		{
-			this.x2p[(int)this.AudioIndex].FilterON();
+			x2p[(int)AudioIndex].FilterON();
 		}
 
 		public void FilterOFF()
 		{
-			this.x2p[(int)this.AudioIndex].FilterOFF();
+			x2p[(int)AudioIndex].FilterOFF();
 		}
 
 		public void Dispose()
 		{
-			for (int i = 0; i < this.x2p.Length; i++)
+			for (int i = 0; i < x2p.Length; i++)
 			{
-				if (this.x2p[(int)this.AudioIndex] != null)
+				if (x2p[(int)AudioIndex] != null)
 				{
-					this.x2p[(int)this.AudioIndex].Dispose();
+					x2p[(int)AudioIndex].Dispose();
 				}
 			}
 		}

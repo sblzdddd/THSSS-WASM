@@ -7,38 +7,38 @@ namespace Shooting
 		public MySpell_Line(StageDataPackage StageData, string textureName, PointF OriginalPosition)
 			: base(StageData, textureName, OriginalPosition)
 		{
-			this.size = 16f;
+			size = 16f;
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			base.Life = base.MyPlane.Spell;
+			Life = MyPlane.Spell;
 		}
 
 		public override void Show()
 		{
-			SizeF sizeF = new SizeF(this.size, this.size);
+			SizeF sizeF = new SizeF(size, size);
 			for (int i = 0; i < 8; i++)
 			{
-				TextureObject textureObject = base.TextureObjectDictionary["Bomb0d"];
-				PointF pointF = new PointF(base.OriginalPosition.X + (float)i * this.size, base.OriginalPosition.Y);
-				base.SpriteMain.Draw2D(textureObject.TXTure, textureObject.PosRect, sizeF, new PointF(0f, 0f), 0f, pointF, Color.FromArgb(base.TransparentValue, Color.White));
+				TextureObject textureObject = TextureObjectDictionary["Bomb0d"];
+				PointF pointF = new PointF(OriginalPosition.X + (float)i * size, OriginalPosition.Y);
+				SpriteMain.Draw2D(textureObject.TXTure, textureObject.PosRect, sizeF, new PointF(0f, 0f), 0f, pointF, Color.FromArgb(TransparentValue, Color.White));
 			}
-			for (int i = 0; i < base.Life; i++)
+			for (int i = 0; i < Life; i++)
 			{
-				TextureObject textureObject = base.TextureObjectDictionary["Bomb"];
-				PointF pointF = new PointF(base.OriginalPosition.X + (float)i * this.size, base.OriginalPosition.Y);
-				base.SpriteMain.Draw2D(textureObject.TXTure, textureObject.PosRect, sizeF, new PointF(0f, 0f), 0f, pointF, Color.FromArgb(base.TransparentValue, Color.White));
+				TextureObject textureObject = TextureObjectDictionary["Bomb"];
+				PointF pointF = new PointF(OriginalPosition.X + (float)i * size, OriginalPosition.Y);
+				SpriteMain.Draw2D(textureObject.TXTure, textureObject.PosRect, sizeF, new PointF(0f, 0f), 0f, pointF, Color.FromArgb(TransparentValue, Color.White));
 			}
-			if (base.Life < 8)
+			if (Life < 8)
 			{
-				int num = base.MyPlane.SpellChip * 4 / base.MyPlane.nextSpellChip;
+				int num = MyPlane.SpellChip * 4 / MyPlane.nextSpellChip;
 				if (num > 0)
 				{
-					TextureObject textureObject = base.TextureObjectDictionary["Bomb" + (num - 1).ToString("D2")];
-					PointF pointF = new PointF(base.OriginalPosition.X + (float)base.Life * this.size, base.OriginalPosition.Y);
-					base.SpriteMain.Draw2D(textureObject.TXTure, textureObject.PosRect, sizeF, new PointF(0f, 0f), 0f, pointF, Color.FromArgb(base.TransparentValue, Color.White));
+					TextureObject textureObject = TextureObjectDictionary["Bomb" + (num - 1).ToString("D2")];
+					PointF pointF = new PointF(OriginalPosition.X + (float)Life * size, OriginalPosition.Y);
+					SpriteMain.Draw2D(textureObject.TXTure, textureObject.PosRect, sizeF, new PointF(0f, 0f), 0f, pointF, Color.FromArgb(TransparentValue, Color.White));
 				}
 			}
 		}

@@ -6,11 +6,11 @@
 		{
 			get
 			{
-				return this.spellcardHP;
+				return spellcardHP;
 			}
 			set
 			{
-				this.spellcardHP = value;
+				spellcardHP = value;
 			}
 		}
 
@@ -34,57 +34,57 @@
 		{
 			get
 			{
-				return this.armor;
+				return armor;
 			}
 			set
 			{
 				if (value < 0f)
 				{
-					this.armor = 0f;
+					armor = 0f;
 				}
 				else if (value > 1f)
 				{
-					this.armor = 1f;
+					armor = 1f;
 				}
 				else
 				{
-					this.armor = value;
+					armor = value;
 				}
 			}
 		}
 
 		public override void HitCheckAll()
 		{
-			if (this.Life >= 0 && base.HitEnabled)
+			if (Life >= 0 && HitEnabled)
 			{
-				if (base.MyPlane.HitEnabled)
+				if (MyPlane.HitEnabled)
 				{
-					if (this.HitCheck(base.MyPlane))
+					if (HitCheck(MyPlane))
 					{
-						base.MyPlane.PreMiss();
+						MyPlane.PreMiss();
 					}
 				}
-				for (int i = base.MyBulletList.Count - 1; i >= 0; i--)
+				for (int i = MyBulletList.Count - 1; i >= 0; i--)
 				{
-					if (this.HitCheck(base.MyBulletList[i]))
+					if (HitCheck(MyBulletList[i]))
 					{
-						if (base.Time > this.UnmatchedTime)
+						if (Time > UnmatchedTime)
 						{
-							if (base.MyPlane.EnchantmentState == EnchantmentType.Red)
+							if (MyPlane.EnchantmentState == EnchantmentType.Red)
 							{
-								base.HealthPoint -= (float)base.MyBulletList[i].Damage * 1.25f * (1f - this.Armon);
+								HealthPoint -= (float)MyBulletList[i].Damage * 1.25f * (1f - Armon);
 							}
 							else
 							{
-								base.HealthPoint -= (float)base.MyBulletList[i].Damage * (1f - this.Armon);
+								HealthPoint -= (float)MyBulletList[i].Damage * (1f - Armon);
 							}
 						}
-						base.MyBulletList[i].GiveEndEffect();
-						base.MyBulletList.RemoveAt(i);
-						base.MyPlane.Score += 10L;
-						if (base.HealthPoint <= 200f)
+						MyBulletList[i].GiveEndEffect();
+						MyBulletList.RemoveAt(i);
+						MyPlane.Score += 10L;
+						if (HealthPoint <= 200f)
 						{
-							base.StageData.SoundPlay("se_damage01.wav");
+							StageData.SoundPlay("se_damage01.wav");
 						}
 					}
 				}

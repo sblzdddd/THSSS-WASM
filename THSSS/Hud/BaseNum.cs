@@ -15,13 +15,13 @@ namespace Shooting
 
 		public override void Show()
 		{
-			int num = this.Num;
-			for (int i = 0; i < this.Count; i++)
+			int num = Num;
+			for (int i = 0; i < Count; i++)
 			{
 				int num2 = num % 10;
 				num /= 10;
-				TextureObject textureObject = base.TextureObjectDictionary[num2.ToString()];
-				base.SpriteMain.Draw2D(textureObject.TXTure, textureObject.PosRect, new SizeF((float)textureObject.Width, (float)textureObject.Height), textureObject.RotatingCenter, 0f, new PointF(base.Position.X + (float)(16 * (this.Count - i - 1)), base.Position.Y), Color.White);
+				TextureObject textureObject = TextureObjectDictionary[num2.ToString()];
+				SpriteMain.Draw2D(textureObject.TXTure, textureObject.PosRect, new SizeF((float)textureObject.Width, (float)textureObject.Height), textureObject.RotatingCenter, 0f, new PointF(Position.X + (float)(16 * (Count - i - 1)), Position.Y), Color.White);
 			}
 		}
 

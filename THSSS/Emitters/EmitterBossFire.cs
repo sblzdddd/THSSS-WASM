@@ -7,34 +7,34 @@ namespace Shooting
 		public EmitterBossFire(StageDataPackage StageData, PointF OriginalPosition, Color ColorValue)
 			: base(StageData, null, OriginalPosition, 0f, 0.0)
 		{
-			base.OriginalPosition = OriginalPosition;
-			base.ColorValue = ColorValue;
+			this.OriginalPosition = OriginalPosition;
+			this.ColorValue = ColorValue;
 		}
 
 		public override void Move()
 		{
-			if (base.Boss != null)
+			if (Boss != null)
 			{
-				base.OriginalPosition = base.Boss.OriginalPosition;
+				OriginalPosition = Boss.OriginalPosition;
 			}
 		}
 
 		public override void Shoot()
 		{
-			if (base.Time % 10 == 0)
+			if (Time % 10 == 0)
 			{
-				ParticleBossFire particleBossFire = new ParticleBossFire(base.StageData, "Effect01_1", base.OriginalPosition, 0f, 0.0, 60);
-				particleBossFire.ColorValue = base.ColorValue;
-				ParticleBossFire2 particleBossFire2 = new ParticleBossFire2(base.StageData, "Effect01_2", base.OriginalPosition, 0f, (double)base.Ran.Next(360) * 3.141592653589793 / 180.0, 80);
-				particleBossFire2.ColorValue = base.ColorValue;
-				ParticleBossFire2 particleBossFire3 = new ParticleBossFire2(base.StageData, "Effect01_2", base.OriginalPosition, 0f, (double)base.Ran.Next(360) * 3.141592653589793 / 180.0, 100);
-				particleBossFire3.ColorValue = base.ColorValue;
+				ParticleBossFire particleBossFire = new ParticleBossFire(StageData, "Effect01_1", OriginalPosition, 0f, 0.0, 60);
+				particleBossFire.ColorValue = ColorValue;
+				ParticleBossFire2 particleBossFire2 = new ParticleBossFire2(StageData, "Effect01_2", OriginalPosition, 0f, (double)Ran.Next(360) * 3.141592653589793 / 180.0, 80);
+				particleBossFire2.ColorValue = ColorValue;
+				ParticleBossFire2 particleBossFire3 = new ParticleBossFire2(StageData, "Effect01_2", OriginalPosition, 0f, (double)Ran.Next(360) * 3.141592653589793 / 180.0, 100);
+				particleBossFire3.ColorValue = ColorValue;
 			}
 		}
 
 		public override bool OutBoundary()
 		{
-			return base.Boss == null;
+			return Boss == null;
 		}
 	}
 }

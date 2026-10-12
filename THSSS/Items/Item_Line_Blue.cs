@@ -7,16 +7,16 @@ namespace Shooting
 		public Item_Line_Blue(StageDataPackage StageData, PointF OriginalPosition)
 			: base(StageData, OriginalPosition)
 		{
-			base.FontType = "BlueNum_";
+			FontType = "BlueNum_";
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			base.MaxValue = 10000;
-			base.Value = 0;
-			base.Text = base.MyPlane.HighItemScore.ToString("N0");
-			base.Text = base.Text.PadLeft(11, ' ');
+			MaxValue = 10000;
+			Value = 0;
+			Text = MyPlane.HighItemScore.ToString("N0");
+			Text = Text.PadLeft(11, ' ');
 		}
 	}
 }

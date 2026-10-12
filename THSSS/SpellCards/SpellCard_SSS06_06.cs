@@ -7,42 +7,42 @@ namespace Shooting
 		public SpellCard_SSS06_06(StageDataPackage StageData)
 			: base(StageData)
 		{
-			if (base.Difficulty < DifficultLevel.Hard)
+			if (Difficulty < DifficultLevel.Hard)
 			{
-				base.SC_Name = "「流星神话」";
+				SC_Name = "「流星神话」";
 			}
 			else
 			{
-				base.SC_Name = "「流星神话」";
+				SC_Name = "「流星神话」";
 			}
-			base.BaseScore = 35000000L;
-			base.Boss.DestPoint = new Point(base.BoundRect.Width / 2, 120);
-			base.Boss.Velocity = 4f;
+			BaseScore = 35000000L;
+			Boss.DestPoint = new Point(BoundRect.Width / 2, 120);
+			Boss.Velocity = 4f;
 			StageData.SoundPlay("se_cat00.wav");
 			new BackgroundBoss06(StageData);
-			new BulletTitle(StageData, base.SC_Name);
+			new BulletTitle(StageData, SC_Name);
 			new SpellCardAttack(StageData);
 			new FullPic3(StageData, "FaceTensei_ct3");
 		}
 
 		public override void Shoot()
 		{
-			if (base.SpellList.Count > 0 || base.MyPlane.Time < base.MyPlane.UnmatchedTime - 30)
+			if (SpellList.Count > 0 || MyPlane.Time < MyPlane.UnmatchedTime - 30)
 			{
-				base.Boss.Armon = 1f;
+				Boss.Armon = 1f;
 			}
 			else
 			{
-				base.Boss.Armon = base.Boss.ArmonArray[9];
+				Boss.Armon = Boss.ArmonArray[9];
 			}
-			if (base.Time > 100)
+			if (Time > 100)
 			{
-				base.Boss.MoveUpDown();
+				Boss.MoveUpDown();
 			}
-			if (base.Time == 150)
+			if (Time == 150)
 			{
 				string text;
-				switch (base.Difficulty)
+				switch (Difficulty)
 				{
 				case DifficultLevel.Easy:
 					text = ".\\CS\\St06\\关底Boss\\6符P1E.mbg";
@@ -60,15 +60,15 @@ namespace Shooting
 					text = ".\\CS\\St06\\关底Boss\\6符P1L.mbg";
 					break;
 				}
-				CS_Data cs_Data = base.StageData.LoadCS(text);
-				new CSEmitterController(base.StageData, cs_Data);
+				CS_Data cs_Data = StageData.LoadCS(text);
+				new CSEmitterController(StageData, cs_Data);
 			}
-			if ((base.Boss.HealthPoint < (float)(base.Boss.MaxHP * 3) / 4f || base.Time > 1800) && this.flag == 1)
+			if ((Boss.HealthPoint < (float)(Boss.MaxHP * 3) / 4f || Time > 1800) && flag == 1)
 			{
-				this.flag++;
-				this.ClearEmitter();
+				flag++;
+				ClearEmitter();
 				string text;
-				switch (base.Difficulty)
+				switch (Difficulty)
 				{
 				case DifficultLevel.Easy:
 					text = ".\\CS\\St06\\关底Boss\\6符P2E.mbg";
@@ -86,15 +86,15 @@ namespace Shooting
 					text = ".\\CS\\St06\\关底Boss\\6符P2L.mbg";
 					break;
 				}
-				CS_Data cs_Data = base.StageData.LoadCS(text);
-				new CSEmitterController(base.StageData, cs_Data);
+				CS_Data cs_Data = StageData.LoadCS(text);
+				new CSEmitterController(StageData, cs_Data);
 			}
-			if ((base.Boss.HealthPoint < (float)(base.Boss.MaxHP * 2) / 4f || base.Time > 3600) && this.flag == 2)
+			if ((Boss.HealthPoint < (float)(Boss.MaxHP * 2) / 4f || Time > 3600) && flag == 2)
 			{
-				this.flag++;
-				this.ClearEmitter();
+				flag++;
+				ClearEmitter();
 				string text;
-				switch (base.Difficulty)
+				switch (Difficulty)
 				{
 				case DifficultLevel.Easy:
 					text = ".\\CS\\St06\\关底Boss\\6符P3E.mbg";
@@ -112,15 +112,15 @@ namespace Shooting
 					text = ".\\CS\\St06\\关底Boss\\6符P2L.mbg";
 					break;
 				}
-				CS_Data cs_Data = base.StageData.LoadCS(text);
-				new CSEmitterController(base.StageData, cs_Data);
+				CS_Data cs_Data = StageData.LoadCS(text);
+				new CSEmitterController(StageData, cs_Data);
 			}
-			if ((base.Boss.HealthPoint < (float)base.Boss.MaxHP / 4f || base.Time > 5400) && this.flag == 3)
+			if ((Boss.HealthPoint < (float)Boss.MaxHP / 4f || Time > 5400) && flag == 3)
 			{
-				this.flag++;
-				this.ClearEmitter();
+				flag++;
+				ClearEmitter();
 				string text;
-				switch (base.Difficulty)
+				switch (Difficulty)
 				{
 				case DifficultLevel.Easy:
 					text = ".\\CS\\St06\\关底Boss\\6符P4E.mbg";
@@ -138,26 +138,26 @@ namespace Shooting
 					text = ".\\CS\\St06\\关底Boss\\6符P4L.mbg";
 					break;
 				}
-				CS_Data cs_Data = base.StageData.LoadCS(text);
-				new CSEmitterController(base.StageData, cs_Data);
+				CS_Data cs_Data = StageData.LoadCS(text);
+				new CSEmitterController(StageData, cs_Data);
 			}
 		}
 
 		private void ClearEmitter()
 		{
-			for (int i = base.EnemyPlaneList.Count - 1; i >= 0; i--)
+			for (int i = EnemyPlaneList.Count - 1; i >= 0; i--)
 			{
-				if (!(base.EnemyPlaneList[i] is BaseSpellCard))
+				if (!(EnemyPlaneList[i] is BaseSpellCard))
 				{
-					base.EnemyPlaneList[i].GiveEndEffect();
-					base.EnemyPlaneList.RemoveAt(i);
+					EnemyPlaneList[i].GiveEndEffect();
+					EnemyPlaneList.RemoveAt(i);
 				}
 			}
-			foreach (BaseBullet_Touhou baseBullet_Touhou in base.BulletList)
+			foreach (BaseBullet_Touhou baseBullet_Touhou in BulletList)
 			{
 				baseBullet_Touhou.GiveEndEffect();
 			}
-			base.BulletList.Clear();
+			BulletList.Clear();
 		}
 
 		private int flag = 1;

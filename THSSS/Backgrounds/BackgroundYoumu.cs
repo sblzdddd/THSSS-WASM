@@ -13,41 +13,41 @@ namespace Shooting
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			for (int i = this.lastAngle.Length - 1; i > 0; i--)
+			for (int i = lastAngle.Length - 1; i > 0; i--)
 			{
-				this.lastAngle[i] = this.lastAngle[i - 1];
+				lastAngle[i] = lastAngle[i - 1];
 			}
-			this.lastAngle[0] = base.Angle;
-			if (base.StageData.SlowMode > 0)
+			lastAngle[0] = Angle;
+			if (StageData.SlowMode > 0)
 			{
-				base.Active = true;
-				base.ColorValue = Color.Pink;
-				base.AngularVelocityDegree = 1f;
+				Active = true;
+				ColorValue = Color.Pink;
+				AngularVelocityDegree = 1f;
 			}
 			else
 			{
-				base.Active = false;
-				base.ColorValue = Color.White;
-				this.sc = (float)Math.Sin((double)((float)base.Time / 103.5f) * 3.141592653589793 * 2.0) / 16f;
-				base.Scale = 2.5f + this.sc;
-				base.AngularVelocityDegree = -0.5f;
+				Active = false;
+				ColorValue = Color.White;
+				sc = (float)Math.Sin((double)((float)Time / 103.5f) * 3.141592653589793 * 2.0) / 16f;
+				Scale = 2.5f + sc;
+				AngularVelocityDegree = -0.5f;
 			}
 		}
 
 		public override void Show()
 		{
-			if (base.StageData.SlowMode > 0)
+			if (StageData.SlowMode > 0)
 			{
-				double angle = base.Angle;
-				int transparentValue = base.TransparentValue;
-				for (int i = this.lastAngle.Length - 1; i >= 0; i -= 2)
+				double angle = Angle;
+				int transparentValue = TransparentValue;
+				for (int i = lastAngle.Length - 1; i >= 0; i -= 2)
 				{
-					base.Angle = this.lastAngle[i];
-					base.TransparentValueF = (float)(transparentValue * (this.lastAngle.Length - i + 15) / (this.lastAngle.Length + 1 + 15));
+					Angle = lastAngle[i];
+					TransparentValueF = (float)(transparentValue * (lastAngle.Length - i + 15) / (lastAngle.Length + 1 + 15));
 					base.Show();
 				}
-				base.Angle = angle;
-				base.TransparentValueF = (float)transparentValue;
+				Angle = angle;
+				TransparentValueF = (float)transparentValue;
 			}
 			base.Show();
 		}

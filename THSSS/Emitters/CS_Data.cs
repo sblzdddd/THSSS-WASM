@@ -18,60 +18,60 @@ namespace Shooting
 
 		public CS_Data(string FileName)
 		{
-			this.MBGtext = File.ReadAllLines(FileName, Encoding.UTF8);
-			this.EmitterList = new List<BaseEmitter_CS>();
+			MBGtext = File.ReadAllLines(FileName, Encoding.UTF8);
+			EmitterList = new List<BaseEmitter_CS>();
 		}
 
 		public void String2Data(StageDataPackage StageData)
 		{
-			this.EmitterList.Clear();
+			EmitterList.Clear();
 			int num = 0;
-			if (this.MBGtext[num++] != "Crazy Storm Data 1.01")
+			if (MBGtext[num++] != "Crazy Storm Data 1.01")
 			{
 				MessageBox.Show("当前暂不支持除1.01以外的数据格式", "错误", MessageBoxButtons.OK, MessageBoxIcon.Hand);
 			}
 			else
 			{
-				string text = this.MBGtext[num++];
+				string text = MBGtext[num++];
 				if (text.Contains("Types"))
 				{
 					int num2 = int.Parse(text.Split(new char[] { ' ' })[0]);
 					for (int i = 0; i < num2; i++)
 					{
-						string text2 = this.MBGtext[num++];
+						string text2 = MBGtext[num++];
 						string[] array = text2.Split(new char[] { '_' });
 					}
-					text = this.MBGtext[num++];
+					text = MBGtext[num++];
 				}
 				if (text.Contains("GlobalEvents"))
 				{
 					int num3 = int.Parse(text.Split(new char[] { ' ' })[0]);
 					for (int j = 0; j < num3; j++)
 					{
-						string text3 = this.MBGtext[num++];
+						string text3 = MBGtext[num++];
 					}
-					text = this.MBGtext[num++];
+					text = MBGtext[num++];
 				}
 				if (text.Contains("Sounds"))
 				{
 					int num4 = int.Parse(text.Split(new char[] { ' ' })[0]);
 					for (int k = 0; k < num4; k++)
 					{
-						string text4 = this.MBGtext[num++];
+						string text4 = MBGtext[num++];
 					}
-					text = this.MBGtext[num++];
+					text = MBGtext[num++];
 				}
-				text = this.MBGtext[num++];
-				this.TimeTotal = int.Parse(text.Split(new char[] { ':' })[1]);
+				text = MBGtext[num++];
+				TimeTotal = int.Parse(text.Split(new char[] { ':' })[1]);
 				for (int l = 0; l < 4; l++)
 				{
-					text = this.MBGtext[num++];
+					text = MBGtext[num++];
 					if (text.Split(new char[] { ':' })[1].Split(new char[] { ',' })[0] != "empty")
 					{
 						int num5 = int.Parse(text.Split(new char[] { ':' })[1].Split(new char[] { ',' })[3]);
 						for (int m = 0; m < num5; m++)
 						{
-							string text5 = this.MBGtext[num++];
+							string text5 = MBGtext[num++];
 							string[] array2 = text5.Split(new char[] { ',' });
 							EmitterMode emitterMode = EmitterMode.Bullet;
 							if (array2.Length > 91)
@@ -243,14 +243,14 @@ namespace Shooting
 							{
 								baseEmitter_CS.RDirectionWithDirection = !(array2[96] == "0");
 							}
-							this.EmitterList.Add(baseEmitter_CS);
+							EmitterList.Add(baseEmitter_CS);
 						}
 						if (text.Split(new char[] { ':' })[1].Split(new char[] { ',' }).Length >= 7)
 						{
 							num5 = int.Parse(text.Split(new char[] { ':' })[1].Split(new char[] { ',' })[4]);
 							for (int num9 = 0; num9 < num5; num9++)
 							{
-								string text5 = this.MBGtext[num++];
+								string text5 = MBGtext[num++];
 								string[] array2 = text5.Split(new char[] { ',' });
 								BaseEmitter_CS baseEmitter_CS2;
 								if (bool.Parse(array2[29]))
@@ -377,12 +377,12 @@ namespace Shooting
 										((BaseStraightLaser_CS)baseEmitter_CS2.SubBullet).LaserHead = bool.Parse(text5.Split(new char[] { ',' })[62]);
 									}
 								}
-								this.EmitterList.Add(baseEmitter_CS2);
+								EmitterList.Add(baseEmitter_CS2);
 							}
 							num5 = int.Parse(text.Split(new char[] { ':' })[1].Split(new char[] { ',' })[5]);
 							for (int num14 = 0; num14 < num5; num14++)
 							{
-								string text5 = this.MBGtext[num++];
+								string text5 = MBGtext[num++];
 								string[] array2 = text5.Split(new char[] { ',' });
 								BaseCover_CS baseCover_CS = new BaseCover_CS(StageData);
 								baseCover_CS.MaxScale = 1000f;
@@ -448,17 +448,17 @@ namespace Shooting
 								{
 									baseCover_CS.DeepBinding = bool.Parse(array2[24]);
 								}
-								this.EmitterList.Add(baseCover_CS);
+								EmitterList.Add(baseCover_CS);
 							}
 							num5 = int.Parse(text.Split(new char[] { ':' })[1].Split(new char[] { ',' })[6]);
 							for (int num19 = 0; num19 < num5; num19++)
 							{
-								string text5 = this.MBGtext[num++];
+								string text5 = MBGtext[num++];
 							}
 							num5 = int.Parse(text.Split(new char[] { ':' })[1].Split(new char[] { ',' })[7]);
 							for (int num20 = 0; num20 < num5; num20++)
 							{
-								string text5 = this.MBGtext[num++];
+								string text5 = MBGtext[num++];
 							}
 						}
 					}
@@ -468,7 +468,7 @@ namespace Shooting
 
 		private void AddNode(int id, TreeNode treeNode)
 		{
-			this.EmitterList.ForEach(delegate(BaseEmitter_CS b)
+			EmitterList.ForEach(delegate(BaseEmitter_CS b)
 			{
 				if (b.BindingID == id)
 				{
@@ -485,7 +485,7 @@ namespace Shooting
 					treeNode2.Name = b.ID.ToString();
 					treeNode2.Text = "ID：" + b.ID.ToString() + "  " + text;
 					treeNode.Nodes.Add(treeNode2);
-					this.AddNode(b.ID, treeNode2);
+					AddNode(b.ID, treeNode2);
 				}
 			});
 		}

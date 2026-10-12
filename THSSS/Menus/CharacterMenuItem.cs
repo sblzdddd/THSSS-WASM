@@ -12,65 +12,65 @@ namespace Shooting
 		public CharacterMenuItem(StageDataPackage StageData, string textureName)
 			: base(StageData, textureName)
 		{
-			base.DestPoint = this.DestPoint1;
+			DestPoint = DestPoint1;
 		}
 
 		public override void Ctrl()
 		{
-			if (base.Enabled)
+			if (Enabled)
 			{
-				base.Time++;
-				this.Move();
-				base.Velocity += base.Accelerate;
-				base.TransparentValueF += base.TransparentVelocity;
-				if (base.Time == 1)
+				Time++;
+				Move();
+				Velocity += Accelerate;
+				TransparentValueF += TransparentVelocity;
+				if (Time == 1)
 				{
-					base.OriginalPosition = this.DestPoint2;
+					OriginalPosition = DestPoint2;
 				}
-				if (base.Selected)
+				if (Selected)
 				{
-					double num = 1.0 + Math.Sin((double)((float)base.Time / 6f));
-					base.ColorValue = Color.White;
-					base.TransparentVelocity = 25f;
-					base.DestPoint = this.DestPoint1;
+					double num = 1.0 + Math.Sin((double)((float)Time / 6f));
+					ColorValue = Color.White;
+					TransparentVelocity = 25f;
+					DestPoint = DestPoint1;
 				}
 				else
 				{
-					base.ColorValue = Color.Gray;
-					base.TransparentVelocity = -25f;
-					base.DestPoint = this.DestPoint2;
+					ColorValue = Color.Gray;
+					TransparentVelocity = -25f;
+					DestPoint = DestPoint2;
 				}
-				if (base.Time < base.TwinkleTime)
+				if (Time < TwinkleTime)
 				{
-					if (base.Time % 4 == 0)
+					if (Time % 4 == 0)
 					{
-						base.ColorValue = Color.White;
+						ColorValue = Color.White;
 					}
-					else if (base.Time % 4 == 2)
+					else if (Time % 4 == 2)
 					{
-						base.ColorValue = Color.Gray;
+						ColorValue = Color.Gray;
 					}
 				}
-				if (base.OnRemove)
+				if (OnRemove)
 				{
-					base.MaxTransparent -= 15;
+					MaxTransparent -= 15;
 				}
 			}
 		}
 
 		public override void Select()
 		{
-			base.Time = 1;
-			base.Selected = true;
-			base.VibrateTime = 0;
-			base.TwinkleTime = 0;
+			Time = 1;
+			Selected = true;
+			VibrateTime = 0;
+			TwinkleTime = 0;
 		}
 
 		public override void Click()
 		{
-			base.Time = 1;
-			base.VibrateTime = 0;
-			base.TwinkleTime = base.Time + 30;
+			Time = 1;
+			VibrateTime = 0;
+			TwinkleTime = Time + 30;
 		}
 	}
 }

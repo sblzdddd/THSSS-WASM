@@ -10,12 +10,12 @@ namespace Shooting
 		public MenuGroup_SCPractice(StageDataPackage StageData)
 			: base(StageData)
 		{
-			base.MenuSelectIndex = 0;
-			base.MenuItemList = new List<BaseMenuItem>();
+			MenuSelectIndex = 0;
+			MenuItemList = new List<BaseMenuItem>();
 			List<SpellCardHistory> list = StageData.PData.SC_History.FindAll((SpellCardHistory a) => a.MyPlaneFullName == "ReimuA");
 			for (int i = 0; i < list.Count; i++)
 			{
-				base.MenuItemList.Add(new SCMenuItem(StageData, list[i].Index.ToString().PadRight(3))
+				MenuItemList.Add(new SCMenuItem(StageData, list[i].Index.ToString().PadRight(3))
 				{
 					Description = (list[i].Rank.ToString().PadLeft(10) + list[i].Recorded.ToString().PadLeft(2) + "/" + list[i].History.ToString().PadLeft(2)).PadLeft(40),
 					TxtureObject = StageData.TextureObjectDictionary["欧" + list[i].Name],
@@ -24,29 +24,29 @@ namespace Shooting
 			}
 			int num = 100;
 			int num2 = 100;
-			foreach (BaseMenuItem baseMenuItem in base.MenuItemList)
+			foreach (BaseMenuItem baseMenuItem in MenuItemList)
 			{
 				baseMenuItem.TransparentValueF = 0f;
 				baseMenuItem.Position = new PointF((float)num, 90f);
 				baseMenuItem.DestPoint = new PointF((float)num, (float)num2);
 				baseMenuItem.MaxVelocity = 10000f;
-				num2 += this.deltaY;
+				num2 += deltaY;
 			}
-			base.MenuItemList[base.MenuSelectIndex].Selected = true;
-			this.MenuTitlePos1 = new PointF(140f, -30f);
-			this.MenuTitlePos2 = new PointF(140f, -150f);
-			base.MenuTilte = new BaseMenuItem(StageData, "MenuTitle_MusicRoom")
+			MenuItemList[MenuSelectIndex].Selected = true;
+			MenuTitlePos1 = new PointF(140f, -30f);
+			MenuTitlePos2 = new PointF(140f, -150f);
+			MenuTilte = new BaseMenuItem(StageData, "MenuTitle_MusicRoom")
 			{
-				Position = this.MenuTitlePos2
+				Position = MenuTitlePos2
 			};
-			base.TransparentValueF = 0f;
-			base.TransparentVelocity = 5f;
-			base.TxtureObject = base.TextureObjectDictionary["MenuBackground"];
-			base.Scale = 0.625f;
-			base.OriginalPosition = new PointF((float)(base.BoundRect.Width / 2), (float)(base.BoundRect.Height / 2));
-			base.AngleDegree = 90.0;
-			base.ColorValue = Color.SlateBlue;
-			this.DescriptionBox = new DescriptionBox(StageData)
+			TransparentValueF = 0f;
+			TransparentVelocity = 5f;
+			TxtureObject = TextureObjectDictionary["MenuBackground"];
+			Scale = 0.625f;
+			OriginalPosition = new PointF((float)(BoundRect.Width / 2), (float)(BoundRect.Height / 2));
+			AngleDegree = 90.0;
+			ColorValue = Color.SlateBlue;
+			DescriptionBox = new DescriptionBox(StageData)
 			{
 				MaxTransparent = 0,
 				OffsetX = 50
@@ -58,23 +58,23 @@ namespace Shooting
 			base.SelectItemChanged();
 			int num = 100;
 			int num2 = 100;
-			int num3 = (base.MenuSelectIndex - 8) * this.deltaY;
+			int num3 = (MenuSelectIndex - 8) * deltaY;
 			if (num3 < 0)
 			{
 				num3 = 0;
 			}
-			foreach (BaseMenuItem baseMenuItem in base.MenuItemList)
+			foreach (BaseMenuItem baseMenuItem in MenuItemList)
 			{
 				baseMenuItem.DestPoint = new PointF((float)num, (float)(num2 - num3));
-				num2 += this.deltaY;
+				num2 += deltaY;
 			}
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			this.DescriptionBox.Ctrl();
-			foreach (BaseMenuItem baseMenuItem in base.MenuItemList)
+			DescriptionBox.Ctrl();
+			foreach (BaseMenuItem baseMenuItem in MenuItemList)
 			{
 				baseMenuItem.TransparentValueF = 400f - Math.Abs(260f - baseMenuItem.Position.Y) * 2f;
 			}
@@ -83,27 +83,27 @@ namespace Shooting
 		public override void ProcessKeys()
 		{
 			base.ProcessKeys();
-			if (base.KClass.Key_Z && this.LastZ == 0)
+			if (KClass.Key_Z && LastZ == 0)
 			{
 			}
-			if ((base.KClass.Key_X || base.KClass.Key_ESC) && this.LastX == 0)
+			if ((KClass.Key_X || KClass.Key_ESC) && LastX == 0)
 			{
-				this.OnRemoveMenu = base.TimeMain + 20;
-				base.TransparentVelocity = -15f;
-				this.DescriptionBox.TransparentVelocity = -15f;
-				foreach (BaseMenuItem baseMenuItem in base.MenuItemList)
+				OnRemoveMenu = TimeMain + 20;
+				TransparentVelocity = -15f;
+				DescriptionBox.TransparentVelocity = -15f;
+				foreach (BaseMenuItem baseMenuItem in MenuItemList)
 				{
 					baseMenuItem.DestPoint = new PointF(100f, 60f);
 					baseMenuItem.OnRemove = true;
 				}
-				base.StageData.SoundPlay("se_cancel00.wav");
+				StageData.SoundPlay("se_cancel00.wav");
 			}
 		}
 
 		public override void Show()
 		{
 			base.Show();
-			this.DescriptionBox.Show();
+			DescriptionBox.Show();
 		}
 
 		private DescriptionBox DescriptionBox;

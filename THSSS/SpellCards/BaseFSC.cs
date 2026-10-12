@@ -10,7 +10,7 @@
 		public override long GetSpellCardBonus()
 		{
 			long num;
-			if (base.Bombed || base.Missed)
+			if (Bombed || Missed)
 			{
 				num = 0L;
 			}

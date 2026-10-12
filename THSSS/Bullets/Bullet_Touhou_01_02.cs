@@ -14,10 +14,10 @@ namespace Shooting
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			if (base.Time == base.LifeTime)
+			if (Time == LifeTime)
 			{
-				new BaseBullet_Touhou(base.StageData, this.SubBulletName, base.OriginalPosition, base.Velocity / 2f, base.Direction, base.ColorType);
-				this.GiveEndEffect();
+				new BaseBullet_Touhou(StageData, SubBulletName, OriginalPosition, Velocity / 2f, Direction, ColorType);
+				GiveEndEffect();
 			}
 		}
 	}

@@ -15,12 +15,12 @@ namespace Shooting
 			get
 			{
 #if BROWSER
-				if (this.sourceVoice == null)
+				if (sourceVoice == null)
 				{
 					return 0L;
 				}
 #endif
-				return this.sourceVoice.State.SamplesPlayed / 44L;
+				return sourceVoice.State.SamplesPlayed / 44L;
 			}
 		}
 
@@ -29,24 +29,24 @@ namespace Shooting
 			get
 			{
 #if BROWSER
-				if (this.sourceVoice == null)
+				if (sourceVoice == null)
 				{
 					return 0;
 				}
 #endif
-				return (int)(this.sourceVoice.Volume * 200f);
+				return (int)(sourceVoice.Volume * 200f);
 			}
 			set
 			{
 #if BROWSER
-				if (this.sourceVoice == null)
+				if (sourceVoice == null)
 				{
 					return;
 				}
 #endif
 				if (0 <= value && value <= 100)
 				{
-					this.sourceVoice.Volume = (float)value / 200f;
+					sourceVoice.Volume = (float)value / 200f;
 				}
 			}
 		}
@@ -54,7 +54,7 @@ namespace Shooting
 		public XAudio2_Player(string fileName, XAudio2 device)
 		{
 			this.device = device;
-			this.loadSuccess = this.LoadSound(fileName);
+			loadSuccess = LoadSound(fileName);
 		}
 
 		private bool LoadSound(string fileName)
@@ -67,11 +67,11 @@ namespace Shooting
 				{
 					return false;
 				}
-				this.buffer = new AudioBuffer();
-				this.buffer.Flags = BufferFlags.EndOfStream;
-				this.sourceVoice = new SourceVoice(this.device, null);
-				this.sourceVoice.Bind(fileName);
-				this.Volume = 40;
+				buffer = new AudioBuffer();
+				buffer.Flags = BufferFlags.EndOfStream;
+				sourceVoice = new SourceVoice(device, null);
+				sourceVoice.Bind(fileName);
+				Volume = 40;
 				flag = true;
 #else
 				FileStream fileStream = File.OpenRead(fileName);
@@ -95,10 +95,10 @@ namespace Shooting
 
 		public void Play()
 		{
-			if (this.loadSuccess)
+			if (loadSuccess)
 			{
-				float num = this.VoicePos * 0.4f + 0.3f;
-				int inputChannels = this.sourceVoice.VoiceDetails.InputChannels;
+				float num = VoicePos * 0.4f + 0.3f;
+				int inputChannels = sourceVoice.VoiceDetails.InputChannels;
 				float[] array = new float[]
 				{
 					1f - num,
@@ -113,9 +113,9 @@ namespace Shooting
 						num
 					};
 				}
-				this.sourceVoice.SetOutputMatrix(inputChannels, 2, array);
-				this.Reset();
-				this.sourceVoice.Start(PlayFlags.None);
+				sourceVoice.SetOutputMatrix(inputChannels, 2, array);
+				Reset();
+				sourceVoice.Start(PlayFlags.None);
 			}
 		}
 
@@ -123,25 +123,25 @@ namespace Shooting
 		{
 			int volume = this.Volume;
 			this.Volume = Volume;
-			this.Play();
+			Play();
 			this.Volume = volume;
 		}
 
 		public void Resume()
 		{
-			if (this.loadSuccess)
+			if (loadSuccess)
 			{
-				this.sourceVoice.Start(PlayFlags.None);
+				sourceVoice.Start(PlayFlags.None);
 			}
 		}
 
 		public void Stop()
 		{
-			if (this.loadSuccess)
+			if (loadSuccess)
 			{
 				try
 				{
-					this.sourceVoice.Stop();
+					sourceVoice.Stop();
 				}
 				catch
 				{
@@ -151,38 +151,38 @@ namespace Shooting
 
 		private void Reset()
 		{
-			if (this.loadSuccess)
+			if (loadSuccess)
 			{
-				this.sourceVoice.Stop();
-				this.sourceVoice.FlushSourceBuffers();
-				this.sourceVoice.SubmitSourceBuffer(this.buffer);
+				sourceVoice.Stop();
+				sourceVoice.FlushSourceBuffers();
+				sourceVoice.SubmitSourceBuffer(buffer);
 			}
 		}
 
 		public void SetLoop(int LoopBegin, int LoopEnd)
 		{
-			this.SetLoop(0, 0, 255, LoopBegin, LoopEnd);
+			SetLoop(0, 0, 255, LoopBegin, LoopEnd);
 		}
 
 		public void SetLoop(int PlayBegin, int PlayLength, int LoopCount, int LoopBegin, int LoopEnd)
 		{
-			this.buffer.PlayBegin = PlayBegin;
-			this.buffer.PlayLength = PlayLength;
-			this.buffer.LoopCount = LoopCount;
-			this.buffer.LoopBegin = LoopBegin;
+			buffer.PlayBegin = PlayBegin;
+			buffer.PlayLength = PlayLength;
+			buffer.LoopCount = LoopCount;
+			buffer.LoopBegin = LoopBegin;
 			if (LoopEnd > LoopBegin)
 			{
-				this.buffer.LoopLength = LoopEnd - LoopBegin;
+				buffer.LoopLength = LoopEnd - LoopBegin;
 			}
 		}
 
 		public void Dispose()
 		{
-			if (this.loadSuccess)
+			if (loadSuccess)
 			{
-				this.Stop();
-				this.sourceVoice.Dispose();
-				this.buffer.Dispose();
+				Stop();
+				sourceVoice.Dispose();
+				buffer.Dispose();
 			}
 		}
 

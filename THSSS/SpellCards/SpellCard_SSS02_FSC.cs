@@ -8,16 +8,16 @@ namespace Shooting
 		public SpellCard_SSS02_FSC(StageDataPackage StageData)
 			: base(StageData)
 		{
-			if (base.Difficulty < DifficultLevel.Hard)
+			if (Difficulty < DifficultLevel.Hard)
 			{
-				base.SC_Name = "秘术「龙卷旋风之箭」";
+				SC_Name = "秘术「龙卷旋风之箭」";
 			}
 			else
 			{
-				base.SC_Name = "秘术「龙卷旋风之箭」";
+				SC_Name = "秘术「龙卷旋风之箭」";
 			}
-			base.Boss.DestPoint = new Point(base.BoundRect.Width / 2, 120);
-			base.Boss.Velocity = 4f;
+			Boss.DestPoint = new Point(BoundRect.Width / 2, 120);
+			Boss.Velocity = 4f;
 			StageData.SoundPlay("se_cat00.wav");
 			BackgroundRotate backgroundRotate = new BackgroundRotate(StageData, "Card02b");
 			backgroundRotate.Scale = 1.3f;
@@ -46,22 +46,22 @@ namespace Shooting
 			backgroundRotate2.Scale = 0.7f;
 			backgroundRotate2.Active = true;
 			backgroundRotate2.AngularVelocityDegree = 0.2f;
-			new BulletTitle(StageData, base.SC_Name);
+			new BulletTitle(StageData, SC_Name);
 			new SpellCardAttack(StageData);
 			new FullPic2(StageData, "FaceRakuki_ct");
 		}
 
 		public override void Shoot()
 		{
-			if (base.Time > 100)
+			if (Time > 100)
 			{
-				base.Boss.MoveUpDown();
-				base.Boss.Armon = 0f;
+				Boss.MoveUpDown();
+				Boss.Armon = 0f;
 			}
-			if (base.Time == 100)
+			if (Time == 100)
 			{
 				string text;
-				switch (base.Difficulty)
+				switch (Difficulty)
 				{
 				case DifficultLevel.Hard:
 					text = ".\\CS\\St02\\关底Boss\\FSC符H.mbg";
@@ -73,8 +73,8 @@ namespace Shooting
 					text = ".\\CS\\St02\\关底Boss\\FSC符L.mbg";
 					break;
 				}
-				CS_Data cs_Data = base.StageData.LoadCS(text);
-				new CSEmitterController(base.StageData, cs_Data);
+				CS_Data cs_Data = StageData.LoadCS(text);
+				new CSEmitterController(StageData, cs_Data);
 			}
 		}
 	}

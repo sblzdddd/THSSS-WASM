@@ -11,7 +11,7 @@ namespace Shooting
 		{
 			get
 			{
-				return this.PosRect.Width;
+				return PosRect.Width;
 			}
 		}
 
@@ -19,7 +19,7 @@ namespace Shooting
 		{
 			get
 			{
-				return this.PosRect.Height;
+				return PosRect.Height;
 			}
 		}
 
@@ -37,7 +37,7 @@ namespace Shooting
 		{
 			get
 			{
-				return new PointF((float)(this.PosRect.Width / 2 + this.OffsetX), (float)(this.PosRect.Height / 2 + this.OffsetY));
+				return new PointF((float)(PosRect.Width / 2 + OffsetX), (float)(PosRect.Height / 2 + OffsetY));
 			}
 		}
 
@@ -53,15 +53,15 @@ namespace Shooting
 		{
 			get
 			{
-				return new PointF((float)this.Width, 0f);
+				return new PointF((float)Width, 0f);
 			}
 		}
 
 		public void Dispose()
 		{
-			if (!this.TXTure.Disposed)
+			if (!TXTure.Disposed)
 			{
-				this.TXTure.Dispose();
+				TXTure.Dispose();
 			}
 		}
 	}

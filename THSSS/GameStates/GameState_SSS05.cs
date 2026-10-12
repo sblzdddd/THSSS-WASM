@@ -9,47 +9,47 @@ namespace Shooting
 		public GameState_SSS05(GlobalDataPackage GlobalData)
 			: base(GlobalData)
 		{
-			base.StageName = "St5";
+			StageName = "St5";
 		}
 
 		public override void Drama()
 		{
 			base.Drama();
 			int[] array = new int[] { 2500, 3000, 8750 };
-			if (base.TimeMain == 1)
+			if (TimeMain == 1)
 			{
-				switch (base.StageData.Difficulty)
+				switch (StageData.Difficulty)
 				{
 				case DifficultLevel.Hard:
-					base.MyPlane.EnchantmentCountNeeded = 8;
+					MyPlane.EnchantmentCountNeeded = 8;
 					break;
 				case DifficultLevel.Lunatic:
-					base.MyPlane.EnchantmentCountNeeded = 9;
+					MyPlane.EnchantmentCountNeeded = 9;
 					break;
 				}
 			}
-			if (base.TimeMain == 2)
+			if (TimeMain == 2)
 			{
-				if (base.StageData.C_History.PracticeLevel < 5)
+				if (StageData.C_History.PracticeLevel < 5)
 				{
-					base.StageData.C_History.PracticeLevel = 5;
+					StageData.C_History.PracticeLevel = 5;
 				}
-				base.StageData.ChangeBGM(".\\BGM\\Stage05.ogg", (this.testStartTime + 60) * 44100 / 60, 0, 255, 66150, 0);
-				MusicTitle musicTitle = new MusicTitle(base.StageData, "记忆中遥远的星星", new Point(base.BoundRect.Width, base.BoundRect.Height - 16));
-				musicTitle.OriginalPosition = new PointF((float)base.BoundRect.Width, (float)(base.BoundRect.Height + 100));
+				StageData.ChangeBGM(".\\BGM\\Stage05.ogg", (testStartTime + 60) * 44100 / 60, 0, 255, 66150, 0);
+				MusicTitle musicTitle = new MusicTitle(StageData, "记忆中遥远的星星", new Point(BoundRect.Width, BoundRect.Height - 16));
+				musicTitle.OriginalPosition = new PointF((float)BoundRect.Width, (float)(BoundRect.Height + 100));
 				musicTitle.Scale = 0.5f;
-				base.Background3D.Envi = new EnvironmentSSS05(base.StageData);
-				BackgroundTransitionIn backgroundTransitionIn = new BackgroundTransitionIn(base.StageData);
+				Background3D.Envi = new EnvironmentSSS05(StageData);
+				BackgroundTransitionIn backgroundTransitionIn = new BackgroundTransitionIn(StageData);
 				backgroundTransitionIn.Delay = 200;
 				backgroundTransitionIn.LifeTime = 320;
-				if (this.testStartTime > base.TimeMain)
+				if (testStartTime > TimeMain)
 				{
-					base.TimeMain = this.testStartTime;
+					TimeMain = testStartTime;
 				}
-				if (base.TimeMain < array[0])
+				if (TimeMain < array[0])
 				{
 					string[] array2;
-					switch (base.StageData.Difficulty)
+					switch (StageData.Difficulty)
 					{
 					case DifficultLevel.Easy:
 						array2 = Directory.GetFiles(".\\CS\\St05\\A\\E\\", "*.mbg");
@@ -69,27 +69,27 @@ namespace Shooting
 					}
 					foreach (string text in array2)
 					{
-						CS_Data cs_Data = base.StageData.LoadCS(text);
-						CSEmitterController csemitterController = new CSEmitterController(base.StageData, cs_Data);
+						CS_Data cs_Data = StageData.LoadCS(text);
+						CSEmitterController csemitterController = new CSEmitterController(StageData, cs_Data);
 						csemitterController.OnRoad = true;
-						csemitterController.Time = base.TimeMain - 60;
+						csemitterController.Time = TimeMain - 60;
 					}
 				}
 			}
-			if (base.TimeMain == array[0])
+			if (TimeMain == array[0])
 			{
-				new Boss_Rakuki04(base.StageData);
-				base.StageData.RemoveBullets();
+				new Boss_Rakuki04(StageData);
+				StageData.RemoveBullets();
 			}
-			else if (base.TimeMain == array[0] + 90)
+			else if (TimeMain == array[0] + 90)
 			{
-				new Story_SSS05_01(base.StageData);
+				new Story_SSS05_01(StageData);
 			}
-			else if (base.TimeMain > array[1] && base.Boss == null && !base.RoadFlag)
+			else if (TimeMain > array[1] && Boss == null && !RoadFlag)
 			{
-				base.RoadFlag = true;
+				RoadFlag = true;
 				string[] array2;
-				switch (base.StageData.Difficulty)
+				switch (StageData.Difficulty)
 				{
 				case DifficultLevel.Easy:
 					array2 = Directory.GetFiles(".\\CS\\St05\\B\\E\\", "*.mbg");
@@ -109,24 +109,24 @@ namespace Shooting
 				}
 				foreach (string text in array2)
 				{
-					CS_Data cs_Data = base.StageData.LoadCS(text);
-					CSEmitterController csemitterController2 = new CSEmitterController(base.StageData, cs_Data);
+					CS_Data cs_Data = StageData.LoadCS(text);
+					CSEmitterController csemitterController2 = new CSEmitterController(StageData, cs_Data);
 					csemitterController2.OnRoad = true;
-					csemitterController2.Time = base.TimeMain - 60;
+					csemitterController2.Time = TimeMain - 60;
 				}
 			}
-			if (array[2] - 130 == base.TimeMain)
+			if (array[2] - 130 == TimeMain)
 			{
-				BossStar bossStar = new BossStar(base.StageData, new PointF((float)(base.BoundRect.Width / 2), 150f));
+				BossStar bossStar = new BossStar(StageData, new PointF((float)(BoundRect.Width / 2), 150f));
 				bossStar.ColorType = 1;
 			}
-			else if (array[2] == base.TimeMain)
+			else if (array[2] == TimeMain)
 			{
-				base.StageData.RemoveBullets();
-				new Boss_Rakukun01(base.StageData);
-				new Story_SSS05_02(base.StageData);
-				base.Background3D.WarpEnabled = false;
-				base.Background3D.WarpColorKey = 0;
+				StageData.RemoveBullets();
+				new Boss_Rakukun01(StageData);
+				new Story_SSS05_02(StageData);
+				Background3D.WarpEnabled = false;
+				Background3D.WarpColorKey = 0;
 			}
 		}
 

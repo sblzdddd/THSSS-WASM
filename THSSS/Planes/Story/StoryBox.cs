@@ -21,16 +21,16 @@ namespace Shooting
 		{
 			get
 			{
-				return this.text;
+				return text;
 			}
 			set
 			{
-				if (value != this.text)
+				if (value != text)
 				{
-					this.text = value;
-					this.TextArray = this.text.ToCharArray();
-					this.DrawText = "";
-					base.Time = 0;
+					text = value;
+					TextArray = text.ToCharArray();
+					DrawText = "";
+					Time = 0;
 				}
 			}
 		}
@@ -39,16 +39,16 @@ namespace Shooting
 		{
 			get
 			{
-				return this.text2;
+				return text2;
 			}
 			set
 			{
-				if (value != this.text2)
+				if (value != text2)
 				{
-					this.text2 = value;
-					this.TextArray2 = this.text2.ToCharArray();
-					this.DrawText2 = "";
-					base.Time = 0;
+					text2 = value;
+					TextArray2 = text2.ToCharArray();
+					DrawText2 = "";
+					Time = 0;
 				}
 			}
 		}
@@ -56,132 +56,132 @@ namespace Shooting
 		public StoryBox(StageDataPackage StageData)
 			: base(StageData)
 		{
-			base.TxtureObject = base.TextureObjectDictionary["对话框"];
-			base.Position = new PointF((float)base.BoundRect.Left, (float)(base.BoundRect.Bottom - base.TxtureObject.Height * base.BoundRect.Width / base.TxtureObject.Width - 8));
-			base.Velocity = 0f;
-			base.Direction = 0.0;
-			base.TransparentValueF = 0f;
-			base.TransparentVelocity = 10f;
-			this.OffsetX = 20;
-			this.OffsetY = 21;
-			this.Shadowed = true;
-			this.sysfont = new global::System.Drawing.Font(StageData.GlobalData.FontType, 16f * GlobalDataPackage.FontScale, FontStyle.Bold);
-			this.DXfont = new SlimDX.Direct3D9.Font(StageData.DeviceMain, this.sysfont);
-			this.FontColor = Color.White;
+			TxtureObject = TextureObjectDictionary["对话框"];
+			Position = new PointF((float)BoundRect.Left, (float)(BoundRect.Bottom - TxtureObject.Height * BoundRect.Width / TxtureObject.Width - 8));
+			Velocity = 0f;
+			Direction = 0.0;
+			TransparentValueF = 0f;
+			TransparentVelocity = 10f;
+			OffsetX = 20;
+			OffsetY = 21;
+			Shadowed = true;
+			sysfont = new System.Drawing.Font(StageData.GlobalData.FontType, 16f * GlobalDataPackage.FontScale, FontStyle.Bold);
+			DXfont = new SlimDX.Direct3D9.Font(StageData.DeviceMain, sysfont);
+			FontColor = Color.White;
 		}
 
 		public override void Ctrl()
 		{
-			if (this.DrawText != null)
+			if (DrawText != null)
 			{
-				if (this.DrawText.Replace("\r\n", "") == this.text)
+				if (DrawText.Replace("\r\n", "") == text)
 				{
-					base.TransparentValueF = (float)base.MaxTransparent;
+					TransparentValueF = (float)MaxTransparent;
 					return;
 				}
 			}
-			if (this.TextArray != null)
+			if (TextArray != null)
 			{
-				if (base.Time < this.TextArray.Length)
+				if (Time < TextArray.Length)
 				{
-					if ((float)this.DXfont.MeasureString(base.SpriteMain.sprite, this.DrawText + this.TextArray[base.Time].ToString(), DrawTextFormat.Left).Width / 1.15f > (float)(base.TxtureObject.Width - this.OffsetX))
+					if ((float)DXfont.MeasureString(SpriteMain.sprite, DrawText + TextArray[Time].ToString(), DrawTextFormat.Left).Width / 1.15f > (float)(TxtureObject.Width - OffsetX))
 					{
-						this.DrawText += "\r\n";
+						DrawText += "\r\n";
 					}
-					this.DrawText += this.TextArray[base.Time].ToString();
+					DrawText += TextArray[Time].ToString();
 				}
 			}
-			if (this.StringTexture != null)
+			if (StringTexture != null)
 			{
-				this.StringTexture.Dispose();
+				StringTexture.Dispose();
 			}
-			this.StringTexture = base.StageData.DrawString(this.DrawText, this.sysfont, Brushes.White, 512, 256);
-			if (this.TextArray2 != null)
+			StringTexture = StageData.DrawString(DrawText, sysfont, Brushes.White, 512, 256);
+			if (TextArray2 != null)
 			{
-				if (base.Time < this.TextArray2.Length)
+				if (Time < TextArray2.Length)
 				{
-					if ((float)this.DXfont.MeasureString(base.SpriteMain.sprite, this.DrawText2 + this.TextArray2[base.Time].ToString(), DrawTextFormat.Left).Width / 1.15f > (float)(base.TxtureObject.Width - this.OffsetX))
+					if ((float)DXfont.MeasureString(SpriteMain.sprite, DrawText2 + TextArray2[Time].ToString(), DrawTextFormat.Left).Width / 1.15f > (float)(TxtureObject.Width - OffsetX))
 					{
-						this.DrawText2 += "\r\n";
+						DrawText2 += "\r\n";
 					}
-					this.DrawText2 += this.TextArray2[base.Time].ToString();
+					DrawText2 += TextArray2[Time].ToString();
 				}
 			}
-			if (this.StringTexture2 != null)
+			if (StringTexture2 != null)
 			{
-				this.StringTexture2.Dispose();
+				StringTexture2.Dispose();
 			}
-			this.StringTexture2 = base.StageData.DrawString(this.DrawText2, this.sysfont, Brushes.White, 512, 256);
+			StringTexture2 = StageData.DrawString(DrawText2, sysfont, Brushes.White, 512, 256);
 			base.Ctrl();
 		}
 
 		public void DrawFullText()
 		{
-			if (this.TextArray != null)
+			if (TextArray != null)
 			{
-				while (base.Time < this.TextArray.Length)
+				while (Time < TextArray.Length)
 				{
-					if ((float)this.DXfont.MeasureString(base.SpriteMain.sprite, this.DrawText + this.TextArray[base.Time].ToString(), DrawTextFormat.Left).Width / 1.15f > (float)(base.TxtureObject.Width - this.OffsetX))
+					if ((float)DXfont.MeasureString(SpriteMain.sprite, DrawText + TextArray[Time].ToString(), DrawTextFormat.Left).Width / 1.15f > (float)(TxtureObject.Width - OffsetX))
 					{
-						this.DrawText += "\r\n";
+						DrawText += "\r\n";
 					}
-					this.DrawText += this.TextArray[base.Time].ToString();
-					base.Time++;
+					DrawText += TextArray[Time].ToString();
+					Time++;
 				}
 			}
-			if (this.StringTexture != null)
+			if (StringTexture != null)
 			{
-				this.StringTexture.Dispose();
+				StringTexture.Dispose();
 			}
-			this.StringTexture = base.StageData.DrawString(this.DrawText, this.sysfont, Brushes.White, 512, 256);
-			if (this.TextArray2 != null)
+			StringTexture = StageData.DrawString(DrawText, sysfont, Brushes.White, 512, 256);
+			if (TextArray2 != null)
 			{
-				while (base.Time < this.TextArray2.Length)
+				while (Time < TextArray2.Length)
 				{
-					if ((float)this.DXfont.MeasureString(base.SpriteMain.sprite, this.DrawText2 + this.TextArray2[base.Time].ToString(), DrawTextFormat.Left).Width / 1.15f > (float)(base.TxtureObject.Width - this.OffsetX))
+					if ((float)DXfont.MeasureString(SpriteMain.sprite, DrawText2 + TextArray2[Time].ToString(), DrawTextFormat.Left).Width / 1.15f > (float)(TxtureObject.Width - OffsetX))
 					{
-						this.DrawText2 += "\r\n";
+						DrawText2 += "\r\n";
 					}
-					this.DrawText2 += this.TextArray2[base.Time].ToString();
-					base.Time++;
+					DrawText2 += TextArray2[Time].ToString();
+					Time++;
 				}
 			}
-			if (this.StringTexture2 != null)
+			if (StringTexture2 != null)
 			{
-				this.StringTexture2.Dispose();
+				StringTexture2.Dispose();
 			}
-			this.StringTexture2 = base.StageData.DrawString(this.DrawText2, this.sysfont, Brushes.White, 512, 256);
+			StringTexture2 = StageData.DrawString(DrawText2, sysfont, Brushes.White, 512, 256);
 		}
 
 		public void SetFont(float FontSize)
 		{
-			if (this.sysfont != null)
+			if (sysfont != null)
 			{
 				FontSize *= GlobalDataPackage.FontScale;
-				if (this.sysfont.Size != FontSize)
+				if (sysfont.Size != FontSize)
 				{
-					this.sysfont = new global::System.Drawing.Font(base.StageData.GlobalData.FontType, FontSize, FontStyle.Bold);
-					this.DXfont = new SlimDX.Direct3D9.Font(base.StageData.DeviceMain, this.sysfont);
+					sysfont = new System.Drawing.Font(StageData.GlobalData.FontType, FontSize, FontStyle.Bold);
+					DXfont = new SlimDX.Direct3D9.Font(StageData.DeviceMain, sysfont);
 				}
 			}
 		}
 
 		public override void Show()
 		{
-			SizeF sizeF = new SizeF((float)base.TxtureObject.Width, 116f);
-			base.SpriteMain.Draw2D(base.TxtureObject.TXTure, base.TxtureObject.PosRect, sizeF, base.TxtureObject.LeftTop, 0f, base.Position, Color.FromArgb(base.TransparentValue, Color.White));
-			if (this.Text != null)
+			SizeF sizeF = new SizeF((float)TxtureObject.Width, 116f);
+			SpriteMain.Draw2D(TxtureObject.TXTure, TxtureObject.PosRect, sizeF, TxtureObject.LeftTop, 0f, Position, Color.FromArgb(TransparentValue, Color.White));
+			if (Text != null)
 			{
-				if (this.StringTexture != null)
+				if (StringTexture != null)
 				{
-					if (this.Shadowed)
+					if (Shadowed)
 					{
-						base.SpriteMain.Draw2D(this.StringTexture, new Rectangle(0, 0, 512, 256), new SizeF(512f, 256f), new PointF((float)((int)base.Position.X + 2 + this.OffsetX), (float)((int)base.Position.Y + 2 + (int)((float)this.OffsetY * sizeF.Height / 90f))), Color.FromArgb(150, 0, 0, 0));
+						SpriteMain.Draw2D(StringTexture, new Rectangle(0, 0, 512, 256), new SizeF(512f, 256f), new PointF((float)((int)Position.X + 2 + OffsetX), (float)((int)Position.Y + 2 + (int)((float)OffsetY * sizeF.Height / 90f))), Color.FromArgb(150, 0, 0, 0));
 					}
-					base.SpriteMain.Draw2D(this.StringTexture, new Rectangle(0, 0, 512, 256), new SizeF(512f, 256f), new PointF((float)((int)base.Position.X + this.OffsetX), (float)((int)base.Position.Y + (int)((float)this.OffsetY * sizeF.Height / 90f))), this.FontColor);
-					if (this.StringTexture2 != null)
+					SpriteMain.Draw2D(StringTexture, new Rectangle(0, 0, 512, 256), new SizeF(512f, 256f), new PointF((float)((int)Position.X + OffsetX), (float)((int)Position.Y + (int)((float)OffsetY * sizeF.Height / 90f))), FontColor);
+					if (StringTexture2 != null)
 					{
-						base.SpriteMain.Draw2D(this.StringTexture2, new Rectangle(0, 0, 512, 256), new SizeF(512f, 256f), new PointF((float)((int)base.Position.X + this.OffsetX), (float)((int)base.Position.Y + (int)((float)this.OffsetY * sizeF.Height / 90f))), this.FontColor2);
+						SpriteMain.Draw2D(StringTexture2, new Rectangle(0, 0, 512, 256), new SizeF(512f, 256f), new PointF((float)((int)Position.X + OffsetX), (float)((int)Position.Y + (int)((float)OffsetY * sizeF.Height / 90f))), FontColor2);
 					}
 				}
 			}
@@ -189,10 +189,10 @@ namespace Shooting
 
 		public override void Dispose()
 		{
-			this.DXfont.Dispose();
-			if (this.StringTexture != null)
+			DXfont.Dispose();
+			if (StringTexture != null)
 			{
-				this.StringTexture.Dispose();
+				StringTexture.Dispose();
 			}
 		}
 
@@ -200,7 +200,7 @@ namespace Shooting
 
 		private Texture StringTexture;
 
-		private global::System.Drawing.Font sysfont;
+		private System.Drawing.Font sysfont;
 
 		private char[] TextArray;
 

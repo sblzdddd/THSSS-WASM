@@ -9,23 +9,23 @@ namespace Shooting
 		public MenuGroup_ReplaySaver(StageDataPackage StageData, PointF OriginalPosition)
 			: base(StageData)
 		{
-			base.OriginalPosition = OriginalPosition;
-			base.MenuSelectIndex = 0;
-			base.MenuItemList = new List<BaseMenuItem>();
+			this.OriginalPosition = OriginalPosition;
+			MenuSelectIndex = 0;
+			MenuItemList = new List<BaseMenuItem>();
 			for (int i = 0; i < 25; i++)
 			{
-				base.MenuItemList.Add(new DescriptionMenuItem(StageData, string.Format("{0:00}", i + 1)));
+				MenuItemList.Add(new DescriptionMenuItem(StageData, string.Format("{0:00}", i + 1)));
 			}
 			float num = OriginalPosition.X + 12f;
 			float num2 = OriginalPosition.Y + 12f;
-			foreach (BaseMenuItem baseMenuItem in base.MenuItemList)
+			foreach (BaseMenuItem baseMenuItem in MenuItemList)
 			{
-				baseMenuItem.Position = new PointF(num, (float)(base.BoundRect.Top + 10));
+				baseMenuItem.Position = new PointF(num, (float)(BoundRect.Top + 10));
 				baseMenuItem.DestPoint = new PointF(num, num2);
 				num2 += 17f;
-				((DescriptionMenuItem)baseMenuItem).Description = this.SetDescroption(".\\Replay\\thSSS_" + baseMenuItem.Name + ".rpy");
+				((DescriptionMenuItem)baseMenuItem).Description = SetDescroption(".\\Replay\\thSSS_" + baseMenuItem.Name + ".rpy");
 			}
-			base.MenuItemList[base.MenuSelectIndex].Selected = true;
+			MenuItemList[MenuSelectIndex].Selected = true;
 		}
 
 		public virtual string SetDescroption(string fileName)
@@ -82,42 +82,42 @@ namespace Shooting
 		public override void ProcessKeys()
 		{
 			base.ProcessKeys();
-			this.ProcessKeys2();
+			ProcessKeys2();
 		}
 
 		public virtual void ProcessKeys2()
 		{
-			if (base.KClass.Key_Z && this.LastZ == 0)
+			if (KClass.Key_Z && LastZ == 0)
 			{
-				base.MenuItemList[base.MenuSelectIndex].Click();
-				this.OnChangeMenu = base.TimeMain + 1;
+				MenuItemList[MenuSelectIndex].Click();
+				OnChangeMenu = TimeMain + 1;
 			}
-			if ((base.KClass.Key_X || base.KClass.Key_ESC) && this.LastX == 0)
+			if ((KClass.Key_X || KClass.Key_ESC) && LastX == 0)
 			{
-				base.StageData.SoundPlay("se_cancel00.wav");
-				if (base.StageData.Rep.CanRead)
+				StageData.SoundPlay("se_cancel00.wav");
+				if (StageData.Rep.CanRead)
 				{
-					ReplayInfo repInfo = base.StageData.GlobalData.LastState.StageData.RepInfo;
+					ReplayInfo repInfo = StageData.GlobalData.LastState.StageData.RepInfo;
 					repInfo.PlayerName = "autosave";
-					base.StageData.Rep.SaveRpy(".\\Replay\\AutoSave.rpy", repInfo);
+					StageData.Rep.SaveRpy(".\\Replay\\AutoSave.rpy", repInfo);
 				}
-				base.StageData.StateSwitchData = new StateSwitchDataPackage
+				StageData.StateSwitchData = new StateSwitchDataPackage
 				{
 					NextState = "MainMenu",
 					NeedInit = true,
-					SDPswitch = new StageDataPackage(base.StageData.GlobalData)
+					SDPswitch = new StageDataPackage(StageData.GlobalData)
 				};
-				base.StageData.Rep.CloseRpy();
+				StageData.Rep.CloseRpy();
 			}
 		}
 
 		public override void ProcessZ()
 		{
-			if (base.StageData.Rep.CanRead)
+			if (StageData.Rep.CanRead)
 			{
-				base.StageData.SoundPlay("se_ok00.wav");
-				base.StageData.GlobalData.LastState.StageData.SetReplayStageInfo();
-				base.StageData.MenuGroupList.Add(new MenuGroup_ReplayNamer(base.StageData, base.MenuItemList[0].OriginalPosition, (DescriptionMenuItem)base.MenuItemList[base.MenuSelectIndex]));
+				StageData.SoundPlay("se_ok00.wav");
+				StageData.GlobalData.LastState.StageData.SetReplayStageInfo();
+				StageData.MenuGroupList.Add(new MenuGroup_ReplayNamer(StageData, MenuItemList[0].OriginalPosition, (DescriptionMenuItem)MenuItemList[MenuSelectIndex]));
 			}
 		}
 	}

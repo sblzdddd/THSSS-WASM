@@ -9,24 +9,24 @@ namespace Shooting
 		public GameState_MainMenu(GlobalDataPackage GlobalData)
 			: base(GlobalData)
 		{
-			this.InitializeComponent();
-			global::System.Drawing.Font font = new global::System.Drawing.Font("Arial", 12f * GlobalDataPackage.FontScale, FontStyle.Bold | FontStyle.Italic);
-			base.DXFont = new SlimDX.Direct3D9.Font(base.DeviceMain, font);
+			InitializeComponent();
+			System.Drawing.Font font = new System.Drawing.Font("Arial", 12f * GlobalDataPackage.FontScale, FontStyle.Bold | FontStyle.Italic);
+			DXFont = new SlimDX.Direct3D9.Font(DeviceMain, font);
 		}
 
 		public override void Init()
 		{
-			base.StageData.PData.CheckEnable();
-			base.StageData.PData.SaveData();
-			base.BackgroundLight = 0;
-			base.BGM_Player.Volume = base.StageData.GlobalData.BGMVolume;
+			StageData.PData.CheckEnable();
+			StageData.PData.SaveData();
+			BackgroundLight = 0;
+			BGM_Player.Volume = StageData.GlobalData.BGMVolume;
 		}
 
 		public override void UpdateData()
 		{
-			if (base.TimeMain == 50)
+			if (TimeMain == 50)
 			{
-				BaseEffect baseEffect = new BaseEffect(base.StageData, "woshixingtu", new PointF(385f, 240f), 4f, 0.0);
+				BaseEffect baseEffect = new BaseEffect(StageData, "woshixingtu", new PointF(385f, 240f), 4f, 0.0);
 				baseEffect.AngleDegree = 90.0;
 				baseEffect.Active = false;
 				baseEffect.DestPoint = new PointF(320f, 240f);
@@ -35,9 +35,9 @@ namespace Shooting
 				baseEffect.TransparentValueF = 0f;
 				baseEffect.TransparentVelocity = 5f;
 			}
-			else if (base.TimeMain == 100)
+			else if (TimeMain == 100)
 			{
-				BaseEffect baseEffect2 = new BaseEffect(base.StageData, "woshibiaotihebaisi", new PointF(385f, 240f), 4f, 0.0);
+				BaseEffect baseEffect2 = new BaseEffect(StageData, "woshibiaotihebaisi", new PointF(385f, 240f), 4f, 0.0);
 				baseEffect2.AngleDegree = 90.0;
 				baseEffect2.Active = false;
 				baseEffect2.DestPoint = new PointF(320f, 240f);
@@ -45,112 +45,112 @@ namespace Shooting
 				baseEffect2.Scale = 1f;
 				baseEffect2.TransparentValueF = 0f;
 				baseEffect2.TransparentVelocity = 5f;
-				new EmitterTitleStarFall(base.StageData);
-				base.StageData.MenuGroupList.Add(new MenuGroup_Main(base.StageData));
+				new EmitterTitleStarFall(StageData);
+				StageData.MenuGroupList.Add(new MenuGroup_Main(StageData));
 			}
-			else if (base.TimeMain == 130)
+			else if (TimeMain == 130)
 			{
-				this.SelectFrame = new SelectBox(base.StageData)
+				SelectFrame = new SelectBox(StageData)
 				{
 					Velocity = 100f,
 					OriginalPosition = new PointF(0f, 500f)
 				};
 			}
-			if (base.StageData.MenuGroupList.Count > 0)
+			if (StageData.MenuGroupList.Count > 0)
 			{
-				BaseMenuItem baseMenuItem = base.StageData.MenuGroupList[base.StageData.MenuGroupList.Count - 1].MenuItemList[base.StageData.MenuGroupList[base.StageData.MenuGroupList.Count - 1].MenuSelectIndex];
-				if (base.StageData.MenuGroupList.Count == 1 || base.StageData.MenuGroupList[base.StageData.MenuGroupList.Count - 1] is MenuOption)
+				BaseMenuItem baseMenuItem = StageData.MenuGroupList[StageData.MenuGroupList.Count - 1].MenuItemList[StageData.MenuGroupList[StageData.MenuGroupList.Count - 1].MenuSelectIndex];
+				if (StageData.MenuGroupList.Count == 1 || StageData.MenuGroupList[StageData.MenuGroupList.Count - 1] is MenuOption)
 				{
-					Particle particle = new Particle(base.StageData, "Star", new PointF((float)base.Ran.Next((int)baseMenuItem.OriginalPosition.X - 10, (int)baseMenuItem.OriginalPosition.X + baseMenuItem.TxtureObject.PosRect.Width + 10), baseMenuItem.OriginalPosition.Y + 20f), (float)(base.StageData.Ran.Next(10, 20) / 10), -1.5707963267948966 - (double)((float)base.StageData.Ran.Next(1, 5) / 10f));
+					Particle particle = new Particle(StageData, "Star", new PointF((float)Ran.Next((int)baseMenuItem.OriginalPosition.X - 10, (int)baseMenuItem.OriginalPosition.X + baseMenuItem.TxtureObject.PosRect.Width + 10), baseMenuItem.OriginalPosition.Y + 20f), (float)(StageData.Ran.Next(10, 20) / 10), -1.5707963267948966 - (double)((float)StageData.Ran.Next(1, 5) / 10f));
 					particle.Active = true;
-					particle.Scale = (float)base.StageData.Ran.Next(15, 40) / 100f;
+					particle.Scale = (float)StageData.Ran.Next(15, 40) / 100f;
 					particle.LifeTime = 20;
 				}
-				if (this.SelectFrame != null)
+				if (SelectFrame != null)
 				{
-					baseMenuItem = base.StageData.MenuGroupList[0].MenuItemList[base.StageData.MenuGroupList[0].MenuSelectIndex];
-					if (Math.Abs(this.SelectFrame.DestPoint.Y - baseMenuItem.OriginalPosition.Y - 6f) >= 1f)
+					baseMenuItem = StageData.MenuGroupList[0].MenuItemList[StageData.MenuGroupList[0].MenuSelectIndex];
+					if (Math.Abs(SelectFrame.DestPoint.Y - baseMenuItem.OriginalPosition.Y - 6f) >= 1f)
 					{
-						this.SelectFrame.Velocity = Math.Abs(this.SelectFrame.DestPoint.Y - baseMenuItem.OriginalPosition.Y - 6f) / 5f;
-						if (this.SelectFrame.Velocity > 16f)
+						SelectFrame.Velocity = Math.Abs(SelectFrame.DestPoint.Y - baseMenuItem.OriginalPosition.Y - 6f) / 5f;
+						if (SelectFrame.Velocity > 16f)
 						{
-							this.SelectFrame.Velocity = 16f;
+							SelectFrame.Velocity = 16f;
 						}
-						else if (this.SelectFrame.Velocity < 2f)
+						else if (SelectFrame.Velocity < 2f)
 						{
-							this.SelectFrame.Velocity = 2f;
+							SelectFrame.Velocity = 2f;
 						}
 					}
-					this.SelectFrame.DestPoint = new PointF(0f, baseMenuItem.OriginalPosition.Y + 6f);
+					SelectFrame.DestPoint = new PointF(0f, baseMenuItem.OriginalPosition.Y + 6f);
 				}
 			}
 			base.UpdateData();
-			if (0 <= base.TimeMain && base.TimeMain < 130)
+			if (0 <= TimeMain && TimeMain < 130)
 			{
-				base.BackgroundLight += 4;
-				if (base.BackgroundLight > 255)
+				BackgroundLight += 4;
+				if (BackgroundLight > 255)
 				{
-					base.BackgroundLight = 255;
+					BackgroundLight = 255;
 				}
 			}
 			else
 			{
-				base.BackgroundLight = 255;
+				BackgroundLight = 255;
 			}
 		}
 
 		public override void Render()
 		{
-			base.SpriteMain.Begin(SpriteFlags.AlphaBlend);
-			base.SpriteMain.Draw2D(base.TextureObjectDictionary["MenuBackground"], 0.625f, 0f, new PointF(320f, 240f), 255);
-			base.DXFont.DrawString(base.SpriteMain.sprite, "ver 1.01", 560, 460, Color.Black);
-			base.SpriteMain.End();
-			base.Background3D.Show();
-			base.SpriteMain.Begin(SpriteFlags.AlphaBlend);
-			base.DeviceMain.SetRenderState(RenderState.SourceBlend, 5);
-			base.DeviceMain.SetRenderState(RenderState.DestinationBlend, 2);
-			base.Background2.Show(true);
-			base.SpriteMain.End();
-			base.SpriteMain.Begin(SpriteFlags.AlphaBlend);
-			base.Background2.Show(false);
-			base.EffectList.ForEach(delegate(BaseEffect x)
+			SpriteMain.Begin(SpriteFlags.AlphaBlend);
+			SpriteMain.Draw2D(TextureObjectDictionary["MenuBackground"], 0.625f, 0f, new PointF(320f, 240f), 255);
+			DXFont.DrawString(SpriteMain.sprite, "ver 1.01", 560, 460, Color.Black);
+			SpriteMain.End();
+			Background3D.Show();
+			SpriteMain.Begin(SpriteFlags.AlphaBlend);
+			DeviceMain.SetRenderState(RenderState.SourceBlend, 5);
+			DeviceMain.SetRenderState(RenderState.DestinationBlend, 2);
+			Background2.Show(true);
+			SpriteMain.End();
+			SpriteMain.Begin(SpriteFlags.AlphaBlend);
+			Background2.Show(false);
+			EffectList.ForEach(delegate(BaseEffect x)
 			{
 				if (!x.Active)
 				{
 					x.Show();
 				}
 			});
-			base.StageData.MenuGroupList.ForEach(delegate(BaseMenuGroup x)
+			StageData.MenuGroupList.ForEach(delegate(BaseMenuGroup x)
 			{
 				x.Show();
 			});
-			base.SpriteMain.End();
-			base.SpriteMain.Begin(SpriteFlags.AlphaBlend);
-			base.DeviceMain.SetRenderState(RenderState.SourceBlend, 5);
-			base.DeviceMain.SetRenderState(RenderState.DestinationBlend, 2);
-			base.EffectList.ForEach(delegate(BaseEffect x)
+			SpriteMain.End();
+			SpriteMain.Begin(SpriteFlags.AlphaBlend);
+			DeviceMain.SetRenderState(RenderState.SourceBlend, 5);
+			DeviceMain.SetRenderState(RenderState.DestinationBlend, 2);
+			EffectList.ForEach(delegate(BaseEffect x)
 			{
 				if (x.Active)
 				{
 					x.Show();
 				}
 			});
-			base.SpriteMain.End();
-			base.Particle3D.Show();
-			if (base.TimeMain < 126)
+			SpriteMain.End();
+			Particle3D.Show();
+			if (TimeMain < 126)
 			{
-				base.GlobalData.ScreenTexMan.Begin();
-				base.GlobalData.LastState.Render();
-				base.GlobalData.ScreenTexMan.End();
-				base.SpriteMain.Begin(SpriteFlags.AlphaBlend);
-				base.GlobalData.SpriteMain.Draw2D(base.GlobalData.ScreenTexMan.RenderTexture, new Point(0, 0), 0f, new PointF(0f, 0f), Color.FromArgb(255 - base.TimeMain * 2, Color.White));
-				base.SpriteMain.End();
+				GlobalData.ScreenTexMan.Begin();
+				GlobalData.LastState.Render();
+				GlobalData.ScreenTexMan.End();
+				SpriteMain.Begin(SpriteFlags.AlphaBlend);
+				GlobalData.SpriteMain.Draw2D(GlobalData.ScreenTexMan.RenderTexture, new Point(0, 0), 0f, new PointF(0f, 0f), Color.FromArgb(255 - TimeMain * 2, Color.White));
+				SpriteMain.End();
 			}
 		}
 
 		public override void BGM_ON()
 		{
-			base.StageData.ChangeBGM(".\\BGM\\OP.ogg", 0, 0, 255, 604611, 6047874);
+			StageData.ChangeBGM(".\\BGM\\OP.ogg", 0, 0, 255, 604611, 6047874);
 		}
 
 		public override void BGM_Resume()

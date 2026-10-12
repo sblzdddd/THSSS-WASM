@@ -15,9 +15,9 @@ namespace Shooting
 		public TexturedColoredVertex(Vector3 position, Vector2 textureCoordinate, int color)
 		{
 			this = default(TexturedColoredVertex);
-			this.Position = position;
-			this.TextureCoordinate = textureCoordinate;
-			this.Color = color;
+			Position = position;
+			TextureCoordinate = textureCoordinate;
+			Color = color;
 		}
 
 		public static int SizeBytes

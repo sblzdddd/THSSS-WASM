@@ -18,99 +18,99 @@ namespace Shooting
 		public Bullet_BendLaser(StageDataPackage StageData, PointF OriginalPosition, float Velocity, double Direction, byte ColorType, int Length, int Width)
 			: this(StageData, null, OriginalPosition, Velocity, Direction, Length)
 		{
-			base.ColorType = ColorType;
-			ParticleBeginBullet particleBeginBullet = new ParticleBeginBullet(StageData, base.Position, ColorType);
+			this.ColorType = ColorType;
+			ParticleBeginBullet particleBeginBullet = new ParticleBeginBullet(StageData, Position, ColorType);
 			particleBeginBullet.Scale = 0.5f;
 			particleBeginBullet.Active = true;
-			this.PL = new Particle3D_BendLaser(StageData, base.GhostingCount, Width, (int)ColorType)
+			PL = new Particle3D_BendLaser(StageData, GhostingCount, Width, (int)ColorType)
 			{
-				OriginalPosition = base.OriginalPosition,
-				LastPoints = base.LastPoints
+				OriginalPosition = this.OriginalPosition,
+				LastPoints = LastPoints
 			};
 		}
 
 		public Bullet_BendLaser(StageDataPackage StageData, string textureName, PointF OriginalPosition, float Velocity, double Direction, int Length)
 			: base(StageData, textureName, OriginalPosition, Velocity, Direction)
 		{
-			base.GhostingCount = Length;
-			base.Region = 2;
+			GhostingCount = Length;
+			Region = 2;
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			if (base.Time == 1)
+			if (Time == 1)
 			{
-				if (this.PL == null)
+				if (PL == null)
 				{
-					this.PL = new Particle3D_BendLaser(base.StageData, base.GhostingCount, (int)(base.ScaleLength * 16f), (int)base.ColorType)
+					PL = new Particle3D_BendLaser(StageData, GhostingCount, (int)(ScaleLength * 16f), (int)ColorType)
 					{
-						OriginalPosition = base.OriginalPosition,
-						LastPoints = base.LastPoints
+						OriginalPosition = OriginalPosition,
+						LastPoints = LastPoints
 					};
 				}
 			}
-			this.PL.LastPoints = base.LastPoints;
-			this.PL.TransparentValueF = base.TransparentValueF;
-			if (base.Time % 8 == 0)
+			PL.LastPoints = LastPoints;
+			PL.TransparentValueF = TransparentValueF;
+			if (Time % 8 == 0)
 			{
-				base.Grazed = false;
+				Grazed = false;
 			}
 		}
 
 		public override bool OutBoundary()
 		{
 			bool flag;
-			if (base.LifeTime != 0 && base.Time > base.LifeTime)
+			if (LifeTime != 0 && Time > LifeTime)
 			{
-				this.PL.Dispose();
-				base.StageData.Particle3D.ParticleList.Remove(this.PL);
+				PL.Dispose();
+				StageData.Particle3D.ParticleList.Remove(PL);
 				flag = true;
 			}
-			else if (base.Reflect <= 0)
+			else if (Reflect <= 0)
 			{
-				if (base.Time < 100)
+				if (Time < 100)
 				{
 					flag = false;
 				}
 				else
 				{
 					int num;
-					if (base.OutsideRegion < 10)
+					if (OutsideRegion < 10)
 					{
 						num = 20;
 					}
 					else
 					{
-						num = base.OutsideRegion * 2;
+						num = OutsideRegion * 2;
 					}
-					if ((float)(-(float)num) < base.LastPoints[base.LastPoints.Length - 1].X && base.LastPoints[base.LastPoints.Length - 1].X < (float)(base.BoundRect.Width + num) && (float)(-(float)num) < base.LastPoints[base.LastPoints.Length - 1].Y && base.LastPoints[base.LastPoints.Length - 1].Y < (float)(base.BoundRect.Height + num))
+					if ((float)(-(float)num) < LastPoints[LastPoints.Length - 1].X && LastPoints[LastPoints.Length - 1].X < (float)(BoundRect.Width + num) && (float)(-(float)num) < LastPoints[LastPoints.Length - 1].Y && LastPoints[LastPoints.Length - 1].Y < (float)(BoundRect.Height + num))
 					{
 						flag = false;
 					}
-					else if ((float)(-(float)num) < base.OriginalPosition.X && base.OriginalPosition.X < (float)(base.BoundRect.Width + num) && (float)(-(float)num) < base.OriginalPosition.Y && base.OriginalPosition.Y < (float)(base.BoundRect.Height + num))
+					else if ((float)(-(float)num) < OriginalPosition.X && OriginalPosition.X < (float)(BoundRect.Width + num) && (float)(-(float)num) < OriginalPosition.Y && OriginalPosition.Y < (float)(BoundRect.Height + num))
 					{
 						flag = false;
 					}
 					else
 					{
-						this.PL.Dispose();
-						base.StageData.Particle3D.ParticleList.Remove(this.PL);
+						PL.Dispose();
+						StageData.Particle3D.ParticleList.Remove(PL);
 						flag = true;
 					}
 				}
 			}
 			else
 			{
-				if (base.OriginalPosition.X < 0f || base.OriginalPosition.X >= (float)base.BoundRect.Width)
+				if (OriginalPosition.X < 0f || OriginalPosition.X >= (float)BoundRect.Width)
 				{
-					base.Reflect -= 1;
-					base.Direction -= 2.0 * (base.Direction - 1.5707963267948966);
+					Reflect -= 1;
+					Direction -= 2.0 * (Direction - 1.5707963267948966);
 				}
-				if (base.OriginalPosition.Y < 20f)
+				if (OriginalPosition.Y < 20f)
 				{
-					base.Reflect -= 1;
-					base.Direction = -base.Direction;
+					Reflect -= 1;
+					Direction = -Direction;
 				}
 				flag = false;
 			}
@@ -119,9 +119,9 @@ namespace Shooting
 
 		public override bool HitCheck(BaseObject Target, float Radius)
 		{
-			for (int i = 3; i < base.LastPoints.Length - 3; i++)
+			for (int i = 3; i < LastPoints.Length - 3; i++)
 			{
-				PointF pointF = base.LastPoints[i];
+				PointF pointF = LastPoints[i];
 				double num = Math.Sqrt((double)((pointF.X - Target.OriginalPosition.X) * (pointF.X - Target.OriginalPosition.X) + (pointF.Y - Target.OriginalPosition.Y) * (pointF.Y - Target.OriginalPosition.Y)));
 				if (num - (double)Target.Region < (double)Radius)
 				{
@@ -133,26 +133,26 @@ namespace Shooting
 
 		public override void GiveEndEffect()
 		{
-			for (int i = 0; i < base.LastPoints.Length; i += 8)
+			for (int i = 0; i < LastPoints.Length; i += 8)
 			{
-				new ParticleEndBullet(base.StageData, base.LastPoints[i], base.ColorType, base.SizeValue);
+				new ParticleEndBullet(StageData, LastPoints[i], ColorType, SizeValue);
 			}
-			base.StageData.Particle3D.ParticleList.Remove(this.PL);
+			StageData.Particle3D.ParticleList.Remove(PL);
 		}
 
 		public override void GiveItems()
 		{
 			int num = 5;
-			int num2 = base.Region / num;
-			for (int i = 0; i < base.LastPoints.Length; i += 8)
+			int num2 = Region / num;
+			for (int i = 0; i < LastPoints.Length; i += 8)
 			{
 				for (int j = 0; j <= num2; j++)
 				{
-					double num3 = base.Direction;
+					double num3 = Direction;
 					for (int k = 0; k < j * 5 + 1; k++)
 					{
-						PointF pointF = new PointF((float)((double)base.LastPoints[i].X + (double)j * Math.Cos(num3)), (float)((double)base.LastPoints[i].Y + (double)j * Math.Sin(num3)));
-						new StarItem_Touhou(base.StageData, pointF);
+						PointF pointF = new PointF((float)((double)LastPoints[i].X + (double)j * Math.Cos(num3)), (float)((double)LastPoints[i].Y + (double)j * Math.Sin(num3)));
+						new StarItem_Touhou(StageData, pointF);
 						num3 += 6.283185307179586 / (double)(j * 6);
 					}
 				}
@@ -165,13 +165,13 @@ namespace Shooting
 
 		public override void ShowRegion()
 		{
-			PointF originalPosition = base.OriginalPosition;
-			for (int i = 3; i < base.LastPoints.Length - 3; i++)
+			PointF originalPosition = OriginalPosition;
+			for (int i = 3; i < LastPoints.Length - 3; i++)
 			{
-				base.OriginalPosition = base.LastPoints[i];
+				OriginalPosition = LastPoints[i];
 				base.ShowRegion();
 			}
-			base.OriginalPosition = originalPosition;
+			OriginalPosition = originalPosition;
 		}
 
 		private Particle3D_BendLaser PL;

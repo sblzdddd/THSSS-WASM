@@ -10,11 +10,11 @@ namespace Shooting
 		{
 			get
 			{
-				return this.type;
+				return type;
 			}
 			set
 			{
-				this.type = value;
+				type = value;
 			}
 		}
 
@@ -22,18 +22,18 @@ namespace Shooting
 		{
 			get
 			{
-				return base.GhostingCount > 0;
+				return GhostingCount > 0;
 			}
 			set
 			{
 				if (value)
 				{
-					base.GhostingCount = 20;
-					base.GhostingColor = Color.White;
+					GhostingCount = 20;
+					GhostingColor = Color.White;
 				}
 				else
 				{
-					base.GhostingCount = 0;
+					GhostingCount = 0;
 				}
 			}
 		}
@@ -42,13 +42,13 @@ namespace Shooting
 		{
 			get
 			{
-				return base.OutsideRegion < 80;
+				return OutsideRegion < 80;
 			}
 			set
 			{
 				if (!value)
 				{
-					base.OutsideRegion = 200;
+					OutsideRegion = 200;
 				}
 			}
 		}
@@ -61,11 +61,11 @@ namespace Shooting
 		{
 			get
 			{
-				return new PointF(base.OriginalPosition.X + 320f - 192f, base.OriginalPosition.Y + 240f - 224f);
+				return new PointF(OriginalPosition.X + 320f - 192f, OriginalPosition.Y + 240f - 224f);
 			}
 			set
 			{
-				base.OriginalPosition = new PointF(value.X - 320f + 192f, value.Y - 240f + 224f);
+				OriginalPosition = new PointF(value.X - 320f + 192f, value.Y - 240f + 224f);
 			}
 		}
 
@@ -113,25 +113,25 @@ namespace Shooting
 
 		public override void Ctrl()
 		{
-			double num = this.AccDirection / 180.0 * 3.141592653589793;
-			base.Ax = this.AccelerateCS * (float)Math.Cos(num);
-			base.Ay = this.AccelerateCS * (float)Math.Sin(num);
-			this.EventCtrl();
+			double num = AccDirection / 180.0 * 3.141592653589793;
+			Ax = AccelerateCS * (float)Math.Cos(num);
+			Ay = AccelerateCS * (float)Math.Sin(num);
+			EventCtrl();
 			base.Ctrl();
 		}
 
 		public virtual void EventCtrl()
 		{
-			if (this.EventGroupList != null)
+			if (EventGroupList != null)
 			{
-				this.EventGroupList.ForEach(delegate(EventGroup a)
+				EventGroupList.ForEach(delegate(EventGroup a)
 				{
 					a.Update(this);
 				});
 			}
-			if (this.EventsExecutionList != null)
+			if (EventsExecutionList != null)
 			{
-				this.EventsExecutionList.ForEach(delegate(Execution a)
+				EventsExecutionList.ForEach(delegate(Execution a)
 				{
 					a.Update(this);
 				});
@@ -143,7 +143,7 @@ namespace Shooting
 			BaseObject_CS b = (BaseObject_CS)base.Clone();
 			b.EventsExecutionList = new List<Execution>();
 			b.EventGroupList = new List<EventGroup>();
-			this.EventGroupList.ForEach(delegate(EventGroup x)
+			EventGroupList.ForEach(delegate(EventGroup x)
 			{
 				b.EventGroupList.Add((EventGroup)x.Clone());
 			});

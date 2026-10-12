@@ -7,13 +7,13 @@ namespace Shooting
 		public CG(StageDataPackage StageData, string textureName)
 			: base(StageData)
 		{
-			base.OriginalPosition = new PointF((float)(base.BoundRect.Width / 2), (float)(base.BoundRect.Height / 2));
-			base.Velocity = 0f;
-			base.Direction = 0.0;
-			base.Active = false;
-			base.TransparentValueF = 0f;
-			base.TransparentVelocity = 20f;
-			base.Angle = (double)(-(double)((float)(base.Direction - 1.5707963267948966)));
+			OriginalPosition = new PointF((float)(BoundRect.Width / 2), (float)(BoundRect.Height / 2));
+			Velocity = 0f;
+			Direction = 0.0;
+			Active = false;
+			TransparentValueF = 0f;
+			TransparentVelocity = 20f;
+			Angle = (double)(-(double)((float)(Direction - 1.5707963267948966)));
 		}
 	}
 }

@@ -6,27 +6,27 @@ namespace Shooting
 	{
 		public FullPic(StageDataPackage StageData, string textureName)
 		{
-			base.StageData = StageData;
-			base.Position = new PointF((float)(base.BoundRect.Left + 250), (float)(base.BoundRect.Top + 150));
-			base.Velocity = 2f;
-			base.Direction = 1.5707963267948966;
-			base.Active = false;
-			base.LifeTime = 200;
-			base.Accelerate = -0.025f;
-			base.TxtureObject = base.TextureObjectDictionary[textureName];
-			base.Background2.BackgroundList.Add(this);
+			this.StageData = StageData;
+			Position = new PointF((float)(BoundRect.Left + 250), (float)(BoundRect.Top + 150));
+			Velocity = 2f;
+			Direction = 1.5707963267948966;
+			Active = false;
+			LifeTime = 200;
+			Accelerate = -0.025f;
+			TxtureObject = TextureObjectDictionary[textureName];
+			Background2.BackgroundList.Add(this);
 		}
 
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			if (base.Velocity < 0f)
+			if (Velocity < 0f)
 			{
-				base.Velocity = 0f;
+				Velocity = 0f;
 			}
-			if (base.Time > 40)
+			if (Time > 40)
 			{
-				base.TransparentVelocity = -5f;
+				TransparentVelocity = -5f;
 			}
 		}
 	}

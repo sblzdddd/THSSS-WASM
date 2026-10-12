@@ -13,38 +13,38 @@ namespace Shooting
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			if (base.Time == base.LifeTime)
+			if (Time == LifeTime)
 			{
-				string name = base.MyPlane.Name;
+				string name = MyPlane.Name;
 				if (name != null)
 				{
 					if (name == "Aya")
 					{
-						new Story_SSS02_02(base.StageData);
+						new Story_SSS02_02(StageData);
 						goto IL_00CA;
 					}
 					if (name == "Reimu")
 					{
-						new Story_SSS02_02A(base.StageData);
+						new Story_SSS02_02A(StageData);
 						goto IL_00CA;
 					}
 					if (name == "Marisa")
 					{
-						new Story_SSS02_02B(base.StageData);
+						new Story_SSS02_02B(StageData);
 						goto IL_00CA;
 					}
 					if (name == "Sanae")
 					{
-						new Story_SSS02_02C(base.StageData);
+						new Story_SSS02_02C(StageData);
 						goto IL_00CA;
 					}
 					if (name == "Koishi")
 					{
-						new Story_SSS02_02D(base.StageData);
+						new Story_SSS02_02D(StageData);
 						goto IL_00CA;
 					}
 				}
-				new Story_SSS02_02X(base.StageData);
+				new Story_SSS02_02X(StageData);
 				IL_00CA:;
 			}
 		}
