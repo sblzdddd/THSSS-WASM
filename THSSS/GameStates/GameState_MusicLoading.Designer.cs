@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Drawing;
+#if !BROWSER
 using System.Threading;
+#endif
 using SlimDX.Direct3D9;
 
 namespace Shooting
@@ -154,6 +156,8 @@ namespace Shooting
 
 		private bool LoadFlag;
 
+#if !BROWSER
 		private Thread LoadingThread;
+#endif
 	}
 }

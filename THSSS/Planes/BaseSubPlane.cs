@@ -23,8 +23,6 @@ namespace Shooting
 		public override void Ctrl()
 		{
 			base.Ctrl();
-			var destPoint = DestPoint;
-			var flag = 1 == 0;
 			MoveToPoint(DestPoint);
 		}
 

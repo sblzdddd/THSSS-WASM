@@ -262,8 +262,6 @@ namespace Shooting
 			GlobalData.EffectMain.End();
 		}
 
-		private int testStartTime = 0;
-
 		private bool StageFlag;
 
 		private int[] keyTime = new int[] { 500 };

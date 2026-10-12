@@ -23,22 +23,40 @@ namespace Shooting
 			analyzeXWMAFileStream();
 		}
 
+		private static void ReadExact(Stream stream, byte[] buffer, int offset, int count)
+		{
+#if NET
+			stream.ReadExactly(buffer, offset, count);
+#else
+			while (count > 0)
+			{
+				var read = stream.Read(buffer, offset, count);
+				if (read == 0)
+				{
+					throw new EndOfStreamException();
+				}
+				offset += read;
+				count -= read;
+			}
+#endif
+		}
+
 		private void analyzeXWMAFileStream()
 		{
 			var array = new byte[4];
 			dataStream.Seek(0L, SeekOrigin.Begin);
-			dataStream.Read(array, 0, 4);
+			ReadExact(dataStream, array, 0, 4);
 			if (Encoding.ASCII.GetString(array) != "RIFF")
 			{
 				throw new InvalidDataException("Invalid xWMA file.");
 			}
-			dataStream.Read(array, 0, 4);
+			ReadExact(dataStream, array, 0, 4);
 			var num = BitConverter.ToInt32(array, 0);
 			if (dataStream.Length != (long)(num + 8))
 			{
 				throw new InvalidDataException("Invalid Format");
 			}
-			dataStream.Read(array, 0, 4);
+			ReadExact(dataStream, array, 0, 4);
 			if (Encoding.ASCII.GetString(array) != "XWMA")
 			{
 				throw new InvalidDataException("Invalid xWMA file.");
@@ -47,7 +65,7 @@ namespace Shooting
 			while (num2 > 3L)
 			{
 				var @string = Encoding.ASCII.GetString(array);
-				dataStream.Read(array, 0, 4);
+				ReadExact(dataStream, array, 0, 4);
 				num = BitConverter.ToInt32(array, 0);
 				var text = @string;
 				if (text == null)
@@ -76,25 +94,25 @@ namespace Shooting
 						decodedPacketCumulativeBytes = new int[num3];
 						for (var i = 0; i < num3; i++)
 						{
-							dataStream.Read(array, 0, 4);
+							ReadExact(dataStream, array, 0, 4);
 							decodedPacketCumulativeBytes[i] = BitConverter.ToInt32(array, 0);
 						}
 					}
 				}
 				else
 				{
-					dataStream.Read(array, 0, 2);
+					ReadExact(dataStream, array, 0, 2);
 					var num4 = BitConverter.ToUInt16(array, 0);
 					format = new WaveFormat();
-					dataStream.Read(array, 0, 2);
+					ReadExact(dataStream, array, 0, 2);
 					format.Channels = (short)BitConverter.ToUInt16(array, 0);
-					dataStream.Read(array, 0, 4);
+					ReadExact(dataStream, array, 0, 4);
 					format.SamplesPerSecond = BitConverter.ToInt32(array, 0);
-					dataStream.Read(array, 0, 4);
+					ReadExact(dataStream, array, 0, 4);
 					format.AverageBytesPerSecond = BitConverter.ToInt32(array, 0);
-					dataStream.Read(array, 0, 2);
+					ReadExact(dataStream, array, 0, 2);
 					format.BlockAlignment = BitConverter.ToInt16(array, 0);
-					dataStream.Read(array, 0, 2);
+					ReadExact(dataStream, array, 0, 2);
 					format.BitsPerSample = BitConverter.ToInt16(array, 0);
 					if (num4 == 353)
 					{
@@ -113,18 +131,18 @@ namespace Shooting
 						waveFormatExtensible.AverageBytesPerSecond = format.AverageBytesPerSecond;
 						waveFormatExtensible.BlockAlignment = format.BlockAlignment;
 						waveFormatExtensible.BitsPerSample = format.BitsPerSample;
-						dataStream.Read(array, 0, 2);
+						ReadExact(dataStream, array, 0, 2);
 						num = (int)BitConverter.ToInt16(array, 0);
 						if (num != 22)
 						{
 							throw new InvalidDataException("Invalid Format.");
 						}
-						dataStream.Read(array, 0, 2);
+						ReadExact(dataStream, array, 0, 2);
 						waveFormatExtensible.ValidBitsPerSample = BitConverter.ToInt16(array, 0);
-						dataStream.Read(array, 0, 4);
+						ReadExact(dataStream, array, 0, 4);
 						waveFormatExtensible.ChannelMask = (Speakers)BitConverter.ToUInt32(array, 0);
 						var array2 = new byte[16];
-						dataStream.Read(array2, 0, 16);
+						ReadExact(dataStream, array2, 0, 16);
 						waveFormatExtensible.SubFormat = new Guid(array2);
 						waveFormatExtensible.FormatTag = WaveFormatTag.Extensible;
 						format = waveFormatExtensible;

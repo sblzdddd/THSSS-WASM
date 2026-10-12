@@ -246,12 +246,6 @@
     <Compile Include="Events\Event.cs" />
     <Compile Include="Events\EventGroup.cs" />
     <Compile Include="Events\Execution.cs" />
-    <Compile Include="Form_Test.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_Test.Designer.cs">
-      <DependentUpon>Form_Test.cs</DependentUpon>
-    </Compile>
     <Compile Include="Effects\FullPic.cs" />
     <Compile Include="Effects\FullPic2.cs" />
     <Compile Include="Effects\FullPic3.cs" />
@@ -626,9 +620,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Stages\BaseStage.resx">
       <DependentUpon>BaseStage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form_Test.resx">
-      <DependentUpon>Form_Test.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GameRegion.resx">
       <DependentUpon>GameRegion.cs</DependentUpon>

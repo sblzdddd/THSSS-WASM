@@ -37,7 +37,6 @@ namespace Shooting
 				baseMenuItem.Position = new PointF((float)(num + num3), 140f);
 				baseMenuItem.DestPoint = new PointF((float)num, (float)num2);
 				num2 += 24;
-				num = num;
 				num3 -= 50;
 				baseMenuItem.AngleDegree = 0.0;
 			}

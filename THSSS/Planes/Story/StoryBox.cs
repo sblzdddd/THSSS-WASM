@@ -208,7 +208,7 @@ namespace Shooting
 
 		private Texture StringTexture2;
 
-		public Color FontColor2;
+		public Color FontColor2 = default(Color);
 
 		public string DrawText2;
 

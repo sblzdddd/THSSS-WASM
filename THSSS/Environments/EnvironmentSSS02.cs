@@ -159,7 +159,7 @@ namespace Shooting
 
 		private Color LightColor;
 
-		private Color FogColor;
+		private Color FogColor = default(Color);
 
 		private float FogStart;
 

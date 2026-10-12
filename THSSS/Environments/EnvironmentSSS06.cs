@@ -207,7 +207,7 @@ namespace Shooting
 
 		private Color LightColor;
 
-		private Color FogColor;
+		private Color FogColor = default(Color);
 
 		private float FogStart;
 
@@ -219,10 +219,6 @@ namespace Shooting
 
 		public Vector3 CameraDirection;
 
-		private int PosY = -1000;
-
 		private int PosY2 = -1000;
-
-		private int PosY3 = -1000;
 	}
 }

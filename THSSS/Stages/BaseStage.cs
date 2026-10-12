@@ -526,7 +526,5 @@ namespace Shooting
 		}
 
 		protected int testStartTime = 0;
-
-		private string testString;
 	}
 }

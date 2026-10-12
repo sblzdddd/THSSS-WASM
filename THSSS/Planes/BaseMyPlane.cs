@@ -1106,10 +1106,6 @@ namespace Shooting
 
 		private int greenPoint = 0;
 
-		private int blueLevel = 0;
-
-		private int greenLevel = 0;
-
 		private EnchantmentType enchantmentState = EnchantmentType.None;
 
 		private EnchantmentType lastColor = EnchantmentType.Green;

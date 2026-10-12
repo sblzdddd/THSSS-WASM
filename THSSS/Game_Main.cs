@@ -746,10 +746,12 @@ namespace Shooting
 #if BROWSER
 			Thsss.Browser.GameHost.MarkExited();
 #endif
+#if !BROWSER
 			if (LoadingThread != null && LoadingThread.IsAlive)
 			{
 				LoadingThread.Abort();
 			}
+#endif
 			GlobalData.PData.SaveData();
 			GlobalData.Dispose();
 			if (!useDirectInput)
@@ -889,7 +891,9 @@ namespace Shooting
 
 		private Dictionary<string, IGameState> GameStatesDictionary;
 
+#if !BROWSER
 		private Thread LoadingThread;
+#endif
 
 		private Watch fpsTimer = new Watch();
 
