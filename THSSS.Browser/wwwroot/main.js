@@ -1,4 +1,4 @@
-import { dotnet } from "./_framework/dotnet.js";
+import createThsssModule from "./THSSS.Browser.js";
 import { createGl } from "./gl.js";
 import { createAudio } from "./audio.js";
 import { putRuntimeFile } from "./runtime-files.mjs";
@@ -338,13 +338,10 @@ export async function prepareRuntime(options = {}) {
   const remember = (path, value) => {
     pending = pending.then(() => (value == null ? removeSave(path) : writeSave(path, value))).catch((err) => console.error(err));
   };
-  wasmLoaded = 0;
-  wasmCurrent = "";
-  wasmInflight.clear();
-  wasmTotal = (await wasmAssemblyNames()).length;
-  paintWasmLoad();
-  const { setModuleImports, getAssemblyExports, runMain } = await dotnet.withResourceLoader(wasmResourceLoader).create();
-  setModuleImports("thsss.js", {
+  beginWasm("THSSS.Browser.wasm");
+  const module = await createThsssModule({
+    locateFile: (path) => new URL(path, import.meta.url).href,
+    thsss: {
     setStatus,
     notifyExit,
     log: (text) => console.log(text),
@@ -394,15 +391,32 @@ export async function prepareRuntime(options = {}) {
     audioFilter: audioApi.setFilter,
     audioSamples: audioApi.samplesPlayed,
     audioChannels: audioApi.channels
+    }
   });
+  finishWasm("THSSS.Browser.wasm");
+  const keyPtr = (name) => module.stringToNewUTF8(name);
+  const host = {
+    Frame: () => module._thsss_frame(),
+    Simulate: () => module._thsss_simulate(),
+    Draw: (alpha) => module._thsss_draw(alpha),
+    OnKey: (name, down) => {
+      const ptr = keyPtr(name);
+      try {
+        module._thsss_on_key(ptr, down);
+      } finally {
+        module._thsss_free(ptr);
+      }
+    },
+    FpsUnlocked: () => module._thsss_fps_unlocked(),
+    SetFpsUnlocked: (value) => module._thsss_set_fps_unlocked(value)
+  };
   return {
     saves,
     options: {},
-    host: null,
+    host,
+    module,
     captureKeys: options.captureKeys !== false,
     audioApi,
-    getAssemblyExports,
-    runMain,
     writeUserFile(path, bytes) {
       const b64 = bytesToBase64(bytes);
       saves[path] = b64;
@@ -423,16 +437,26 @@ export async function launchRuntime(runtime, hooks = {}) {
   exitHook = hooks.onExit || null;
   exitRequested = false;
   setStatus("Starting the game…");
-  await runtime.runMain();
+  if (!globalThis.__thsssArchive || !globalThis.__thsssArchive.byteLength) {
+    setStatus("Fetching content…");
+    const response = await fetch(new URL("assets/thsss.dat", import.meta.url));
+    if (!response.ok) {
+      throw new Error("Missing assets/thsss.dat (" + response.status + ")");
+    }
+    globalThis.__thsssArchive = new Uint8Array(await response.arrayBuffer());
+  }
+  runtime.module._thsss_start();
+  for (;;) {
+    const state = runtime.module._thsss_ready();
+    if (state === 1) break;
+    if (state < 0) throw new Error(lastStatus || "NativeAOT startup failed");
+    await new Promise((resolve) => setTimeout(resolve, 16));
+  }
   window.__thsssBoot = lastStatus;
   if (/Exception|Error|at Thsss|at Shooting|at SlimDX/i.test(lastStatus)) {
     throw new Error(lastStatus);
   }
-  const exports = await runtime.getAssemblyExports("THSSS.Browser.dll");
-  const host = exports.Thsss.Browser.GameHost;
-  if (!host || !host.Frame) {
-    throw new Error("GameHost export missing. Keys: " + Object.keys(exports || {}).join(","));
-  }
+  const host = runtime.host;
   runtime.host = host;
   window.__thsssHost = true;
   if (runtime.captureKeys) bootKeys((name, down) => host.OnKey(name, down));

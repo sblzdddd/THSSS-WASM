@@ -13,9 +13,9 @@ A browser port of the Windows game (.NET Framework 4.8, SlimDX, WinForms). Game 
 | --- | --- | --- |
 | `THSSS` | dnSpy export of the game. `THSSS.sln` contains only this project (`net48`, x86). | Original logic. Browser differences are marked `#if BROWSER` (loading, saves, encoding, null audio). The layout is the original program and is not documented here. |
 | `THSSS-Config` | dnSpy export of the config tool. Separate solution, `net20` WinForms, reads and writes `Setting.INI`. | Not part of the browser build. The web build writes a default `Setting.INI` when none exists. |
-| `THSSS.Platform` | WinForms, GDI+, and WMI stand-ins on `net9.0`. | Decodes PNG and BMP, and rasters text through the canvas. Other APIs exist only so the game can compile and run its main loop. |
+| `THSSS.Platform` | WinForms, GDI+, and WMI stand-ins on `net10.0`. | Decodes PNG and BMP, and rasters text through the canvas. Other APIs exist only so the game can compile and run its main loop. |
 | `THSSS.SlimDX` | SlimDX stand-in. The assembly name is still `SlimDX`. | Device, sprites, textures, the fixed-function pipeline, render targets, fog, and lighting go through WebGL2. Text `.x` meshes are loaded, transformed by their frames, and drawn per material. Blur, Warp, and Filter in `FX` run as hand-written `.vert` / `.frag` files in `wwwroot/shaders` on the full-screen blit. XAudio2 plays WAV files the browser can decode. Key state is filled from the page; the joystick API is empty. |
-| `THSSS.Browser` | `net9.0` / `browser-wasm` host. Not in `THSSS.sln`. | Transforms and compiles the `THSSS` sources, loads assets into the virtual file system, and calls `MainProcess` at 60fps. Keys come from the page. Saves go to IndexedDB. |
+| `THSSS.Browser` | `net10.0` / `browser-wasm` host, NativeAOT-LLVM. Not in `THSSS.sln`. | Transforms and compiles the `THSSS` sources, then links the runtime and the game into one `THSSS.Browser.wasm`. The page starts it through `THSSS.Browser.js`, loads assets into the virtual file system, and calls `MainProcess` at 60fps. Keys come from the page. Saves go to IndexedDB. |
 
 ## Assets
 
@@ -33,14 +33,14 @@ dotnet build THSSS.Browser/THSSS.Browser.csproj -p:StageGameAssets=false
 
 ## Development
 
-Requires Windows (the build scripts call `powershell`), the .NET SDK 9 (`global.json` stays on the 9.0 feature band), and the matching `wasm-tools` workload. If a newer SDK is also installed, install the workload for 9.0, not `wasm-tools-net9`.
+Requires Windows (the build scripts call `powershell`) and the .NET SDK 10 (`global.json` stays on the 10.0 feature band). Publishing also needs that SDK's `wasm-tools` workload, which supplies Emscripten. The compiler is the experimental NativeAOT-LLVM package `Microsoft.DotNet.ILCompiler.LLVM`, restored from the experimental feed in `nuget.config`.
 
 ```powershell
 dotnet workload install wasm-tools
 dotnet publish THSSS.Browser/THSSS.Browser.csproj -c Release
 ```
 
-Serve `THSSS.Browser/bin/Release/net9.0/browser-wasm/AppBundle` with a static file server. `file://` does not work. Click the canvas first (unlocks audio and focuses the canvas). Arrows move, Z shoots, X bombs, Shift slows, Esc pauses.
+Serve `THSSS.Browser/bin/Release/net10.0/browser-wasm/publish` with a static file server. That directory contains one `THSSS.Browser.wasm`, the `THSSS.Browser.js` loader, and the page. `file://` does not work. Click the canvas first (unlocks audio and focuses the canvas). Arrows move, Z shoots, X bombs, Shift slows, Esc pauses.
 
 Edit sources under `THSSS` to change game behavior. Before compile, the browser project skips `Program.cs` and `AssemblyInfo.cs`, rewrites `\\` to `/`, replaces `Encoding.Default` with GBK, and replaces `List.ForEach` with `ForEachNet48`. Graphics, audio, and input gaps belong in `THSSS.SlimDX` and in `gl.js` / `audio.js` under `THSSS.Browser/wwwroot`.
 

@@ -1,23 +1,56 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <RuntimeIdentifier>browser-wasm</RuntimeIdentifier>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <Nullable>disable</Nullable>
     <ImplicitUsings>disable</ImplicitUsings>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
-    <PublishTrimmed>false</PublishTrimmed>
-    <RunAOTCompilation>false</RunAOTCompilation>
-    <WasmEnableExceptionHandling>true</WasmEnableExceptionHandling>
+    <PublishTrimmed>true</PublishTrimmed>
+    <SelfContained>true</SelfContained>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <UseAppHost>false</UseAppHost>
+    <MSBuildEnableWorkloadResolver>false</MSBuildEnableWorkloadResolver>
+    <IlcOptimizationPreference>Speed</IlcOptimizationPreference>
+    <DebugType Condition="'$(Configuration)' == 'Release'">none</DebugType>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <RootNamespace>Thsss.Browser</RootNamespace>
     <AssemblyName>THSSS.Browser</AssemblyName>
     <DefineConstants>$(DefineConstants);BROWSER</DefineConstants>
     <NoWarn>$(NoWarn);SYSLIB0011;SYSLIB0021</NoWarn>
   </PropertyGroup>
+  <PropertyGroup>
+    <_DotNetInstallRoot>$([System.IO.Path]::GetFullPath($([System.IO.Path]::GetDirectoryName($([System.IO.Path]::GetDirectoryName($([System.IO.Path]::GetDirectoryName('$(MSBuildSDKsPath)'))))))))</_DotNetInstallRoot>
+    <_EmscriptenPackVersion>10.0.12</_EmscriptenPackVersion>
+    <_EmscriptenSdkRoot>$(_DotNetInstallRoot)\packs\Microsoft.NET.Runtime.Emscripten.3.1.56.Sdk.win-x64\$(_EmscriptenPackVersion)\tools</_EmscriptenSdkRoot>
+    <EmscriptenSdkToolsPath Condition="'$(EmscriptenSdkToolsPath)' == '' and '$(EMSDK)' == ''">$(_EmscriptenSdkRoot)</EmscriptenSdkToolsPath>
+    <_EmscriptenPython>$(_DotNetInstallRoot)\packs\Microsoft.NET.Runtime.Emscripten.3.1.56.Python.win-x64\$(_EmscriptenPackVersion)\tools\python.exe</_EmscriptenPython>
+    <_EmscriptenNode>$(_DotNetInstallRoot)\packs\Microsoft.NET.Runtime.Emscripten.3.1.56.Node.win-x64\$(_EmscriptenPackVersion)\tools\bin\node.exe</_EmscriptenNode>
+    <_EmscriptenCache>$(_DotNetInstallRoot)\packs\Microsoft.NET.Runtime.Emscripten.3.1.56.Cache.win-x64\$(_EmscriptenPackVersion)\tools\emscripten\cache</_EmscriptenCache>
+  </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.9" />
+    <EmscriptenEnvVars Include="EMSDK_PYTHON=$(_EmscriptenPython)" />
+    <EmscriptenEnvVars Include="DOTNET_EMSCRIPTEN_LLVM_ROOT=$(_EmscriptenSdkRoot)\bin" />
+    <EmscriptenEnvVars Include="DOTNET_EMSCRIPTEN_NODE_JS=$(_EmscriptenNode)" />
+    <EmscriptenEnvVars Include="DOTNET_EMSCRIPTEN_BINARYEN_ROOT=$(_EmscriptenSdkRoot)" />
+    <EmscriptenEnvVars Include="EM_CACHE=$(_EmscriptenCache)" />
+    <EmscriptenEnvVars Include="EM_FROZEN_CACHE=1" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.DotNet.ILCompiler.LLVM" Version="10.0.0-rc.1.26357.1" />
+    <PackageReference Include="runtime.win-x64.Microsoft.DotNet.ILCompiler.LLVM" Version="10.0.0-rc.1.26357.1" />
+    <TrimmerRootAssembly Include="THSSS.Browser" />
+    <TrimmerRootAssembly Include="SlimDX" />
+    <TrimmerRootAssembly Include="THSSS.Platform" />
+    <LinkerArg Include="-sMODULARIZE=1" />
+    <LinkerArg Include="-sEXPORT_ES6=1" />
+    <LinkerArg Include="-sEXPORT_NAME=createThsssModule" />
+    <LinkerArg Include="-sENVIRONMENT=web,webview,worker" />
+    <LinkerArg Include="-sALLOW_MEMORY_GROWTH=1" />
+    <LinkerArg Include="-sEXPORTED_RUNTIME_METHODS=UTF8ToString,stringToUTF8,lengthBytesUTF8,stringToNewUTF8" />
+    <LinkerArg Include="--js-library=native/thsss-lib.js" />
+    <DirectPInvoke Include="System.IO.Compression.Native" />
     <ProjectReference Include="..\THSSS.SlimDX\THSSS.SlimDX.csproj" />
     <ProjectReference Include="..\THSSS.Platform\THSSS.Platform.csproj" />
     <EmbeddedResource Include="Shooting.RenderForm_Main.resources">
@@ -42,13 +75,17 @@
     </PropertyGroup>
     <Exec Condition="'$(StageGameAssets)' == 'true'" Command="powershell -NoProfile -ExecutionPolicy Bypass -File &quot;$(MSBuildProjectDirectory)\stage-content.ps1&quot; -Repo &quot;$(MSBuildProjectDirectory)\..&quot; -Dest &quot;$(MSBuildProjectDirectory)\wwwroot\assets&quot; $(_StageSkipCopy)" />
   </Target>
-  <Target Name="AddBrowserStaticFiles" BeforeTargets="_WasmGenerateAppBundle" DependsOnTargets="StageGameContent">
+  <Target Name="IncludeCompressionNative" BeforeTargets="LinkNativeLlvm">
     <ItemGroup>
-      <_BrowserStatic Include="$(MSBuildProjectDirectory)\wwwroot\**\*" />
-      <WasmExtraFilesToDeploy Include="@(_BrowserStatic)">
-        <TargetPath>%(RecursiveDir)%(Filename)%(Extension)</TargetPath>
-      </WasmExtraFilesToDeploy>
+      <NativeLibrary Include="$(IlcFrameworkNativePath)libSystem.IO.Compression.Native.a" />
+      <NativeLibrary Include="$(IlcFrameworkNativePath)libz.a" />
     </ItemGroup>
+  </Target>
+  <Target Name="CopyBrowserHostFiles" AfterTargets="Publish" DependsOnTargets="StageGameContent">
+    <ItemGroup>
+      <_HostFile Include="$(MSBuildProjectDirectory)\wwwroot\**\*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(_HostFile)" DestinationFiles="@(_HostFile->'$(PublishDir)%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
   </Target>
   <Target Name="TransformGameSources">
     <PropertyGroup>

@@ -1,20 +1,22 @@
-// Rewrite a Release AppBundle into the directory runtime eagler-touhou already accepts.
-// The launcher allows only the game html, manifest.json, root mjs/css/wasm/json,
-// and fonts/*.{bin,woff,woff2}. Assemblies stay separate: the .NET loader fetches
-// each name in blazor.boot.json, so concatenating wasm modules will not boot.
+// Bundle the browser host into the directory runtime eagler-touhou accepts.
+// esbuild minifies every hand-written module and the Emscripten loader into
+// one shell.mjs. The game and runtime stay in THSSS.Browser.wasm.
 //
 //   dotnet publish THSSS.Browser/THSSS.Browser.csproj -c Release
-//   node THSSS.Browser/stage-eagler-runtime.mjs
+//   npm install
+//   npm run stage:eagler
 
+import * as esbuild from "esbuild";
 import { createHash } from "node:crypto";
-import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import { mkdtemp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const browser = dirname(fileURLToPath(import.meta.url));
 const repo = resolve(browser, "..");
-const bundle = resolve(browser, "bin/Release/net9.0/browser-wasm/AppBundle");
-const framework = resolve(bundle, "_framework");
+const publish = resolve(browser, "bin/Release/net10.0/browser-wasm/publish");
+const wwwroot = resolve(browser, "wwwroot");
 const output = resolve(repo, "build-eagler");
 
 const allowed = name =>
@@ -26,23 +28,6 @@ const allowed = name =>
   /^fonts\/[a-z0-9._-]+\.(?:bin|woff2?)$/i.test(name);
 
 const sha256 = bytes => createHash("sha256").update(bytes).digest("hex");
-const integrity = bytes => "sha256-" + createHash("sha256").update(bytes).digest("base64");
-
-function adaptLoader(source) {
-  return source
-    .replaceAll("dotnet.runtime.js", "dotnet.runtime.mjs")
-    .replaceAll("dotnet.native.js", "dotnet.native.mjs")
-    .replaceAll('import(/*! webpackIgnore: true */"process")', 'import(/*! webpackIgnore: true */globalThis["pro"+"cess"])')
-    .replaceAll('import(/*! webpackIgnore: true */"module")', 'import(/*! webpackIgnore: true */globalThis["mod"+"ule"])')
-    .replaceAll('import("module")', 'import(globalThis["mod"+"ule"])')
-    .replaceAll(/^[ \t]*\/\/# sourceMappingURL=.*\r?\n?/gm, "");
-}
-
-function retarget(group, from, to, bytes) {
-  if (!Object.hasOwn(group, from)) throw new Error(`blazor.boot.json is missing ${from}`);
-  delete group[from];
-  group[to] = integrity(bytes);
-}
 
 const files = {};
 async function put(name, bytes) {
@@ -57,108 +42,114 @@ async function text(path) {
   return readFile(path, "utf8");
 }
 
-const boot = JSON.parse(await text(resolve(framework, "blazor.boot.json")));
-const resources = boot.resources;
-const expectedKeys = ["assembly", "coreAssembly", "coreVfs", "hash", "icu", "jsModuleNative", "jsModuleRuntime", "wasmNative", "wasmSymbols"];
-const actualKeys = Object.keys(resources).sort();
-if (JSON.stringify(actualKeys) !== JSON.stringify(expectedKeys)) {
-  throw new Error(`unexpected blazor.boot.json resource groups: ${actualKeys.join(", ")}`);
-}
-if (typeof resources.hash !== "string") throw new Error("blazor.boot.json resources.hash is not a string");
-
-boot.globalizationMode = "invariant";
-delete resources.icu;
-delete resources.wasmSymbols;
-
-const [nativeWasmName, nativeWasmHash] = Object.entries(resources.wasmNative)[0];
-const nativeWasm = await readFile(resolve(framework, nativeWasmName));
-if (integrity(nativeWasm) !== nativeWasmHash) {
-  throw new Error(`published ${nativeWasmName} does not match its boot hash`);
+function stripMap(source) {
+  return source.replaceAll(/^[ \t]*\/\/# sourceMappingURL=.*\r?\n?/gm, "");
 }
 
-const runtimeConfig = resources.coreVfs?.["runtimeconfig.bin"];
-const [runtimeConfigName, runtimeConfigHash] = Object.entries(runtimeConfig || {})[0] || [];
-if (runtimeConfigName !== "supportFiles/0_runtimeconfig.bin") {
-  throw new Error(`unexpected runtimeconfig path: ${runtimeConfigName}`);
-}
-const runtimeConfigBytes = await readFile(resolve(framework, runtimeConfigName));
-if (integrity(runtimeConfigBytes) !== runtimeConfigHash) {
-  throw new Error("published runtimeconfig.bin does not match its boot hash");
-}
-resources.coreVfs["runtimeconfig.bin"] = { "fonts/runtimeconfig.bin": runtimeConfigHash };
+function bundleSources(moduleJs) {
+  const requireLine = 'nodeCrypto = require("node:crypto");';
+  if (!moduleJs.includes(requireLine)) throw new Error("Emscripten loader no longer requires node:crypto");
+  // The call sits in a Node-only branch. Leaving require() would become an
+  // import of a module the browser runtime is not allowed to reference.
+  moduleJs = moduleJs.replace(requireLine, "nodeCrypto = undefined;");
 
-await rm(output, { recursive: true, force: true });
-await mkdir(output, { recursive: true });
-
-await put(nativeWasmName, nativeWasm);
-for (const group of [resources.coreAssembly, resources.assembly]) {
-  for (const name of Object.keys(group)) {
-    if (name.includes("/") || name.includes("\\")) throw new Error(`assembly path is not a root file: ${name}`);
-    await put(name, await readFile(resolve(framework, name)));
-  }
-}
-await put("fonts/runtimeconfig.bin", runtimeConfigBytes);
-
-const loaders = [
-  ["dotnet.js", "dotnet.mjs", null],
-  ["dotnet.native.js", "dotnet.native.mjs", resources.jsModuleNative],
-  ["dotnet.runtime.js", "dotnet.runtime.mjs", resources.jsModuleRuntime],
-];
-for (const [from, to, group] of loaders) {
-  const bytes = Buffer.from(adaptLoader(await text(resolve(framework, from))), "utf8");
-  await put(to, bytes);
-  if (group) retarget(group, from, to, bytes);
-}
-
-const shaderNames = ["Filter.vert", "Filter.frag", "Blur.vert", "Blur.frag", "Warp.vert", "Warp.frag"];
-const shaderSource = {};
-for (const name of shaderNames) {
-  shaderSource[name] = await text(resolve(browser, "wwwroot/shaders", name));
-}
-await put("shaders.mjs", Buffer.from(`export const shaderSource = ${JSON.stringify(shaderSource)};\n`, "utf8"));
-
-let main = (await text(resolve(browser, "wwwroot/main.js"))).replaceAll("\r\n", "\n");
-const mainRewrites = [
-  ['import { dotnet } from "./_framework/dotnet.js";', 'import { dotnet } from "./dotnet.mjs";'],
-  ['import { createGl } from "./gl.js";', 'import { createGl } from "./gl.mjs";'],
-  ['import { createAudio } from "./audio.js";', 'import { createAudio } from "./audio.mjs";'],
-  ['import { putRuntimeFile } from "./runtime-files.mjs";', 'import { shaderSource } from "./shaders.mjs";\nimport { putRuntimeFile } from "./runtime-files.mjs";'],
-];
-for (const [from, to] of mainRewrites) {
-  if (!main.includes(from)) throw new Error(`main.js is missing ${from}`);
-  main = main.replace(from, to);
-}
-const shaderLoader = `async function loadShader(path) {
+  let main = stripMap((sources.main).replaceAll("\r\n", "\n"));
+  const shaderImport = 'import { putRuntimeFile } from "./runtime-files.mjs";';
+  if (!main.includes(shaderImport)) throw new Error("main.js no longer imports the runtime file helper");
+  main = main.replace(shaderImport, `import { shaderSource } from "./shaders.mjs";\n${shaderImport}`);
+  const shaderLoader = `async function loadShader(path) {
   const response = await fetch(new URL(path, document.baseURI));
   if (!response.ok) {
     throw new Error("Missing shader " + path);
   }
   return response.text();
 }`;
-const embeddedLoader = `async function loadShader(path) {
+  const embeddedLoader = `async function loadShader(path) {
   const name = path.slice(path.lastIndexOf("/") + 1);
   const text = shaderSource[name];
   if (typeof text !== "string") throw new Error("Missing shader " + path);
   return text;
 }`;
-if (!main.includes(shaderLoader)) throw new Error("main.js shader loader changed; update the stager");
-main = main.replace(shaderLoader, embeddedLoader);
-await put("main.mjs", Buffer.from(main, "utf8"));
-
-for (const [from, to] of [["gl.js", "gl.mjs"], ["audio.js", "audio.mjs"]]) {
-  await put(to, Buffer.from(await text(resolve(browser, "wwwroot", from)), "utf8"));
+  if (!main.includes(shaderLoader)) throw new Error("main.js shader loader changed; update the stager");
+  main = main.replace(shaderLoader, embeddedLoader);
+  return { moduleJs, main };
 }
 
-let shell = await text(resolve(browser, "wwwroot/shell.mjs"));
-if (!shell.includes('from "./main.js"')) throw new Error("shell.mjs no longer imports ./main.js");
-shell = shell.replace('from "./main.js"', 'from "./main.mjs"');
-await put("shell.mjs", Buffer.from(shell, "utf8"));
+const sources = {};
+await rm(output, { recursive: true, force: true });
+await mkdir(output, { recursive: true });
 
-for (const name of ["thsss.html", "directory-keyboard.mjs", "eagler-host.mjs", "runtime-files.mjs", "manifest.json"]) {
-  await put(name, Buffer.from(await text(resolve(browser, "wwwroot", name)), "utf8"));
+const wasm = await readFile(resolve(publish, "THSSS.Browser.wasm"));
+if (wasm.length < 4 || wasm[0] !== 0 || wasm[1] !== 0x61 || wasm[2] !== 0x73 || wasm[3] !== 0x6d) {
+  throw new Error("published THSSS.Browser.wasm is not a wasm module");
+}
+await put("THSSS.Browser.wasm", wasm);
+
+const moduleJs = stripMap(await text(resolve(publish, "THSSS.Browser.js")));
+if (!moduleJs.includes("export default createThsssModule")) {
+  throw new Error("published THSSS.Browser.js is not the ES module loader");
+}
+sources.main = await text(resolve(wwwroot, "main.js"));
+const rewritten = bundleSources(moduleJs);
+
+const shaderNames = ["Filter.vert", "Filter.frag", "Blur.vert", "Blur.frag", "Warp.vert", "Warp.frag"];
+const shaderSource = {};
+for (const name of shaderNames) shaderSource[name] = await text(resolve(wwwroot, "shaders", name));
+
+const temp = await mkdtemp(resolve(tmpdir(), "thsss-shell-"));
+try {
+  const graph = {
+    "shell.mjs": await text(resolve(wwwroot, "shell.mjs")),
+    "directory-keyboard.mjs": await text(resolve(wwwroot, "directory-keyboard.mjs")),
+    "eagler-host.mjs": await text(resolve(wwwroot, "eagler-host.mjs")),
+    "runtime-files.mjs": await text(resolve(wwwroot, "runtime-files.mjs")),
+    "gl.js": stripMap(await text(resolve(wwwroot, "gl.js"))),
+    "audio.js": stripMap(await text(resolve(wwwroot, "audio.js"))),
+    "main.js": rewritten.main,
+    "shaders.mjs": `export const shaderSource = ${JSON.stringify(shaderSource)};\n`,
+    "THSSS.Browser.js": rewritten.moduleJs,
+  };
+  for (const [name, contents] of Object.entries(graph)) {
+    await writeFile(resolve(temp, name), contents);
+  }
+  const bundled = resolve(temp, "bundled", "shell.mjs");
+  await esbuild.build({
+    absWorkingDir: temp,
+    entryPoints: ["shell.mjs"],
+    bundle: true,
+    format: "esm",
+    platform: "browser",
+    target: "es2022",
+    minify: true,
+    legalComments: "none",
+    sourcemap: false,
+    outfile: bundled,
+    plugins: [{
+      name: "keep-wasm-url",
+      setup(build) {
+        build.onResolve({ filter: /\.wasm$/ }, () => ({
+          path: "THSSS.Browser.wasm",
+          external: true,
+        }));
+      },
+    }],
+  });
+  const shell = await text(bundled);
+  if (/\bfrom\s*["']\./.test(shell)) throw new Error("bundled shell still imports a local module");
+  if (!shell.includes("THSSS.Browser.wasm")) throw new Error("bundled shell lost the wasm URL");
+  if (!shell.includes("runtimeEpoch")) throw new Error("bundled shell lost the navigation epoch");
+  if (!shell.includes("__eaglerPrepareManagedRuntimeDataV1")) throw new Error("bundled shell lost the managed data bridge");
+  if (!shell.includes("ShiftKey")) throw new Error("bundled shell lost the keyboard owner");
+  await put("shell.mjs", Buffer.from(shell, "utf8"));
+} finally {
+  await rm(temp, { recursive: true, force: true });
 }
 
-const manifest = JSON.parse(files["manifest.json"] ? await text(resolve(output, "manifest.json")) : "{}");
+for (const name of ["thsss.html", "manifest.json"]) {
+  await put(name, Buffer.from(await text(resolve(wwwroot, name)), "utf8"));
+}
+
+const manifest = JSON.parse(await text(resolve(output, "manifest.json")));
 if (manifest.game !== "thsss" || manifest.protocol !== "eagler-touhou/1" || manifest.entry !== "thsss.html") {
   throw new Error("wwwroot/manifest.json is not the thsss directory manifest");
 }
@@ -166,7 +157,8 @@ for (const feature of ["thprac", "languages", "focusHitbox"]) {
   if (manifest.features?.[feature] !== false) throw new Error(`manifest.features.${feature} must be false`);
 }
 
-await put("blazor.boot.json", Buffer.from(JSON.stringify(boot), "utf8"));
+const html = await text(resolve(output, "thsss.html"));
+if (!html.includes('src="./shell.mjs"')) throw new Error("thsss.html must load the bundled shell");
 
 const ordered = Object.fromEntries(Object.keys(files).sort().map(name => [name, files[name]]));
 await writeFile(resolve(output, "runtime-files.json"), JSON.stringify({
@@ -181,3 +173,4 @@ for (const name of Object.keys(ordered)) {
 }
 console.log(`staged ${Object.keys(ordered).length} files in ${output}`);
 console.log(counts);
+console.log(`shell.mjs ${files["shell.mjs"].bytes} bytes`);

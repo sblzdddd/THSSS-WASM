@@ -1,124 +1,384 @@
-using System.Runtime.InteropServices.JavaScript;
+using System;
+using System.Runtime.InteropServices;
 
 namespace Thsss.Browser
 {
-	public static partial class ThsssJs
+	public static unsafe partial class ThsssJs
 	{
-		[JSImport("setStatus", "thsss.js")]
-		public static partial void SetStatus(string text);
+		public static void SetStatus(string text)
+		{
+			byte* value = WasmText.Alloc(text);
+			try
+			{
+				thsss_set_status(value);
+			}
+			finally
+			{
+				WasmText.Free(value);
+			}
+		}
 
-		[JSImport("notifyExit", "thsss.js")]
-		public static partial void NotifyExit();
+		public static void NotifyExit()
+		{
+			thsss_notify_exit();
+		}
 
-		[JSImport("pageBase", "thsss.js")]
-		public static partial string PageBase();
+		public static string PageBase()
+		{
+			return WasmText.CopyFromJs(&thsss_copy_text, &thsss_page_base_len);
+		}
 
-		[JSImport("readSaves", "thsss.js")]
-		public static partial string ReadSaves();
+		public static string ReadSaves()
+		{
+			return WasmText.CopyFromJs(&thsss_copy_text, &thsss_read_saves_len);
+		}
 
-		[JSImport("takeArchive", "thsss.js")]
-		public static partial byte[] TakeArchive();
+		public static byte[] TakeArchive()
+		{
+			return WasmText.CopyBytes(&thsss_copy_bytes, thsss_take_archive_len());
+		}
 
-		[JSImport("putAudioFile", "thsss.js")]
-		public static partial void PutAudioFile(string path, byte[] bytes);
+		public static void PutAudioFile(string path, byte[] bytes)
+		{
+			WithUtf8(path, (value) => WithBytes(bytes, (data, length) => thsss_put_audio_file(value, data, length)));
+		}
 
-		[JSImport("writeSave", "thsss.js")]
-		public static partial void WriteSave(string path, string data);
+		public static void WriteSave(string path, string data)
+		{
+			byte* pathBytes = WasmText.Alloc(path);
+			byte* dataBytes = WasmText.Alloc(data);
+			try
+			{
+				thsss_write_save(pathBytes, dataBytes);
+			}
+			finally
+			{
+				WasmText.Free(dataBytes);
+				WasmText.Free(pathBytes);
+			}
+		}
 
-		[JSImport("clear", "thsss.js")]
-		public static partial void Clear(float r, float g, float b, float a, bool color, bool depth);
+		public static void Clear(float r, float g, float b, float a, bool color, bool depth)
+		{
+			thsss_clear(r, g, b, a, color ? 1 : 0, depth ? 1 : 0);
+		}
 
-		[JSImport("createTexture", "thsss.js")]
-		public static partial int CreateTexture(int width, int height, byte[] pixels);
+		public static int CreateTexture(int width, int height, byte[] pixels)
+		{
+			int id = 0;
+			WithBytes(pixels, (data, length) => id = thsss_create_texture(width, height, data, length));
+			return id;
+		}
 
-		[JSImport("beginImage", "thsss.js")]
-		public static partial int BeginImage(byte[] bytes);
+		public static int BeginImage(byte[] bytes)
+		{
+			int id = 0;
+			WithBytes(bytes, (data, length) => id = thsss_begin_image(data, length));
+			return id;
+		}
 
-		[JSImport("imageState", "thsss.js")]
-		public static partial int ImageState(int id);
+		public static int ImageState(int id)
+		{
+			return thsss_image_state(id);
+		}
 
-		[JSImport("finishImage", "thsss.js")]
-		public static partial int FinishImage(int id);
+		public static int FinishImage(int id)
+		{
+			return thsss_finish_image(id);
+		}
 
-		[JSImport("imageWidth", "thsss.js")]
-		public static partial int ImageWidth(int id);
+		public static int ImageWidth(int id)
+		{
+			return thsss_image_width(id);
+		}
 
-		[JSImport("imageHeight", "thsss.js")]
-		public static partial int ImageHeight(int id);
+		public static int ImageHeight(int id)
+		{
+			return thsss_image_height(id);
+		}
 
-		[JSImport("createRenderTarget", "thsss.js")]
-		public static partial int CreateRenderTarget(int width, int height);
+		public static int CreateRenderTarget(int width, int height)
+		{
+			return thsss_create_render_target(width, height);
+		}
 
-		[JSImport("updateTexture", "thsss.js")]
-		public static partial void UpdateTexture(int id, int width, int height, byte[] pixels);
+		public static void UpdateTexture(int id, int width, int height, byte[] pixels)
+		{
+			WithBytes(pixels, (data, length) => thsss_update_texture(id, width, height, data, length));
+		}
 
-		[JSImport("deleteTexture", "thsss.js")]
-		public static partial void DeleteTexture(int id);
+		public static void DeleteTexture(int id)
+		{
+			thsss_delete_texture(id);
+		}
 
-		[JSImport("bindTarget", "thsss.js")]
-		public static partial void BindTarget(int id);
+		public static void BindTarget(int id)
+		{
+			thsss_bind_target(id);
+		}
 
-		[JSImport("setViewport", "thsss.js")]
-		public static partial void SetViewport(int x, int y, int width, int height, int canvasWidth, int canvasHeight);
+		public static void SetViewport(int x, int y, int width, int height, int canvasWidth, int canvasHeight)
+		{
+			thsss_set_viewport(x, y, width, height, canvasWidth, canvasHeight);
+		}
 
-		[JSImport("setBlend", "thsss.js")]
-		public static partial void SetBlend(bool enable, int src, int dst, int equation);
+		public static void SetBlend(bool enable, int src, int dst, int equation)
+		{
+			thsss_set_blend(enable ? 1 : 0, src, dst, equation);
+		}
 
-		[JSImport("setDepth", "thsss.js")]
-		public static partial void SetDepth(bool enable, bool write);
+		public static void SetDepth(bool enable, bool write)
+		{
+			thsss_set_depth(enable ? 1 : 0, write ? 1 : 0);
+		}
 
-		[JSImport("setCull", "thsss.js")]
-		public static partial void SetCull(int mode);
+		public static void SetCull(int mode)
+		{
+			thsss_set_cull(mode);
+		}
 
-		[JSImport("drawSprites", "thsss.js")]
-		public static partial void DrawSprites(int textureId, float flipV, byte[] vertices);
+		public static void DrawSprites(int textureId, float flipV, byte[] vertices)
+		{
+			WithBytes(vertices, (data, length) => thsss_draw_sprites(textureId, flipV, data, length));
+		}
 
-		[JSImport("drawEffect", "thsss.js")]
-		public static partial void DrawEffect(string name, int textureId, float flipV, byte[] vertices, float blurLevel, float x, float y, float time, float radius, int colorKey);
+		public static void DrawEffect(string name, int textureId, float flipV, byte[] vertices, float blurLevel, float x, float y, float time, float radius, int colorKey)
+		{
+			WithUtf8(name, (value) => WithBytes(vertices, (data, length) => thsss_draw_effect(value, textureId, flipV, data, length, blurLevel, x, y, time, radius, colorKey)));
+		}
 
-		[JSImport("drawFixed", "thsss.js")]
-		public static partial void DrawFixed(int textureId, byte[] vertices, byte[] world, byte[] view, byte[] proj, float mr, float mg, float mb, float ma, float lighting, float fog, float fogStart, float fogEnd, float fr, float fg, float fb);
+		public static void DrawFixed(int textureId, byte[] vertices, byte[] world, byte[] view, byte[] proj, float mr, float mg, float mb, float ma, float lighting, float fog, float fogStart, float fogEnd, float fr, float fg, float fb)
+		{
+			WithBytes(vertices, (data, length) => WithBytes(world, (worldData, worldLength) => WithBytes(view, (viewData, viewLength) => WithBytes(proj, (projData, projLength) => thsss_draw_fixed(textureId, data, length, worldData, worldLength, viewData, viewLength, projData, projLength, mr, mg, mb, ma, lighting, fog, fogStart, fogEnd, fr, fg, fb)))));
+		}
 
-		[JSImport("rasterText", "thsss.js")]
-		public static partial byte[] RasterText(string text, int width, int height, float sizePx, bool bold, bool italic);
+		public static byte[] RasterText(string text, int width, int height, float sizePx, bool bold, bool italic)
+		{
+			byte[] pixels = Array.Empty<byte>();
+			WithUtf8(text, (value) => pixels = WasmText.CopyBytes(&thsss_copy_bytes, thsss_raster_text_len(value, width, height, sizePx, bold ? 1 : 0, italic ? 1 : 0)));
+			return pixels;
+		}
 
-		[JSImport("rasterTextBox", "thsss.js")]
-		public static partial byte[] RasterTextBox(string text, int width, int height, float sizePx, bool bold, bool italic, int argb, string family);
+		public static byte[] RasterTextBox(string text, int width, int height, float sizePx, bool bold, bool italic, int argb, string family)
+		{
+			byte[] pixels = Array.Empty<byte>();
+			WithUtf8(text, (value) => WithUtf8(family, (face) => pixels = WasmText.CopyBytes(&thsss_copy_bytes, thsss_raster_text_box_len(value, width, height, sizePx, bold ? 1 : 0, italic ? 1 : 0, argb, face))));
+			return pixels;
+		}
 
-		[JSImport("paintText", "thsss.js")]
-		public static partial void PaintText(int id, string text, int width, int height, float sizePx, bool bold, bool italic, int argb, string family);
+		public static void PaintText(int id, string text, int width, int height, float sizePx, bool bold, bool italic, int argb, string family)
+		{
+			WithUtf8(text, (value) => WithUtf8(family, (face) => thsss_paint_text(id, value, width, height, sizePx, bold ? 1 : 0, italic ? 1 : 0, argb, face)));
+		}
 
-		[JSImport("audioPrepare", "thsss.js")]
-		public static partial int AudioPrepare(string path);
+		public static int AudioPrepare(string path)
+		{
+			int id = 0;
+			WithUtf8(path, (value) => id = thsss_audio_prepare(value));
+			return id;
+		}
 
-		[JSImport("audioVoice", "thsss.js")]
-		public static partial int AudioVoice();
+		public static int AudioVoice()
+		{
+			return thsss_audio_voice();
+		}
 
-		[JSImport("audioDestroy", "thsss.js")]
-		public static partial void AudioDestroy(int voice);
+		public static void AudioDestroy(int voice)
+		{
+			thsss_audio_destroy(voice);
+		}
 
-		[JSImport("audioSubmit", "thsss.js")]
-		public static partial void AudioSubmit(int voice, int buffer, int playBegin, int playLength, int loopCount, int loopBegin, int loopLength);
+		public static void AudioSubmit(int voice, int buffer, int playBegin, int playLength, int loopCount, int loopBegin, int loopLength)
+		{
+			thsss_audio_submit(voice, buffer, playBegin, playLength, loopCount, loopBegin, loopLength);
+		}
 
-		[JSImport("audioStart", "thsss.js")]
-		public static partial void AudioStart(int voice);
+		public static void AudioStart(int voice)
+		{
+			thsss_audio_start(voice);
+		}
 
-		[JSImport("audioStop", "thsss.js")]
-		public static partial void AudioStop(int voice);
+		public static void AudioStop(int voice)
+		{
+			thsss_audio_stop(voice);
+		}
 
-		[JSImport("audioVolume", "thsss.js")]
-		public static partial void AudioVolume(int voice, float volume);
+		public static void AudioVolume(int voice, float volume)
+		{
+			thsss_audio_volume(voice, volume);
+		}
 
-		[JSImport("audioPan", "thsss.js")]
-		public static partial void AudioPan(int voice, float left, float right);
+		public static void AudioPan(int voice, float left, float right)
+		{
+			thsss_audio_pan(voice, left, right);
+		}
 
-		[JSImport("audioFilter", "thsss.js")]
-		public static partial void AudioFilter(int voice, bool highpass, float frequency);
+		public static void AudioFilter(int voice, bool highpass, float frequency)
+		{
+			thsss_audio_filter(voice, highpass ? 1 : 0, frequency);
+		}
 
-		[JSImport("audioSamples", "thsss.js")]
-		public static partial int AudioSamples(int voice);
+		public static int AudioSamples(int voice)
+		{
+			return thsss_audio_samples(voice);
+		}
 
-		[JSImport("audioChannels", "thsss.js")]
-		public static partial int AudioChannels(int buffer);
+		public static int AudioChannels(int buffer)
+		{
+			return thsss_audio_channels(buffer);
+		}
+
+		private unsafe delegate void Utf8Action(byte* text);
+
+		private unsafe delegate void BytesAction(byte* data, int length);
+
+		private static void WithUtf8(string text, Utf8Action action)
+		{
+			byte* value = WasmText.Alloc(text);
+			try
+			{
+				action(value);
+			}
+			finally
+			{
+				WasmText.Free(value);
+			}
+		}
+
+		private static void WithBytes(byte[] bytes, BytesAction action)
+		{
+			if (bytes == null || bytes.Length == 0)
+			{
+				action(null, 0);
+				return;
+			}
+			fixed (byte* data = bytes)
+			{
+				action(data, bytes.Length);
+			}
+		}
+
+		[DllImport("env", EntryPoint = "thsss_set_status"), WasmImportLinkage]
+		private static extern void thsss_set_status(byte* text);
+
+		[DllImport("env", EntryPoint = "thsss_notify_exit"), WasmImportLinkage]
+		private static extern void thsss_notify_exit();
+
+		[DllImport("env", EntryPoint = "thsss_page_base_len"), WasmImportLinkage]
+		private static extern int thsss_page_base_len();
+
+		[DllImport("env", EntryPoint = "thsss_read_saves_len"), WasmImportLinkage]
+		private static extern int thsss_read_saves_len();
+
+		[DllImport("env", EntryPoint = "thsss_copy_text"), WasmImportLinkage]
+		private static extern void thsss_copy_text(byte* dest, int destLen);
+
+		[DllImport("env", EntryPoint = "thsss_write_save"), WasmImportLinkage]
+		private static extern void thsss_write_save(byte* path, byte* data);
+
+		[DllImport("env", EntryPoint = "thsss_take_archive_len"), WasmImportLinkage]
+		private static extern int thsss_take_archive_len();
+
+		[DllImport("env", EntryPoint = "thsss_put_audio_file"), WasmImportLinkage]
+		private static extern void thsss_put_audio_file(byte* path, byte* data, int length);
+
+		[DllImport("env", EntryPoint = "thsss_copy_bytes"), WasmImportLinkage]
+		private static extern void thsss_copy_bytes(byte* dest, int length);
+
+		[DllImport("env", EntryPoint = "thsss_clear"), WasmImportLinkage]
+		private static extern void thsss_clear(float r, float g, float b, float a, int color, int depth);
+
+		[DllImport("env", EntryPoint = "thsss_create_texture"), WasmImportLinkage]
+		private static extern int thsss_create_texture(int width, int height, byte* pixels, int length);
+
+		[DllImport("env", EntryPoint = "thsss_begin_image"), WasmImportLinkage]
+		private static extern int thsss_begin_image(byte* data, int length);
+
+		[DllImport("env", EntryPoint = "thsss_image_state"), WasmImportLinkage]
+		private static extern int thsss_image_state(int id);
+
+		[DllImport("env", EntryPoint = "thsss_finish_image"), WasmImportLinkage]
+		private static extern int thsss_finish_image(int id);
+
+		[DllImport("env", EntryPoint = "thsss_image_width"), WasmImportLinkage]
+		private static extern int thsss_image_width(int id);
+
+		[DllImport("env", EntryPoint = "thsss_image_height"), WasmImportLinkage]
+		private static extern int thsss_image_height(int id);
+
+		[DllImport("env", EntryPoint = "thsss_create_render_target"), WasmImportLinkage]
+		private static extern int thsss_create_render_target(int width, int height);
+
+		[DllImport("env", EntryPoint = "thsss_update_texture"), WasmImportLinkage]
+		private static extern void thsss_update_texture(int id, int width, int height, byte* pixels, int length);
+
+		[DllImport("env", EntryPoint = "thsss_delete_texture"), WasmImportLinkage]
+		private static extern void thsss_delete_texture(int id);
+
+		[DllImport("env", EntryPoint = "thsss_bind_target"), WasmImportLinkage]
+		private static extern void thsss_bind_target(int id);
+
+		[DllImport("env", EntryPoint = "thsss_set_viewport"), WasmImportLinkage]
+		private static extern void thsss_set_viewport(int x, int y, int width, int height, int canvasWidth, int canvasHeight);
+
+		[DllImport("env", EntryPoint = "thsss_set_blend"), WasmImportLinkage]
+		private static extern void thsss_set_blend(int enable, int src, int dst, int equation);
+
+		[DllImport("env", EntryPoint = "thsss_set_depth"), WasmImportLinkage]
+		private static extern void thsss_set_depth(int enable, int write);
+
+		[DllImport("env", EntryPoint = "thsss_set_cull"), WasmImportLinkage]
+		private static extern void thsss_set_cull(int mode);
+
+		[DllImport("env", EntryPoint = "thsss_draw_sprites"), WasmImportLinkage]
+		private static extern void thsss_draw_sprites(int textureId, float flipV, byte* vertices, int length);
+
+		[DllImport("env", EntryPoint = "thsss_draw_effect"), WasmImportLinkage]
+		private static extern void thsss_draw_effect(byte* name, int textureId, float flipV, byte* vertices, int length, float blurLevel, float x, float y, float time, float radius, int colorKey);
+
+		[DllImport("env", EntryPoint = "thsss_draw_fixed"), WasmImportLinkage]
+		private static extern void thsss_draw_fixed(int textureId, byte* vertices, int length, byte* world, int worldLength, byte* view, int viewLength, byte* proj, int projLength, float mr, float mg, float mb, float ma, float lighting, float fog, float fogStart, float fogEnd, float fr, float fg, float fb);
+
+		[DllImport("env", EntryPoint = "thsss_raster_text_len"), WasmImportLinkage]
+		private static extern int thsss_raster_text_len(byte* text, int width, int height, float sizePx, int bold, int italic);
+
+		[DllImport("env", EntryPoint = "thsss_raster_text_box_len"), WasmImportLinkage]
+		private static extern int thsss_raster_text_box_len(byte* text, int width, int height, float sizePx, int bold, int italic, int argb, byte* family);
+
+		[DllImport("env", EntryPoint = "thsss_paint_text"), WasmImportLinkage]
+		private static extern void thsss_paint_text(int id, byte* text, int width, int height, float sizePx, int bold, int italic, int argb, byte* family);
+
+		[DllImport("env", EntryPoint = "thsss_audio_prepare"), WasmImportLinkage]
+		private static extern int thsss_audio_prepare(byte* path);
+
+		[DllImport("env", EntryPoint = "thsss_audio_voice"), WasmImportLinkage]
+		private static extern int thsss_audio_voice();
+
+		[DllImport("env", EntryPoint = "thsss_audio_destroy"), WasmImportLinkage]
+		private static extern void thsss_audio_destroy(int voice);
+
+		[DllImport("env", EntryPoint = "thsss_audio_submit"), WasmImportLinkage]
+		private static extern void thsss_audio_submit(int voice, int buffer, int playBegin, int playLength, int loopCount, int loopBegin, int loopLength);
+
+		[DllImport("env", EntryPoint = "thsss_audio_start"), WasmImportLinkage]
+		private static extern void thsss_audio_start(int voice);
+
+		[DllImport("env", EntryPoint = "thsss_audio_stop"), WasmImportLinkage]
+		private static extern void thsss_audio_stop(int voice);
+
+		[DllImport("env", EntryPoint = "thsss_audio_volume"), WasmImportLinkage]
+		private static extern void thsss_audio_volume(int voice, float volume);
+
+		[DllImport("env", EntryPoint = "thsss_audio_pan"), WasmImportLinkage]
+		private static extern void thsss_audio_pan(int voice, float left, float right);
+
+		[DllImport("env", EntryPoint = "thsss_audio_filter"), WasmImportLinkage]
+		private static extern void thsss_audio_filter(int voice, int highpass, float frequency);
+
+		[DllImport("env", EntryPoint = "thsss_audio_samples"), WasmImportLinkage]
+		private static extern int thsss_audio_samples(int voice);
+
+		[DllImport("env", EntryPoint = "thsss_audio_channels"), WasmImportLinkage]
+		private static extern int thsss_audio_channels(int buffer);
 	}
 }

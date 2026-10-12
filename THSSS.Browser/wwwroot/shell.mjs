@@ -394,7 +394,7 @@ async function startGame() {
       }
       if (!runtimeInfoSent) {
         runtimeInfoSent = true;
-        emit("runtime-info", { renderer: "webgl2", architecture: "dotnet-wasm" });
+        emit("runtime-info", { renderer: "webgl2", architecture: "nativeaot-wasm" });
       }
     },
   });

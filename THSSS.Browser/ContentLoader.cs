@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -13,8 +12,6 @@ namespace Thsss.Browser
 		private static readonly HashSet<string> readyFiles = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
 		private static readonly object readyLock = new object();
-
-		private const string ArchiveName = "assets/thsss.dat";
 
 		public static bool BackgroundIdle
 		{
@@ -65,29 +62,13 @@ namespace Thsss.Browser
 			{
 				Console.WriteLine(ex.Message);
 			}
-			if (hosted.Length > 0)
+			if (hosted.Length == 0)
 			{
-				using (MemoryStream stream = new MemoryStream(hosted, false))
-				{
-					await UnpackAsync(stream);
-				}
+				throw new InvalidDataException("Content archive was not provided.");
 			}
-			else
+			using (MemoryStream stream = new MemoryStream(hosted, false))
 			{
-				HttpClient client = new HttpClient();
-				client.Timeout = System.Threading.Timeout.InfiniteTimeSpan;
-				client.BaseAddress = new Uri(ThsssJs.PageBase());
-				try
-				{
-					using (Stream stream = await client.GetStreamAsync(ArchiveName))
-					{
-						await UnpackAsync(stream);
-					}
-				}
-				finally
-				{
-					client.Dispose();
-				}
+				await UnpackAsync(stream);
 			}
 			EnsureDir("Sound");
 			EnsureDir("BPic");
@@ -275,7 +256,7 @@ namespace Thsss.Browser
 			{
 				return;
 			}
-			Dictionary<string, string> map = JsonSerializer.Deserialize<Dictionary<string, string>>(json);
+			Dictionary<string, string> map = JsonSerializer.Deserialize(json, SaveJsonContext.Default.DictionaryStringString);
 			if (map == null)
 			{
 				return;
