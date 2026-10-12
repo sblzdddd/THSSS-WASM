@@ -25,6 +25,75 @@ function setStatus(text) {
   if (text) console.log(text);
 }
 
+let wasmLoad = null;
+let wasmLoaded = 0;
+let wasmTotal = 0;
+let wasmCurrent = "";
+const wasmInflight = new Set();
+
+function paintWasmLoad() {
+  if (!wasmLoad) {
+    wasmLoad = document.createElement("div");
+    wasmLoad.id = "wasm-load";
+    wasmLoad.setAttribute("role", "status");
+    wasmLoad.style.cssText = "position:fixed;inset:0;z-index:4;display:flex;align-items:center;justify-content:center;box-sizing:border-box;margin:0;padding:24px;background:#000;color:#f2f2f2;font:16px/1.7 sans-serif;text-align:center;white-space:pre-wrap;pointer-events:none;";
+    document.body.appendChild(wasmLoad);
+  }
+  const left = Math.max(0, wasmTotal - wasmLoaded);
+  const current = wasmCurrent ? "正在加载 " + wasmCurrent : wasmTotal > 0 && wasmLoaded >= wasmTotal ? "正在启动" : "正在加载";
+  wasmLoad.textContent = "已加载 " + wasmLoaded + " / " + wasmTotal + "\n还剩 " + left + "\n" + current;
+}
+
+function hideWasmLoad() {
+  if (!wasmLoad) return;
+  wasmLoad.remove();
+  wasmLoad = null;
+}
+
+function beginWasm(name) {
+  if (wasmInflight.has(name)) {
+    wasmCurrent = name;
+    paintWasmLoad();
+    return;
+  }
+  if (wasmLoaded + wasmInflight.size >= wasmTotal) wasmTotal += 1;
+  wasmInflight.add(name);
+  wasmCurrent = name;
+  paintWasmLoad();
+}
+
+function finishWasm(name) {
+  if (!wasmInflight.delete(name)) return;
+  wasmLoaded += 1;
+  wasmCurrent = wasmInflight.values().next().value || "";
+  paintWasmLoad();
+}
+
+async function wasmAssemblyNames() {
+  const path = new URL(import.meta.url).pathname.endsWith(".mjs") ? "blazor.boot.json" : "_framework/blazor.boot.json";
+  const response = await fetch(new URL(path, import.meta.url));
+  if (!response.ok) return [];
+  const boot = await response.json();
+  const resources = boot.resources || {};
+  return [
+    ...Object.keys(resources.assembly || {}),
+    ...Object.keys(resources.coreAssembly || {}),
+    ...Object.keys(resources.wasmNative || {}),
+  ].filter((name) => name.endsWith(".wasm"));
+}
+
+function wasmResourceLoader(type, name, defaultUri, integrity) {
+  if ((type !== "assembly" && type !== "dotnetwasm") || !name || !String(name).endsWith(".wasm")) return undefined;
+  beginWasm(String(name));
+  const init = { cache: "no-cache" };
+  if (integrity) init.integrity = integrity;
+  return fetch(defaultUri, init).then((response) => {
+    if (!response.ok) throw new Error("HTTP " + response.status + ": " + name);
+    finishWasm(String(name));
+    return response;
+  });
+}
+
 const dbName = "thsss-saves";
 const storeName = "files";
 
@@ -158,7 +227,12 @@ export async function prepareRuntime(options = {}) {
   const remember = (path, value) => {
     pending = pending.then(() => (value == null ? removeSave(path) : writeSave(path, value))).catch((err) => console.error(err));
   };
-  const { setModuleImports, getAssemblyExports, runMain } = await dotnet.create();
+  wasmLoaded = 0;
+  wasmCurrent = "";
+  wasmInflight.clear();
+  wasmTotal = (await wasmAssemblyNames()).length;
+  paintWasmLoad();
+  const { setModuleImports, getAssemblyExports, runMain } = await dotnet.withResourceLoader(wasmResourceLoader).create();
   setModuleImports("thsss.js", {
     setStatus,
     notifyExit,
@@ -265,6 +339,7 @@ export async function launchRuntime(runtime, hooks = {}) {
   let failed = false;
   let running = true;
   const frame = (now) => {
+    if (!exitRequested) hideWasmLoad();
     if (exitRequested || !running || failed) return;
     if (document.hidden) {
       last = now;
