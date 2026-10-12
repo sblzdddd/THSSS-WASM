@@ -317,6 +317,15 @@ async function handle(message) {
   }
 }
 
+function onLocalKey(event) {
+  if (phase !== "launched") return;
+  const name = keyNameFromEvent(event);
+  if (!name) return;
+  event.preventDefault();
+  if (event.repeat) return;
+  setKey(name, event.type === "keydown", "local");
+}
+
 function onMessage(event) {
   if (!hosted() || event.source !== parentWindow || event.origin !== location.origin) return;
   handle(event.data || {}).catch((err) => emit("error", { message: String(err && err.message || err) }));
@@ -394,6 +403,8 @@ async function boot() {
       return true;
     },
   };
+  window.addEventListener("keydown", onLocalKey);
+  window.addEventListener("keyup", onLocalKey);
   try {
     runtime = await prepareRuntime({ captureKeys: false });
     await loadManagedArchive();
