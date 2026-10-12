@@ -31,7 +31,7 @@
   </ItemGroup>
   <PropertyGroup>
     <CoreCompileDependsOn>TransformGameSources;$(CoreCompileDependsOn)</CoreCompileDependsOn>
-    <!-- Packs gitignored game content into wwwroot/assets/thsss.dat and copies wav BGM and Sound beside it.
+    <!-- Packs gitignored game content, including Sound, into wwwroot/assets/thsss.dat and copies BGM beside it.
          Pass -p:StageGameAssets=false to compile without those files. Delete thsss.dat to restage. -->
     <StageGameAssets Condition="'$(StageGameAssets)' == ''">true</StageGameAssets>
   </PropertyGroup>

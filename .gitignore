@@ -148,3 +148,6 @@ Score.dat
 
 # Staged browser content (copied at build from the repo root)
 THSSS.Browser/wwwroot/assets/
+
+# Directory runtime staged for eagler-touhou. Regenerate with stage-eagler-runtime.mjs.
+/build-eagler/

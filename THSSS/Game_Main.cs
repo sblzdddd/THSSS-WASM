@@ -743,6 +743,9 @@ namespace Shooting
 
 		private void Form_Main_FormClosing(object sender, FormClosingEventArgs e)
 		{
+#if BROWSER
+			Thsss.Browser.GameHost.MarkExited();
+#endif
 			if (this.LoadingThread != null && this.LoadingThread.IsAlive)
 			{
 				this.LoadingThread.Abort();
@@ -772,6 +775,9 @@ namespace Shooting
 			catch
 			{
 			}
+#if BROWSER
+			Thsss.Browser.GameHost.NotifyClosed();
+#endif
 		}
 
 		private void Form_Main_KeyDown(object sender, KeyEventArgs e)
